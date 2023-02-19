@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "itis-7-info-search"
+version = "1.0.0"
+description = "Repository for homework on information search"
+authors = ["Rulsan Safiullin, 11-903 <rusrsafiullin@mail.ru>"]
+readme = "README.md"
+packages = [{include = "itis_7_info_search"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+requests = "^2.28.2"
+beautifulsoup4 = "^4.11.2"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

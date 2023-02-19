@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+
+<html data-vue-meta="%7B%22lang%22:%7B%22ssr%22:%22ru%22%7D%7D" lang="ru">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1.0,viewport-fit=cover,maximum-scale=1,user-scalable=0" name="viewport"/>
+<meta content="unsafe-url" name="referrer"/>
+<title>Развертывание копий Zabbix на Ansible / Хабр</title>
+
+
+
+
+
+
+
+<meta content="2.112.0" name="habr-version"/>
+<meta content="444736788986613" data-vue-meta="ssr" property="fb:app_id"/><meta content="472597926099084" data-vue-meta="ssr" property="fb:pages"/><meta content="summary_large_image" data-vue-meta="ssr" name="twitter:card"/><meta content="@habr_com" data-vue-meta="ssr" name="twitter:site"/><meta content="Хабр" data-vmid="og:site_name" data-vue-meta="ssr" property="og:site_name"/><meta content="Развертывание копий Zabbix на Ansible" data-vmid="og:title" data-vue-meta="ssr" property="og:title"/><meta content="Развертывание копий Zabbix на Ansible" data-vmid="twitter:title" data-vue-meta="ssr" name="twitter:title"/><meta content="Развертывание копий Zabbix на Ansible" data-vmid="aiturec:title" data-vue-meta="ssr" name="aiturec:title"/><meta content="Недавно выпала задача по развертке копий основного Zabbix-server на несколько машин, дабы хранить конфиги на разных серверах, да и еще всунуть это в CI/CD GitLab. Взял Ansible и начал писать плейбук...." data-vmid="description" data-vue-meta="ssr" name="description"/><meta content="Недавно выпала задача по развертке копий основного Zabbix-server на несколько машин, дабы хранить конфиги на разных серверах, да и еще всунуть это в CI/CD GitLab. Взял Ansible и начал писать плейбук...." data-vmid="description:itemprop" data-vue-meta="ssr" itemprop="description"/><meta content="Недавно выпала задача по развертке копий основного Zabbix-server на несколько машин, дабы хранить конфиги на разных серверах, да и еще всунуть это в CI/CD GitLab. Взял Ansible и начал писать плейбук...." data-vmid="og:description" data-vue-meta="ssr" property="og:description"/><meta content="Недавно выпала задача по развертке копий основного Zabbix-server на несколько машин, дабы хранить конфиги на разных серверах, да и еще всунуть это в CI/CD GitLab. Взял Ansible и начал писать плейбук...." data-vmid="twitter:description" data-vue-meta="ssr" name="twitter:description"/><meta content="Недавно выпала задача по развертке копий основного Zabbix-server на несколько машин, дабы хранить конфиги на разных серверах, да и еще всунуть это в CI/CD GitLab. Взял Ansible и начал писать плейбук...." data-vmid="aiturec:description" data-vue-meta="ssr" property="aiturec:description"/><meta content="https://habrastorage.org/getpro/habr/upload_files/985/3ba/638/9853ba638794b557cbb36e62e09111f8.jpg" data-vmid="image:itemprop" data-vue-meta="ssr" itemprop="image"/><meta content="https://habrastorage.org/getpro/habr/upload_files/985/3ba/638/9853ba638794b557cbb36e62e09111f8.jpg" data-vmid="og:image" data-vue-meta="ssr" property="og:image"/><meta content="1200" data-vmid="og:image:width" data-vue-meta="ssr" property="og:image:width"/><meta content="630" data-vmid="og:image:height" data-vue-meta="ssr" property="og:image:height"/><meta content="https://habrastorage.org/getpro/habr/upload_files/985/3ba/638/9853ba638794b557cbb36e62e09111f8.jpg" data-vmid="aiturec:image" data-vue-meta="ssr" property="aiturec:image"/><meta content="https://habrastorage.org/getpro/habr/upload_files/985/3ba/638/9853ba638794b557cbb36e62e09111f8.jpg" data-vmid="twitter:image" data-vue-meta="ssr" name="twitter:image"/><meta content="https://habrastorage.org/getpro/habr/upload_files/985/3ba/638/9853ba638794b557cbb36e62e09111f8.jpg?format=vk" data-vmid="vk:image" data-vue-meta="ssr" property="vk:image"/><meta content="717814" data-vmid="aiturec:item_id" data-vue-meta="ssr" property="aiturec:item_id"/><meta content="2023-02-18T19:54:59.000Z" data-vmid="aiturec:datetime" data-vue-meta="ssr" property="aiturec:datetime"/><meta content="https://habr.com/ru/post/717814/" data-vmid="og:url" data-vue-meta="ssr" property="og:url"/><meta content="article" data-vmid="og:type" data-vue-meta="ssr" property="og:type"/><meta content="ru_RU" data-vmid="og:locale" data-vue-meta="ssr" property="og:locale"/><meta content="gitlab, devops, python, zabbix, ansible, ci/cd, playbook, jinja" data-vue-meta="ssr" name="keywords"/>
+
+<meta content="#303b44" name="apple-mobile-web-app-status-bar-style"/>
+<meta content="#629FBC" name="msapplication-TileColor"/>
+<meta content="yes" name="apple-mobile-web-app-capable"/>
+<meta content="yes" name="mobile-web-app-capable"/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body>
+<div data-async-called="true" data-server-rendered="true" id="app"><div class="tm-layout__wrapper"><!-- --> <div></div> <div class="tm-feature tm-feature"><!-- --></div> <header class="tm-header"><div class="tm-page-width"><div class="tm-header__container"><div class="tm-header__burger-nav"><button class="tm-header__button tm-header__button_burger" type="button"><svg class="tm-svg-img tm-header__icon tm-header__icon-burger" height="16" width="16"><title>Меню</title> <use xlink:href="/img/megazord-v28.78dd0d98..svg#header-burger"></use></svg></button></div> <span class="tm-header__logo-wrap"><a class="tm-header__logo tm-header__logo_ru" href="/ru/"><svg class="tm-svg-img tm-header__icon" height="16" width="16"><title>Хабр</title> <use xlink:href="/img/habr-logo-ru.svg#logo"></use></svg></a> <span class="tm-header__beta-sign" style="display:none;">β</span></span> <!-- --> <div class="tm-header-user-menu tm-header_user-menu"><a class="tm-header-user-menu__item tm-header-user-menu__search" href="/ru/search/"><svg class="tm-svg-img tm-header-user-menu__icon tm-header-user-menu__icon_search" height="24" width="24"><title>Поиск</title> <use xlink:href="/img/megazord-v28.78dd0d98..svg#search"></use></svg></a> <!-- --> <!-- --> <!-- --> <div class="tm-header-user-menu__item"><button class="tm-header-user-menu__toggle" data-test-id="menu-toggle-guest"><svg class="tm-svg-img tm-header-user-menu__icon tm-header-user-menu__icon_white" height="24" width="24"><title>Профиль</title> <use xlink:href="/img/megazord-v28.78dd0d98..svg#header-user"></use></svg></button> <!-- --></div> <!-- --></div></div></div></header> <div class="tm-layout"><div class="tm-page-progress-bar"></div> <!-- --> <!-- --> <div class="tm-page-width"></div> <main class="tm-layout__container"><div class="tm-page" data-async-called="true" hl="ru"><div class="tm-page-width"><!-- --> <div class="tm-page__wrapper"><div class="tm-page__main tm-page__main_has-sidebar"><div class="pull-down"><!-- --> <div class="pull-down__header" style="height:0px;"><div class="pull-down__content" style="bottom:10px;"><svg class="tm-svg-img pull-down__arrow" height="24" width="24"><title>Обновить</title> <use xlink:href="/img/megazord-v28.78dd0d98..svg#pull-arrow"></use></svg></div></div> <div class="tm-article-presenter"> <div class="tm-article-presenter__body"><div class="tm-misprint-area"><div class="tm-misprint-area__wrapper"><article class="tm-article-presenter__content tm-article-presenter__content_narrow"><div class="tm-article-presenter__header"> <div class="tm-article-snippet tm-article-presenter__snippet tm-article-snippet"><div class="tm-article-snippet__meta-container"><div class="tm-article-snippet__meta"><span class="tm-user-info tm-article-snippet__author"><a class="tm-user-info__userpic" href="/ru/users/mksmpn/" title="mksmpn"><div class="tm-entity-image"><img alt="" class="tm-entity-image__pic" height="32" src="//habrastorage.org/r/w32/getpro/habr/avatars/bbd/01a/93f/bbd01a93f03c1f7fe3232c7cf88e118a.jpg" width="32"/></div></a> <span class="tm-user-info__user"><a class="tm-user-info__username" href="/ru/users/mksmpn/">
+      mksmpn
+      <!-- --></a> <span class="tm-article-datetime-published"><time datetime="2023-02-18T19:54:59.000Z" title="2023-02-18, 22:54">18  фев   в 22:54</time></span></span></span></div> <!-- --></div> <h1 class="tm-article-snippet__title tm-article-snippet__title_h1" lang="ru"><span>Развертывание копий Zabbix на Ansible</span></h1> <div class="tm-article-snippet__stats"><div class="tm-article-complexity tm-article-complexity_complexity-medium"><span class="tm-svg-icon__wrapper tm-article-complexity__icon"><svg class="tm-svg-img tm-svg-icon" height="24" width="24"><title>Уровень сложности</title> <use xlink:href="/img/megazord-v28.78dd0d98..svg#complexity-medium"></use></svg></span> <span class="tm-article-complexity__label">
+    Средний
+  </span></div> <div class="tm-article-reading-time"><span class="tm-svg-icon__wrapper tm-article-reading-time__icon"><svg class="tm-svg-img tm-svg-icon" height="24" width="24"><title>Время на прочтение</title> <use xlink:href="/img/megazord-v28.78dd0d98..svg#clock"></use></svg></span> <span class="tm-article-reading-time__label">
+    5 мин
+  </span></div> <span class="tm-icon-counter tm-data-icons__item"><svg class="tm-svg-img tm-icon-counter__icon" height="24" width="24"><title>Количество просмотров</title> <use xlink:href="/img/megazord-v28.78dd0d98..svg#counter-views"></use></svg> <span class="tm-icon-counter__value">1.5K</span></span></div> <div class="tm-article-snippet__hubs-container"><div class="tm-article-snippet__hubs"><span class="tm-article-snippet__hubs-item"><a class="tm-article-snippet__hubs-item-link" href="/ru/hub/python/"><span>Python</span> <span class="tm-article-snippet__profiled-hub" title="Профильный хаб">*</span></a></span><span class="tm-article-snippet__hubs-item"><a class="tm-article-snippet__hubs-item-link" href="/ru/hub/git/"><span>Git</span> <span class="tm-article-snippet__profiled-hub" title="Профильный хаб">*</span></a></span><span class="tm-article-snippet__hubs-item"><a class="tm-article-snippet__hubs-item-link" href="/ru/hub/devops/"><span>DevOps</span> <span class="tm-article-snippet__profiled-hub" title="Профильный хаб">*</span></a></span></div></div> <div class="tm-article-snippet__labels-container"><div class="tm-article-snippet__labels"><div class="tm-article-snippet__label tm-article-snippet__label_variant-tutorial"><span>
+          Туториал
+        </span></div> </div></div> <!-- --> <!-- --></div></div> <!-- --> <div class="tm-article-body" data-gallery-root="" lang="ru"><div></div> <div id="post-content-body"><div><div class="article-formatted-body article-formatted-body article-formatted-body_version-2"><div xmlns="http://www.w3.org/1999/xhtml"><p>Недавно выпала задача по развертке копий основного Zabbix-server на несколько машин, дабы хранить конфиги на разных серверах, да и еще всунуть это в CI/CD GitLab. Взял Ansible и начал писать плейбук.</p><h2>Работа с установками на хосты Zabbix'а через Ansible</h2><p>Сначала написал файл хостов с переменными, чтобы разделять установщики на разных семействах Linux(Debian, Ubuntu, RedHat):</p><pre><code>[remote_zabbix:children]
+os_family_Debian
+os_family_RedHat
+os_family_Ubuntu
+py_script
+
+## current_host - переменная, значение = самому хосту(да, хост два раза прописать)
+
+[py_script]
+#Скрипт, на котором будет запускаться скрипт для экспорта/импорта гита# current_host=
+
+[os_family_Debian]
+#Хост на ОС Debian# current_host=
+
+[os_family_RedHat]
+#Хост на ОС ReHat# current_host=
+
+[os_family_Ubuntu]
+#Хост на ОС Ubuntu# current_host=
+
+[os_family_Debian:vars]
+os_family_type=debian
+
+[os_family_RedHat:vars]
+os_family_type=redhat
+
+[os_family_Ubuntu:vars]
+os_family_type=ubuntu
+</code></pre><p>Написал обычный пинг серверов:</p><pre><code class="yaml">- name: Test Connection
+  hosts: remote_zabbix
+  become: yes
+
+  tasks:
+    - name: Ping server
+      ping:
+  tags:
+    - test_connection</code></pre><p>После того, как я удостоверился, что хосты доступны, создал типичный шаблон для развертывания Zabbix (web, server и БД timescaledb на PostgreSQL) и вызвал его с ролью(<em>run_docker-compose</em>), где стопятся контейнеры со старым Zabbix'ом и БД, если они были подняты, и поднимаются заново в docker-compose:</p><pre><code class="yaml">- name: rm zabbix-containers
+  ansible.builtin.shell: docker ps --filter name=zabbix* -aq | xargs docker stop | xargs docker rm
+  ignore_errors: True
+- name: rm timescale container
+  ansible.builtin.shell: docker ps --filter name=timescale* -aq | xargs docker stop | xargs docker rm
+  ignore_errors: True
+- name: run zabbix-server
+  ansible.builtin.shell: cd /home &amp;&amp; docker-compose up -d
+</code></pre><p>*Дабы не занимать много вашего времени и не делать длиннопост, прикреплю ссылку на репозиторий с файлами.</p><p>Далее я накатываю Zabbix-agent2, скачивая его пакеты с репозиториев, роль - <em>install_agent2.service:</em></p><pre><code class="yaml">- name: Download agent2.service debian
+  get_url:
+    url: https://repo.zabbix.com/zabbix/6.2/debian/pool/main/z/zabbix-release/zabbix-release_6.2-4+debian10_all.deb
+    dest: ./zabbix-release_6.2-4+debian10_all.deb
+  when: os_family_type == "debian"
+
+- name: Download agent2.service debian
+  shell: | 
+    dpkg -i ./zabbix-release_6.2-4+debian10_all.deb
+    apt update
+  when: os_family_type == "debian"
+
+- name: Install agent2.service debian
+  apt:
+    name: zabbix-agent2
+    update_cache: yes
+  when: os_family_type == "debian"
+
+- name: Download agent2 redhat
+  yum:
+    name: https://repo.zabbix.com/zabbix/6.2/rhel/7/x86_64/zabbix-release-6.2-3.el7.noarch.rpm
+  when: os_family_type == "redhat"
+
+- name: Yum clean all
+  shell: yum clean all
+  when: os_family_type == "redhat"
+
+- name: Install agent2.service redhat
+  yum:
+    name: zabbix-agent2
+  when: os_family_type == "redhat"
+</code></pre><p>Накидываю уже шаблон для конфига агента вместо дефолтного файла конфигурации (тег <em>configure_zabbix-agent2</em>) и перезапустил службу этого агента ролью <em>restart_agent2.service</em>.</p><h2>Скрипт для импорта/экспорта конфигурации </h2><p>Далее наступила интересная часть, где я думал, как все-таки можно сделать импорт/экспорт конфигурации самого Zabbix, когда уже все поднято. Поискав в интернете, я уже почти расстроился, что придется делать либо запросами, либо писать самодельный API. Но, к счастью, я отыскал библиотеку для Python pyzabbix, где можно спокойно сделать экспорт конфига (как потом, спустя время, оказалось, что можно и импорт).</p><p>На вход два аргумента: host_from(откуда берем конфиг) и host_to(куда импортируем, подставляется в роли Ansible).</p><p>Написал функции для аутентификации (логин-пароль или токен):</p><pre><code class="python"># Auth Zabbix API to export
+def zabbix_auth_from(host_from):
+    zapi = ZabbixAPI("http://" + host_from)
+    zapi.login("Admin", "zabbix")
+    print("Connected to Zabbix API Version %s" % zapi.api_version())
+    return zapi
+
+
+# Auth Zabbix API to import
+def zabbix_auth_to(url_link):
+    zapi = ZabbixAPI('http://' + url_link + ':8080')
+    zapi.login("Admin", "zabbix")
+    print("Connected to Zabbix API Version %s" % zapi.api_version())
+    return zapi</code></pre><p>При успешном выполнении скрипта нам выведется в консоль отчет об успешном входе и выведет версию Zabbix:</p><blockquote><p>Connected to Zabbix API Version %version%</p></blockquote><p>Все хорошо, далее пишем функции для экспорта хостов, групп хостов и шаблонов:</p><pre><code class="python"># Func for make export files
+def write_export(name, config, export_format):
+    if config is not None:
+        print("Writing %s.%s" % (name, export_format))
+        with open("%s.%s" % (name, export_format), "w") as f:
+            f.write(config)
+
+
+# Func for export hosts from main zabbix
+def export_hosts(zapi, namefile = "export_zabbix_hosts"):
+    hosts_ids = []
+    for item in zapi.host.get(output="extend"):
+        hosts_ids.append(int(item['hostid']))
+
+    config = zapi.configuration.export(
+        format="yaml", prettyprint=True, options={"hosts": hosts_ids}
+    )
+    write_export(namefile, config, "yml")
+
+
+# Func for export templates from main zabbix
+def export_templates(zapi, namefile = "export_zabbix_templates"):
+    hosts_ids = []
+    for item in zapi.template.get(output="extend"):
+        hosts_ids.append(int(item['templateid']))
+
+    config = zapi.configuration.export(
+        format="yaml", prettyprint=True, options={"templates": hosts_ids}
+    )
+    write_export(namefile, config, "yml")
+
+
+# Func for export host groups from main zabbix
+def export_host_groups(zapi, namefile = "export_zabbix_hostgroups"):
+    hosts_groups_ids = []
+    for item in zapi.hostgroup.get(output="extend"):
+        hosts_groups_ids.append(int(item["groupid"]))
+
+    config = zapi.configuration.export(
+        format="yaml", prettyprint=True, options={"groups": hosts_groups_ids}
+    )
+    write_export(namefile, config, "yml") </code></pre><p>Далее мы просто вызываем поочередно функции экспорта, куда передаем объект с аутентифицированным Zabbix по API:</p><pre><code class="python">def export_zabbix_conf(zapi):
+    export_templates(zapi)
+    export_hosts(zapi)
+    export_host_groups(zapi)</code></pre><p>Все, что осталось - это импортировать созданные файлы экспорта в другие хосты Zabbix(здесь zapi - уже хост, на который копируем):</p><pre><code class="python"># Func for import config to copy of zabbix
+def import_config(zapi, filename, rules):
+    print("Import " + filename.split('_')[-1].split('.')[0])
+    export_file = open(filename, "r").read()
+    zapi.configuration['import'](format="yaml", source=export_file, rules=rules)
+
+
+def import_zabbix_conf(zapi):
+    import_config(zapi, "export_zabbix_templates.yml", { "templates": { "createMissing": True, "updateExisting": True }})
+    import_config(zapi, "export_zabbix_hostgroups.yml", { "host_groups": {"createMissing": True }})
+    import_config(zapi, "export_zabbix_hosts.yml", {"hosts": { "createMissing": True, "updateExisting": True }})</code></pre><p>Все хорошо, скопировался конфиг, но остается последняя проблема - агент не видит свой же хост и нам нужно в настройках заббикса переименовать наш хост с "Zabbix Server" на наш DNS, IP (я переключил на чтение DNS, мне так удобнее было):</p><pre><code class="python"># Func for rename localhost on zabbix-server, for find it by zabbix-agent2
+def rename_local_host(zapi, remote_host):
+    try:
+        hid=zapi.host.get(search={'host': remote_host})[0]['hostid']
+    except:
+        hid=zapi.host.get(search={'host': 'Zabbix server'})[0]['hostid']
+    print('Change name')
+    zapi.host.update(hostid=hid, host=remote_host, name=remote_host)
+    print('Change DNS name')
+    iid = zapi.hostinterface.get(hostids=hid)[0]['interfaceid']
+    zapi.hostinterface.update(interfaceid=iid, dns=remote_host, useip=0, ip='сюда вписать наш IP')  </code></pre><h2>Внедрение в CI/CD GitLab</h2><p>Ну здесь уже просто. Мы при создании заданий в плейбуке прописываем теги, которые уже вызываем в .gitlab-ci.yml:</p><pre><code class="yaml">image: ### Ansible 6.5.1 image
+
+stages:
+- install/update_zabbix
+- configure_zabbix-agent2
+- run_script
+
+Install/update_Zabbix:
+  stage: install/update_zabbix
+  script:
+    - ansible-playbook ansible/zabbix_playbook.yml -i ansible/hosts/hosts.txt -vvvv -t install/update_zabbix
+  when: manual
+
+Configure_Zabbix-Agent2:
+  stage: configure_zabbix-agent2
+  script:
+    - ansible-playbook ansible/zabbix_playbook.yml -i ansible/hosts/hosts.txt -vvvv -t configure_zabbix-agent2
+  when: manual
+
+Export/import_zabbix_config:
+  stage: run_script
+  script:
+    - ansible-playbook ansible/zabbix_playbook.yml -i ansible/hosts/hosts.txt -vvvv -t run_sript -t restart-agent2
+  when: manual
+</code></pre><h2>Итоги</h2><p>Мы смогли через Ansible развернуть много копий Zabbix-server и Zabbix-agent2 со своими настройками, а также скопировать конфиг с основного Zabbix на другие хосты с помощью одной библиотеки pyzabbix.</p><p><a href="https://github.com/mksmp/export-config-zabbix-ansible" rel="noopener noreferrer nofollow">Репозиторий</a></p></div></div></div> <!-- --> <!-- --></div> <!-- --> <!-- --></div> <!-- --> <div class="tm-article-presenter__meta"><div class="tm-separated-list tm-article-presenter__meta-list"><span class="tm-separated-list__title">Теги:</span> <ul class="tm-separated-list__list"><li class="tm-separated-list__item"><a class="tm-tags-list__link" href="/ru/search/?target_type=posts&amp;order=relevance&amp;q=%5Bgitlab%5D">gitlab</a></li><li class="tm-separated-list__item"><a class="tm-tags-list__link" href="/ru/search/?target_type=posts&amp;order=relevance&amp;q=%5Bdevops%5D">devops</a></li><li class="tm-separated-list__item"><a class="tm-tags-list__link" href="/ru/search/?target_type=posts&amp;order=relevance&amp;q=%5Bpython%5D">python</a></li><li class="tm-separated-list__item"><a class="tm-tags-list__link" href="/ru/search/?target_type=posts&amp;order=relevance&amp;q=%5Bzabbix%5D">zabbix</a></li><li class="tm-separated-list__item"><a class="tm-tags-list__link" href="/ru/search/?target_type=posts&amp;order=relevance&amp;q=%5Bansible%5D">ansible</a></li><li class="tm-separated-list__item"><a class="tm-tags-list__link" href="/ru/search/?target_type=posts&amp;order=relevance&amp;q=%5Bci%2Fcd%5D">ci/cd</a></li><li class="tm-separated-list__item"><a class="tm-tags-list__link" href="/ru/search/?target_type=posts&amp;order=relevance&amp;q=%5Bplaybook%5D">playbook</a></li><li class="tm-separated-list__item"><a class="tm-tags-list__link" href="/ru/search/?target_type=posts&amp;order=relevance&amp;q=%5Bjinja%5D">jinja</a></li></ul></div> <div class="tm-separated-list tm-article-presenter__meta-list"><span class="tm-separated-list__title">Хабы:</span> <ul class="tm-separated-list__list"><li class="tm-separated-list__item"><a class="tm-hubs-list__link" href="/ru/hub/python/">Python</a></li><li class="tm-separated-list__item"><a class="tm-hubs-list__link" href="/ru/hub/git/">Git</a></li><li class="tm-separated-list__item"><a class="tm-hubs-list__link" href="/ru/hub/devops/">DevOps</a></li></ul></div></div></article></div> <!-- --></div> <div class="tm-article-sticky-panel"><div class="tm-data-icons tm-article-sticky-panel__icons"><div class="tm-article-rating tm-data-icons__item"><div class="tm-votes-meter tm-article-rating__votes-switcher"><svg class="tm-svg-img tm-votes-meter__icon tm-votes-meter__icon tm-votes-meter__icon_appearance-article" height="24" width="24"><title>Всего голосов 7: ↑6 и ↓1</title> <use xlink:href="/img/megazord-v28.78dd0d98..svg#counter-rating"></use></svg> <span class="tm-votes-meter__value tm-votes-meter__value tm-votes-meter__value_positive tm-votes-meter__value_appearance-article tm-votes-meter__value_rating" title="Всего голосов 7: ↑6 и ↓1">+5</span></div> <div class="v-portal" style="display:none;"></div></div> <!-- --> <!-- --> <button class="bookmarks-button tm-data-icons__item" title="Добавить в закладки" type="button"><span class="tm-svg-icon__wrapper bookmarks-button__icon"><svg class="tm-svg-img tm-svg-icon" height="24" width="24"><title>Добавить в закладки</title> <use xlink:href="/img/megazord-v28.78dd0d98..svg#counter-favorite"></use></svg></span> <span class="bookmarks-button__counter" title="Количество пользователей, добавивших публикацию в закладки">
+    28
+  </span></button> <div class="tm-article-comments-counter-link tm-data-icons__item" title="Читать комментарии"><a class="tm-article-comments-counter-link__link" href="/ru/post/717814/comments/"><svg class="tm-svg-img tm-article-comments-counter-link__icon" height="24" width="24"><title>Комментарии</title> <use xlink:href="/img/megazord-v28.78dd0d98..svg#counter-comments"></use></svg> <span class="tm-article-comments-counter-link__value">
+      4
+    </span></a> <!-- --></div> <div class="tm-sharing tm-data-icons__item" title="Поделиться"><button class="tm-sharing__button" type="button"><svg class="tm-sharing__icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M13.8 13.8V18l7.2-6.6L13.8 5v3.9C5 8.9 3 18.6 3 18.6c2.5-4.4 6-4.8 10.8-4.8z" fill="currentColor"></path></svg></button> <div class="v-portal" style="display:none;"></div></div> <div class="v-portal" style="display:none;"></div></div> </div></div> <div class="v-portal" style="display:none;"></div> <div class="tm-article-presenter__footer"><div class="tm-article-blocks"><!-- --> <section class="tm-block tm-block tm-block_spacing-bottom"><!-- --> <div class="tm-block__body tm-block__body tm-block__body_variant-balanced"><div class="tm-article-author"> <div class="tm-user-card tm-article-author__user-card tm-user-card tm-user-card_variant-article"><div class="tm-user-card__info-container"><div class="tm-user-card__header"><div class="tm-user-card__header-data"><a class="tm-user-card__userpic tm-user-card__userpic_size-40" href="/ru/users/mksmpn/"><div class="tm-entity-image"><img alt="" class="tm-entity-image__pic" src="//habrastorage.org/getpro/habr/avatars/bbd/01a/93f/bbd01a93f03c1f7fe3232c7cf88e118a.jpg"/></div></a> <div class="tm-user-card__meta"><div class="tm-karma tm-user-card__karma tm-karma" title=" 6 голосов "><div class="tm-karma__votes tm-karma__votes_positive">
+    6
+  </div> <div class="tm-karma__text">
+    Карма
+  </div> <div class="v-portal" style="display:none;"></div></div> <div class="tm-rating tm-user-card__rating" title="Рейтинг пользователя"><div class="tm-rating__header"> <div class="tm-rating__counter tm-rating__counter">5</div></div> <div class="tm-rating__text tm-rating__text">
+    Рейтинг
+  </div></div></div></div></div> <div class="tm-user-card__info tm-user-card__info tm-user-card__info_variant-article"><div class="tm-user-card__title tm-user-card__title tm-user-card__title_variant-article"><span class="tm-user-card__name tm-user-card__name tm-user-card__name_variant-article">Maxim Panin</span> <a class="tm-user-card__nickname tm-user-card__nickname tm-user-card__nickname_variant-article" href="/ru/users/mksmpn/">
+          @mksmpn
+        </a> <!-- --></div> <p class="tm-user-card__short-info tm-user-card__short-info tm-user-card__short-info_variant-article">Информационная безопасность, DevOps, Python</p></div></div> <div class="tm-user-card__buttons tm-user-card__buttons tm-user-card__buttons_variant-article"><!-- --> <!-- --> <!-- --> <!-- --> <!-- --></div></div> <!-- --></div> <div class="v-portal" style="display:none;"></div></div> <!-- --></section> <div class="tm-adfox-banner__container tm-page-article__banner"><!-- --> <div class="tm-adfox-banner tm-adfox-banner tm-adfox-banner_variant-leaderboard" id="adfox_164725660339535756"></div></div> <div class="tm-article-blocks__comments"><div class="tm-article-page-comments"><div class="tm-article-comments-counter-link tm-article-comments-counter-button"><a class="tm-article-comments-counter-link__link tm-article-comments-counter-link__link_button-style" href="/ru/post/717814/comments/"><svg class="tm-svg-img tm-article-comments-counter-link__icon tm-article-comments-counter-link__icon_contrasted" height="24" width="24"><title>Комментарии</title> <use xlink:href="/img/megazord-v28.78dd0d98..svg#counter-comments"></use></svg> <span class="tm-article-comments-counter-link__value tm-article-comments-counter-link__value_contrasted">
+       Комментарии 4 
+    </span></a> <!-- --></div></div></div> <section class="tm-block tm-block tm-block_spacing-bottom"><header class="tm-block__header tm-block__header tm-block__header_variant-borderless"><div class="tm-block__header-container"><h2 class="tm-block__title tm-block__title tm-block__title_variant-large">Публикации</h2> </div> <!-- --></header> <div class="tm-block__body tm-block__body tm-block__body_variant-condensed-slim"><div class="tm-tabs tm-tabs"><div><span class="tm-tabs__tab-item"><button class="tm-tabs__tab-link tm-tabs__tab-link tm-tabs__tab-link_active tm-tabs__tab-link_slim">
+        Лучшие за сутки
+      </button></span><span class="tm-tabs__tab-item"><button class="tm-tabs__tab-link tm-tabs__tab-link tm-tabs__tab-link_slim">
+        Похожие
+      </button></span></div> <!-- --></div> <div class="similar-and-daily__tab-view"><div><!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <div class="tm-placeholder-article-cards"><div class="tm-placeholder-article-card"><div class="tm-placeholder__user"><div class="tm-placeholder__user-pic loads"></div> <div class="tm-placeholder__user-date loads"></div></div> <div class="tm-placeholder-article-card__title"><div class="tm-placeholder__line tm-placeholder-article-card__title-line loads"></div> <div class="tm-placeholder__line tm-placeholder-article-card__title-line loads"></div></div> <div class="tm-placeholder-article-card__icons tm-placeholder__counters"><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div></div></div><div class="tm-placeholder-article-card"><div class="tm-placeholder__user"><div class="tm-placeholder__user-pic loads"></div> <div class="tm-placeholder__user-date loads"></div></div> <div class="tm-placeholder-article-card__title"><div class="tm-placeholder__line tm-placeholder-article-card__title-line loads"></div> <div class="tm-placeholder__line tm-placeholder-article-card__title-line loads"></div></div> <div class="tm-placeholder-article-card__icons tm-placeholder__counters"><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div></div></div><div class="tm-placeholder-article-card"><div class="tm-placeholder__user"><div class="tm-placeholder__user-pic loads"></div> <div class="tm-placeholder__user-date loads"></div></div> <div class="tm-placeholder-article-card__title"><div class="tm-placeholder__line tm-placeholder-article-card__title-line loads"></div> <div class="tm-placeholder__line tm-placeholder-article-card__title-line loads"></div></div> <div class="tm-placeholder-article-card__icons tm-placeholder__counters"><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div></div></div><div class="tm-placeholder-article-card"><div class="tm-placeholder__user"><div class="tm-placeholder__user-pic loads"></div> <div class="tm-placeholder__user-date loads"></div></div> <div class="tm-placeholder-article-card__title"><div class="tm-placeholder__line tm-placeholder-article-card__title-line loads"></div> <div class="tm-placeholder__line tm-placeholder-article-card__title-line loads"></div></div> <div class="tm-placeholder-article-card__icons tm-placeholder__counters"><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div></div></div><div class="tm-placeholder-article-card"><div class="tm-placeholder__user"><div class="tm-placeholder__user-pic loads"></div> <div class="tm-placeholder__user-date loads"></div></div> <div class="tm-placeholder-article-card__title"><div class="tm-placeholder__line tm-placeholder-article-card__title-line loads"></div> <div class="tm-placeholder__line tm-placeholder-article-card__title-line loads"></div></div> <div class="tm-placeholder-article-card__icons tm-placeholder__counters"><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div></div></div></div> <!-- --> <!-- --> <!-- --> <!-- --></div> <!-- --></div></div> <!-- --></section> <div><div><!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <div class="tm-placeholder-promo"><div class="tm-placeholder-promo__header"><div class="tm-placeholder__line tm-placeholder__line_promo-title"></div></div> <div class="tm-placeholder-promo__body"><div class="tm-placeholder-promo__posts"><div class="tm-placeholder-promo__post"><div class="tm-placeholder-promo__image"></div> <div class="tm-placeholder__line tm-placeholder__line_post-title"></div></div> <div class="tm-placeholder-promo__post"><div class="tm-placeholder-promo__image"></div> <div class="tm-placeholder__line tm-placeholder__line_post-title"></div></div> <div class="tm-placeholder-promo__post"><div class="tm-placeholder-promo__image"></div> <div class="tm-placeholder__line tm-placeholder__line_post-title"></div></div></div> <div class="tm-placeholder-promo__dots"><div class="tm-placeholder-promo__dot"></div> <div class="tm-placeholder-promo__dot"></div> <div class="tm-placeholder-promo__dot"></div></div></div></div> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --></div></div> <div><div><!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <div class="tm-placeholder-inset tm-placeholder-salary"><div class="tm-placeholder-inset__header"><div class="tm-placeholder__line tm-placeholder__line_inset-header loads"></div></div> <div class="tm-placeholder-salary__body"><div class="tm-placeholder-salary__text"><div class="tm-placeholder__line tm-placeholder__line_salary_average"></div> <div class="tm-placeholder-salary__description"><div class="tm-placeholder__line loads"></div> <div class="tm-placeholder__line loads"></div> <div class="tm-placeholder__line loads"></div> <div class="tm-placeholder__line loads"></div></div></div> <div class="tm-placeholder-salary__image loads"></div></div> <div class="tm-placeholder-inset__footer tm-placeholder-inset__footer_salary"><div class="tm-placeholder__line tm-placeholder__line_inset-footer loads"></div></div></div> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --></div></div> <!-- --> <section class="tm-block tm-stories-block tm-block tm-block_spacing-top" data-async-called="true" data-navigatable="" tabindex="0"><header class="tm-block__header tm-block__header"><div class="tm-block__header-container"><h2 class="tm-block__title tm-block__title">Истории</h2> </div> <!-- --></header> <div class="tm-block__body tm-block__body tm-block__body_variant-equal"><div class="tm-stories-empty"><div class="tm-stories-card-empty"><div class="tm-stories-card-empty__image"></div> <div class="tm-stories-card-empty__title"><div class="tm-stories-card-empty__title-block"></div> <div class="tm-stories-card-empty__title-block"></div> <div class="tm-stories-card-empty__title-block"></div></div></div><div class="tm-stories-card-empty"><div class="tm-stories-card-empty__image"></div> <div class="tm-stories-card-empty__title"><div class="tm-stories-card-empty__title-block"></div> <div class="tm-stories-card-empty__title-block"></div> <div class="tm-stories-card-empty__title-block"></div></div></div><div class="tm-stories-card-empty"><div class="tm-stories-card-empty__image"></div> <div class="tm-stories-card-empty__title"><div class="tm-stories-card-empty__title-block"></div> <div class="tm-stories-card-empty__title-block"></div> <div class="tm-stories-card-empty__title-block"></div></div></div><div class="tm-stories-card-empty"><div class="tm-stories-card-empty__image"></div> <div class="tm-stories-card-empty__title"><div class="tm-stories-card-empty__title-block"></div> <div class="tm-stories-card-empty__title-block"></div> <div class="tm-stories-card-empty__title-block"></div></div></div><div class="tm-stories-card-empty"><div class="tm-stories-card-empty__image"></div> <div class="tm-stories-card-empty__title"><div class="tm-stories-card-empty__title-block"></div> <div class="tm-stories-card-empty__title-block"></div> <div class="tm-stories-card-empty__title-block"></div></div></div><div class="tm-stories-card-empty"><div class="tm-stories-card-empty__image"></div> <div class="tm-stories-card-empty__title"><div class="tm-stories-card-empty__title-block"></div> <div class="tm-stories-card-empty__title-block"></div> <div class="tm-stories-card-empty__title-block"></div></div></div></div> <!-- --></div> <!-- --></section> <section class="tm-block tm-block tm-block_spacing-top" data-async-called="true"><header class="tm-block__header tm-block__header"><div class="tm-block__header-container"><h2 class="tm-block__title tm-block__title">Работа</h2> </div> <!-- --></header> <div class="tm-block__body tm-block__body"><div class="tm-vacancies-block__item"><a class="tm-vacancies-block__vacancy-title" href="https://career.habr.com/vacancies/django_razrabotchik" target="_blank">
+        Django разработчик
+      </a> <div class="tm-vacancies-block__vacancies-count">
+        56
+    вакансий
+      </div></div><div class="tm-vacancies-block__item"><a class="tm-vacancies-block__vacancy-title" href="https://career.habr.com/vacancies/devops" target="_blank">
+        DevOps инженер
+      </a> <div class="tm-vacancies-block__vacancies-count">
+        52
+    вакансии
+      </div></div><div class="tm-vacancies-block__item"><a class="tm-vacancies-block__vacancy-title" href="https://career.habr.com/vacancies/programmist_python" target="_blank">
+        Python разработчик
+      </a> <div class="tm-vacancies-block__vacancies-count">
+        141
+    вакансия
+      </div></div><div class="tm-vacancies-block__item"><a class="tm-vacancies-block__vacancy-title" href="https://career.habr.com/vacancies/data_scientist" target="_blank">
+        Data Scientist
+      </a> <div class="tm-vacancies-block__vacancies-count">
+        121
+    вакансия
+      </div></div></div> <footer class="tm-block__footer"><a class="tm-block-extralink" href="https://career.habr.com/catalog">
+      Все вакансии
+    </a></footer></section></div></div></div></div></div> <div class="tm-page__sidebar"><!-- --></div></div></div></div></main> <!-- --></div> <!-- --> <div class="tm-footer"><div class="tm-page-width"><div class="tm-footer__container"><div class="tm-footer__title"><a class="tm-svg-icon__wrapper tm-footer__title-link router-link-active" href="/ru/"><svg class="tm-svg-img tm-svg-icon" height="16" width="16"><title>Хабр</title> <use xlink:href="/img/habr-logo-ru.svg#logo"></use></svg></a></div> <div class="tm-footer__social"><a class="tm-svg-icon__wrapper tm-social-icons__icon" href="https://www.facebook.com/habrahabr.ru" rel="nofollow noopener noreferrer" target="_blank"><svg class="tm-svg-img tm-svg-icon" height="16" width="16"><title>Facebook</title> <use xlink:href="/img/social-icons-sprite.svg#social-logo-facebook"></use></svg></a><a class="tm-svg-icon__wrapper tm-social-icons__icon" href="https://twitter.com/habr_com" rel="nofollow noopener noreferrer" target="_blank"><svg class="tm-svg-img tm-svg-icon" height="16" width="16"><title>Twitter</title> <use xlink:href="/img/social-icons-sprite.svg#social-logo-twitter"></use></svg></a><a class="tm-svg-icon__wrapper tm-social-icons__icon" href="https://vk.com/habr" rel="nofollow noopener noreferrer" target="_blank"><svg class="tm-svg-img tm-svg-icon" height="16" width="16"><title>VK</title> <use xlink:href="/img/social-icons-sprite.svg#social-logo-vkontakte"></use></svg></a><a class="tm-svg-icon__wrapper tm-social-icons__icon" href="https://telegram.me/habr_com" rel="nofollow noopener noreferrer" target="_blank"><svg class="tm-svg-img tm-svg-icon" height="16" width="16"><title>Telegram</title> <use xlink:href="/img/social-icons-sprite.svg#social-logo-telegram"></use></svg></a><a class="tm-svg-icon__wrapper tm-social-icons__icon" href="https://www.youtube.com/channel/UCd_sTwKqVrweTt4oAKY5y4w" rel="nofollow noopener noreferrer" target="_blank"><svg class="tm-svg-img tm-svg-icon" height="16" width="16"><title>Youtube</title> <use xlink:href="/img/social-icons-sprite.svg#social-logo-youtube"></use></svg></a><a class="tm-svg-icon__wrapper tm-social-icons__icon" href="https://zen.yandex.ru/habr" rel="nofollow noopener noreferrer" target="_blank"><svg class="tm-svg-img tm-svg-icon" height="16" width="16"><title>Яндекс Дзен</title> <use xlink:href="/img/social-icons-sprite.svg#social-logo-zen"></use></svg></a></div> <div class="v-portal" style="display:none;"></div> <button class="tm-footer__link"><svg class="tm-svg-img tm-footer__icon" height="16" width="16"><title>Язык</title> <use xlink:href="/img/megazord-v28.78dd0d98..svg#lang"></use></svg>
+        Настройка языка
+      </button> <a class="tm-footer__link" href="/ru/feedback/">
+        Техническая поддержка
+      </a> <a class="tm-footer__link" href="/berserk-mode-nope">
+        Вернуться на старую версию
+      </a> <div class="tm-footer-copyright"><span class="tm-copyright"><span class="tm-copyright__years">© 2006–2023, </span> <span class="tm-copyright__name"><a class="tm-copyright__link" href="https://company.habr.com/" rel="noopener" target="_blank">Habr</a></span></span></div></div></div></div> <!-- --> <!-- --></div> <div class="vue-portal-target"></div></div>
+
+
+
+
+
+
+
+
+</body>
+</html>

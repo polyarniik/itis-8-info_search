@@ -1,0 +1,1894 @@
+<!DOCTYPE html>
+
+<html data-vue-meta="%7B%22lang%22:%7B%22ssr%22:%22ru%22%7D%7D" lang="ru">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1.0,viewport-fit=cover,maximum-scale=1,user-scalable=0" name="viewport"/>
+<meta content="unsafe-url" name="referrer"/>
+<title>VueEnt — сложные формы на Vue и не только / Хабр</title>
+
+
+
+
+
+
+
+<meta content="2.112.0" name="habr-version"/>
+<meta content="444736788986613" data-vue-meta="ssr" property="fb:app_id"/><meta content="472597926099084" data-vue-meta="ssr" property="fb:pages"/><meta content="summary_large_image" data-vue-meta="ssr" name="twitter:card"/><meta content="@habr_com" data-vue-meta="ssr" name="twitter:site"/><meta content="Хабр" data-vmid="og:site_name" data-vue-meta="ssr" property="og:site_name"/><meta content="VueEnt — сложные формы на Vue и не только" data-vmid="og:title" data-vue-meta="ssr" property="og:title"/><meta content="VueEnt — сложные формы на Vue и не только" data-vmid="twitter:title" data-vue-meta="ssr" name="twitter:title"/><meta content="VueEnt — сложные формы на Vue и не только" data-vmid="aiturec:title" data-vue-meta="ssr" name="aiturec:title"/><meta content="Примерно полтора года назад вышла моя статья про&amp;nbsp;библиотеку валидации v9s . Благодаря конструктивной критике в&amp;nbsp;комментариях, удалось серьезно переработать библиотеку, уже год как&amp;nbsp;вышла..." data-vmid="description" data-vue-meta="ssr" name="description"/><meta content="Примерно полтора года назад вышла моя статья про&amp;nbsp;библиотеку валидации v9s . Благодаря конструктивной критике в&amp;nbsp;комментариях, удалось серьезно переработать библиотеку, уже год как&amp;nbsp;вышла..." data-vmid="description:itemprop" data-vue-meta="ssr" itemprop="description"/><meta content="Примерно полтора года назад вышла моя статья про&amp;nbsp;библиотеку валидации v9s . Благодаря конструктивной критике в&amp;nbsp;комментариях, удалось серьезно переработать библиотеку, уже год как&amp;nbsp;вышла..." data-vmid="og:description" data-vue-meta="ssr" property="og:description"/><meta content="Примерно полтора года назад вышла моя статья про&amp;nbsp;библиотеку валидации v9s . Благодаря конструктивной критике в&amp;nbsp;комментариях, удалось серьезно переработать библиотеку, уже год как&amp;nbsp;вышла..." data-vmid="twitter:description" data-vue-meta="ssr" name="twitter:description"/><meta content="Примерно полтора года назад вышла моя статья про&amp;nbsp;библиотеку валидации v9s . Благодаря конструктивной критике в&amp;nbsp;комментариях, удалось серьезно переработать библиотеку, уже год как&amp;nbsp;вышла..." data-vmid="aiturec:description" data-vue-meta="ssr" property="aiturec:description"/><meta content="https://habrastorage.org/getpro/habr/upload_files/614/e31/421/614e3142179af9ded63f41cb8686d1b3.png" data-vmid="image:itemprop" data-vue-meta="ssr" itemprop="image"/><meta content="https://habrastorage.org/getpro/habr/upload_files/614/e31/421/614e3142179af9ded63f41cb8686d1b3.png" data-vmid="og:image" data-vue-meta="ssr" property="og:image"/><meta content="1200" data-vmid="og:image:width" data-vue-meta="ssr" property="og:image:width"/><meta content="630" data-vmid="og:image:height" data-vue-meta="ssr" property="og:image:height"/><meta content="https://habrastorage.org/getpro/habr/upload_files/614/e31/421/614e3142179af9ded63f41cb8686d1b3.png" data-vmid="aiturec:image" data-vue-meta="ssr" property="aiturec:image"/><meta content="https://habrastorage.org/getpro/habr/upload_files/614/e31/421/614e3142179af9ded63f41cb8686d1b3.png" data-vmid="twitter:image" data-vue-meta="ssr" name="twitter:image"/><meta content="https://habrastorage.org/getpro/habr/upload_files/614/e31/421/614e3142179af9ded63f41cb8686d1b3.png?format=vk" data-vmid="vk:image" data-vue-meta="ssr" property="vk:image"/><meta content="717680" data-vmid="aiturec:item_id" data-vue-meta="ssr" property="aiturec:item_id"/><meta content="2023-02-17T13:49:32.000Z" data-vmid="aiturec:datetime" data-vue-meta="ssr" property="aiturec:datetime"/><meta content="https://habr.com/ru/post/717680/" data-vmid="og:url" data-vue-meta="ssr" property="og:url"/><meta content="article" data-vmid="og:type" data-vue-meta="ssr" property="og:type"/><meta content="ru_RU" data-vmid="og:locale" data-vue-meta="ssr" property="og:locale"/><meta content="vue, vue.js, vuejs, typescript, javascript, vueent" data-vue-meta="ssr" name="keywords"/>
+
+<meta content="#303b44" name="apple-mobile-web-app-status-bar-style"/>
+<meta content="#629FBC" name="msapplication-TileColor"/>
+<meta content="yes" name="apple-mobile-web-app-capable"/>
+<meta content="yes" name="mobile-web-app-capable"/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body>
+<div data-async-called="true" data-server-rendered="true" id="app"><div class="tm-layout__wrapper"><!-- --> <div></div> <div class="tm-feature tm-feature"><!-- --></div> <header class="tm-header"><div class="tm-page-width"><div class="tm-header__container"><div class="tm-header__burger-nav"><button class="tm-header__button tm-header__button_burger" type="button"><svg class="tm-svg-img tm-header__icon tm-header__icon-burger" height="16" width="16"><title>Меню</title> <use xlink:href="/img/megazord-v28.78dd0d98..svg#header-burger"></use></svg></button></div> <span class="tm-header__logo-wrap"><a class="tm-header__logo tm-header__logo_ru" href="/ru/"><svg class="tm-svg-img tm-header__icon" height="16" width="16"><title>Хабр</title> <use xlink:href="/img/habr-logo-ru.svg#logo"></use></svg></a> <span class="tm-header__beta-sign" style="display:none;">β</span></span> <!-- --> <div class="tm-header-user-menu tm-header_user-menu"><a class="tm-header-user-menu__item tm-header-user-menu__search" href="/ru/search/"><svg class="tm-svg-img tm-header-user-menu__icon tm-header-user-menu__icon_search" height="24" width="24"><title>Поиск</title> <use xlink:href="/img/megazord-v28.78dd0d98..svg#search"></use></svg></a> <!-- --> <!-- --> <!-- --> <div class="tm-header-user-menu__item"><button class="tm-header-user-menu__toggle" data-test-id="menu-toggle-guest"><svg class="tm-svg-img tm-header-user-menu__icon tm-header-user-menu__icon_white" height="24" width="24"><title>Профиль</title> <use xlink:href="/img/megazord-v28.78dd0d98..svg#header-user"></use></svg></button> <!-- --></div> <!-- --></div></div></div></header> <div class="tm-layout"><div class="tm-page-progress-bar"></div> <!-- --> <!-- --> <div class="tm-page-width"></div> <main class="tm-layout__container"><div class="tm-page" data-async-called="true" hl="ru"><div class="tm-page-width"><!-- --> <div class="tm-page__wrapper"><div class="tm-page__main tm-page__main_has-sidebar"><div class="pull-down"><!-- --> <div class="pull-down__header" style="height:0px;"><div class="pull-down__content" style="bottom:10px;"><svg class="tm-svg-img pull-down__arrow" height="24" width="24"><title>Обновить</title> <use xlink:href="/img/megazord-v28.78dd0d98..svg#pull-arrow"></use></svg></div></div> <div class="tm-article-presenter"> <div class="tm-article-presenter__body"><div class="tm-misprint-area"><div class="tm-misprint-area__wrapper"><article class="tm-article-presenter__content tm-article-presenter__content_narrow"><div class="tm-article-presenter__header"> <div class="tm-article-snippet tm-article-presenter__snippet tm-article-snippet"><div class="tm-article-snippet__meta-container"><div class="tm-article-snippet__meta"><span class="tm-user-info tm-article-snippet__author"><a class="tm-user-info__userpic" href="/ru/users/Devoter/" title="Devoter"><div class="tm-entity-image"><svg class="tm-svg-img tm-image-placeholder tm-image-placeholder_pink" height="32" width="32"><!-- --> <use xlink:href="/img/megazord-v28.78dd0d98..svg#placeholder-user"></use></svg></div></a> <span class="tm-user-info__user"><a class="tm-user-info__username" href="/ru/users/Devoter/">
+      Devoter
+      <!-- --></a> <span class="tm-article-datetime-published"><time datetime="2023-02-17T13:49:32.000Z" title="2023-02-17, 16:49">17  фев   в 16:49</time></span></span></span></div> <!-- --></div> <h1 class="tm-article-snippet__title tm-article-snippet__title_h1" lang="ru"><span>VueEnt — сложные формы на Vue и не только</span></h1> <div class="tm-article-snippet__stats"><div class="tm-article-complexity tm-article-complexity_complexity-medium"><span class="tm-svg-icon__wrapper tm-article-complexity__icon"><svg class="tm-svg-img tm-svg-icon" height="24" width="24"><title>Уровень сложности</title> <use xlink:href="/img/megazord-v28.78dd0d98..svg#complexity-medium"></use></svg></span> <span class="tm-article-complexity__label">
+    Средний
+  </span></div> <div class="tm-article-reading-time"><span class="tm-svg-icon__wrapper tm-article-reading-time__icon"><svg class="tm-svg-img tm-svg-icon" height="24" width="24"><title>Время на прочтение</title> <use xlink:href="/img/megazord-v28.78dd0d98..svg#clock"></use></svg></span> <span class="tm-article-reading-time__label">
+    45 мин
+  </span></div> <span class="tm-icon-counter tm-data-icons__item"><svg class="tm-svg-img tm-icon-counter__icon" height="24" width="24"><title>Количество просмотров</title> <use xlink:href="/img/megazord-v28.78dd0d98..svg#counter-views"></use></svg> <span class="tm-icon-counter__value">1.7K</span></span></div> <div class="tm-article-snippet__hubs-container"><div class="tm-article-snippet__hubs"><span class="tm-article-snippet__hubs-item"><a class="tm-article-snippet__hubs-item-link" href="/ru/hub/javascript/"><span>JavaScript</span> <span class="tm-article-snippet__profiled-hub" title="Профильный хаб">*</span></a></span><span class="tm-article-snippet__hubs-item"><a class="tm-article-snippet__hubs-item-link" href="/ru/hub/programming/"><span>Программирование</span> <span class="tm-article-snippet__profiled-hub" title="Профильный хаб">*</span></a></span><span class="tm-article-snippet__hubs-item"><a class="tm-article-snippet__hubs-item-link" href="/ru/hub/vuejs/"><span>VueJS</span> <span class="tm-article-snippet__profiled-hub" title="Профильный хаб">*</span></a></span><span class="tm-article-snippet__hubs-item"><a class="tm-article-snippet__hubs-item-link" href="/ru/hub/typescript/"><span>TypeScript</span> <span class="tm-article-snippet__profiled-hub" title="Профильный хаб">*</span></a></span></div></div> <!-- --> <!-- --> <!-- --></div></div> <!-- --> <div class="tm-article-body" data-gallery-root="" lang="ru"><div></div> <div id="post-content-body"><div><div class="article-formatted-body article-formatted-body article-formatted-body_version-2"><div xmlns="http://www.w3.org/1999/xhtml"><figure class="full-width"><img data-src="https://habrastorage.org/getpro/habr/upload_files/614/e31/421/614e3142179af9ded63f41cb8686d1b3.png" height="399" src="https://habrastorage.org/r/w1560/getpro/habr/upload_files/614/e31/421/614e3142179af9ded63f41cb8686d1b3.png" width="583"/><figcaption></figcaption></figure><p>Примерно полтора года назад вышла моя <a href="https://habr.com/ru/post/574044/" rel="noopener noreferrer nofollow">статья</a> про библиотеку валидации <a href="https://vueent.github.io/v9s" rel="noopener noreferrer nofollow">v9s</a>. Благодаря конструктивной критике в комментариях, удалось серьезно переработать библиотеку, уже год как вышла вторая более дружелюбная версия. В тексте публикации было сказано о том, что появилась необходимость осуществлять динамическую валидацию больших и сложных форм на <a href="https://vuejs.org/" rel="noopener noreferrer nofollow">Vue</a>, а еще хотелось добавить индикацию к отдельным частям страницы во время загрузки и сохранения данных. После серии экспериментов сложился общий концепт новой библиотеки и нескромное название <code>VueEnt</code>, намекающее на сферу ее применения. Итак, если у вас возникают те же проблемы при разработке на Vue, что изложены в моей предыдущей публикации по ссылке выше, то заварите чайку и приготовьте бутерброды, ведь, несмотря на обзорный характер публикации, в двух словах все не описать.</p><p>Изначально хотелось разбить текст на три части, но выходит так, что самая важная и интересная часть — самая объемная, без нее остальные выглядят незначимыми придатками, поэтому самым нетерпеливым могу предложить пройти в конец к <a href="#%D1%81%D1%81%D1%8B%D0%BB%D0%BA%D0%B8" rel="noopener noreferrer nofollow">ссылкам</a>, запустить у себя на ПК примеры и <em>пощупать</em> интерактивную составляющую.</p><figure class="full-width"><img data-src="https://habrastorage.org/getpro/habr/upload_files/4c8/c47/288/4c8c4728885409cab284f66f1686897b.png" height="775" src="https://habrastorage.org/r/w1560/getpro/habr/upload_files/4c8/c47/288/4c8c4728885409cab284f66f1686897b.png" width="630"/><figcaption></figcaption></figure><h3>Содержание</h3><ol><li><p><a href="#purpose-of-publication" rel="noopener noreferrer nofollow">Цель публикации</a></p></li><li><p><a href="#very-concise-description-of-the-project" rel="noopener noreferrer nofollow">Очень сжатое описание проекта</a> </p><ol><li><p><a href="#the-main-goal-of-the-project" rel="noopener noreferrer nofollow">Основная цель проекта</a></p></li><li><p><a href="#are-not-targets" rel="noopener noreferrer nofollow">Не являются целями</a></p></li><li><p><a href="#list-of-project-packages" rel="noopener noreferrer nofollow">Список пакетов проекта</a> </p><ol><li><p><a href="#reactive" rel="noopener noreferrer nofollow">Reactive</a></p></li><li><p><a href="#core" rel="noopener noreferrer nofollow">Core</a></p></li><li><p><a href="#mix-models" rel="noopener noreferrer nofollow">Mix Models</a></p></li><li><p><a href="#store" rel="noopener noreferrer nofollow">Store</a></p></li></ol></li></ol></li><li><p><a href="#quick-start" rel="noopener noreferrer nofollow">Быстрый старт</a></p></li><li><p><a href="#a-more-detailed-overview-of-packages-with-examples" rel="noopener noreferrer nofollow">Более детальный обзор пакетов с примерами</a> </p><ol><li><p><a href="#reactive-1" rel="noopener noreferrer nofollow">Reactive</a></p></li><li><p><a href="#core-1" rel="noopener noreferrer nofollow">Core</a></p></li><li><p><a href="#mix-models-1" rel="noopener noreferrer nofollow">Mix Models</a> </p><ol><li><p><a href="#why-mixins" rel="noopener noreferrer nofollow">Почему миксины?</a></p></li><li><p><a href="#examples-of-description-and-use" rel="noopener noreferrer nofollow">Примеры описания и использования</a></p></li><li><p><a href="#simple-example" rel="noopener noreferrer nofollow">Простой пример</a></p></li><li><p><a href="#state-rollback" rel="noopener noreferrer nofollow">Откат состояния</a></p></li><li><p><a href="#saving" rel="noopener noreferrer nofollow">Сохранение</a></p></li><li><p><a href="#validation" rel="noopener noreferrer nofollow">Валидация</a></p></li><li><p><a href="#additional-field" rel="noopener noreferrer nofollow">Дополнительное поле</a></p></li><li><p><a href="#complex-model" rel="noopener noreferrer nofollow">Сложная модель</a></p></li></ol></li><li><p><a href="#store-1" rel="noopener noreferrer nofollow">Store</a> </p><ol><li><p><a href="#simple-collection" rel="noopener noreferrer nofollow">Простая коллекция</a></p></li><li><p><a href="#collection-with-access-to-external-storage" rel="noopener noreferrer nofollow">Коллекция с доступом ко внешнему хранилищу</a></p></li><li><p><a href="#class-and-service-of-storage" rel="noopener noreferrer nofollow">Класс и сервис хранилища</a></p></li></ol></li></ol></li><li><p><a href="#known-limitations" rel="noopener noreferrer nofollow">Известные ограничения</a></p></li><li><p><a href="#conclusion" rel="noopener noreferrer nofollow">Заключение</a></p></li><li><p><a href="#links" rel="noopener noreferrer nofollow">Ссылки</a></p></li></ol><a class="anchor" id="purpose-of-publication" name="purpose-of-publication"></a><h3>Цель публикации</h3><p>Целью публикации является не только описание имеющегося решения, но и выяснение наличия, либо отсутствия интереса к проекту со стороны разработчиков. Дело в том, что самые трудные части документации все еще отсутствуют, количество разработчиков проекта сократилось с двух до одного (меня), мое свободное время ограничено весьма скромными временными рамками, и тратить его на никому не нужный проект банально жалко. Поэтому, если кто‑либо захочет помочь правками, написанием документации, конструктивной критикой в комментариях или любым иным способом — буду рад.</p><a class="anchor" id="very-concise-description-of-the-project" name="very-concise-description-of-the-project"></a><h3>Очень сжатое описание проекта</h3><figure class=""><img data-src="https://habrastorage.org/getpro/habr/upload_files/4da/016/4d9/4da0164d98265764931a892087c5f480.png" height="256" src="https://habrastorage.org/r/w1560/getpro/habr/upload_files/4da/016/4d9/4da0164d98265764931a892087c5f480.png" width="256"/><figcaption></figcaption></figure><p><a href="https://vueent.github.io/vueent/" rel="noopener noreferrer nofollow">VueEnt</a> это набор из четырех пакетов, три из которых независимы друг от друга. Поддерживаются как Vue 3, так и Vue 2.7, либо Vue 2.6 с плагином <a href="https://github.com/vuejs/composition-api" rel="noopener noreferrer nofollow">@vue/composition-api</a>.</p><a class="anchor" id="the-main-goal-of-the-project" name="the-main-goal-of-the-project"></a><h4>Основная цель проекта</h4><p>Основной целью проекта является предоставление инструментов для создания масштабируемых веб-приложений с использованием Vue. Весь проект написан на <a href="https://www.typescriptlang.org/" rel="noopener noreferrer nofollow">TypeScript</a>, так как одной из важных целей является предоставление удобств в виде поддержки автодополнения и статически определяемых типов. Отчасти из-за этого, отчасти из философских побуждений, проект не содержит никакой магии. С одной стороны, это порождает некоторую многословность, но с другой, все работает так, как ожидает разработчик, за исключением некоторых случаев, в основном связанных с ограничениями реактивности Vue.</p><a class="anchor" id="are-not-targets" name="are-not-targets"></a><h4>Не являются целями</h4><p>Создание еще одного универсального фреймворка на основе Vue не является целью VueEnt. Также целью не является навязывание разработчику какой‑либо архитектуры или структуры проекта, практически все пакеты независимы друг от друга и могут использоваться или не использоваться по желанию.</p><a class="anchor" id="list-of-project-packages" name="list-of-project-packages"></a><h3>Список пакетов проекта</h3><a class="anchor" id="reactive" name="reactive"></a><h4>Reactive</h4><p>Пакет <code>@vueent/reactive</code> — это набор декораторов TypeScript, которые позволяют прозрачно использовать <code>ref</code>— и <code>computed</code>‑свойства Vue в качестве полей ES‑классов.</p><a class="anchor" id="core" name="core"></a><h4>Core</h4><p>Пакет <code>@vueent/core</code>, несмотря на название — маленькая библиотека, которая добавляет такие сущности, как контроллеры и сервисы, во Vue‑приложение.</p><a class="anchor" id="mix-models" name="mix-models"></a><h4>Mix Models</h4><p>Пакет <code>@vueent/mix-models</code> — библиотека, предоставляющая классы реактивных моделей для <a href="https://ru.wikipedia.org/wiki/NoSQL" rel="noopener noreferrer nofollow">NoSQL</a>‑моделей с опциональными возможностями сохранения, отката состояния (<em>rollback</em>) и динамической валидации. Именно этот пакет является самым большим и важным во всем проекте.</p><a class="anchor" id="store" name="store"></a><h4>Store</h4><p>Экспериментальный пакет <code>@vueent/store</code> предоставляет классы для реализации централизованного хранилища коллекций моделей, то есть представляет собой сильно упрощенный аналог <a href="https://github.com/emberjs/data" rel="noopener noreferrer nofollow">ember‑data</a>, но без поддержки реляционных связей.</p><p><strong>Примечание:</strong> Если вам интересна только работа с моделями, то предлагаю сразу же пролистать до соответствующего раздела, так как пониманию это никак не помешает.</p><a class="anchor" id="quick-start" name="quick-start"></a><h3>Быстрый старт</h3><p>Для тех, кому лень читать текст, но хочется пощупать решение на рабочем проекте, подготовлен специальный <a href="https://github.com/vueent/vueent-quick-start" rel="noopener noreferrer nofollow">проект</a>:</p><pre><code class="bash">git clone https://github.com/vueent/vueent-quick-start.git
+cd vueent-quick-start
+npm i
+npm run dev</code></pre><p>Проект представляет собой локальный редактор списка клиентов, где у каждого клиента есть имя, фамилия, телефон и возраст. Данные сохраняются в <a href="https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API/Using_IndexedDB" rel="noopener noreferrer nofollow">IndexedDB</a>. Исходный текст приложения содержит поясняющие комментарии.</p><p>Хотелось бы также рассмотреть варианты построения архитектуры клиентского приложения, но эта тема достаточно обширна и заслуживает отдельной публикации.</p><a class="anchor" id="a-more-detailed-overview-of-packages-with-examples" name="a-more-detailed-overview-of-packages-with-examples"></a><h3>Более детальный обзор пакетов с примерами</h3><a class="anchor" id="reactive-1" name="reactive-1"></a><h4>Reactive</h4><p>Когда я впервые увидел Vue Composition API, то сразу же подумал о том, что теперь реактивность удобно использовать не только внутри компонентов, но и за их пределами, например в каких‑нибудь классах. Однако хотелось бы видеть обычные свойства, а не объекты, в качестве полей классов, ведь сегодня это поле класса не реактивно, а завтра ситуация может измениться. Если вы пробовали использовать <code>ref</code> и <code>computed</code> в качестве свойств классов, то могли заметить, что это не слишком‑то удобно. Итак, встречайте декораторы <code>tracked</code> (использует <code>ref</code>) и <code>calculated</code> (использует <code>computed</code>):</p><pre><code class="typescript">import { tracked, calculated } from '@vueent/reactive';
+
+class MyClass {
+  @tracked public num = 2;
+  @tracked public factor = 3;
+
+  @calculated public get mul() {
+    console.log('calculate mul');
+
+    return this.num * this.factor;
+  }
+}
+
+const my = new MyClass();
+
+my.factor = 4;
+
+console.log(my.mul); // "calculate mul", 8 - работает, как ожидалось
+console.log(my.mul); // 8 - повторного вычисления нет, как и положено</code></pre><p><strong>Примечание:</strong> Начиная с некоторой версии TypeScript, для того, чтобы работали экспериментальные декораторы, необходимо указать следующие параметры компилятора в <code>tsconfig.json</code>:</p><pre><code class="json">"moduleResolution": "node",
+"useDefineForClassFields": false,
+"experimentalDecorators": true</code></pre><p>Как и было сказано в самом начале, публикация обзорная, поэтому за более подробным описанием пакета прошу проследовать по <a href="https://vueent.github.io/vueent/guide/reactive.html" rel="noopener noreferrer nofollow">ссылке</a>.</p><a class="anchor" id="core1" name="core1"></a><h3>Core</h3><p>Идея <code>@vueent/core</code> состоит в том, чтобы пересмотреть структуру приложений на Vue. Из коробки нам предлагают использовать директорию views или pages (если речь про <a href="https://nuxtjs.org/" rel="noopener noreferrer nofollow">Nuxt</a>) для расположения компонентов‑маршрутов, хотя сам по себе Vue вообще не накладывает каких‑либо ограничений на структуру файлов. Получается, что входной точкой маршрута является компонент. Несмотря на то, что в документации по Vue я не обнаружил определения компонента (поправьте, если я слеп), но там написано следующее:</p><blockquote><p>Components allow us to split the UI into independent and reusable pieces, and think about each piece in isolation.</p></blockquote><blockquote><p>Компоненты позволяют нам разделить пользовательский интерфейс на независимые и переиспользуемые части и думать о каждой из них отдельно.</p></blockquote><p>То есть компонент являет собой не что иное, как <em>представление</em>, говоря терминами того же <a href="https://ru.wikipedia.org/wiki/Model-View-ViewModel" rel="noopener noreferrer nofollow">MVVM</a>. Если понимать компонент, как представление, то он не должен включать в себя бизнес‑логику, хотя именно это слишком часто встречается в проектах на Vue и <a href="https://reactjs.org/" rel="noopener noreferrer nofollow">React</a>. Для инкапсуляции бизнес‑логики и доступа к данным можно использовать сервисы, а для отделения слоя представления от сервисов можно использовать контроллеры (хотя, возможно, название не самое подходящее). Именно сервисы и контроллеры с ленивой инициализацией и предоставляет пакет <code>@vueent/core</code>. В качестве референсных решений можно взять <a href="https://angular.io/" rel="noopener noreferrer nofollow">Angular</a> или <a href="https://emberjs.com/" rel="noopener noreferrer nofollow">Ember</a>. Также во время написания этого текста натолкнулся на публикацию здесь, <a href="https://habr.com/ru/company/simbirsoft/blog/556270/" rel="noopener noreferrer nofollow">на хабре</a>, неплохо описывающую концепт.</p><p>Чтобы использовать контроллеры и сервисы в проекте, необходимо сперва инициализировать <em>ядро</em>:</p><pre><code class="typescript">// file: ./vueent.ts
+import { initVueent } from '@vueent/core';
+
+export const {
+  useVueent,
+  registerService,
+  registerController,
+  useService,
+  useController,
+  injectService,
+  injectController
+} = initVueent();</code></pre><p>Теперь можно создать сервис, который будет считать количество кликов:</p><pre><code class="typescript">// file: ./services/clicker.ts
+import { Service } from '@vueent/core';
+import { tracked } from '@vueent/reactive';
+
+import { registerService } from '@/vueent';
+
+export default class ClickerService extends Service {
+  @tracked private _counter = 0; // реактивное свойство
+
+  public get counter() {
+    return this._counter;
+  }
+
+  public increment() {
+    ++this._counter;
+  }
+}
+
+registerService(ClickerService); // нужно обязательно зарегистрировать серсис</code></pre><p>Контроллер приложения, предоставляющий доступ к реактивному свойству и методу, изменяющему его:</p><pre><code class="typescript">// file: ./app.ts
+import { Controller } from '@vueent/core';
+
+import { registerController, injectService as service } from '@/vueent';
+import ClickerService from '@/services/clicker';
+
+export default class AppController extends Controller {
+  // ленивая инициализация сервиса
+  @service(ClickerService) private readonly clicker!: ClickerService;
+
+  public readonly date: number;
+
+  public get counter() {
+    return this.clicker.counter; // возврат реактивного свойства сервиса
+  }
+
+  constructor(date: number) {
+    super();
+    this.date = date;
+  }
+
+  public init() {
+    console.log('onBeforeMount');
+  }
+
+  public reset() {
+    console.log('onBeforeUnmount');
+  }
+
+  public destroy() {
+    console.log('onUnmounted'); // остановка наблюдателей (watchers), таймеров и так далее
+  }
+
+  public increment() {
+    this.clicker.increment();
+  }
+}
+
+registerController(AppController); // контроллер также обязательно зарегистрировать</code></pre><p>Наконец, компонент приложения:</p><pre><code class="xml">&lt;!-- file: app.vue:template --&gt;
+&lt;template&gt;
+&lt;div&gt;
+  &lt;div&gt;Started at: {{ timestamp }}&lt;/div&gt;
+  &lt;div&gt;Button clicks: {{ counter }}&lt;/div&gt;
+  &lt;div&gt;
+    &lt;button type="button" @click="increment"&gt;Increment&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;/template&gt;</code></pre><pre><code class="typescript">// file: app.vue:script
+import { defineComponent, computed } from 'vue';
+
+import { useController } from '@/vueent';
+
+import AppController from './app';
+
+function setup() {
+  // создаем экземпляр контроллера с параметрами.
+  const controller = useController(AppController, new Date().getTime());
+
+  const increment = () =&gt; controller.increment();
+  const counter = computed(() =&gt; controller.counter);
+
+  return {
+    timestamp: controller.date, // нереактивное значение
+    counter, // вычисляемое свойство
+    increment
+  };
+}
+
+export default defineComponent({ setup });</code></pre><p>Понятно, что пример синтетический, но он позволяет рассмотреть предложенную архитектуру: данные хранятся и предоставляются сервисом <code>ClickerService</code>, компонент приложения подключает контроллер <code>AppController</code>, и отвечает лишь за рендеринг и обработку действий пользователя, все данные он получает из контроллера и ничего не знает о том, откуда эти они берутся на самом деле. Теперь при замене представления без изменения данных, нужно будет отредактировать лишь компонент.</p><p>Подробную документацию по данному пакету можно найти по <a href="https://vueent.github.io/vueent/guide/core.html" rel="noopener noreferrer nofollow">ссылке</a>.</p><a class="anchor" id="mix-models-1" name="mix-models-1"></a><h3>Mix Models</h3><p>Что ж, пришло время самой объемной и самой, на мой взгляд, полезной части библиотеки. Как было сказано выше, пакет <code>@vueent/mix-models</code> позволяет создавать реактивные модели.</p><p>Как можно понять из названия, классы строятся на основе миксинов.</p><a class="anchor" id="why-mixins" name="why-mixins"></a><h4>Почему миксины?</h4><p>На самом деле, миксины — это компромисс. Можно взять, условно, четыре варианта формирования объектов нужного вида:</p><ol><li><p>Наследование классов в парадигме ООП</p></li><li><p>Использование функций</p></li><li><p>Использование прототипов</p></li><li><p>Использование миксинов</p></li></ol><p>Проблема с классическим наследованием ровно одна: иерархия наследования статична. Если от базовой модели унаследовать класс, реализующий, скажем, откат состояния (<em>rollback</em>), а потом от него — класс, дополнительно реализующий сохранение данных в хранилище, то создать класс конечной модели, которой требуется только сохранение, но не откат, уже не представляется возможным. Конечно, можно создать отдельный класс, реализующий только сохранение, но не откат, а потом добавим валидацию и получим комбинаторный рост количества необходимых классов, что вряд ли упростит жизнь пользователю библиотеки. Пример:</p><pre><code class="typescript">class BaseModel {}
+
+class RollbackModel extends BaseModel {}
+
+class SaveModel extends RollbackModel {}
+
+class ValidateModel extends SaveModel {}
+
+// содержит все возможные функции, даже если они не нужны.
+class MyModel extends ValidateModel {}</code></pre><p>У функций проблема совершенно иного характера: они будут строить объект каждый раз с нуля, таким образом, у разных экземпляров модели одного типа не будет общего прототипа, и все свойства будут дублироваться, вызывая существенный рост потребления памяти. Пример:</p><pre><code class="typescript">interface A {
+  n: number;
+}
+
+// создает простой объект с числовым полем n
+function a(): A {
+  return { n: 0 };
+}
+
+// создает объект с полем digits и методом print
+function b() {
+  return {
+    digits: 2,
+    print() {
+      console.log(((this as unknown) as A).n.toFixed(this.digits));
+    }
+  };
+}
+
+// создает объект с методом add, суммирующим значение свойства n и аргумент op
+function c() {
+  return {
+    add(op: number): void {
+      ((this as unknown) as A).n += op;
+    }
+  };
+}
+
+// формируется итоговый объект модели
+const my = { ...a(), ...b(), ...c() };
+
+my.add(2.2222);
+my.print(); // 2.22
+
+// новый объект, все методы также дублируются
+const my2 = { ...a(), ...b(), ...c() };</code></pre><p>Если вспомнить, что JS — это прототипно-ориентированный язык, то можно попытаться обойти дублирование методов, создавая при помощи функций не конечный экземпляр модели, а прототип.</p><pre><code class="typescript">interface Creator&lt;T extends A&gt; {
+  new (...args: any[]): T;
+  (...args: any[]): T;
+}
+
+interface A {
+  n: number;
+}
+
+// создает пустой прототип и конструктор для объекта с полем n
+function a() {
+  const proto = {};
+
+  return {
+    setup: function(this: A) {
+      Object.setPrototypeOf(this, proto);
+      this.n = 0;
+
+      return this;
+    } as Creator&lt;A&gt;,
+    proto
+  };
+}
+
+interface B {
+  digits: number;
+  print(): void;
+}
+
+// добавляет к прототипу метод print и подмешивает в функцию-конструктор создание поля digits.
+function b&lt;T extends A&gt;({ proto, setup }: { proto: any; setup: Creator&lt;T&gt; }) {
+  proto.print = function(this: T &amp; B) {
+    console.log(this.n.toFixed(this.digits));
+  };
+
+  return {
+    setup: function(this: T &amp; B, ...args: any[]) {
+      setup.call(this, ...args);
+
+      this.digits = 2;
+
+      return this;
+    } as Creator&lt;T &amp; B&gt;,
+    proto
+  };
+}
+
+interface C {
+  add(op: number): void;
+}
+
+// подмешивает в прототип метод add
+function c&lt;T extends A&gt;({ proto, setup }: { proto: any; setup: Creator&lt;T&gt; }) {
+  proto.add = function(this: T &amp; C, op: number) {
+    this.n += op;
+  };
+
+  return { proto, setup: setup as Creator&lt;T &amp; C&gt; };
+}
+
+
+const ABC = c(b(a())).setup; // формируем нужный прототип и конструктор
+const abc = new ABC(); // создаем экземпляр
+
+abc.add(2.2222);
+abc.print(); // 2.22
+
+const AB = b(a()).setup;
+const ab = new AB();
+
+ab.n = 2;
+ab.print(); // 2.00
+
+const AC = c(a()).setup;
+const ac = new AC();
+
+ac.add(2.2222);
+console.log(ac.n); // 2.2222</code></pre><p>Работает, но выглядит, мягко говоря, не очень чисто. Впрочем, на заре JS иного метода и не существовало, но мы уже давно не на заре JS, так что можем себе позволить использовать миксины. За чуть более подробными примерами, можно также обратиться к <a href="https://vueent.github.io/vueent/guide/mix-models.html" rel="noopener noreferrer nofollow">документации</a>.</p><p>К сожалению, обобщенные классы и миксины — не самая приятная смесь, но это компромисс между удобством написания и оптимальностью работы итогового результата.</p><a class="anchor" id="examples-of-description-and-use" name="examples-of-description-and-use"></a><h3>Примеры описания и использования</h3><p>На страницах документации также присутствует довольно подробное описание базового класса модели, а также некоторых комплектных миксинов.</p><p><strong>Примечание:</strong> Так как, повторюсь, публикация обзорная, то позволю себе здесь ограничиться лишь несколькими не с особенно сложными примерами, демонстрирующими основные возможности пакета. Больше примеров разной сложности можно найти среди <a href="https://github.com/vueent/vueent/tree/main/packages/mix-models/tests/__mocks__" rel="noopener noreferrer nofollow">тестовых моделей</a>. Если проект заинтересует аудиторию, то различным вариантам описания моделей, методам и трюкам, вроде рекурсивных структур в качестве данных, можно посвятить серию менее объемных текстов, заполнив тем самым пробелы в документации.</p><a class="anchor" id="simple-example" name="simple-example"></a><h4>Простой пример</h4><p>Для начала стоит рассмотреть самый простой пример объявления модели без миксинов:</p><pre><code class="typescript">import type { Base } from '@vueent/mix-models';
+import { BaseModel } from '@vueent/mix-models';
+
+// описание структуры с данными
+export interface Data {
+  id: number;
+  name: string;
+}
+
+// функция, возвращаяющая базовое состояние данных
+export function makeInitialData(): Data {
+  return { id: 0, name: '' };
+}
+
+// промежуточный класс DataModel, который необходим для применения миксинов,
+// так как BaseModel является обобщенным классом
+class DataModel extends BaseModel&lt;Data&gt; {}
+
+// публичный тип модели
+export type ModelType = Base&lt;Data&gt;;
+
+// класс модели
+export class Model extends DataModel {
+  /**
+   * @param initialData - стартовое состояние данных
+   * @param react - делать данные модели реактивными или нет
+   */
+  constructor(initialData?: Data, react = true) {
+    // первый аргумент указывает - какое поле считать первичным ключом модели,
+    // поддержки составных ключей нет, можно оставить его пустым, передав пустую строку
+    super('id', initialData ?? makeInitialData(), react);
+  }
+}
+
+// функция, порождающая экземпляры модели, но возвращающая только публичный тип
+export function create(initialData?: Data, react = true): ModelType {
+  return new Model(initialData, react);
+}</code></pre><p>Так выглядит самая простая модель. Некоторые комментарии из примера станут понятны после рассмотрения чуть более сложного варианта.</p><a class="anchor" id="state-rollback" name="state-rollback"></a><h4>Откат состояния</h4><p>Теперь добавим миксин отката состояния:</p><pre><code class="typescript">import type { Base, Rollback, RollbackPrivate } from '@vueent/mix-models';
+import { BaseModel, mixRollback, mix } from '@vueent/mix-models';
+
+// описание структуры с данными
+export interface Data {
+  id: number;
+  name: string;
+}
+
+// функция, возвращаяющая базовое состояние данных
+export function makeInitialData(): Data {
+  return { id: 0, name: '' };
+}
+
+// маска, показывающая - какие поля откатывать при вызове rollback
+// в данном примере поле name будет сброшено, а поле id - нет
+// маску можно не указывать вовсе, тогда исходное состояние будет возвращено целиком
+export const rollbackMask = {
+  name: true
+} as const;
+
+// промежуточный класс DataModel, который необходим для применения миксинов,
+// так как BaseModel является обобщенным классом
+class DataModel extends BaseModel&lt;Data&gt; {}
+
+// публичный тип модели, который не включает в себя публичные поля
+// и методы миксина отката состояния
+export type ModelType = Base&lt;Data&gt; &amp; Rollback;
+
+// так как TypeScript не позволяет автоматически выводить тип при применении
+// миксинов, то необходимо явно добавить типы в определение интерфейса
+// класса, иначе приватные и публичные методы и свойства миксинов
+// не будут доступны внутри класса
+export interface Model extends DataModel, RollbackPrivate&lt;Data&gt; {}
+
+// класс модели
+export class Model extends mix&lt;Data, typeof DataModel&gt;(DataModel, mixRollback(rollbackMask)) {
+  /**
+   * @param initialData - стартовое состояние данных
+   * @param react - делать данные модели реактивными или нет
+   */
+  constructor(initialData?: Data, react = true) {
+    // первый аргумент указывает - какое поле считать первичным ключом модели,
+    // поддержки составных ключей нет, можно оставить его пустым, передав пустую строку
+    super('id', initialData ?? makeInitialData(), react);
+  }
+}
+
+// функция, порождающая экземпляры модели, но возвращающая только публичный тип
+export function create(initialData?: Data, react = true): ModelType {
+  return new Model(initialData, react);
+}</code></pre><p>Не трудно заметить, что, убрав типы, можно получить куда как более короткий вариант:</p><pre><code class="javascript">import { BaseModel, mixRollback, mix } from '@vueent/mix-models';
+
+export function makeInitialData(): Data {
+  return { id: 0, name: '' };
+}
+
+export const rollbackMask = {
+  name: true
+};
+
+export class Model extends mix(BaseModel, mixRollback(rollbackMask)) {
+  /**
+   * @param {Record&lt;string, unknown&gt;=} initialData - стартовое состояние данных
+   * @param {boolean=} react - делать данные модели реактивными или нет
+   */
+  constructor(initialData = undefined, react = true) {
+    super('id', initialData ?? makeInitialData(), react);
+  }
+}</code></pre><p>Правда, в таком случае, теряются все плюшки TypeScript, поэтому вернемся к варианту с типами. Дело в том, что TypeScript не умеет автоматически выводить тип для миксинов, если базовый класс является обобщенным. Именно поэтому нужно дополнительно явно описывать интерфейс <code>Model</code> вручную. Также в миксинах нельзя использовать модификаторы доступа (<code>private</code>, <code>protected</code>, <code>public</code>), и, чтобы все поля и методы, которые не должны быть доступны снаружи модели, были скрыты, приходится отдельно определять публичный интерфейс модели в виде <code>ModelType</code>. Выходит, что у нас две цепочки наследования для типов, одна формирует публичный интерфейс модели, а вторая — приватный. Благодаря наличию ручного описания приватного интерфейса Model, языковой сервер TypeScript подскажет — какие поля есть в классе, если мы захотим с ними работать при описании самого класса модели, скажем, добавить метод, который выполняет rollback только в том случае, если первичный ключ равен нулю:</p><pre><code class="typescript">// объявляем интерфейс, используемый в публичном интерфейсе модели
+interface ConditionalRollback {
+  conditionalRollback(): void;
+}
+
+export type ModelType = Base&lt;Data&gt; &amp; Rollback &amp; ConditionalRollback;
+
+export interface Model extends DataModel, RollbackPrivate&lt;Data&gt; {}
+
+export class Model extends mix&lt;Data, typeof DataModel&gt;(DataModel, mixRollback(rollbackMask)) {
+  constructor(initialData?: Data, react = true) {
+    super('id', initialData ?? makeInitialData(), react);
+  }
+
+  public conditionalRollback(): void {
+    // поле pk имеет тип unknown и возвращает значение того поля, что было
+    // указано в качестве первичного ключа в конструкторе
+    if (!this.pk) this.rollback();
+  }
+}</code></pre><p>Также можно писать и свои миксины, но рассмотрение этого процесса выходит за рамки публикации.</p><p><strong>Примечание:</strong> Динамически проверить наличие того или иного миксина можно при помощи вызова метода модели <code>hasMixin(mixin: Function): boolean</code>, передав ему в качестве аргумента функцию миксина, например, <code>mixRollback</code>.</p><details class="spoiler"><summary>Попробуем создать парочку экземпляров и поработать с ними</summary><div class="spoiler__content"><pre><code class="typescript">import { create } from '@/models/simple';
+
+const m1 = create();
+const m2 = create({ id: 2, name: 'Jane' });
+
+// все данные находятся в поле data экземпляра модели
+m1.data.id = 1;
+m1.data.name = 'John';
+
+// флаг dirty у m1 выставлен в true, так как свойства были изменены
+console.log(m1.dirty, JSON.stringify(m1.data)); // true {"id":1,"name":"John"}
+// флаг dirty у m2 выставлен в false, так как значение при инициализации не менялось
+console.log(m2.dirty, JSON.stringify(m2.data)); // false {"id":2,"name":"Jane"}
+
+// вызов rollback сбрасывает флаг dirty
+m1.rollback();
+m2.rollback();
+
+console.log(m1.dirty, JSON.stringify(m1.data)); // false {"id":1,"name":""}
+console.log(m2.dirty, JSON.stringify(m2.data)); // false {"id":2,"name":"Jane"}
+
+// для того, чтобы сборщик мусора мог освободить реактивные свойства,
+// экземпляры моделей нужно явно вручную уничтожать, когда они больше не нужны
+// после этого работать с ними корректно уже нельзя
+m1.destroy();
+m2.destroy();
+
+// флаг instanceDestroyed указывает на то, что экземпляр удален
+console.log(m1.instanceDestroyed); // true
+console.log(m2.instanceDestroyed); // true
+</code></pre><p></p></div></details><p><strong>Примечание:</strong> Более подробное описание флагов доступно на страницах <a href="https://vueent.github.io/vueent/guide/base-model.html" rel="noopener noreferrer nofollow">документации</a>.</p><a class="anchor" id="saving" name="saving"></a><h4>Сохранение</h4><p>Теперь наша модель умеет делать откат собственного состояния, но без возможности сохранения, это не имеет большого смысла, поэтому добавим возможность сохранять данные при помощи другого миксина:</p><pre><code class="typescript">import type {
+  Base,
+  Rollback,
+  RollbackPrivate,
+  Save,
+  SavePrivate,
+  SaveOptions,
+  CreateFunc,
+  UpdateFunc,
+  DestroyFunc
+} from '@vueent/mix-models';
+import { BaseModel, mixRollback, mixSave, mix } from '@vueent/mix-models';
+
+// описание структуры с данными
+export interface Data {
+  id: number;
+  name: string;
+}
+
+// функция, возвращаяющая базовое состояние данных
+export function makeInitialData(): Data {
+  return { id: 0, name: '' };
+}
+
+// маска, показывающая - какие поля откатывать при вызове rollback
+// в данном примере поле name будет сброшено, а поле id - нет
+// маску можно не указывать вовсе, тогда исходное состояние будет возвращено целиком
+export const rollbackMask = {
+  name: true
+} as const;
+
+// промежуточный класс DataModel, который необходим для применения миксинов,
+// так как BaseModel является обобщенным классом
+class DataModel extends BaseModel&lt;Data&gt; {}
+
+// публичный тип модели, который не включает в себя публичные поля и методы миксинов
+export type ModelType = Base&lt;Data&gt; &amp; Rollback &amp; Save;
+
+// так как TypeScript не позволяет автоматически выводить тип при применении
+// миксинов, то необходимо явно добавить типы в определение интерфейса
+// класса, иначе приватные и публичные методы и свойства миксинов
+// не будут доступны внутри класса
+export interface Model extends DataModel, RollbackPrivate&lt;Data&gt;, SavePrivate&lt;Data&gt; {}
+
+// класс модели
+export class Model extends mix&lt;Data, typeof DataModel&gt;(DataModel, mixRollback(rollbackMask), mixSave()) {
+  /**
+   * @param initialData - стартовое состояние данных
+   * @param react - делать данные модели реактивными или нет
+   * @param saveOptions - объект с функциями создания, обновления и удаления объекта из хранилища
+   */
+  constructor(initialData?: Data, react = true, saveOptions?: SaveOptions&lt;Data&gt;) {
+    // первый аргумент указывает - какое поле считать первичным ключом модели,
+    // поддержки составных ключей нет, можно оставить его пустым, передав пустую строку
+    super('id', initialData ?? makeInitialData(), react, saveOptions);
+
+    // если идентификатор задан при создании экземпляра, то считаем,
+    // что загружен объект из хранилища. Этот шаг не автоматизирован,
+    // так как стояла задача дать как можно больше свободы разработчику
+    if (this.pk) this._flags.new = false;
+  }
+}
+
+// функция, порождающая экземпляры модели, но возвращающая только публичный тип
+export function create(
+  initialData?: Data,
+  react = true,
+  params: {
+    create?: CreateFunc&lt;Data&gt;;
+    update?: UpdateFunc&lt;Data&gt;;
+    destroy?: DestroyFunc&lt;Data&gt;;
+  } = {}
+): ModelType {
+  const saveOptions: SaveOptions&lt;Data&gt; = { mixinType: 'save', ...params };
+
+  return new Model(initialData, react, saveOptions);
+}</code></pre><p>Класс получил метод <code>save</code>, который сохраняет произведенные изменения в хранилище. Как вы, наверное, заметили, функции, выполняющие операции создания, изменения и удаления объекта из хранилища (свойства параметра <code>saveOptions</code>) не прописаны в самой модели. Это сделано для того, чтобы отвязать класс модели  функций работы с хранилищем, будь оно локальным, либо удаленным. По задумке, эти функции подставляются автоматически коллекцией из сервиса <code>Store</code>, но о нем речь пойдет ниже, в соответствующем разделе, а пока передадим эти функции самостоятельно при создании экземпляра:</p><details class="spoiler"><summary>Взаимодействие с хранилищем</summary><div class="spoiler__content"><pre><code class="typescript">import type { Data } from '@/models/simple';
+import { create } from '@/models/simple';
+
+let counter = 0; // счетчик для первичных ключей
+const storage = new Map&lt;number, Data&gt;(); // хранилище, имитация сервера
+
+const saveOptions = {
+  // функция, которая создает объект в хранилище и возвращает его вместе с первичным ключом
+  create: (data: Data): Data =&gt; {
+    const id = ++counter; // генерируем первичный ключ
+    const record = { ...data, id }; // создаем копию объекта
+
+    storage.set(id as number, record); // сохраняем в хранилище
+
+    return record;
+  },
+  // функция, которая обновляет объект в хранилище
+  update: (id: unknown, data: Data): Data =&gt; {
+    if (!storage.has(id as number)) throw new Error('resource not found');
+
+    const updated = { ...data }; // создаем копию объекта
+
+    storage.set(id as number, updated);
+
+    return updated;
+  },
+  // функция, которая удаляет объект из хранилища
+  destroy: (id: unknown): void =&gt; {
+    if (!storage.has(id as number)) throw new Error('resource not found');
+
+    storage.delete(id as number);
+  }
+};
+
+// задаем стартовое состояние хранилища
+storage.set(1, { id: 1, name: 'John' });
+++counter;
+
+// значение для m1 берем из хранилища
+const m1 = create({ ...storage.get(1)! }, true, saveOptions);
+const m2 = create(undefined, true, saveOptions);
+
+console.log(m1.new, m1.pk, JSON.stringify(m1.data)); // false 1 {"id":1,"name":"John"}
+console.log(m2.new, m2.pk, JSON.stringify(m2.data)); // true 0 {"id":0,"name":""}
+
+m2.data.name = 'Jane';
+
+console.log(m2.dirty); // true
+
+// во время выполнения операции (создание) будут выставлены флаги
+// saving и creating
+await m2.save();
+
+// флаг dirty сбросился после сохранения
+console.log(m2.dirty); // false
+// флаг new также сброшен, а первичный ключ получил значение
+console.log(m2.new, m2.pk, JSON.stringify(m2.data)); // false 2 {"id":2,"name":"Jane"}
+
+m1.data.name = 'John Doe';
+
+console.log(m1.dirty); // true
+
+// теперь на время выполнения операции будут выставлены флаги
+// saving и updating
+await m1.save();
+
+// флаг dirty сброшен после сохранения
+console.log(m1.dirty); // false
+// первичный ключ не изменился, так как объект был обновлен, а не создан
+console.log(m1.pk); // 1
+
+// выставляем флаг deleted в true
+m2.delete();
+
+// объект помечен как удаленный
+console.log(m2.deleted); // true
+// но так как удаление выполнено локально, а не в хранилище,
+// то флаг destroyed не выставлен
+console.log(m2.destroyed); // false
+
+// соответственно, при удалении выставляются флаги
+// saving, destroying
+await m2.save();
+
+// объект помечен, как удаленный в хранилище, им все еще можно пользоваться,
+// но сохранять уже нельзя
+console.log(m2.destroyed); // true
+// экземпляр все еще не удален
+console.log(m2.instanceDestroyed); // false
+
+// очищаем экземпляры, позволяем сборщику мусора выполнить свою работу
+m1.destroy();
+m2.destroy();
+
+// экземпляры очищены, сборщик мусора доволен нами
+console.log(m1.instanceDestroyed); // true
+console.log(m2.instanceDestroyed); // true
+</code></pre><p></p></div></details><p>В примере выше функции синхронные, но могут быть и асинхроннымми. Если используются контроллеры из пакета <code>@vueent/core</code>, то освобождение экземпляров лучше вызывать в методе <code>destroy</code>, либо в хуке <code>onUnmounted</code> Vue. Также у моделей есть хуки <code>beforeSave</code>, <code>afterSave</code>, <code>beforeCreate</code>, <code>afterCreate</code>, но их рассмотрение выходит за рамки данной публикации, ознакомиться с хуками можно в документации.</p><a class="anchor" id="validation" name="validation"></a><h4>Валидация</h4><p>Что ж, пора переходить к самому вкусному - валидации:</p><pre><code class="typescript">import type {
+  Base,
+  Rollback,
+  RollbackPrivate,
+  Save,
+  SavePrivate,
+  SaveOptions,
+  Validate,
+  ValidatePrivate,
+  ValidationBase,
+  ValidateOptions,
+  Options,
+  PatternAssert,
+  CreateFunc,
+  UpdateFunc,
+  DestroyFunc
+} from '@vueent/mix-models';
+import { BaseModel, mixRollback, mixSave, mixValidate, mix } from '@vueent/mix-models';
+
+// описание структуры с данными
+export interface Data {
+  id: number;
+  name: string;
+}
+
+// функция, возвращаяющая базовое состояние данных
+export function makeInitialData(): Data {
+  return { id: 0, name: '' };
+}
+
+// маска, показывающая - какие поля откатывать при вызове rollback
+// в данном примере поле name будет сброшено, а поле id - нет
+// маску можно не указывать вовсе, тогда исходное состояние будет возвращено целиком
+export const rollbackMask = {
+  name: true
+} as const;
+
+// правила валидации, они должны возвращать true или строку текстом ошибки
+export const validations = {
+  // проверяем, что имя не пустая строка, и что длина не превышает 255 символов
+  name: (v: any) =&gt; {
+    if (!(v as string).length) return 'Enter name';
+    else if ((v as string).length &gt; 255) return 'Unexpected name length';
+    else return true;
+  }
+} as const;
+
+// промежуточный класс DataModel, который необходим для применения миксинов,
+// так как BaseModel является обобщенным классом
+class DataModel extends BaseModel&lt;Data&gt; {}
+
+// генерируем тип для объекта, отвечающего за валидацию на основе правил и интерфейса с данными
+export type Validations = PatternAssert&lt;typeof validations, Data&gt;;
+
+// публичный тип модели, который не включает в себя приватные поля и методы миксинов
+export type ModelType = Base&lt;Data&gt; &amp; Rollback &amp; Save &amp; Validate&lt;Validations&gt;;
+
+// так как TypeScript не позволяет автоматически выводить тип при применении
+// миксинов, то необходимо явно добавить типы в определение интерфейса
+// класса, иначе приватные и публичные методы и свойства миксинов
+// не будут доступны внутри класса
+export interface Model extends DataModel, RollbackPrivate&lt;Data&gt;, SavePrivate&lt;Data&gt;, ValidatePrivate&lt;Validations&gt; {}
+
+// класс модели
+export class Model extends mix&lt;Data, typeof DataModel&gt;(
+  DataModel,
+  mixRollback(rollbackMask),
+  mixSave(),
+  mixValidate(validations)
+) {
+  /**
+   * @param initialData - стартовое состояние данных
+   * @param react - делать данные модели реактивными или нет
+   * @param options - набор опций экзмепляра
+   */
+  constructor(initialData?: Data, react = true, ...options: Options[]) {
+    // первый аргумент указывает - какое поле считать первичным ключом модели,
+    // поддержки составных ключей нет, можно оставить его пустым, передав пустую строку
+    super('id', initialData ?? makeInitialData(), react, ...options);
+
+    // если идентификатор задан при создании экземпляра, то считаем,
+    // что загружен объект из хранилища. Этот шаг не автоматизирован,
+    // так как стояла задача дать как можно больше свободы разработчику
+    if (this.pk) this._flags.new = false;
+  }
+}
+
+// функция, порождающая экземпляры модели, но возвращающая только публичный тип
+// при создании можно указать не только функции для работы с хранилищем, но и другой
+// набор правил валидации, который, правда, все равно должен соответствовать
+// структуре данных модели
+export function create(
+  initialData?: Data,
+  react = true,
+  params: {
+    validations?: ValidationBase;
+    create?: CreateFunc&lt;Data&gt;;
+    update?: UpdateFunc&lt;Data&gt;;
+    destroy?: DestroyFunc&lt;Data&gt;;
+  } = {}
+): ModelType {
+  const options: Array&lt;ValidateOptions | SaveOptions&lt;Data&gt;&gt; = [];
+
+  if (params.validations) options.push({ mixinType: 'validate', validations: params.validations });
+  if (params.create || params.update || params.destroy)
+    options.push({
+      mixinType: 'save',
+      create: params.create,
+      update: params.update,
+      destroy: params.destroy
+    });
+
+  return new Model(initialData, react, ...options);
+}</code></pre><p>Для обращения к объекту валидации есть поле с коротким именем <code>v</code>, тип которого соответствует автоматически выведенному типу <code>Validations</code> нашей модели. В виду особенностей внутренней реализации, доступ к дочерним элементам объекта или массива осуществляется через промежуточное поле <code>c</code> (<code>children</code>), например: <code>m1.v.c.name</code>. Здесь <code>name</code> — это объект, с некоторым количеством полей и методов, в частности: <code>invalid</code>, <code>dirty</code>, <code>message</code>, <code>dirtyMessage</code>, <code>touch()</code>, <code>anyChildDirty</code>, <code>anyChildInvalid</code> и некоторыми другими. Валидация массива будет рассмотрена ниже в более сложном примере.</p><details class="spoiler"><summary>Можно проверить работу правил</summary><div class="spoiler__content"><pre><code class="typescript">import { create } from '@/models/simple';
+
+const m1 = create();
+
+// данные невалидны, но еще не были изменены
+console.log(m1.v.dirty, m1.v.invalid, m1.v.anyChildInvalid); // false true true
+// поэтому сообщение об ошибке будет пустым
+console.log(m1.v.c.name.dirtyMessage); // ""
+// а вот просто поле message показывает текущую ошибку,
+// если правило валидации нарушено
+console.log(m1.v.c.name.message); // Enter a name
+
+m1.data.name = 'Jane';
+
+// теперь валидация проходит успешно, но флаг валидации dirty все еще false,
+// так как его нужно вручную сбрасывать при помощи метода touch()
+console.log(m1.v.dirty, m1.v.invalid); // false false
+
+// фиксируем изменение поля name
+m1.v.c.name.touch();
+
+console.log(m1.v.dirty, m1.v.invalid); // true false
+
+// вновь делаем поле пустым, нарушая правила валидации
+m1.data.name = '';
+
+// теперь сообщение выводится, так как флаг dirty сброшен
+// это полезно для динамической (или живой) валидации
+console.log(m1.v.c.name.dirtyMessage); // Enter a name
+
+// сбрасываем флаги dirty
+m1.v.reset();
+
+// флаги сброшены
+console.log(m1.v.dirty, m1.v.anyChildDirty); // false false
+// сообщение об ошибке также не выводится
+console.log(m1.v.c.name.dirtyMessage); // ""
+// хотя все правила проверены
+console.log(m1.v.c.name.message); // Enter a name
+// на любом уровне можно проверить - есть ли в поддереве нарушения правил
+console.log(m1.v.anyChildInvalid); // true
+
+m1.data.name = (() =&gt; new Array(256).fill('a').join(''))();
+// устанавливаем флаги dirty во всем дереве валидации
+m1.v.touch();
+
+// сообщение об ошибке обновлено
+console.log(m1.v.c.name.dirtyMessage); // Unexpected name length
+
+// очищаем экземпляр модели
+m1.destroy();
+</code></pre><p></p></div></details><p>Одним из важнейших, на мой взгляд, качеств <code>VueEnt</code> является полная поддержка TypeScript, поэтому еще до сборки приложения, в IDE можно будет увидеть следующее:</p><figure class="full-width"><img alt="Список свойств, соответствующий интерфейсу данных" data-src="https://habrastorage.org/getpro/habr/upload_files/bd1/286/a97/bd1286a9776aa3b2ea4fc29b9d93a7ed.png" height="68" src="https://habrastorage.org/r/w1560/getpro/habr/upload_files/bd1/286/a97/bd1286a9776aa3b2ea4fc29b9d93a7ed.png" title="Список свойств, соответствующий интерфейсу данных" width="730"/><figcaption>Список свойств, соответствующий интерфейсу данных</figcaption></figure><figure class="full-width"><img alt="Список свойств объекта валидации" data-src="https://habrastorage.org/getpro/habr/upload_files/57b/af4/e22/57baf4e22db624e8baf7ba8753a9aab4.png" height="228" src="https://habrastorage.org/r/w1560/getpro/habr/upload_files/57b/af4/e22/57baf4e22db624e8baf7ba8753a9aab4.png" title="Список свойств объекта валидации" width="838"/><figcaption>Список свойств объекта валидации</figcaption></figure><figure class="full-width"><img alt="Ошибка при попытке доступа к несуществующим поля объекта валидации" data-src="https://habrastorage.org/getpro/habr/upload_files/7bd/3d0/3f0/7bd3d03f023fba5bda38605561976ffa.png" height="104" src="https://habrastorage.org/r/w1560/getpro/habr/upload_files/7bd/3d0/3f0/7bd3d03f023fba5bda38605561976ffa.png" title="Ошибка при попытке доступа к несуществующим поля объекта валидации" width="613"/><figcaption>Ошибка при попытке доступа к несуществующим поля объекта валидации</figcaption></figure><a class="anchor" id="additional-field" name="additional-field"></a><h4>Дополнительное поле</h4><p>Дополним модель числовым полем <code>age</code>:</p><pre><code class="typescript">import type {
+  Base,
+  Rollback,
+  RollbackPrivate,
+  Save,
+  SavePrivate,
+  SaveOptions,
+  Validate,
+  ValidatePrivate,
+  ValidationBase,
+  ValidateOptions,
+  Options,
+  PatternAssert,
+  CreateFunc,
+  UpdateFunc,
+  DestroyFunc
+} from '@vueent/mix-models';
+import { BaseModel, mixRollback, mixSave, mixValidate, mix } from '@vueent/mix-models';
+
+// описание структуры с данными
+export interface Data {
+  id: number;
+  name: string;
+  age: string;
+}
+
+// в хранилище возраст хранится в виде числа, но для формы, поля которой нужно заполнять
+// часто удобней использовать строковые значения
+export interface EncodedData {
+  id: number;
+  name: string;
+  age: number;
+}
+
+// функция, возвращаяющая базовое состояние данных
+export function makeInitialData(): Data {
+  return { id: 0, name: '', age: '' };
+}
+
+// маска, показывающая - какие поля откатывать при вызове rollback
+// в данном примере поле name будет сброшено, а поле id - нет
+// маску можно не указывать вовсе, тогда исходное состояние будет возвращено целиком
+export const rollbackMask = {
+  name: true,
+  age: true
+} as const;
+
+// правила валидации, они должны возвращать true или строку текстом ошибки
+export const validations = {
+  // проверяем, что имя не пустая строка, и что длина не превышает 255 символов
+  name: (v: any) =&gt; {
+    if (!(v as string).length) return 'Enter name';
+    else if ((v as string).length &gt; 255) return 'Unexpected name length';
+    else return true;
+  },
+  // проверяем, что строка является целочисленной и не превышает трех символов
+  age: (v: any) =&gt; {
+    if (!(v as string).length) return 'Enter an age';
+    else if ((v as string).length &gt; 3) return 'Unexpected age length';
+    else if (!/^\d+$/.test(v)) return 'Age should be an integer';
+    else return true;
+  }
+} as const;
+
+// промежуточный класс DataModel, который необходим для применения миксинов,
+// так как BaseModel является обобщенным классом
+class DataModel extends BaseModel&lt;Data&gt; {}
+
+// генерируем тип для объекта, отвечающего за валидацию на основе правил и интерфейса с данными
+export type Validations = PatternAssert&lt;typeof validations, Data&gt;;
+
+// публичный тип модели, который не включает в себя приватные поля и методы миксинов
+export type ModelType = Base&lt;Data&gt; &amp; Rollback &amp; Save &amp; Validate&lt;Validations&gt;;
+
+// так как TypeScript не позволяет автоматически выводить тип при применении
+// миксинов, то необходимо явно добавить типы в определение интерфейса
+// класса, иначе приватные и публичные методы и свойства миксинов
+// не будут доступны внутри класса
+export interface Model extends DataModel, RollbackPrivate&lt;Data&gt;, SavePrivate&lt;Data&gt;, ValidatePrivate&lt;Validations&gt; {}
+
+// класс модели
+export class Model extends mix&lt;Data, typeof DataModel&gt;(
+  DataModel,
+  mixRollback(rollbackMask),
+  mixSave(),
+  mixValidate(validations)
+) {
+  /**
+   * @param initialData - стартовое состояние данных
+   * @param react - делать данные модели реактивными или нет
+   * @param options - набор опций экзмепляра
+   */
+  constructor(initialData?: Data, react = true, ...options: Options[]) {
+    // первый аргумент указывает - какое поле считать первичным ключом модели,
+    // поддержки составных ключей нет, можно оставить его пустым, передав пустую строку
+    super('id', initialData ?? makeInitialData(), react, ...options);
+
+    // если идентификатор задан при создании экземпляра, то считаем,
+    // что загружен объект из хранилища. Этот шаг не автоматизирован,
+    // так как стояла задача дать как можно больше свободы разработчику
+    if (this.pk) this._flags.new = false;
+  }
+}
+
+// функция, порождающая экземпляры модели, но возвращающая только публичный тип
+// при создании можно указать не только функции для работы с хранилищем, но и другой
+// набор правил валидации, который, правда, все равно должен соответствовать
+// структуре данных модели
+export function create(
+  initialData?: Data,
+  react = true,
+  params: {
+    validations?: ValidationBase;
+    create?: CreateFunc&lt;Data&gt;;
+    update?: UpdateFunc&lt;Data&gt;;
+    destroy?: DestroyFunc&lt;Data&gt;;
+  } = {}
+): ModelType {
+  const options: Array&lt;ValidateOptions | SaveOptions&lt;Data&gt;&gt; = [];
+
+  if (params.validations) options.push({ mixinType: 'validate', validations: params.validations });
+  if (params.create || params.update || params.destroy)
+    options.push({
+      mixinType: 'save',
+      create: params.create,
+      update: params.update,
+      destroy: params.destroy
+    });
+
+  return new Model(initialData, react, ...options);
+}</code></pre><p>На сервере числовые поля хранятся в виде чисел, но для форм актуально делать поля строками, поэтому мы разделили интерфейсы <code>Data</code> и <code>EncodedData</code>.</p><details class="spoiler"><summary>Комплексный тест модели, использующий функции изо всех миксинов</summary><div class="spoiler__content"><pre><code class="typescript">import type { Data, EncodedData } from '@/models/simple';
+import { create } from '@/models/simple';
+
+// функция нормализации преобразует объект с данными в формат хранилища
+function normalize(data: Data): EncodedData {
+  return {
+    id: data.id,
+    name: data.name,
+    age: Number(data.age)
+  };
+}
+
+// функция денормализации преобразует объект с данными из формата хранилища во внутренний
+function denormalize(encoded: EncodedData): Data {
+  return {
+    id: encoded.id,
+    name: encoded.name,
+    age: String(encoded.age)
+  };
+}
+
+let counter = 0; // счетчик для первичных ключей
+const storage = new Map&lt;number, EncodedData&gt;(); // хранилище, имитация сервера
+
+const params = {
+  // функция, которая создает объект в хранилище и возвращает его вместе с первичным ключом
+  create: (data: Data): Data =&gt; {
+    const id = ++counter; // генерируем первичный ключ
+    const record = { ...data, id }; // создаем копию объекта
+
+    storage.set(id as number, normalize(record)); // сохраняем в хранилище
+
+    return record;
+  },
+  // функция, которая обновляет объект в хранилище
+  update: (id: unknown, data: Data): Data =&gt; {
+    if (!storage.has(id as number)) throw new Error('resource not found');
+
+    const updated = { ...data }; // создаем копию объекта
+
+    storage.set(id as number, normalize(updated));
+
+    return updated;
+  },
+  // функция, которая удаляет объект из хранилища
+  destroy: (id: unknown): void =&gt; {
+    if (!storage.has(id as number)) throw new Error('resource not found');
+
+    storage.delete(id as number);
+  }
+};
+
+// задаем стартовое состояние хранилища
+storage.set(1, { id: 1, name: 'John', age: 20 });
+++counter;
+
+// значение для m1 берем из хранилища
+const m1 = create(denormalize(storage.get(1)!), true, params);
+const m2 = create(undefined, true, params);
+
+console.log(m1.new, m1.pk, JSON.stringify(m1.data)); // false 1 {"id":1,"name":"John","age":"20"}
+console.log(m2.new, m2.pk, JSON.stringify(m2.data)); // true 0 {"id":0,"name":"","age":""}
+
+m2.data.name = 'Jane';
+m2.v.c.name.touch();
+m2.data.age = 'twenty';
+
+console.log(m2.dirty); // true
+// имя было изменено, и проверка прошла успешно
+console.log(m2.v.c.name.dirty, m2.v.c.name.invalid); // true false
+// возврат тоже был изменен, но флаг dirty у свойства объекта валидации выставлен не был
+console.log(m2.v.c.age.dirty, m2.v.c.age.invalid); // false true
+// экземпляр не проходит проверку
+console.log(m2.v.invalid); // true
+
+m2.data.age = '20';
+
+// ошибка исправлена, но флаг все еще не выставлен
+console.log(m2.v.c.age.dirty, m2.v.c.age.invalid); // false false
+// экземпляр проходит проверку
+console.log(m2.v.invalid); // false
+
+m2.v.c.age.touch();
+
+// теперь флаг выставлен
+console.log(m2.v.c.age.dirty, m2.v.c.age.invalid); // true false
+
+// во время выполнения операции (создание) будут выставлены флаги
+// saving и creating
+await m2.save();
+
+// флаг изменения состояния модели после сохранения сбрасывается автоматически,
+// а такой же флаг объекта валидации не, нуобходимо вызывать метод `v.reset()` или `rollback()`
+console.log(m2.dirty, m2.v.dirty); // false true
+
+m2.v.reset();
+
+// теперь все ожидаемо
+console.log(m2.dirty, m2.v.dirty); // false false
+
+// флаг new также сброшен, а первичный ключ получил значение
+console.log(m2.new, m2.pk, JSON.stringify(m2.data)); // false 2 {"id":2,"name":"Jane","age":"20"}
+
+// изменим поле name первой модели и зафиксируем изменения в объекте валидации
+m1.data.name = 'John Doe';
+m1.v.c.name.touch();
+
+console.log(JSON.stringify(m1.data)); // {"id":1,"name":"John Doe","age":"20"}
+
+// оба флага dirty выставлены
+console.log(m1.dirty, m1.v.dirty); // true true
+
+// произведем откат состояния
+m1.rollback();
+
+// проверим откат состояния
+console.log(m1.dirty, m1.v.dirty, JSON.stringify(m1.data)); // false false {"id":1,"name":"John","age":"20"}
+
+// выставляем флаг deleted в true
+m1.delete();
+
+// соответственно, при удалении выставляются флаги
+// saving, destroying
+await m1.save();
+
+// объект помечен, как удаленный в хранилище, им все еще можно пользоваться,
+// но сохранять уже нельзя
+console.log(m1.destroyed); // true
+
+// очищаем экземпляры, позволяем сборщику мусора выполнить свою работу
+m1.destroy();
+m2.destroy();
+
+// экземпляры очищены, сборщик мусора доволен нами
+console.log(m1.instanceDestroyed); // true
+console.log(m2.instanceDestroyed); // true
+</code></pre><p></p></div></details><a class="anchor" id="complex-model" name="complex-model"></a><h4>Сложная модель</h4><p>Все основные возможности рассмотрены, перейдем к примеру более сложной модели, для валидации используем <a href="https://vueent.github.io/v9s/" rel="noopener noreferrer nofollow">v9s</a> версии 2 совместно с <a href="https://github.com/vueent/v9sx" rel="noopener noreferrer nofollow">v9sx</a>. Для тех, кого интересует полнофункциональный пример, он доступен по <a href="https://github.com/vueent/vueent-example" rel="noopener noreferrer nofollow">ссылке</a>.</p><details class="spoiler"><summary>Пример описания сложноструктурированной модели</summary><div class="spoiler__content"><pre><code class="typescript">// file: ./utilities/validators.ts
+// функции для проверки десятизначного номера телефона и имени.
+export const phoneRegex = /^(([0-9]){10})$/;
+export const nameRegex = /^[0-9a-zA-Z. \\-]+$/;
+
+export function phone(value: string): boolean {
+  return phoneRegex.test(value);
+}
+
+export function name(value: string): boolean {
+  return nameRegex.test(value);
+}
+</code></pre><pre><code class="typescript">// file: ./models/human.ts
+import type {
+  Base,
+  Rollback,
+  RollbackPrivate,
+  Save,
+  SavePrivate,
+  SaveOptions,
+  Validate,
+  ValidatePrivate,
+  ValidationBase,
+  ValidateOptions,
+  Options,
+  PatternAssert,
+  CreateFunc,
+  UpdateFunc,
+  DestroyFunc
+} from '@vueent/mix-models';
+import { BaseModel, mixRollback, mixSave, mixValidate, mix } from '@vueent/mix-models';
+import { v9s, simplify } from 'v9s';
+import { hex, email, integer } from 'v9sx';
+
+import { phone, name } from '@/utilities/validators';
+
+// описание структуры данных модели
+export interface Credentials {
+  first: string;
+  second: string;
+  last: string;
+}
+
+export interface Document {
+  // поле fakeId удобно использовать для привязки ключа в шаблонах Vue
+  // внутри цикла `v-for`. Hмя может быть любым, это просто условность
+  fakeId: number;
+  id: string;
+  filename: string;
+}
+
+export interface Value {
+  fakeId: number;
+  val: string;
+}
+
+export interface Item {
+  fakeId: number;
+  values: Value[];
+}
+
+export interface Data {
+  id: string;
+  // на самом деле, использование массива примитивных значений в 
+  // качестве поля модели не очень удобно, можно преобразовывать
+  // в массив объектов, но здесь оставлен именно массив строк
+  // для демонстрации примера
+  phones: string[];
+  phone: string;
+  email: string;
+  age: string;
+  credentials: Credentials;
+  documents: Document[];
+  items: Item[];
+}
+
+// так как внутреннее представление структуры данных модели
+// отличается от представления в хранилище,
+// то внешнее представление описывается отдельно
+export type EncodedCredentials = Credentials;
+
+// из-за того, что разница только в одном поле, можно сократить запись
+export type EncodedDocument = Omit&lt;Document, 'fakeId'&gt;;
+
+export type EncodedValue = Omit&lt;Value, 'fakeId'&gt;;
+
+// здесь сократить не выйдет, так как различаются типы вложенных полей
+export interface EncodedItem {
+  values: EncodedValue[];
+}
+
+export interface EncodedData {
+  id: string;
+  phones: string[];
+  phone: string;
+  email: string;
+  age: number;
+  credentials: EncodedCredentials;
+  documents: EncodedDocument[];
+  items: EncodedItem[];
+}
+
+export function makeInitialData(): Data {
+  return {
+    id: '',
+    phones: [],
+    phone: '',
+    email: '',
+    age: '',
+    credentials: {
+      first: '',
+      second: '',
+      last: ''
+    },
+    documents: [],
+    items: []
+  };
+}
+
+const rollbackMask = {
+  id: false,
+  phones: true,
+  phone: true,
+  email: true,
+  age: true,
+  // правила для полей вложенного объекта могут задаваться по отдельности
+  credentials: {
+    first: true,
+    second: true,
+    last: true
+  },
+  documents: true,
+  items: true
+} as const;
+
+// альтернативная маска, может быть передана при вызове метода `rollback()`
+export const alternativeRollbackMask = {
+  id: false,
+  phones: true,
+  phone: true,
+  email: false,
+  age: true,
+  credentials: {
+    first: false,
+    second: false,
+    last: true
+  },
+  documents: {
+    // для того, чтобы обозначить, что вложенное поле массив, указывается `$array: true`
+    $array: true,
+    // дальше можно отдельно указать - какие поля должны или не должны быть сброшены
+    id: false,
+    filename: true
+  },
+  items: {
+    $array: true,
+    // можно указать список индексов массива, для которых будет применено правило
+    $index: [0]
+    values: false
+  }
+} as const;
+
+const validations = {
+  phones: {
+    // через указание свойства $each задается правило, которое будет применено к каждому элементу массива
+    $each: simplify(v9s&lt;string&gt;().minLength(1, 'Enter phone number').use(phone, 'Invalid phone format')),
+    // этот параметр задает правило для самого массива или объекта
+    $self: simplify(v9s&lt;string&gt;().minLength(1, 'Invalid phones'))
+  },
+  phone: simplify(v9s&lt;string&gt;().minLength(1, 'Enter phone number').use(phone, 'Invalid phone format')),
+  email: simplify(
+    v9s&lt;string&gt;()
+      .minLength(1, 'Enter E-mail')
+      .maxLength(255, 'Maximum E-mail length exceeded')
+      .use(email, 'Invalid E-mail format')
+  ),
+  age: simplify(
+    v9s&lt;string&gt;()
+      .minLength(1, 'Enter age')
+      .use(integer, 'Age must be an integer value', Number)
+      .gte(0, 'Age cannot be negative')
+      .lte(150, 'Age cannot exceed 150 years')
+  ),
+  credentials: {
+    // при помощи свойства $sub задается набор правил для вложенного объекта
+    $sub: {
+      first: simplify(
+        v9s&lt;string&gt;()
+          .minLength(1, 'Enter first name')
+          .maxLength(255, 'Maximum first name length exceeded')
+          .use(name, 'Remove invalid characters')
+      ),
+      second: simplify(
+        v9s&lt;string&gt;()
+          .maxLength(255, 'Maximum second name length exceeded')
+          .use(name, 'Remove invalid characters')
+          .or(v9s&lt;string&gt;().strictLength(0, 'Remove invalid characters'))
+      ),
+      last: simplify(
+        v9s&lt;string&gt;()
+          .minLength(1, 'Enter last name')
+          .maxLength(255, 'Maximum last name length exceeded')
+          .use(name, 'Remove invalid characters')
+      )
+    }
+  },
+  documents: {
+    // в качестве значения для $each также можно задать объект с полями
+    $each: {
+      id: simplify(
+        v9s&lt;string&gt;()
+          .minLength(1, 'Enter document id')
+          .strictLength(32, 'Document id length must be equal to 32 characters')
+          .use(hex, 'Document id must be a hex string')
+      ),
+      filename: simplify(
+        v9s&lt;string&gt;().minLength(1, 'Enter document filename').maxLength(1024, 'Maximun document filename length exceeded')
+      )
+    }
+  },
+  items: {
+    $each: {
+      values: {
+        $each: {
+          val: simplify(
+            v9s&lt;string&gt;()
+              .minLength(1, 'Enter value')
+              .minLength(6, 'Value length must exceed 6 characters')
+              .maxLength(255, 'Maximum value length exceeded')
+          )
+        }
+      }
+    }
+  }
+} as const;
+
+export type Validations = PatternAssert&lt;typeof validations, Data&gt;;
+
+class DataModel extends BaseModel&lt;Data&gt; {}
+
+export type ModelType = Base&lt;Data&gt; &amp; Rollback &amp; Save &amp; Validate&lt;Validations&gt;;
+
+export interface Model extends DataModel, RollbackPrivate&lt;Data&gt;, SavePrivate&lt;Data&gt;, ValidatePrivate&lt;Validations&gt; {}
+
+export class Model extends mix&lt;Data, typeof DataModel&gt;(
+  DataModel,
+  mixRollback(rollbackMask),
+  mixSave(),
+  mixValidate(validations)
+) {
+  constructor(initialData?: Data, react = true, ...options: Options[]) {
+    super('id', initialData ?? makeInitialData(), react, ...options);
+
+    if (this.pk) this._flags.new = false;
+  }
+
+  // состояние валидации будет автоматически сброшено после сохранения модели
+  afterSave(): void {
+    this.v.reset();
+  }
+}</code></pre><p></p></div></details><p>В связи с ограничениями функции <code>watch</code> во Vue 3 и Vue 2.7, при добавлении или удалении элементов из массива, необходимо заменять массив целиком, в противном случае, валидатор не сможет корректно отследить изменения. Можно использовать следующую функцию, либо аналоги:</p><pre><code class="typescript">const splice = &lt;T = any&gt;(arr: Array&lt;T&gt;, start = 0, count = 1, ...items: T[]) =&gt; [
+  ...arr.slice(0, start),
+  ...items,
+  ...arr.slice(start + count)
+];</code></pre><p>Стоит отметить, что правила маски для отката состояния имеют некоторые ограничения, в частности, нет возможности задать разные правила отката для разных наборов индексов массива, но так как эта задача довольно редко встречается на практике, то пока больших проблем нет. Также нет поддержки отката или блокировки отката отдельных индексов для массивов, состоящих из значений примитивных типов (например: <code>string[]</code>).</p><a class="anchor" id="store-1" name="store-1"></a><h3>Store</h3><p><code>@vueent/store</code> — это экспериментальный пакет, так что его стоит рассматривать, скорее, как работающий концепт, нежели продуманное и проверенное решение, в отличие от предыдущих трех пакетов, которые уже использовались мною в некоторых проектах. Тем, кто знаком с <code>ember-data</code> многое покажется знакомым, так и задумано. Идея состоит в том, чтобы, кроме модели, описать еще класс-коллекцию, и использовать его — как единую точку доступа к моделям определенного типа. Все коллекции объединяются в хранилище (store), которое может быть как отдельным классом, так и одним из сервисов <code>@vueent/core</code>.</p><a class="anchor" id="simple-collection" name="simple-collection"></a><h4>Простая коллекция</h4><p>Возьмем простую модель из предыдущего раздела и напишем для нее класс-коллекцию, сперва в минимально допустимом виде:</p><pre><code class="typescript">// file: ./collections/simple.ts
+import { Collection } from '@vueent/store';
+
+import type { Data, EncodedData, ModelType } from '@/models/simple';
+import { Model } from '@/models/simple';
+import * as api from '@/api/simple'; // некоторый набор функций, для вызова API мнимого сервера
+
+// при объявлении коллекции нужно указать все те типы, что перечислены ниже
+// если у нас нет EncodedData, то можно передать просто Data
+export class SimpleCollection extends Collection&lt;Model, Data, EncodedData, ModelType&gt; {
+  constructor() {
+    // передаем конструктор модели в родительский конструктор
+    super({ construct: Model });
+  }
+}</code></pre><p>Единственное, что может делать такая коллекция — создавать экземпляры моделей и выгружать их. Создадим экземпляры коллекции и протестируем минимально доступный набор функций.</p><p>Так как функции загрузки и сохранения не заданы, то мы можем произвести лишь два действия:</p><ol><li><p>Поиск в локальном кэше коллекции</p></li><li><p>Выгрузка экземпляра</p></li><li><p>Очистка коллекции</p></li></ol><details class="spoiler"><summary>Проверка базовых функций коллекции</summary><div class="spoiler__content"><pre><code class="typescript">import { SimpleCollection } from '@/collections/simple';
+
+// создадим экземпляр коллекции
+const coll = new SimpleCollection();
+
+// класс коллекции уже содержит метод create, так что функцию в модуле модели описывать не нужно
+const m1 = coll.create();
+
+// зададим идентификатор и имя
+m1.data.id = 1;
+m1.data.name = 'John';
+m1.data.age = '25';
+
+// создадим еще два экземпляра, сразу с данными
+const m2 = coll.create({ id: 2, name: 'Jane', age: '20' });
+const m3 = coll.create({ id: 3, name: 'Samantha', age: '19' });
+
+// произведем поиск в локальном кэше коллекции, поиск производится по первичному ключу
+const m1dup = coll.peekOne(1);
+
+// так как экземпляр был создан как новый, то есть флаг new установлен,
+// то такой экземпляр не учитывается при поиске, после успешного сохранения
+// экземпляр будет добавлен в группу для поиска автоматически
+console.log(m1dup); // null
+
+/// повторим поиск с другим параметром
+const m2dup = coll.peekOne(2);
+
+// так как производится поиск в локальном кэше, то будет возвращен
+// тот же экземпляр модели.
+// как мы помним, в конструкторе модели мы специально прописывали условие для сброса флага new,
+// если первичный ключ указан при создании модели
+console.log(m2dup === m2); // true
+
+// произведем локальный поиск, задав фильтр, этот же объект с фильтром
+// можно задать вторым параметром для метода `peekOne()`
+const models = coll.peek({ localFilter: data =&gt; Number(data.age) &gt;= 20 });
+
+// так как у Samantha возраст 19, а John игнорируется при поиске,
+// то в результирующем массиве должен быть только один объект
+console.log(models.length); // 1
+
+// проверим, что в списке именно те модели, что мы ожидаем
+console.log(models.includes(m1), models.includes(m2)); // false true
+
+// создадим экземпляр с тем же id, что и у Samantha
+try {
+  coll.create({ id: 3, name: 'Sam', age: '20' });
+} catch (e) {
+  console.log((e as Error).message); // duplicate primary key
+}
+
+// поправим возраст у Samantha
+m3.data.age = '20';
+
+// повторим поиск
+const models2 = coll.peek({ localFilter: data =&gt; Number(data.age) &gt;= 20 });
+
+// результатов, ожидаемо, два
+console.log(models2.length); // 2
+
+// проверим, что в списке именно те модели, что мы ожидаем
+console.log(models2.includes(m2), models2.includes(m3)); // true true
+
+// выгрузим запись с первичным ключом 3, передав uid экземпляра в метод
+// `unload()` коллекции. Свойство uid генерируется автоматически,
+// при создании каждого нового экземпляра модели
+// теперь экземпляры нужно уничтожать через unload, а не прямым вызовом
+// метода `destroy()` модели
+coll.unload(m3.uid);
+
+// проверяем работу предыдущего шага
+console.log(m3.instanceDestroyed); // true
+
+coll.destroy(); // очищает коллекцию, вызывая `unloadAll()`
+
+// очищены все экземпляры, даже те, что недоступны при поиске
+console.log(m1.instanceDestroyed, m2.instanceDestroyed); // true, true
+</code></pre><p></p></div></details><p>То есть, даже для моделей, которые не должны быть сохранены где-либо, коллекции все же дают некоторые возможности.</p><a class="anchor" id="collection-with-access-to-external-storage" name="collection-with-access-to-external-storage"></a><h4>Коллекция с доступом ко внешнему хранилищу</h4><p>Добавим поддержку CRUD-операций к нашей коллекции.</p><pre><code class="typescript">// file: ./collections/simple.ts
+import { Collection } from '@vueent/store';
+
+import type { Data, EncodedData, ModelType } from '@/models/simple';
+import { Model } from '@/models/simple';
+import * as api from '@/api/simple'; // некоторый набор функций, для вызова API мнимого сервера
+
+// при объявлении коллекции нужно указать все те типы, что перечислены ниже
+export class SimpleCollection extends Collection&lt;Model, Data, EncodedData, ModelType&gt; {
+  constructor() {
+    super({
+      construct: Model, // конструктор
+      // следующие функции опциональны, они отвечают, собственно, за
+      // создание, удаление, изменение, загрузку одной и нескольких записей из
+      // хранилища. В качестве первичного ключа будет использовано то свойство, которое
+      // указано первым параметром при вызове родительского конструктора (super)
+      // в классе модели.
+      createData: (data: EncodedData): Promise&lt;unknown&gt; =&gt; {
+        return api.create(data);
+      },
+      destroyData: (id: unknown): Promise&lt;void&gt; =&gt; {
+        return api.destroy({ id: id as number });
+      },
+      updateData: (id: unknown, data: EncodedData): Promise&lt;unknown&gt; =&gt; {
+        return api.update({ ...data, id: id as number });
+      },
+      loadOneData: (pk: unknown): Promise&lt;EncodedData&gt; =&gt; {
+        return api.findOne({ id: pk as number });
+      },
+      // параметр options представляет собой объект, содержащий опционально queryParams,
+      // набор опций внутри объекта queryParams задается разработчиком
+      loadManyData: async (options: {
+        queryParams?: {
+          ids?: number[];
+          name?: string;
+          age?: number;
+        };
+      }): Promise&lt;EncodedData[]&gt; =&gt; {
+        const response = await api.find(options.queryParams ? options.queryParams : {});
+
+        return response.items;
+      }
+    });
+  }
+
+  // в примерах для модели, функции normalize и denormalize были отдельными фунциями,
+  // здесь они делают ровно тоже самое, но включены в класс коллекции. По умолчанию
+  // эти методы возвращают плоскую копию объекта, так что для постых моделей их
+  // можно не описывать. Также сюда можно вставить валидацию входящих значений.
+  public normalize(encoded: EncodedData): Data {
+    return {
+      id: encoded.id,
+      name: encoded.name,
+      age: String(encoded.age)
+    };
+  }
+
+  public denormalize(data: Data): EncodedData {
+    return {
+      id: data.id,
+      name: data.name,
+      age: Number(data.age)
+    };
+  }
+}</code></pre><p>В описании коллекции выше мы использовали вызовы некоего модуля <code>api</code>, который еще не описан. Исправим эту оплошность и дадим некоторые пояснения. Так как здесь уделяется внимание еще и структуре кода, что модуль будет состоять из нескольких файлов.</p><details class="spoiler"><summary>Модуль api</summary><div class="spoiler__content"><pre><code class="typescript">// file: ./api/simple/requests.ts
+// здесь зададим интерфейсы для запросов, удобно синхронизировать
+// с конечными точками сервера
+import type { EncodedData } from '@/models/simple';
+
+export interface Find {
+  ids?: number[];
+  name?: string;
+  age?: number;
+}
+
+export interface FindOne {
+  id: number;
+}
+
+export type Create = EncodedData;
+
+export type Update = EncodedData;
+
+export interface Destroy {
+  id: number;
+}
+</code></pre><pre><code class="typescript">// file: ./api/simple/responses.ts
+// здесь аналогичным образом расположим интерфейсы ответов
+import type { EncodedData } from '@/models/simple';
+
+export interface Find {
+  items: EncodedData[];
+}
+
+export type FindOne = EncodedData;
+export type Create = EncodedData;
+export type Update = EncodedData;
+</code></pre><pre><code class="typescript">// file: ./api/simple/endpoints.ts
+// здесь расположены функции, выполняющие закпросы к конечным точки нашего "сервера"
+import * as storage from '@/storage'; // модуль, имитирующий сервер
+
+import type * as requests from './requests';
+import type * as responses from './responses';
+
+// сериализация-десериализация здесь делается через JSON просто для наглядности
+
+export async function find(req: requests.Find): Promise&lt;responses.Find&gt; {
+  const response = await storage.find(req);
+
+  return JSON.parse(response);
+}
+
+export async function findOne(req: requests.FindOne): Promise&lt;responses.FindOne&gt; {
+  const response = await storage.findOne(req.id);
+
+  return JSON.parse(response);
+}
+
+export async function create(req: requests.Create): Promise&lt;responses.Create&gt; {
+  const response = await storage.create(JSON.stringify(req));
+
+  return JSON.parse(response);
+}
+
+export async function update(req: requests.Update): Promise&lt;responses.Update&gt; {
+  const response = await storage.update(req.id, JSON.stringify(req));
+
+  return JSON.parse(response);
+}
+
+export async function destroy(req: requests.Destroy): Promise&lt;void&gt; {
+  await storage.destroy(req.id);
+}
+</code></pre><pre><code class="typescript">// file: ./api/simple/index.ts
+export * from './endpoints';
+</code></pre><p></p></div></details><p>Осталось имплементировать эмулятор сервера — модуль <code>storage</code>, функции будут асинхронными для имитации взаимодействия по сети.</p><details class="spoiler"><summary>Модуль storage</summary><div class="spoiler__content"><pre><code class="typescript">// file: ./storage.ts
+import type { EncodedData } from '@/models/simple';
+
+let idCounter = 0; // счетчик идентификаторов
+const storage = new Map&lt;number, string&gt;(); // хранилище
+// простая функция-обертка для наглядности
+const genPk = () =&gt; ++idCounter;
+
+// небольшая обертка, сразу десериализующая значение из хранилища
+function get(key: number): any | undefined {
+  const result = storage.get(key);
+
+  return result ? JSON.parse(result) : undefined;
+}
+
+// еще одна обертка, в цикле возвращающая десериализованные значения хранилища
+function forEach(callback: (value: any) =&gt; void) {
+  for (const [, item] of storage) {
+    callback(JSON.parse(item));
+  }
+}
+
+// примитивная реализация поиска по параметрам
+export async function find(queryParams?: { ids?: number[]; name?: string; age?: number }): Promise&lt;string&gt; {
+  const res: { items: EncodedData[] } = { items: [] };
+
+  if (queryParams?.ids?.length) {
+    for (const id of queryParams.ids) {
+      const item = get(id);
+
+      if (item) res.items.push(item);
+    }
+  } else if (queryParams) {
+    const filters: Array&lt;(v: EncodedData) =&gt; boolean&gt; = [];
+
+    if (queryParams.name) {
+      filters.push((v: EncodedData) =&gt; v.name === queryParams.name);
+    } else if (queryParams.age) {
+      filters.push((v: EncodedData) =&gt; v.age === queryParams.age);
+    }
+
+    forEach(item =&gt; {
+      if (filters.every(filter =&gt; filter(item))) res.items.push(item);
+    });
+  } else {
+    forEach(item =&gt; res.items.push(item));
+  }
+
+  res.items.sort((a, b) =&gt; a.id - b.id);
+
+  return JSON.stringify(res);
+}
+
+// возвращает значение из хранилища по идентификатору
+export async function findOne(id: number): Promise&lt;string&gt; {
+  const data = storage.get(id);
+
+  if (!data) throw new Error('resource not found');
+
+  return data;
+}
+
+// сохраняет новое значение в хранилище
+export async function create(data: string): Promise&lt;any&gt; {
+  const item = JSON.parse(data);
+
+  item.id = genPk();
+
+  const encoded = JSON.stringify(item);
+
+  storage.set(item.id, encoded);
+
+  return encoded;
+}
+
+// изменяет значение в хранилище
+export async function update(id: number, data: string): Promise&lt;string&gt; {
+  if (!storage.has(id)) throw new Error('resource not found');
+
+  const item = JSON.parse(data);
+
+  item.id = id;
+
+  const encoded = JSON.stringify(item);
+
+  storage.set(id, encoded);
+
+  return encoded;
+}
+
+// удаляет значение из хранилища
+export async function destroy(key: number): Promise&lt;void&gt; {
+  if (storage.has(key)) storage.delete(key);
+}
+
+// очистка хранилища, понадобится между тестами
+export function clear() {
+  storage.clear();
+  idCounter = 0;
+}
+</code></pre><p></p></div></details><p>Теперь, когда все необходимые модули созданы, можно протестировать работу коллекции в связке с хранилищем. Для этого создадим несколько объектов в хранилище, загрузим, изменим и удалим их.</p><details class="spoiler"><summary>Проверка CRUD-операций коллекции</summary><div class="spoiler__content"><pre><code class="typescript">// загрузим также модуль хранилища, чтобы иметь возможность его очистить в конце теста
+import * as storage from '@/storage';
+import { SimpleCollection } from '@/collections/simple';
+
+const coll = new SimpleCollection();
+
+// создаем пустой экземпляр
+const john = coll.create();
+
+john.data.name = 'John';
+john.data.age = '25';
+
+await john.save();
+
+const jane = coll.create();
+
+jane.data.name = 'Jane';
+jane.data.age = '20';
+
+await jane.save();
+
+const sam = coll.create();
+
+sam.data.name = 'Samantha';
+sam.data.age = '19';
+
+const models = coll.peek();
+
+// так как экземпляр sam не сохранен, то его в списке не будет
+console.log(models.length); // 2
+// как и ожидается, экземпляры john и jane в массиве
+console.log(models.includes(john), models.includes(jane)); // true true
+
+await sam.save();
+
+const models2 = coll.peek();
+
+// теперь все три записи можно достать из кэша
+console.log(models2.length); // 3
+// проверяем, что наши ожидания оправдались
+console.log(models2.includes(john), models2.includes(jane), models2.includes(sam)); // true true true
+
+const johnPk = john.pk as number;
+
+// выгружаем все модели из локального кэша
+coll.unloadAll();
+
+const models3 = coll.peek();
+
+// как и ожидалось, ничего в кэше нет
+console.log(models3.length); // 0
+
+// все экземпляры освобождены
+console.log(john.instanceDestroyed); // true
+console.log(jane.instanceDestroyed); // true
+console.log(sam.instanceDestroyed); // true
+
+// загружаем данные из хранилища, можно добавить также локальный фильтр, и параметры запроса,
+// но их пример будет ниже
+const john2 = await coll.findOne(johnPk, { localFilter: data =&gt; Number(data.age) &gt; 20 });
+
+if (!john2) {
+  console.error('loading failed');
+  coll.destroy();
+  storage.clear();
+  return;
+}
+
+// как и ожидалось, экземпляры не совпадают, но модель загрузилась
+console.log(john === john2, JSON.stringify(john2.data)); // false {"id":1,"name":"John","age":"25"}
+
+const models4 = await coll.find({
+  // зададим параметры запроса
+  queryParams: {
+    ids: [1, 2, 3, 4]
+  },
+  reload: false, // возвратит данные из локального кэша, если хотя бы один эземпляр удовлетворит локальному фильтру
+  localFilter: data =&gt; Number(data.age) &gt; 19
+});
+
+// так как john уже загружен и указан флаг `reload: false`, то экземпляр останется нетронутным
+console.log(models4.length, models4.includes(john2), models4.includes(jane), models4.includes(sam)); // 1 true false false
+
+// загружаем все заново, при помощи флага `force` автоматически очищаем замененные экземпляры
+const models5 = await coll.find({ force: true });
+
+// экземпляр, загруженный на предыдущем этапе, очищен
+console.log(models4[0].instanceDestroyed); // true
+
+// загружено 3 новых экземпляра
+console.log(models5.length); // 3
+
+// выделяем значения из массива, проверяем, что первичный ключ сохранился
+const john5 = models5.find(m =&gt; m.pk === johnPk);
+const jane5 = models5.find(m =&gt; m.data.name === 'Jane');
+const sam5 = models5.find(m =&gt; m.data.name === 'Samantha');
+
+if (!john5 || !jane5 || !sam5) {
+  console.error('some model was not loaded');
+  coll.destroy();
+  storage.clear();
+  return;
+}
+
+// повысим возраст Samantha
+sam5.data.age = '20';
+
+// и сохраним данные в хранилище
+await sam5.save();
+
+// удаляем Jane
+jane5.delete();
+await jane5.save();
+
+// удаление произошло не только в хранилище, но и сам экземпляр был освобожден автоматически
+console.log(jane5.destroyed, jane5.instanceDestroyed); // true true
+
+// выгружаем все экземпляры моделей
+coll.unloadAll();
+
+// загружаем модели по новой
+const models6 = await coll.find({ localFilter: data =&gt; Number(data.age) &gt; 19 });
+
+// так как Jane уже удалена, то в хранилище объекта нет
+console.log(models6.length); // 2
+// удостоверяемся, что John и Samantha найдены
+console.log(JSON.stringify(models6.find(m =&gt; m.data.name === 'John')!.data)); // {"id":1,"name":"John","age":"25"}
+console.log(JSON.stringify(models6.find(m =&gt; m.data.name === 'Samantha')!.data)); // {"id":3,"name":"Samantha","age":"20"}
+
+// очищаем коллекцию
+coll.destroy();
+// очищаем хранилище
+storage.clear();
+</code></pre><p></p></div></details><p>Пожалуй, это все, что можно сказать о коллекциях на сегодняшний день. Никакой магии, все решает сам разработчик.</p><a class="anchor" id="class-and-service-of-storage" name="class-and-service-of-storage"></a><h4>Класс и сервис хранилища</h4><p>Осталось лишь два класса в пакете, оба представляют собой централизованное хранилище для коллекций. Один из них (<code>StoreService</code>) реализует сервис для <code>@vueent/core</code>, а второй (<code>Store</code>) — просто класс. Оба имеют один лишь публичный метод <code>get</code>, который возвращает коллекцию по имени класса. Рассмотрим на небольшом примере, использующем созданную нами коллекцию:</p><pre><code class="typescript">import { Store } from '@vueent/store';
+
+import * as storage from '@/storage';
+import { SimpleCollection } from '@/collections/simple';
+
+// создаем экземпляр класса хранилища
+const store = new Store([new SimpleCollection()]);
+
+// получаем доступ к коллекции и создаем экземпляр модели
+const jane = store.get(SimpleCollection).create();
+
+jane.data.name = 'Jane';
+jane.data.age = '20';
+
+await jane.save();
+
+console.log(JSON.stringify(jane.data)); // {"id":1,"name":"Jane","age":"20"}
+
+store.get(SimpleCollection).destroy();
+storage.clear();</code></pre><p>Если попытаться получить из хранилища ту коллекцию, которая в нем не зарегистрирована, то TypeScript выдаст ошибку:</p><figure class="full-width"><img alt="Ошибка при попытке получить доступ к недоступной коллекции" data-src="https://habrastorage.org/getpro/habr/upload_files/d7b/9c3/e4b/d7b9c3e4b52b981f25ee56b0c2c01c4e.png" height="391" src="https://habrastorage.org/r/w1560/getpro/habr/upload_files/d7b/9c3/e4b/d7b9c3e4b52b981f25ee56b0c2c01c4e.png" title="Ошибка при попытке получить доступ к недоступной коллекции" width="841"/><figcaption>Ошибка при попытке получить доступ к недоступной коллекции</figcaption></figure><p>Если же коллекция из хранилища получена корректно, то можем создать экземпляр модели:</p><figure class=""><img alt="Автодополнение с учетом типа экземпляра модели" data-src="https://habrastorage.org/getpro/habr/upload_files/067/323/a34/067323a34ff0324eac2a7d3f0ede4eb9.png" height="154" src="https://habrastorage.org/r/w1560/getpro/habr/upload_files/067/323/a34/067323a34ff0324eac2a7d3f0ede4eb9.png" title="Автодополнение с учетом типа экземпляра модели" width="518"/><figcaption>Автодополнение с учетом типа экземпляра модели</figcaption></figure><p>Если класс автоматически осуществляет проверку типов, то добиться такого же эффекта для сервиса мне пока не удалось, приходится вручную перечислять коллекции:</p><pre><code class="typescript">import { StoreService as VueentStoreService } from '@vueent/store';
+
+import { registerService } from '@/vueent';
+import { TrivialCollection } from '@/collections/trivial';
+import { SimpleCollection } from '@/collections/simple';
+
+// при создании сервиса хранилища явно указываем допустимые коллекции
+export default class StoreService extends VueentStoreService&lt;SimpleCollection | TrivialCollection&gt; {
+  constructor() {
+    super([new SimpleCollection(), new TrivialCollection()]);
+  }
+}
+
+registerService(StoreService);</code></pre><p>Использование сервиса аналогично использованию класса, его также можно подключить в другой сервис или контроллер (<code>injectService</code>), либо подключить напрямую в компонент, при помощи функции <code>useService</code>:</p><pre><code class="typescript">import { useService } from '@/vueent';
+import * as storage from '@/storage';
+import StoreService from '@/services/store';
+import { SimpleCollection } from '@/collections/simple';
+
+// подключаем сервис через функцию ядра
+const store = useService(StoreService);
+// дальнейшая работа аналогична работе с классом `Store`
+const jane = store.get(SimpleCollection).create();
+
+jane.data.name = 'Jane';
+jane.data.age = '20';
+
+await jane.save();
+
+console.log(JSON.stringify(jane.data)); // {"id":1,"name":"Jane","age":"20"}
+
+store.get(SimpleCollection).destroy();
+storage.clear();</code></pre><p>Как видите, ничего сложного. Все примеры работы с простой моделью можно найти в <a href="https://github.com/Devoter/vueent-article" rel="noopener noreferrer nofollow">демонстрационном проекте</a>.</p><a class="anchor" id="known-limitations" name="known-limitations"></a><h3>Известные ограничения</h3><ul><li><p>Несмотря на то, что проект разрабатывался максимально отстраненным от самого Vue, пока еще требуется наличие полноценного Vue в зависимостях, так как пакет <a href="https://github.com/vuejs/core/tree/main/packages/reactivity#readme" rel="noopener noreferrer nofollow">@vue/reactivity</a> не предоставляет собственной реализации функции watch, которая используется библиотекой для отслеживания некоторых изменений. Без этой зависимости можно было бы свободно интегрировать библиотеку в React, хотя, кажется, React-разработчики в этот момент поперхнулись. Существуют сторонние реализации независимого <code>watch</code>, но задачу интеграции с каким-либо из них еще только предстоит решить.</p></li><li><p>Так как библиотека затачивалась, прежде всего, под работу с большими формами в каких-нибудь админках, CRM- или ERP-системах, то поддержка серверного рендеринга не рассматривалась как приоритетное направление и не тестировалось. Сложно сказать, какой объем изменений необходимо внести для того, чтобы добавить поддержку SSR.</p></li><li><p>Многословность — цена за гибкость и отсутствие магии. Фактически, разработчик может использовать библиотеку на том уровне, на котором пожелает. Можно использовать только декораторы для каких-то утилитарных классов при разработке на Vue, или же отдельно модели без всего остального, в конце-концов, сочетание <code>@vueent/core</code> и <a href="https://pinia.vuejs.org/" rel="noopener noreferrer nofollow">Pinia</a> также вполне допустимо.</p></li><li><p>На момент разработки основной части кодовой базы, такие решения как <a href="https://vuelidate.js.org/" rel="noopener noreferrer nofollow">Vuelidate</a> и <a href="https://vee-validate.logaretm.com" rel="noopener noreferrer nofollow">VeeValidate</a> не имели поддержки ни Vue 3, ни Composition API. Тем не менее, стоит отметить что VueEnt охватывает несколько больший спектр задач, чем приведенные выше примеры, да и для самих цепочек правил можно использовать любую стороннюю совместимую библиотеку — в этом плане VueEnt находится в несколько иной плоскости.</p></li><li><p>Пожалуй, решение обладает крутоватой кривой порога вхождения, но я очень надеюсь, что эта публикация поможет сгладить угол.</p></li></ul><a class="anchor" id="conclusion" name="conclusion"></a><h3>Заключение</h3><p>Если вы дочитали до этой строки, то должен выразить мое огромное почтение и благодарность за потраченное время. Искренне надеюсь, что это — не последняя публикация про данную библиотеку, так как еще есть что рассказать. Потребность в подобном решении возникла в нашей тогда еще команде в связи с ростом проекта: управлять кодовой базой стало крайне тяжело, а хотелось иметь возможность масштабировать проект, отображать индикатор загрузки не на всю страницу, а только для реально изменяемой ее части, разбивать интерфейс на компоненты без необходимости интегрировать элементы бизнес-логики в них, по максимуму использовать декларативный стиль, в конце-концов, иметь единую структуру проекта. Кто-то скажет, что можно было добиться всех поставленных целей при помощи уже имевшихся библиотек и подходов, лишь приложив некоторую долю самодисциплины. Я отвечу: да, можно, более того, мы и пытались сделать именно так, но постепенно объем доработок и правил стал все больше походить на концепт, который захотелось выделить и переиспользовать, который в итоге и воплотился во VueEnt. Мне нравится Vue, я, не без доли иронии, называю его <em>React здорового человека</em>, но и Vue, и React не дают того масштабируемого каркаса, что предлагают Angular и Ember. И, пускай это звучит нелепо, мне бы хотелось, чтобы библиотека VueEnt стала мостиком между хипстерами, выбравшими Vue, кровавым энтерпрайзом с Angular во главе. Спасибо за внимание.</p><p>Хотелось бы выразить особую благодарность Даниилу как соавтору библиотеки на раннем этапе разработки, а также Илье, без правок которого эта публикация и проект не были бы возможны в том виде, в котором они есть сейчас.</p><a class="anchor" id="links" name="links"></a><h3>Ссылки</h3><ul><li><p><a href="https://vueent.github.io/vueent" rel="noopener noreferrer nofollow">VueEnt</a></p></li><li><p><a href="https://vueent.github.io/v9s" rel="noopener noreferrer nofollow">v9s</a></p></li><li><p><a href="https://github.com/vueent/v9sx" rel="noopener noreferrer nofollow">v9sx</a></p></li><li><p><a href="https://github.com/vueent/vueent-quick-start" rel="noopener noreferrer nofollow">Быстрый старт</a></p></li><li><p><a href="https://github.com/Devoter/vueent-article" rel="noopener noreferrer nofollow">Примеры создания и работы с простой моделью</a></p></li><li><p><a href="https://github.com/vueent/vueent-example" rel="noopener noreferrer nofollow">Пример приложения со сложной моделью, использованием всех пакетов библиотеки и разбиении интерфейса на компоненты, работающие с одним экземпляром модели</a></p></li></ul><p></p></div></div></div> <!-- --> <!-- --></div> <!-- --> <div class="tm-article-poll"><div class="tm-notice tm-article-poll__notice tm-notice_positive"><!-- --> <div class="tm-notice__inner"><!-- --> <div class="tm-notice__content"><span>Только зарегистрированные пользователи могут участвовать в опросе. <a href="/kek/v1/auth/habrahabr/?back=/ru/post/717680/&amp;hl=ru" rel="nofollow">Войдите</a>, пожалуйста.</span></div></div></div> <div class="tm-article-poll__header">Интересен ли вам данный проект?</div> <div class="tm-article-poll__answers"><div class="tm-article-poll__answer"><div class="tm-article-poll__answer-data"><span class="tm-article-poll__answer-percent tm-article-poll__answer-percent_winning">
+            83.33%
+          </span> <span class="tm-article-poll__answer-label">Да</span> <span class="tm-article-poll__answer-votes">
+            5
+          </span></div> <div class="tm-article-poll__answer-bar"><div class="tm-article-poll__answer-progress tm-article-poll__answer-progress_winning" style="width:83.33%;"></div></div></div><div class="tm-article-poll__answer"><div class="tm-article-poll__answer-data"><span class="tm-article-poll__answer-percent">
+            16.67%
+          </span> <span class="tm-article-poll__answer-label">Закопайте уже стюардессу</span> <span class="tm-article-poll__answer-votes">
+            1
+          </span></div> <div class="tm-article-poll__answer-bar"><div class="tm-article-poll__answer-progress" style="width:16.67%;"></div></div></div></div> <div class="tm-article-poll__stats">
+       Проголосовали 6 пользователей. 
+
+       Воздержались 6 пользователей. 
+    </div></div></div> <!-- --> <div class="tm-article-presenter__meta"><div class="tm-separated-list tm-article-presenter__meta-list"><span class="tm-separated-list__title">Теги:</span> <ul class="tm-separated-list__list"><li class="tm-separated-list__item"><a class="tm-tags-list__link" href="/ru/search/?target_type=posts&amp;order=relevance&amp;q=%5Bvue%5D">vue</a></li><li class="tm-separated-list__item"><a class="tm-tags-list__link" href="/ru/search/?target_type=posts&amp;order=relevance&amp;q=%5Bvue.js%5D">vue.js</a></li><li class="tm-separated-list__item"><a class="tm-tags-list__link" href="/ru/search/?target_type=posts&amp;order=relevance&amp;q=%5Bvuejs%5D">vuejs</a></li><li class="tm-separated-list__item"><a class="tm-tags-list__link" href="/ru/search/?target_type=posts&amp;order=relevance&amp;q=%5Btypescript%5D">typescript</a></li><li class="tm-separated-list__item"><a class="tm-tags-list__link" href="/ru/search/?target_type=posts&amp;order=relevance&amp;q=%5Bjavascript%5D">javascript</a></li><li class="tm-separated-list__item"><a class="tm-tags-list__link" href="/ru/search/?target_type=posts&amp;order=relevance&amp;q=%5Bvueent%5D">vueent</a></li></ul></div> <div class="tm-separated-list tm-article-presenter__meta-list"><span class="tm-separated-list__title">Хабы:</span> <ul class="tm-separated-list__list"><li class="tm-separated-list__item"><a class="tm-hubs-list__link" href="/ru/hub/javascript/">JavaScript</a></li><li class="tm-separated-list__item"><a class="tm-hubs-list__link" href="/ru/hub/programming/">Программирование</a></li><li class="tm-separated-list__item"><a class="tm-hubs-list__link" href="/ru/hub/vuejs/">VueJS</a></li><li class="tm-separated-list__item"><a class="tm-hubs-list__link" href="/ru/hub/typescript/">TypeScript</a></li></ul></div></div></article></div> <!-- --></div> <div class="tm-article-sticky-panel"><div class="tm-data-icons tm-article-sticky-panel__icons"><div class="tm-article-rating tm-data-icons__item"><div class="tm-votes-meter tm-article-rating__votes-switcher"><svg class="tm-svg-img tm-votes-meter__icon tm-votes-meter__icon tm-votes-meter__icon_appearance-article" height="24" width="24"><title>Всего голосов 8: ↑8 и ↓0</title> <use xlink:href="/img/megazord-v28.78dd0d98..svg#counter-rating"></use></svg> <span class="tm-votes-meter__value tm-votes-meter__value tm-votes-meter__value_positive tm-votes-meter__value_appearance-article tm-votes-meter__value_rating" title="Всего голосов 8: ↑8 и ↓0">+8</span></div> <div class="v-portal" style="display:none;"></div></div> <!-- --> <!-- --> <button class="bookmarks-button tm-data-icons__item" title="Добавить в закладки" type="button"><span class="tm-svg-icon__wrapper bookmarks-button__icon"><svg class="tm-svg-img tm-svg-icon" height="24" width="24"><title>Добавить в закладки</title> <use xlink:href="/img/megazord-v28.78dd0d98..svg#counter-favorite"></use></svg></span> <span class="bookmarks-button__counter" title="Количество пользователей, добавивших публикацию в закладки">
+    20
+  </span></button> <div class="tm-article-comments-counter-link tm-data-icons__item" title="Читать комментарии"><a class="tm-article-comments-counter-link__link" href="/ru/post/717680/comments/"><svg class="tm-svg-img tm-article-comments-counter-link__icon" height="24" width="24"><title>Комментарии</title> <use xlink:href="/img/megazord-v28.78dd0d98..svg#counter-comments"></use></svg> <span class="tm-article-comments-counter-link__value">
+      6
+    </span></a> <!-- --></div> <div class="tm-sharing tm-data-icons__item" title="Поделиться"><button class="tm-sharing__button" type="button"><svg class="tm-sharing__icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M13.8 13.8V18l7.2-6.6L13.8 5v3.9C5 8.9 3 18.6 3 18.6c2.5-4.4 6-4.8 10.8-4.8z" fill="currentColor"></path></svg></button> <div class="v-portal" style="display:none;"></div></div> <div class="v-portal" style="display:none;"></div></div> </div></div> <div class="v-portal" style="display:none;"></div> <div class="tm-article-presenter__footer"><div class="tm-article-blocks"><!-- --> <section class="tm-block tm-block tm-block_spacing-bottom"><!-- --> <div class="tm-block__body tm-block__body tm-block__body_variant-balanced"><div class="tm-article-author"> <div class="tm-user-card tm-article-author__user-card tm-user-card tm-user-card_variant-article"><div class="tm-user-card__info-container"><div class="tm-user-card__header"><div class="tm-user-card__header-data"><a class="tm-user-card__userpic tm-user-card__userpic_size-40" href="/ru/users/Devoter/"><div class="tm-entity-image"><svg class="tm-svg-img tm-image-placeholder tm-image-placeholder_pink"><!-- --> <use xlink:href="/img/megazord-v28.78dd0d98..svg#placeholder-user"></use></svg></div></a> <div class="tm-user-card__meta"><div class="tm-karma tm-user-card__karma tm-karma" title=" 54 голоса "><div class="tm-karma__votes tm-karma__votes_positive">
+    26
+  </div> <div class="tm-karma__text">
+    Карма
+  </div> <div class="v-portal" style="display:none;"></div></div> <div class="tm-rating tm-user-card__rating" title="Рейтинг пользователя"><div class="tm-rating__header"> <div class="tm-rating__counter tm-rating__counter">8</div></div> <div class="tm-rating__text tm-rating__text">
+    Рейтинг
+  </div></div></div></div></div> <div class="tm-user-card__info tm-user-card__info tm-user-card__info_variant-article"><div class="tm-user-card__title tm-user-card__title tm-user-card__title_variant-article"><!-- --> <a class="tm-user-card__nickname tm-user-card__nickname tm-user-card__nickname_variant-article" href="/ru/users/Devoter/">
+          @Devoter
+        </a> <!-- --></div> <p class="tm-user-card__short-info tm-user-card__short-info tm-user-card__short-info_variant-article">Пользователь</p></div></div> <div class="tm-user-card__buttons tm-user-card__buttons tm-user-card__buttons_variant-article"><!-- --> <!-- --> <!-- --> <!-- --> <!-- --></div></div> <!-- --></div> <div class="v-portal" style="display:none;"></div></div> <!-- --></section> <div class="tm-adfox-banner__container tm-page-article__banner"><!-- --> <div class="tm-adfox-banner tm-adfox-banner tm-adfox-banner_variant-leaderboard" id="adfox_164725660339535756"></div></div> <div class="tm-article-blocks__comments"><div class="tm-article-page-comments"><div class="tm-article-comments-counter-link tm-article-comments-counter-button"><a class="tm-article-comments-counter-link__link tm-article-comments-counter-link__link_button-style" href="/ru/post/717680/comments/"><svg class="tm-svg-img tm-article-comments-counter-link__icon tm-article-comments-counter-link__icon_contrasted" height="24" width="24"><title>Комментарии</title> <use xlink:href="/img/megazord-v28.78dd0d98..svg#counter-comments"></use></svg> <span class="tm-article-comments-counter-link__value tm-article-comments-counter-link__value_contrasted">
+       Комментарии 6 
+    </span></a> <!-- --></div></div></div> <section class="tm-block tm-block tm-block_spacing-bottom"><header class="tm-block__header tm-block__header tm-block__header_variant-borderless"><div class="tm-block__header-container"><h2 class="tm-block__title tm-block__title tm-block__title_variant-large">Публикации</h2> </div> <!-- --></header> <div class="tm-block__body tm-block__body tm-block__body_variant-condensed-slim"><div class="tm-tabs tm-tabs"><div><span class="tm-tabs__tab-item"><button class="tm-tabs__tab-link tm-tabs__tab-link tm-tabs__tab-link_active tm-tabs__tab-link_slim">
+        Лучшие за сутки
+      </button></span><span class="tm-tabs__tab-item"><button class="tm-tabs__tab-link tm-tabs__tab-link tm-tabs__tab-link_slim">
+        Похожие
+      </button></span></div> <!-- --></div> <div class="similar-and-daily__tab-view"><div><!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <div class="tm-placeholder-article-cards"><div class="tm-placeholder-article-card"><div class="tm-placeholder__user"><div class="tm-placeholder__user-pic loads"></div> <div class="tm-placeholder__user-date loads"></div></div> <div class="tm-placeholder-article-card__title"><div class="tm-placeholder__line tm-placeholder-article-card__title-line loads"></div> <div class="tm-placeholder__line tm-placeholder-article-card__title-line loads"></div></div> <div class="tm-placeholder-article-card__icons tm-placeholder__counters"><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div></div></div><div class="tm-placeholder-article-card"><div class="tm-placeholder__user"><div class="tm-placeholder__user-pic loads"></div> <div class="tm-placeholder__user-date loads"></div></div> <div class="tm-placeholder-article-card__title"><div class="tm-placeholder__line tm-placeholder-article-card__title-line loads"></div> <div class="tm-placeholder__line tm-placeholder-article-card__title-line loads"></div></div> <div class="tm-placeholder-article-card__icons tm-placeholder__counters"><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div></div></div><div class="tm-placeholder-article-card"><div class="tm-placeholder__user"><div class="tm-placeholder__user-pic loads"></div> <div class="tm-placeholder__user-date loads"></div></div> <div class="tm-placeholder-article-card__title"><div class="tm-placeholder__line tm-placeholder-article-card__title-line loads"></div> <div class="tm-placeholder__line tm-placeholder-article-card__title-line loads"></div></div> <div class="tm-placeholder-article-card__icons tm-placeholder__counters"><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div></div></div><div class="tm-placeholder-article-card"><div class="tm-placeholder__user"><div class="tm-placeholder__user-pic loads"></div> <div class="tm-placeholder__user-date loads"></div></div> <div class="tm-placeholder-article-card__title"><div class="tm-placeholder__line tm-placeholder-article-card__title-line loads"></div> <div class="tm-placeholder__line tm-placeholder-article-card__title-line loads"></div></div> <div class="tm-placeholder-article-card__icons tm-placeholder__counters"><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div></div></div><div class="tm-placeholder-article-card"><div class="tm-placeholder__user"><div class="tm-placeholder__user-pic loads"></div> <div class="tm-placeholder__user-date loads"></div></div> <div class="tm-placeholder-article-card__title"><div class="tm-placeholder__line tm-placeholder-article-card__title-line loads"></div> <div class="tm-placeholder__line tm-placeholder-article-card__title-line loads"></div></div> <div class="tm-placeholder-article-card__icons tm-placeholder__counters"><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div></div></div></div> <!-- --> <!-- --> <!-- --> <!-- --></div> <!-- --></div></div> <!-- --></section> <div><div><!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <div class="tm-placeholder-promo"><div class="tm-placeholder-promo__header"><div class="tm-placeholder__line tm-placeholder__line_promo-title"></div></div> <div class="tm-placeholder-promo__body"><div class="tm-placeholder-promo__posts"><div class="tm-placeholder-promo__post"><div class="tm-placeholder-promo__image"></div> <div class="tm-placeholder__line tm-placeholder__line_post-title"></div></div> <div class="tm-placeholder-promo__post"><div class="tm-placeholder-promo__image"></div> <div class="tm-placeholder__line tm-placeholder__line_post-title"></div></div> <div class="tm-placeholder-promo__post"><div class="tm-placeholder-promo__image"></div> <div class="tm-placeholder__line tm-placeholder__line_post-title"></div></div></div> <div class="tm-placeholder-promo__dots"><div class="tm-placeholder-promo__dot"></div> <div class="tm-placeholder-promo__dot"></div> <div class="tm-placeholder-promo__dot"></div></div></div></div> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --></div></div> <div><!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <div class="tm-placeholder-inset tm-placeholder-courses"><div class="tm-placeholder-inset__header"><div class="tm-placeholder__line tm-placeholder__line_inset-header loads"></div></div> <div class="tm-placeholder-inset__body"><ul class="tm-placeholder-list"><li class="tm-placeholder-list__item tm-placeholder-list__item_inset"><div class="tm-placeholder-list__title-container"><div class="tm-placeholder__company-avatar"></div> <div class="tm-placeholder__line tm-placeholder__line_item-title loads"></div></div> <div class="tm-project-block-items__properties"><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span></div></li><li class="tm-placeholder-list__item tm-placeholder-list__item_inset"><div class="tm-placeholder-list__title-container"><div class="tm-placeholder__company-avatar"></div> <div class="tm-placeholder__line tm-placeholder__line_item-title loads"></div></div> <div class="tm-project-block-items__properties"><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span></div></li><li class="tm-placeholder-list__item tm-placeholder-list__item_inset"><div class="tm-placeholder-list__title-container"><div class="tm-placeholder__company-avatar"></div> <div class="tm-placeholder__line tm-placeholder__line_item-title loads"></div></div> <div class="tm-project-block-items__properties"><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span></div></li><li class="tm-placeholder-list__item tm-placeholder-list__item_inset"><div class="tm-placeholder-list__title-container"><div class="tm-placeholder__company-avatar"></div> <div class="tm-placeholder__line tm-placeholder__line_item-title loads"></div></div> <div class="tm-project-block-items__properties"><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span></div></li><li class="tm-placeholder-list__item tm-placeholder-list__item_inset"><div class="tm-placeholder-list__title-container"><div class="tm-placeholder__company-avatar"></div> <div class="tm-placeholder__line tm-placeholder__line_item-title loads"></div></div> <div class="tm-project-block-items__properties"><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span></div></li></ul></div> <div class="tm-placeholder-inset__footer"><div class="tm-placeholder__line tm-placeholder__line_inset-footer loads"></div></div></div> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --></div> <!-- --> <section class="tm-block tm-stories-block tm-block tm-block_spacing-top" data-async-called="true" data-navigatable="" tabindex="0"><header class="tm-block__header tm-block__header"><div class="tm-block__header-container"><h2 class="tm-block__title tm-block__title">Истории</h2> </div> <!-- --></header> <div class="tm-block__body tm-block__body tm-block__body_variant-equal"><div class="tm-stories-empty"><div class="tm-stories-card-empty"><div class="tm-stories-card-empty__image"></div> <div class="tm-stories-card-empty__title"><div class="tm-stories-card-empty__title-block"></div> <div class="tm-stories-card-empty__title-block"></div> <div class="tm-stories-card-empty__title-block"></div></div></div><div class="tm-stories-card-empty"><div class="tm-stories-card-empty__image"></div> <div class="tm-stories-card-empty__title"><div class="tm-stories-card-empty__title-block"></div> <div class="tm-stories-card-empty__title-block"></div> <div class="tm-stories-card-empty__title-block"></div></div></div><div class="tm-stories-card-empty"><div class="tm-stories-card-empty__image"></div> <div class="tm-stories-card-empty__title"><div class="tm-stories-card-empty__title-block"></div> <div class="tm-stories-card-empty__title-block"></div> <div class="tm-stories-card-empty__title-block"></div></div></div><div class="tm-stories-card-empty"><div class="tm-stories-card-empty__image"></div> <div class="tm-stories-card-empty__title"><div class="tm-stories-card-empty__title-block"></div> <div class="tm-stories-card-empty__title-block"></div> <div class="tm-stories-card-empty__title-block"></div></div></div><div class="tm-stories-card-empty"><div class="tm-stories-card-empty__image"></div> <div class="tm-stories-card-empty__title"><div class="tm-stories-card-empty__title-block"></div> <div class="tm-stories-card-empty__title-block"></div> <div class="tm-stories-card-empty__title-block"></div></div></div><div class="tm-stories-card-empty"><div class="tm-stories-card-empty__image"></div> <div class="tm-stories-card-empty__title"><div class="tm-stories-card-empty__title-block"></div> <div class="tm-stories-card-empty__title-block"></div> <div class="tm-stories-card-empty__title-block"></div></div></div></div> <!-- --></div> <!-- --></section> <section class="tm-block tm-block tm-block_spacing-top" data-async-called="true"><header class="tm-block__header tm-block__header"><div class="tm-block__header-container"><h2 class="tm-block__title tm-block__title">Работа</h2> </div> <!-- --></header> <div class="tm-block__body tm-block__body"><div class="tm-vacancies-block__item"><a class="tm-vacancies-block__vacancy-title" href="https://career.habr.com/vacancies/programmist_javascript" target="_blank">
+        JavaScript разработчик
+      </a> <div class="tm-vacancies-block__vacancies-count">
+        282
+    вакансии
+      </div></div><div class="tm-vacancies-block__item"><a class="tm-vacancies-block__vacancy-title" href="https://career.habr.com/vacancies/react_razrabotchik" target="_blank">
+        React разработчик
+      </a> <div class="tm-vacancies-block__vacancies-count">
+        115
+    вакансий
+      </div></div></div> <footer class="tm-block__footer"><a class="tm-block-extralink" href="https://career.habr.com/catalog">
+      Все вакансии
+    </a></footer></section></div></div></div></div></div> <div class="tm-page__sidebar"><!-- --></div></div></div></div></main> <!-- --></div> <!-- --> <div class="tm-footer"><div class="tm-page-width"><div class="tm-footer__container"><div class="tm-footer__title"><a class="tm-svg-icon__wrapper tm-footer__title-link router-link-active" href="/ru/"><svg class="tm-svg-img tm-svg-icon" height="16" width="16"><title>Хабр</title> <use xlink:href="/img/habr-logo-ru.svg#logo"></use></svg></a></div> <div class="tm-footer__social"><a class="tm-svg-icon__wrapper tm-social-icons__icon" href="https://www.facebook.com/habrahabr.ru" rel="nofollow noopener noreferrer" target="_blank"><svg class="tm-svg-img tm-svg-icon" height="16" width="16"><title>Facebook</title> <use xlink:href="/img/social-icons-sprite.svg#social-logo-facebook"></use></svg></a><a class="tm-svg-icon__wrapper tm-social-icons__icon" href="https://twitter.com/habr_com" rel="nofollow noopener noreferrer" target="_blank"><svg class="tm-svg-img tm-svg-icon" height="16" width="16"><title>Twitter</title> <use xlink:href="/img/social-icons-sprite.svg#social-logo-twitter"></use></svg></a><a class="tm-svg-icon__wrapper tm-social-icons__icon" href="https://vk.com/habr" rel="nofollow noopener noreferrer" target="_blank"><svg class="tm-svg-img tm-svg-icon" height="16" width="16"><title>VK</title> <use xlink:href="/img/social-icons-sprite.svg#social-logo-vkontakte"></use></svg></a><a class="tm-svg-icon__wrapper tm-social-icons__icon" href="https://telegram.me/habr_com" rel="nofollow noopener noreferrer" target="_blank"><svg class="tm-svg-img tm-svg-icon" height="16" width="16"><title>Telegram</title> <use xlink:href="/img/social-icons-sprite.svg#social-logo-telegram"></use></svg></a><a class="tm-svg-icon__wrapper tm-social-icons__icon" href="https://www.youtube.com/channel/UCd_sTwKqVrweTt4oAKY5y4w" rel="nofollow noopener noreferrer" target="_blank"><svg class="tm-svg-img tm-svg-icon" height="16" width="16"><title>Youtube</title> <use xlink:href="/img/social-icons-sprite.svg#social-logo-youtube"></use></svg></a><a class="tm-svg-icon__wrapper tm-social-icons__icon" href="https://zen.yandex.ru/habr" rel="nofollow noopener noreferrer" target="_blank"><svg class="tm-svg-img tm-svg-icon" height="16" width="16"><title>Яндекс Дзен</title> <use xlink:href="/img/social-icons-sprite.svg#social-logo-zen"></use></svg></a></div> <div class="v-portal" style="display:none;"></div> <button class="tm-footer__link"><svg class="tm-svg-img tm-footer__icon" height="16" width="16"><title>Язык</title> <use xlink:href="/img/megazord-v28.78dd0d98..svg#lang"></use></svg>
+        Настройка языка
+      </button> <a class="tm-footer__link" href="/ru/feedback/">
+        Техническая поддержка
+      </a> <a class="tm-footer__link" href="/berserk-mode-nope">
+        Вернуться на старую версию
+      </a> <div class="tm-footer-copyright"><span class="tm-copyright"><span class="tm-copyright__years">© 2006–2023, </span> <span class="tm-copyright__name"><a class="tm-copyright__link" href="https://company.habr.com/" rel="noopener" target="_blank">Habr</a></span></span></div></div></div></div> <!-- --> <!-- --></div> <div class="vue-portal-target"></div></div>
+
+
+
+
+
+
+
+
+</body>
+</html>
