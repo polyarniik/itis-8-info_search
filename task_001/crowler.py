@@ -8,10 +8,12 @@ import requests
 from bs4 import BeautifulSoup
 from requests.adapters import HTTPAdapter, Retry
 
+BASE_DIR = Path(__file__).resolve().parent.parent
+
 
 class HabrArticalsCrowler:
     URL = "https://habr.com/"
-    INDEX_FILE = Path(__file__).resolve().parent.joinpath("index.txt")
+    INDEX_FILE = BASE_DIR.joinpath("index.txt")
 
     def get_articles(self, count: int = 1) -> NoReturn:
         links = []
@@ -47,10 +49,14 @@ class HabrArticalsCrowler:
         return str(soup)
 
     def save_articles_content(self, links):
+        folder_path = BASE_DIR.joinpath("files/")
+        try:
+            shutil.rmtree(folder_path)
+        except FileNotFoundError:
+            pass
+
         number_len = len(str(len(links)))
         index_file_content = ""
-        folder_path = Path(__file__).resolve().parent.joinpath("files/")
-        shutil.rmtree(folder_path)
         for num, link in enumerate(links, 1):
             file_name = f"{str(num).zfill(number_len)}.txt"
             path = folder_path.joinpath(file_name)

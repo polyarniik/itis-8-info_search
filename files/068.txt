@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+
+<html data-vue-meta="%7B%22lang%22:%7B%22ssr%22:%22ru%22%7D%7D" lang="ru">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1.0,viewport-fit=cover,maximum-scale=1,user-scalable=0" name="viewport"/>
+<meta content="unsafe-url" name="referrer"/>
+<title>Микросервисные приложения на GoMicro / Хабр</title>
+
+
+
+
+
+
+
+<meta content="2.113.0" name="habr-version"/>
+<meta content="444736788986613" data-vue-meta="ssr" property="fb:app_id"/><meta content="472597926099084" data-vue-meta="ssr" property="fb:pages"/><meta content="summary_large_image" data-vue-meta="ssr" name="twitter:card"/><meta content="@habr_com" data-vue-meta="ssr" name="twitter:site"/><meta content="Хабр" data-vmid="og:site_name" data-vue-meta="ssr" property="og:site_name"/><meta content="Микросервисные приложения на GoMicro" data-vmid="og:title" data-vue-meta="ssr" property="og:title"/><meta content="Микросервисные приложения на GoMicro" data-vmid="twitter:title" data-vue-meta="ssr" name="twitter:title"/><meta content="Микросервисные приложения на GoMicro" data-vmid="aiturec:title" data-vue-meta="ssr" name="aiturec:title"/><meta content="Go благодаря возможностям компиляции и встроенным механизмам конкурентной многозадачности очень хорошо подходит для&amp;nbsp;создания сетевых приложений и активно используется в&amp;nbsp;создании..." data-vmid="description" data-vue-meta="ssr" name="description"/><meta content="Go благодаря возможностям компиляции и встроенным механизмам конкурентной многозадачности очень хорошо подходит для&amp;nbsp;создания сетевых приложений и активно используется в&amp;nbsp;создании..." data-vmid="description:itemprop" data-vue-meta="ssr" itemprop="description"/><meta content="Go благодаря возможностям компиляции и встроенным механизмам конкурентной многозадачности очень хорошо подходит для&amp;nbsp;создания сетевых приложений и активно используется в&amp;nbsp;создании..." data-vmid="og:description" data-vue-meta="ssr" property="og:description"/><meta content="Go благодаря возможностям компиляции и встроенным механизмам конкурентной многозадачности очень хорошо подходит для&amp;nbsp;создания сетевых приложений и активно используется в&amp;nbsp;создании..." data-vmid="twitter:description" data-vue-meta="ssr" name="twitter:description"/><meta content="Go благодаря возможностям компиляции и встроенным механизмам конкурентной многозадачности очень хорошо подходит для&amp;nbsp;создания сетевых приложений и активно используется в&amp;nbsp;создании..." data-vmid="aiturec:description" data-vue-meta="ssr" property="aiturec:description"/><meta content="https://habrastorage.org/getpro/habr/upload_files/a89/f6b/168/a89f6b1686c32fe169726738801dbf88.png" data-vmid="image:itemprop" data-vue-meta="ssr" itemprop="image"/><meta content="https://habrastorage.org/getpro/habr/upload_files/a89/f6b/168/a89f6b1686c32fe169726738801dbf88.png" data-vmid="og:image" data-vue-meta="ssr" property="og:image"/><meta content="1200" data-vmid="og:image:width" data-vue-meta="ssr" property="og:image:width"/><meta content="630" data-vmid="og:image:height" data-vue-meta="ssr" property="og:image:height"/><meta content="https://habrastorage.org/getpro/habr/upload_files/a89/f6b/168/a89f6b1686c32fe169726738801dbf88.png" data-vmid="aiturec:image" data-vue-meta="ssr" property="aiturec:image"/><meta content="https://habrastorage.org/getpro/habr/upload_files/a89/f6b/168/a89f6b1686c32fe169726738801dbf88.png" data-vmid="twitter:image" data-vue-meta="ssr" name="twitter:image"/><meta content="https://habrastorage.org/getpro/habr/upload_files/a89/f6b/168/a89f6b1686c32fe169726738801dbf88.png?format=vk" data-vmid="vk:image" data-vue-meta="ssr" property="vk:image"/><meta content="718388" data-vmid="aiturec:item_id" data-vue-meta="ssr" property="aiturec:item_id"/><meta content="2023-02-21T16:11:36.000Z" data-vmid="aiturec:datetime" data-vue-meta="ssr" property="aiturec:datetime"/><meta content="https://habr.com/ru/company/otus/blog/718388/" data-vmid="og:url" data-vue-meta="ssr" property="og:url"/><meta content="article" data-vmid="og:type" data-vue-meta="ssr" property="og:type"/><meta content="ru_RU" data-vmid="og:locale" data-vue-meta="ssr" property="og:locale"/><meta content="otus, microservice, golang" data-vue-meta="ssr" name="keywords"/>
+
+<meta content="#303b44" name="apple-mobile-web-app-status-bar-style"/>
+<meta content="#629FBC" name="msapplication-TileColor"/>
+<meta content="yes" name="apple-mobile-web-app-capable"/>
+<meta content="yes" name="mobile-web-app-capable"/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body>
+<div data-async-called="true" data-server-rendered="true" id="app"><div class="tm-layout__wrapper"><!-- --> <div></div> <div class="tm-feature tm-feature"><!-- --></div> <header class="tm-header"><div class="tm-page-width"><div class="tm-header__container"><div class="tm-header__burger-nav"><button class="tm-header__button tm-header__button_burger" type="button"><svg class="tm-svg-img tm-header__icon tm-header__icon-burger" height="16" width="16"><title>Меню</title> <use xlink:href="/img/megazord-v28.2b11c25e..svg#header-burger"></use></svg></button></div> <span class="tm-header__logo-wrap"><a class="tm-header__logo tm-header__logo_ru" href="/ru/"><svg class="tm-svg-img tm-header__icon" height="16" width="16"><title>Хабр</title> <use xlink:href="/img/habr-logo-ru.svg#logo"></use></svg></a> <span class="tm-header__beta-sign" style="display:none;">β</span></span> <!-- --> <div class="tm-header-user-menu tm-header_user-menu"><a class="tm-header-user-menu__item tm-header-user-menu__search" href="/ru/search/"><svg class="tm-svg-img tm-header-user-menu__icon tm-header-user-menu__icon_search" height="24" width="24"><title>Поиск</title> <use xlink:href="/img/megazord-v28.2b11c25e..svg#search"></use></svg></a> <!-- --> <!-- --> <!-- --> <div class="tm-header-user-menu__item"><button class="tm-header-user-menu__toggle" data-test-id="menu-toggle-guest"><svg class="tm-svg-img tm-header-user-menu__icon tm-header-user-menu__icon_white" height="24" width="24"><title>Профиль</title> <use xlink:href="/img/megazord-v28.2b11c25e..svg#header-user"></use></svg></button> <!-- --></div> <!-- --></div></div></div></header> <div class="tm-layout"><div class="tm-page-progress-bar"></div> <!-- --> <!-- --> <div class="tm-page-width"></div> <main class="tm-layout__container"><div class="tm-page" companyname="otus" data-async-called="true" hl="ru"><div class="tm-page-width"><div class="tm-page__header"><!-- --></div> <div class="tm-page__wrapper"><div class="tm-page__main tm-page__main_has-sidebar"><div class="pull-down"><!-- --> <div class="pull-down__header" style="height:0px;"><div class="pull-down__content" style="bottom:10px;"><svg class="tm-svg-img pull-down__arrow" height="24" width="24"><title>Обновить</title> <use xlink:href="/img/megazord-v28.2b11c25e..svg#pull-arrow"></use></svg></div></div> <div class="tm-article-presenter"> <div class="tm-article-presenter__body"><div class="tm-misprint-area"><div class="tm-misprint-area__wrapper"><article class="tm-article-presenter__content tm-article-presenter__content_narrow"><div class="tm-article-presenter__header"> <div class="tm-article-snippet tm-article-presenter__snippet tm-article-snippet"><div class="tm-article-snippet__meta-container"><div class="tm-article-snippet__meta"><span class="tm-user-info tm-article-snippet__author"><a class="tm-user-info__userpic" href="/ru/users/dmitriizolotov/" title="dmitriizolotov"><div class="tm-entity-image"><img alt="" class="tm-entity-image__pic" height="32" src="//habrastorage.org/r/w32/getpro/habr/avatars/651/3fb/4ae/6513fb4aec629fee26795ee8f11e9a50.png" width="32"/></div></a> <span class="tm-user-info__user"><a class="tm-user-info__username" href="/ru/users/dmitriizolotov/">
+      dmitriizolotov
+      <!-- --></a> <span class="tm-article-datetime-published"><time datetime="2023-02-21T16:11:36.000Z" title="2023-02-21, 19:11">вчера в 19:11</time></span></span></span></div> <!-- --></div> <h1 class="tm-article-snippet__title tm-article-snippet__title_h1" lang="ru"><span>Микросервисные приложения на GoMicro</span></h1> <div class="tm-article-snippet__stats"><div class="tm-article-complexity tm-article-complexity_complexity-low"><span class="tm-svg-icon__wrapper tm-article-complexity__icon"><svg class="tm-svg-img tm-svg-icon" height="24" width="24"><title>Уровень сложности</title> <use xlink:href="/img/megazord-v28.2b11c25e..svg#complexity-low"></use></svg></span> <span class="tm-article-complexity__label">
+    Простой
+  </span></div> <div class="tm-article-reading-time"><span class="tm-svg-icon__wrapper tm-article-reading-time__icon"><svg class="tm-svg-img tm-svg-icon" height="24" width="24"><title>Время на прочтение</title> <use xlink:href="/img/megazord-v28.2b11c25e..svg#clock"></use></svg></span> <span class="tm-article-reading-time__label">
+    5 мин
+  </span></div> <span class="tm-icon-counter tm-data-icons__item"><svg class="tm-svg-img tm-icon-counter__icon" height="24" width="24"><title>Количество просмотров</title> <use xlink:href="/img/megazord-v28.2b11c25e..svg#counter-views"></use></svg> <span class="tm-icon-counter__value">2.6K</span></span></div> <div class="tm-article-snippet__hubs-container"><div class="tm-article-snippet__hubs"><span class="tm-article-snippet__hubs-item"><a class="tm-article-snippet__hubs-item-link router-link-active" href="/ru/company/otus/blog/"><span>Блог компании OTUS</span> <!-- --></a></span><span class="tm-article-snippet__hubs-item"><a class="tm-article-snippet__hubs-item-link" href="/ru/hub/go/"><span>Go</span> <span class="tm-article-snippet__profiled-hub" title="Профильный хаб">*</span></a></span><span class="tm-article-snippet__hubs-item"><a class="tm-article-snippet__hubs-item-link" href="/ru/hub/microservices/"><span>Микросервисы</span> <span class="tm-article-snippet__profiled-hub" title="Профильный хаб">*</span></a></span></div></div> <div class="tm-article-snippet__labels-container"><div class="tm-article-snippet__labels"><div class="tm-article-snippet__label tm-article-snippet__label_variant-tutorial"><span>
+          Туториал
+        </span></div> </div></div> <!-- --> <!-- --></div></div> <!-- --> <div class="tm-article-body" data-gallery-root="" lang="ru"><div></div> <div id="post-content-body"><div><div class="article-formatted-body article-formatted-body article-formatted-body_version-2"><div xmlns="http://www.w3.org/1999/xhtml"><figure class="full-width"><img data-src="https://habrastorage.org/getpro/habr/upload_files/88a/959/f83/88a959f83a7891c1ecfc1e29c3932a9e.png" height="439" src="https://habrastorage.org/r/w1560/getpro/habr/upload_files/88a/959/f83/88a959f83a7891c1ecfc1e29c3932a9e.png" width="780"><figcaption></figcaption></img></figure><p>Go благодаря возможностям компиляции и встроенным механизмам конкурентной многозадачности очень хорошо подходит для создания сетевых приложений и активно используется в создании инструментов для DevOps и распределенных приложений. В этой статье мы рассмотрим некоторые возможности фреймворка GoMicro для реализации микросервисных приложений на Go.</p><p>В микросервисной архитектуре одним из наиболее важных аспектов является механизм передачи данных внутри распределенного приложения и GoMicro поддерживает как использование REST, так и возможность применения очередей сообщений для обмена данных как в подходе RPC, так и для реализации архитектуры реактивных приложений, основанных на событиях. GoMicro основан на использовании расширяемой архитектуры и представляет большое количество важных подсистем для реализации микросервисов:</p><ul><li><p><strong>Аутентификация</strong> <strong>и авторизация</strong> обеспечивают для каждого сервиса идентификатор и сертификаты и реализует управление доступом на основе правил.</p></li><li><p><strong>Хранилище данных</strong> — простой интерфейс хранилища данных для чтения, записи и удаления записей. Данные могут быть сохранены как в память, так и во внешнее хранилище.</p></li><li><p><strong>Динамическая конфигурация</strong> — загрузка и обновление в реальном времени динамической конфигурации из любого места. Интерфейс конфигурации предоставляет способ загрузки конфигурации уровня приложения из любого источника, такого как переменные окружения, файл и т. д. Источники могут быть объединены и можно определить способ отката на другой источник или указать значения по умолчанию.</p></li><li><p><strong>Механизм обнаружения сервисов</strong> — автоматическая регистрация сервисов и разрешение имен (по умолчанию на основе mDNS).</p></li><li><p><strong>Балансировка нагрузки</strong> — балансировка нагрузки на стороне клиента, основанная на обнаружении сервисов. Нагрузка распределяется равномерно между несколькими реализациями сервисами с автоматическим переключением при наличии ошибок.</p></li><li><p><strong>Кодирование сообщений</strong> — возможность кодирования сообщений в JSON / Protobuf.</p></li><li><p><strong>Клиент/сервер RPC</strong> — запрос/ответ на основе RPC с поддержкой двунаправленной потоковой передачи.</p></li><li><p><strong>Асинхронный обмен сообщениями</strong> — PubSub является основой для распределенных приложений, управляемых событиями (на основе HTTP-запросов).</p></li><li><p><strong>Потоковая передача событий</strong> реализует поддержку потоков NATS Jetstream и Redis.</p></li><li><p><strong>Синхронизация.</strong> Поддерживается распределенная блокировка и протокол динамического выбора лидера среди доступного кворума.</p></li><li><p><strong>Подключаемые интерфейсы</strong> — Go Micro использует интерфейсы Go для каждой абстракции распределенной системы и позволяет создавать собственные реализации для каждого компонента.</p></li></ul><p>Для подключения GoMicro нужно установить и импортировать модуль из "go-micro.dev/v4" и дальше использовать его методы для управления создаваемым сервисом. Также в модулях в github.com/go-micro/plugins/v4/... доступны плагины, которых делятся на следующие категории:</p><ul><li><p><strong>broker</strong> - взаимодействие с брокерами сообщений для реализации потоковой передачи сообщений (NATS, RabbitMQ, Kafka);</p></li><li><p><strong>client</strong> - клиенты для запросов к другим микросервисам (через RPC, gRPC или HTTP);</p></li><li><p><strong>server</strong> - серверный компонент для обеспечения доступа к микросервису (RPC, gRPC, HTTP);</p></li><li><p><strong>codec</strong> - кодирование сообщений в BSON, Mercury, Protobuf;</p></li><li><p><strong>config</strong> - управление распределенной конфигурацией;</p></li><li><p><strong>registry</strong> - регистрация и обнаружение сервисов (в том числе, может взаимодействовать с Kubernetes);</p></li><li><p><strong>selector</strong> - балансировка нагрузки;</p></li><li><p><strong>transport</strong> - двухсторонняя передача данных через NATS или RabbitMQ;</p></li><li><p><strong>wrapper</strong> - дополнительные middleware (например, логирование, трассировка запросов, ограничение скорости запросов и т.д.).</p></li></ul><p>Создание сервиса начинается с вызова NewService и дальнейшей инициализации созданной структуры. Также сразу может быть выполнена регистрация сервиса и настройка способов обнаружения других сервисов, подключены серверные и клиентские компоненты.</p><pre><code class="go">package main
+
+import (
+	"go-micro.dev/v4"
+  	"github.com/go-micro/plugins/v4/registry/kubernetes"
+  	grpcc "github.com/go-micro/plugins/v4/client/grpc"
+	grpcs "github.com/go-micro/plugins/v4/server/grpc"
+)
+
+func main() {
+    registry := kubernetes.NewRegistry()
+	service := micro.NewService(
+		micro.Name("my.service"),
+        micro.Registry(registry),
+        micro.Server(grpcs.NewServer()),
+		micro.Client(grpcc.NewClient()),
+	)
+    service.Server().handle()
+	service.Init()
+    service.Run()
+}</code></pre><p>Далее для реализации обработчиков и вызовов удаленных методов могут использоваться механизмы кодогенерации для protobuf (protoc‑gen‑go), для доступа к зарегистрированным компонентам используются методы в service. Например, для получения доступа к объекту сервера можно обратиться к service.Server(), аналогично для подключения к сгенерированному клиенту service.Client() и т. д. При наличии proto‑файла и сгенерированного описания методов и протокола взаимодействия с микросервисом, вызов может выглядеть следующим образом (в pb импортирован структура, сгенерированная protoc‑gen‑go)</p><pre><code>	if err := pb.RegisterPaymentServiceHandler(srv.Server(), new(handler.PaymentService)); err != nil {
+		logger.Fatal(err)
+	}</code></pre><p>При этом сам proto-файл описывает все аспекты взаимодействия с микросервисом и определяет дополнительные типы данных (перечисления, структуры и др.), например:</p><pre><code class="go">syntax = "proto3";
+
+package shop;
+
+option go_package = "./proto;shop";
+
+service Health {
+  rpc Check(HealthCheckRequest) returns (HealthCheckResponse) {}
+  rpc Watch(HealthCheckRequest) returns (stream HealthCheckResponse) {}
+}
+
+message HealthCheckRequest { 
+	string service = 1;
+}
+
+message HealthCheckResponse {
+  enum ServingStatus {
+    UNKNOWN = 0;
+    SERVING = 1;
+    NOT_SERVING = 2;
+    SERVICE_UNKNOWN = 3;
+  }
+  ServingStatus status = 1;
+}</code></pre><p>При использовании реестров сервисов можно делать дополнительные обработки (например, создавать реализации селекторов для поиска подходящих сервисов). Также достаточно просто интегрируются очереди сообщений:</p><pre><code class="go">package main
+
+import (
+	"fmt"
+
+	"context"
+	"go-micro.dev/v4"
+)
+
+func pub(i int, p micro.Publisher) {
+	msg := &amp;Message{
+		Say: fmt.Sprintf("This is an async message %d", i),
+	}
+
+	if err := p.Publish(context.TODO(), msg); err != nil {
+		fmt.Println("pub err: ", err)
+		return
+	}
+
+	fmt.Printf("Published %d: %v\n", i, msg)
+}
+
+func main() {
+	service := micro.NewService()
+	service.Init()
+
+	p := micro.NewPublisher("example", service.Client())
+
+	for i := 0; i &lt; 10; i++ {
+		pub(i, p)
+	}
+}</code></pre><p>Аналогично можно создавать распределенные конфигурации, обнаруживать сервисы (через registry), создавать клиентов RPC, подписываться на появление сообщений в очередях RabbitMQ/Kafka. Также доступны механизмы для конфигурирования heartbeat (для проверки доступности и корректного функционирования сервисов):</p><pre><code class="go">	service := micro.NewService(
+		micro.Name("payment"),
+  		micro.RegisterInterval(time.Second*30),
+		micro.RegisterTTL(time.Second*120),
+	)</code></pre><p>Дополнительно можно подключать собственные расширения с использованием micro.WrapHandler:</p><pre><code class="haskell">import (
+    "log"
+	"go-micro.dev/v4"
+	"go-micro.dev/v4/server"
+)
+
+func logWrapper(fn server.HandlerFunc) server.HandlerFunc {
+	return func(ctx context.Context, req server.Request, rsp interface{}) error {
+		log.Printf("[request]: %v", req.Endpoint())
+		err := fn(ctx, req, rsp)
+		return err
+	}
+}
+
+func main() {
+	service := micro.NewService(
+		micro.Name("greeter"),
+		// wrap the handler
+		micro.WrapHandler(logWrapper),
+	)
+
+	service.Init()
+
+	proto.RegisterHandler(service.Server(), new(PaymentService))
+
+	if err := service.Run(); err != nil {
+		fmt.Println(err)
+	}
+}</code></pre><p>Для мониторинга запущенных микросервисов может использоваться GoMicro Dashboard, который может быть установлен через <code>go install github.com/go-micro/dashboard@latest.</code></p><p>Таким образом, MicroGo представляет легковесный и расширяемый фреймворк для разработки микросервисов, который обеспечивает разрабатываемые компоненты основными возможностями для безопасного доступа и обнаружения других микросервисов, хранением данных, взаимодействию через HTTP/gRPC или очереди сообщений и другими важными аспектами для реализации микросервисной архитектуры.</p><p>В завершение приглашаю на <a href="https://otus.pw/k8du/">бесплатный урок</a>, где мы рассмотрим плюсы и минусы монолитов и микросервисов, а также основные паттерны в микросервисной архитектуре.  </p><ul><li><p><a href="https://otus.pw/k8du/">Зарегистрироваться на бесплатный урок</a></p></li></ul><p></p></div></div></div> <!-- --> <!-- --></div> <!-- --> <!-- --></div> <!-- --> <div class="tm-article-presenter__meta"><div class="tm-separated-list tm-article-presenter__meta-list"><span class="tm-separated-list__title">Теги:</span> <ul class="tm-separated-list__list"><li class="tm-separated-list__item"><a class="tm-tags-list__link" href="/ru/search/?target_type=posts&amp;order=relevance&amp;q=%5Botus%5D">otus</a></li><li class="tm-separated-list__item"><a class="tm-tags-list__link" href="/ru/search/?target_type=posts&amp;order=relevance&amp;q=%5Bmicroservice%5D">microservice</a></li><li class="tm-separated-list__item"><a class="tm-tags-list__link" href="/ru/search/?target_type=posts&amp;order=relevance&amp;q=%5Bgolang%5D">golang</a></li></ul></div> <div class="tm-separated-list tm-article-presenter__meta-list"><span class="tm-separated-list__title">Хабы:</span> <ul class="tm-separated-list__list"><li class="tm-separated-list__item"><a class="tm-hubs-list__link router-link-active" href="/ru/company/otus/blog/">Блог компании OTUS</a></li><li class="tm-separated-list__item"><a class="tm-hubs-list__link" href="/ru/hub/go/">Go</a></li><li class="tm-separated-list__item"><a class="tm-hubs-list__link" href="/ru/hub/microservices/">Микросервисы</a></li></ul></div></div></article></div> <!-- --></div> <div class="tm-article-sticky-panel"><div class="tm-data-icons tm-article-sticky-panel__icons"><div class="tm-article-rating tm-data-icons__item"><div class="tm-votes-meter tm-article-rating__votes-switcher"><svg class="tm-svg-img tm-votes-meter__icon tm-votes-meter__icon tm-votes-meter__icon_appearance-article" height="24" width="24"><title>Всего голосов 12: ↑11 и ↓1</title> <use xlink:href="/img/megazord-v28.2b11c25e..svg#counter-rating"></use></svg> <span class="tm-votes-meter__value tm-votes-meter__value tm-votes-meter__value_positive tm-votes-meter__value_appearance-article tm-votes-meter__value_rating" title="Всего голосов 12: ↑11 и ↓1">+10</span></div> <div class="v-portal" style="display:none;"></div></div> <!-- --> <!-- --> <button class="bookmarks-button tm-data-icons__item" title="Добавить в закладки" type="button"><span class="tm-svg-icon__wrapper bookmarks-button__icon"><svg class="tm-svg-img tm-svg-icon" height="24" width="24"><title>Добавить в закладки</title> <use xlink:href="/img/megazord-v28.2b11c25e..svg#counter-favorite"></use></svg></span> <span class="bookmarks-button__counter" title="Количество пользователей, добавивших публикацию в закладки">
+    44
+  </span></button> <div class="tm-article-comments-counter-link tm-data-icons__item" title="Читать комментарии"><a class="tm-article-comments-counter-link__link" href="/ru/company/otus/blog/718388/comments/"><svg class="tm-svg-img tm-article-comments-counter-link__icon" height="24" width="24"><title>Комментарии</title> <use xlink:href="/img/megazord-v28.2b11c25e..svg#counter-comments"></use></svg> <span class="tm-article-comments-counter-link__value">
+      3
+    </span></a> <!-- --></div> <div class="tm-sharing tm-data-icons__item" title="Поделиться"><button class="tm-sharing__button" type="button"><svg class="tm-sharing__icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M13.8 13.8V18l7.2-6.6L13.8 5v3.9C5 8.9 3 18.6 3 18.6c2.5-4.4 6-4.8 10.8-4.8z" fill="currentColor"></path></svg></button> <div class="v-portal" style="display:none;"></div></div> <div class="v-portal" style="display:none;"></div></div> </div></div> <div class="v-portal" style="display:none;"></div> <div class="tm-article-presenter__footer"><div class="tm-article-blocks"><!-- --> <div></div> <section class="tm-block tm-block tm-block_spacing-bottom"><!-- --> <div class="tm-block__body tm-block__body tm-block__body_variant-balanced"><div class="tm-article-author"><div class="tm-article-author__company"><div class="tm-article-author__company-card"><div class="tm-company-snippet"><a class="tm-company-snippet__logo-link" href="/ru/company/otus/profile/"><div class="tm-entity-image"><img alt="" class="tm-entity-image__pic" height="40" src="//habrastorage.org/getpro/habr/company/2d5/0ed/b57/2d50edb57cf45fa07cc4f39f53b78395.png" width="40"/></div></a> <div class="tm-company-snippet__info"><a class="tm-company-snippet__title" href="/ru/company/otus/profile/">OTUS</a> <div class="tm-company-snippet__description">Цифровые навыки от ведущих экспертов</div></div></div> <div class="tm-article-author__buttons"><!-- --> <!-- --></div></div> <div class="tm-article-author__company-contacts"><a class="tm-article-author__contact" href="https://otus.ru" rel="noopener" target="_blank">
+      Сайт
+    </a><a class="tm-article-author__contact" href="https://vk.com/club145052891" rel="noopener" target="_blank">
+      ВКонтакте
+    </a><a class="tm-article-author__contact" href="https://telegram.me/Otusjava" rel="noopener" target="_blank">
+      Telegram
+    </a></div> <div class="tm-article-author__separator"></div></div> <div class="tm-user-card tm-article-author__user-card tm-user-card tm-user-card_variant-article"><div class="tm-user-card__info-container"><div class="tm-user-card__header"><div class="tm-user-card__header-data"><a class="tm-user-card__userpic tm-user-card__userpic_size-40" href="/ru/users/dmitriizolotov/"><div class="tm-entity-image"><img alt="" class="tm-entity-image__pic" src="//habrastorage.org/getpro/habr/avatars/651/3fb/4ae/6513fb4aec629fee26795ee8f11e9a50.png"/></div></a> <div class="tm-user-card__meta"><div class="tm-counter-container tm-karma tm-karma" title=" 64 голоса "><div class="tm-counter-container__header"><div class="tm-karma__votes tm-karma__votes_positive">
+      32
+    </div></div> <div class="tm-counter-container__footer"><div class="tm-karma__text">
+      Карма
+    </div> <div class="v-portal" style="display:none;"></div></div></div> <div class="tm-counter-container" title="Рейтинг пользователя"><div class="tm-counter-container__header"> <div class="tm-votes-lever tm-votes-lever tm-votes-lever_appearance-rating"><!-- --> <div class="tm-votes-lever__score tm-votes-lever__score tm-votes-lever__score_appearance-rating"><span class="tm-votes-lever__score-counter tm-votes-lever__score-counter tm-votes-lever__score-counter_rating">
+        52
+      </span></div> <!-- --></div></div> <div class="tm-counter-container__footer"><span class="tm-rating__text tm-rating__text">
+      Рейтинг
+    </span></div></div></div></div></div> <div class="tm-user-card__info tm-user-card__info tm-user-card__info_variant-article"><div class="tm-user-card__title tm-user-card__title tm-user-card__title_variant-article"><span class="tm-user-card__name tm-user-card__name tm-user-card__name_variant-article">Dmitrii Zolotov</span> <a class="tm-user-card__nickname tm-user-card__nickname tm-user-card__nickname_variant-article" href="/ru/users/dmitriizolotov/">
+          @dmitriizolotov
+        </a> <!-- --></div> <p class="tm-user-card__short-info tm-user-card__short-info tm-user-card__short-info_variant-article">Flutter Developer@YandexPro, DevOps, IT Architect</p></div></div> <div class="tm-user-card__buttons tm-user-card__buttons tm-user-card__buttons_variant-article"><!-- --> <!-- --> <button class="tm-user-card__button btn btn_transparent btn_small" type="submit">
+      Задонатить
+    </button> <!-- --> <!-- --></div></div> <!-- --></div> <div class="v-portal" style="display:none;"></div></div> <!-- --></section> <!-- --> <div class="tm-article-blocks__comments"><div class="tm-article-page-comments"><div class="tm-article-comments-counter-link tm-article-comments-counter-button"><a class="tm-article-comments-counter-link__link tm-article-comments-counter-link__link_button-style" href="/ru/company/otus/blog/718388/comments/"><svg class="tm-svg-img tm-article-comments-counter-link__icon tm-article-comments-counter-link__icon_contrasted" height="24" width="24"><title>Комментарии</title> <use xlink:href="/img/megazord-v28.2b11c25e..svg#counter-comments"></use></svg> <span class="tm-article-comments-counter-link__value tm-article-comments-counter-link__value_contrasted">
+       Комментарии 3 
+    </span></a> <!-- --></div></div></div> <section class="tm-block tm-block tm-block_spacing-bottom"><header class="tm-block__header tm-block__header tm-block__header_variant-borderless"><div class="tm-block__header-container"><h2 class="tm-block__title tm-block__title tm-block__title_variant-large">Публикации</h2> </div> <!-- --></header> <div class="tm-block__body tm-block__body tm-block__body_variant-condensed-slim"><div class="tm-tabs tm-tabs"><div><span class="tm-tabs__tab-item"><button class="tm-tabs__tab-link tm-tabs__tab-link tm-tabs__tab-link_active tm-tabs__tab-link_slim">
+        Лучшие за сутки
+      </button></span><span class="tm-tabs__tab-item"><button class="tm-tabs__tab-link tm-tabs__tab-link tm-tabs__tab-link_slim">
+        Похожие
+      </button></span></div> <!-- --></div> <div class="similar-and-daily__tab-view"><div><!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <div class="tm-placeholder-article-cards"><div class="tm-placeholder-article-card"><div class="tm-placeholder__user"><div class="tm-placeholder__user-pic loads"></div> <div class="tm-placeholder__user-date loads"></div></div> <div class="tm-placeholder-article-card__title"><div class="tm-placeholder__line tm-placeholder-article-card__title-line loads"></div> <div class="tm-placeholder__line tm-placeholder-article-card__title-line loads"></div></div> <div class="tm-placeholder-article-card__icons tm-placeholder__counters"><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div></div></div><div class="tm-placeholder-article-card"><div class="tm-placeholder__user"><div class="tm-placeholder__user-pic loads"></div> <div class="tm-placeholder__user-date loads"></div></div> <div class="tm-placeholder-article-card__title"><div class="tm-placeholder__line tm-placeholder-article-card__title-line loads"></div> <div class="tm-placeholder__line tm-placeholder-article-card__title-line loads"></div></div> <div class="tm-placeholder-article-card__icons tm-placeholder__counters"><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div></div></div><div class="tm-placeholder-article-card"><div class="tm-placeholder__user"><div class="tm-placeholder__user-pic loads"></div> <div class="tm-placeholder__user-date loads"></div></div> <div class="tm-placeholder-article-card__title"><div class="tm-placeholder__line tm-placeholder-article-card__title-line loads"></div> <div class="tm-placeholder__line tm-placeholder-article-card__title-line loads"></div></div> <div class="tm-placeholder-article-card__icons tm-placeholder__counters"><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div></div></div><div class="tm-placeholder-article-card"><div class="tm-placeholder__user"><div class="tm-placeholder__user-pic loads"></div> <div class="tm-placeholder__user-date loads"></div></div> <div class="tm-placeholder-article-card__title"><div class="tm-placeholder__line tm-placeholder-article-card__title-line loads"></div> <div class="tm-placeholder__line tm-placeholder-article-card__title-line loads"></div></div> <div class="tm-placeholder-article-card__icons tm-placeholder__counters"><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div></div></div><div class="tm-placeholder-article-card"><div class="tm-placeholder__user"><div class="tm-placeholder__user-pic loads"></div> <div class="tm-placeholder__user-date loads"></div></div> <div class="tm-placeholder-article-card__title"><div class="tm-placeholder__line tm-placeholder-article-card__title-line loads"></div> <div class="tm-placeholder__line tm-placeholder-article-card__title-line loads"></div></div> <div class="tm-placeholder-article-card__icons tm-placeholder__counters"><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div></div></div></div> <!-- --> <!-- --> <!-- --> <!-- --></div> <!-- --></div></div> <!-- --></section> <div><!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <div class="tm-placeholder-inset tm-placeholder-vacancies"><div class="tm-placeholder-inset__header"><div class="tm-placeholder__line tm-placeholder__line_inset-header loads"></div></div> <div class="tm-placeholder-inset__body"><ul class="tm-placeholder-list"><li class="tm-placeholder-list__item tm-placeholder-list__item_inset"><div class="tm-placeholder-list__title-container"><div class="tm-placeholder__line tm-placeholder__line_item-title loads"></div></div> <div class="tm-project-block-items__properties"><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span></div></li><li class="tm-placeholder-list__item tm-placeholder-list__item_inset"><div class="tm-placeholder-list__title-container"><div class="tm-placeholder__line tm-placeholder__line_item-title loads"></div></div> <div class="tm-project-block-items__properties"><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span></div></li><li class="tm-placeholder-list__item tm-placeholder-list__item_inset"><div class="tm-placeholder-list__title-container"><div class="tm-placeholder__line tm-placeholder__line_item-title loads"></div></div> <div class="tm-project-block-items__properties"><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span></div></li><li class="tm-placeholder-list__item tm-placeholder-list__item_inset"><div class="tm-placeholder-list__title-container"><div class="tm-placeholder__line tm-placeholder__line_item-title loads"></div></div> <div class="tm-project-block-items__properties"><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span></div></li><li class="tm-placeholder-list__item tm-placeholder-list__item_inset"><div class="tm-placeholder-list__title-container"><div class="tm-placeholder__line tm-placeholder__line_item-title loads"></div></div> <div class="tm-project-block-items__properties"><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span></div></li></ul></div> <div class="tm-placeholder-inset__footer"><div class="tm-placeholder__line tm-placeholder__line_inset-footer loads"></div></div></div> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --></div> <!-- --> </div></div></div></div></div> <div class="tm-page__sidebar"><!-- --></div></div></div></div></main> <!-- --></div> <!-- --> <div class="tm-footer"><div class="tm-page-width"><div class="tm-footer__container"><div class="tm-footer__title"><a class="tm-svg-icon__wrapper tm-footer__title-link router-link-active" href="/ru/"><svg class="tm-svg-img tm-svg-icon" height="16" width="16"><title>Хабр</title> <use xlink:href="/img/habr-logo-ru.svg#logo"></use></svg></a></div> <div class="tm-footer__social"><a class="tm-svg-icon__wrapper tm-social-icons__icon" href="https://www.facebook.com/habrahabr.ru" rel="nofollow noopener noreferrer" target="_blank"><svg class="tm-svg-img tm-svg-icon" height="16" width="16"><title>Facebook</title> <use xlink:href="/img/social-icons-sprite.svg#social-logo-facebook"></use></svg></a><a class="tm-svg-icon__wrapper tm-social-icons__icon" href="https://twitter.com/habr_com" rel="nofollow noopener noreferrer" target="_blank"><svg class="tm-svg-img tm-svg-icon" height="16" width="16"><title>Twitter</title> <use xlink:href="/img/social-icons-sprite.svg#social-logo-twitter"></use></svg></a><a class="tm-svg-icon__wrapper tm-social-icons__icon" href="https://vk.com/habr" rel="nofollow noopener noreferrer" target="_blank"><svg class="tm-svg-img tm-svg-icon" height="16" width="16"><title>VK</title> <use xlink:href="/img/social-icons-sprite.svg#social-logo-vkontakte"></use></svg></a><a class="tm-svg-icon__wrapper tm-social-icons__icon" href="https://telegram.me/habr_com" rel="nofollow noopener noreferrer" target="_blank"><svg class="tm-svg-img tm-svg-icon" height="16" width="16"><title>Telegram</title> <use xlink:href="/img/social-icons-sprite.svg#social-logo-telegram"></use></svg></a><a class="tm-svg-icon__wrapper tm-social-icons__icon" href="https://www.youtube.com/channel/UCd_sTwKqVrweTt4oAKY5y4w" rel="nofollow noopener noreferrer" target="_blank"><svg class="tm-svg-img tm-svg-icon" height="16" width="16"><title>Youtube</title> <use xlink:href="/img/social-icons-sprite.svg#social-logo-youtube"></use></svg></a><a class="tm-svg-icon__wrapper tm-social-icons__icon" href="https://zen.yandex.ru/habr" rel="nofollow noopener noreferrer" target="_blank"><svg class="tm-svg-img tm-svg-icon" height="16" width="16"><title>Яндекс Дзен</title> <use xlink:href="/img/social-icons-sprite.svg#social-logo-zen"></use></svg></a></div> <div class="v-portal" style="display:none;"></div> <button class="tm-footer__link"><svg class="tm-svg-img tm-footer__icon" height="16" width="16"><title>Язык</title> <use xlink:href="/img/megazord-v28.2b11c25e..svg#lang"></use></svg>
+        Настройка языка
+      </button> <a class="tm-footer__link" href="/ru/feedback/">
+        Техническая поддержка
+      </a> <a class="tm-footer__link" href="/berserk-mode-nope">
+        Вернуться на старую версию
+      </a> <div class="tm-footer-copyright"><span class="tm-copyright"><span class="tm-copyright__years">© 2006–2023, </span> <span class="tm-copyright__name"><a class="tm-copyright__link" href="https://company.habr.com/" rel="noopener" target="_blank">Habr</a></span></span></div></div></div></div> <!-- --> <!-- --></div> <div class="vue-portal-target"></div></div>
+
+
+
+
+
+
+
+
+</body>
+</html>

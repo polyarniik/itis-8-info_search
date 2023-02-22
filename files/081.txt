@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+
+<html data-vue-meta="%7B%22lang%22:%7B%22ssr%22:%22ru%22%7D%7D" lang="ru">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1.0,viewport-fit=cover,maximum-scale=1,user-scalable=0" name="viewport"/>
+<meta content="unsafe-url" name="referrer"/>
+<title>Методы анализа A/B тестов: как выбрать правильный метод для каждого типа метрик и размера выборки / Хабр</title>
+
+
+
+
+
+
+
+<meta content="2.113.0" name="habr-version"/>
+<meta content="444736788986613" data-vue-meta="ssr" property="fb:app_id"/><meta content="472597926099084" data-vue-meta="ssr" property="fb:pages"/><meta content="summary_large_image" data-vue-meta="ssr" name="twitter:card"/><meta content="@habr_com" data-vue-meta="ssr" name="twitter:site"/><meta content="Хабр" data-vmid="og:site_name" data-vue-meta="ssr" property="og:site_name"/><meta content="Методы анализа A/B тестов: как выбрать правильный метод для каждого типа метрик и размера выборки" data-vmid="og:title" data-vue-meta="ssr" property="og:title"/><meta content="Методы анализа A/B тестов: как выбрать правильный метод для каждого типа метрик и размера выборки" data-vmid="twitter:title" data-vue-meta="ssr" name="twitter:title"/><meta content="Методы анализа A/B тестов: как выбрать правильный метод для каждого типа метрик и размера выборки" data-vmid="aiturec:title" data-vue-meta="ssr" name="aiturec:title"/><meta content="Всем привет! Я Ваня Касторнов, продуктовый аналитик&amp;nbsp;Лиги Ставок. На&amp;nbsp;сегодняшний день все вокруг говорят о&amp;nbsp;необходимости проведения а/б тестирования, но&amp;nbsp;зачастую оказывается,..." data-vmid="description" data-vue-meta="ssr" name="description"/><meta content="Всем привет! Я Ваня Касторнов, продуктовый аналитик&amp;nbsp;Лиги Ставок. На&amp;nbsp;сегодняшний день все вокруг говорят о&amp;nbsp;необходимости проведения а/б тестирования, но&amp;nbsp;зачастую оказывается,..." data-vmid="description:itemprop" data-vue-meta="ssr" itemprop="description"/><meta content="Всем привет! Я Ваня Касторнов, продуктовый аналитик&amp;nbsp;Лиги Ставок. На&amp;nbsp;сегодняшний день все вокруг говорят о&amp;nbsp;необходимости проведения а/б тестирования, но&amp;nbsp;зачастую оказывается,..." data-vmid="og:description" data-vue-meta="ssr" property="og:description"/><meta content="Всем привет! Я Ваня Касторнов, продуктовый аналитик&amp;nbsp;Лиги Ставок. На&amp;nbsp;сегодняшний день все вокруг говорят о&amp;nbsp;необходимости проведения а/б тестирования, но&amp;nbsp;зачастую оказывается,..." data-vmid="twitter:description" data-vue-meta="ssr" name="twitter:description"/><meta content="Всем привет! Я Ваня Касторнов, продуктовый аналитик&amp;nbsp;Лиги Ставок. На&amp;nbsp;сегодняшний день все вокруг говорят о&amp;nbsp;необходимости проведения а/б тестирования, но&amp;nbsp;зачастую оказывается,..." data-vmid="aiturec:description" data-vue-meta="ssr" property="aiturec:description"/><meta content="https://habrastorage.org/getpro/habr/upload_files/9a3/cd3/a34/9a3cd3a348e4ff31e0e4f2e6406b86e9.png" data-vmid="image:itemprop" data-vue-meta="ssr" itemprop="image"/><meta content="https://habrastorage.org/getpro/habr/upload_files/9a3/cd3/a34/9a3cd3a348e4ff31e0e4f2e6406b86e9.png" data-vmid="og:image" data-vue-meta="ssr" property="og:image"/><meta content="1200" data-vmid="og:image:width" data-vue-meta="ssr" property="og:image:width"/><meta content="630" data-vmid="og:image:height" data-vue-meta="ssr" property="og:image:height"/><meta content="https://habrastorage.org/getpro/habr/upload_files/9a3/cd3/a34/9a3cd3a348e4ff31e0e4f2e6406b86e9.png" data-vmid="aiturec:image" data-vue-meta="ssr" property="aiturec:image"/><meta content="https://habrastorage.org/getpro/habr/upload_files/9a3/cd3/a34/9a3cd3a348e4ff31e0e4f2e6406b86e9.png" data-vmid="twitter:image" data-vue-meta="ssr" name="twitter:image"/><meta content="https://habrastorage.org/getpro/habr/upload_files/9a3/cd3/a34/9a3cd3a348e4ff31e0e4f2e6406b86e9.png?format=vk" data-vmid="vk:image" data-vue-meta="ssr" property="vk:image"/><meta content="718336" data-vmid="aiturec:item_id" data-vue-meta="ssr" property="aiturec:item_id"/><meta content="2023-02-21T13:28:57.000Z" data-vmid="aiturec:datetime" data-vue-meta="ssr" property="aiturec:datetime"/><meta content="https://habr.com/ru/company/ligastavok/blog/718336/" data-vmid="og:url" data-vue-meta="ssr" property="og:url"/><meta content="article" data-vmid="og:type" data-vue-meta="ssr" property="og:type"/><meta content="ru_RU" data-vmid="og:locale" data-vue-meta="ssr" property="og:locale"/><meta content="анализ данных, статистика, аб тесты, python, методология математики" data-vue-meta="ssr" name="keywords"/>
+
+<meta content="#303b44" name="apple-mobile-web-app-status-bar-style"/>
+<meta content="#629FBC" name="msapplication-TileColor"/>
+<meta content="yes" name="apple-mobile-web-app-capable"/>
+<meta content="yes" name="mobile-web-app-capable"/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body>
+<div data-async-called="true" data-server-rendered="true" id="app"><div class="tm-layout__wrapper"><!-- --> <div></div> <div class="tm-feature tm-feature"><!-- --></div> <header class="tm-header"><div class="tm-page-width"><div class="tm-header__container"><div class="tm-header__burger-nav"><button class="tm-header__button tm-header__button_burger" type="button"><svg class="tm-svg-img tm-header__icon tm-header__icon-burger" height="16" width="16"><title>Меню</title> <use xlink:href="/img/megazord-v28.2b11c25e..svg#header-burger"></use></svg></button></div> <span class="tm-header__logo-wrap"><a class="tm-header__logo tm-header__logo_ru" href="/ru/"><svg class="tm-svg-img tm-header__icon" height="16" width="16"><title>Хабр</title> <use xlink:href="/img/habr-logo-ru.svg#logo"></use></svg></a> <span class="tm-header__beta-sign" style="display:none;">β</span></span> <!-- --> <div class="tm-header-user-menu tm-header_user-menu"><a class="tm-header-user-menu__item tm-header-user-menu__search" href="/ru/search/"><svg class="tm-svg-img tm-header-user-menu__icon tm-header-user-menu__icon_search" height="24" width="24"><title>Поиск</title> <use xlink:href="/img/megazord-v28.2b11c25e..svg#search"></use></svg></a> <!-- --> <!-- --> <!-- --> <div class="tm-header-user-menu__item"><button class="tm-header-user-menu__toggle" data-test-id="menu-toggle-guest"><svg class="tm-svg-img tm-header-user-menu__icon tm-header-user-menu__icon_white" height="24" width="24"><title>Профиль</title> <use xlink:href="/img/megazord-v28.2b11c25e..svg#header-user"></use></svg></button> <!-- --></div> <!-- --></div></div></div></header> <div class="tm-layout"><div class="tm-page-progress-bar"></div> <!-- --> <!-- --> <div class="tm-page-width"></div> <main class="tm-layout__container"><div class="tm-page" companyname="ligastavok" data-async-called="true" hl="ru"><div class="tm-page-width"><div class="tm-page__header"><!-- --></div> <div class="tm-page__wrapper"><div class="tm-page__main tm-page__main_has-sidebar"><div class="pull-down"><!-- --> <div class="pull-down__header" style="height:0px;"><div class="pull-down__content" style="bottom:10px;"><svg class="tm-svg-img pull-down__arrow" height="24" width="24"><title>Обновить</title> <use xlink:href="/img/megazord-v28.2b11c25e..svg#pull-arrow"></use></svg></div></div> <div class="tm-article-presenter"> <div class="tm-article-presenter__body"><div class="tm-misprint-area"><div class="tm-misprint-area__wrapper"><article class="tm-article-presenter__content tm-article-presenter__content_narrow"><div class="tm-article-presenter__header"> <div class="tm-article-snippet tm-article-presenter__snippet tm-article-snippet"><div class="tm-article-snippet__meta-container"><div class="tm-article-snippet__meta"><span class="tm-user-info tm-article-snippet__author"><a class="tm-user-info__userpic" href="/ru/users/vankastor/" title="vankastor"><div class="tm-entity-image"><img alt="" class="tm-entity-image__pic" height="32" src="//habrastorage.org/r/w32/getpro/habr/avatars/028/d45/130/028d45130ac2e6f3356b1202ffb8be9b.jpg" width="32"/></div></a> <span class="tm-user-info__user"><a class="tm-user-info__username" href="/ru/users/vankastor/">
+      vankastor
+      <!-- --></a> <span class="tm-article-datetime-published"><time datetime="2023-02-21T13:28:57.000Z" title="2023-02-21, 16:28">вчера в 16:28</time></span></span></span></div> <!-- --></div> <h1 class="tm-article-snippet__title tm-article-snippet__title_h1" lang="ru"><span>Методы анализа A/B тестов: как выбрать правильный метод для каждого типа метрик и размера выборки</span></h1> <div class="tm-article-snippet__stats"><div class="tm-article-complexity tm-article-complexity_complexity-medium"><span class="tm-svg-icon__wrapper tm-article-complexity__icon"><svg class="tm-svg-img tm-svg-icon" height="24" width="24"><title>Уровень сложности</title> <use xlink:href="/img/megazord-v28.2b11c25e..svg#complexity-medium"></use></svg></span> <span class="tm-article-complexity__label">
+    Средний
+  </span></div> <div class="tm-article-reading-time"><span class="tm-svg-icon__wrapper tm-article-reading-time__icon"><svg class="tm-svg-img tm-svg-icon" height="24" width="24"><title>Время на прочтение</title> <use xlink:href="/img/megazord-v28.2b11c25e..svg#clock"></use></svg></span> <span class="tm-article-reading-time__label">
+    12 мин
+  </span></div> <span class="tm-icon-counter tm-data-icons__item"><svg class="tm-svg-img tm-icon-counter__icon" height="24" width="24"><title>Количество просмотров</title> <use xlink:href="/img/megazord-v28.2b11c25e..svg#counter-views"></use></svg> <span class="tm-icon-counter__value">754</span></span></div> <div class="tm-article-snippet__hubs-container"><div class="tm-article-snippet__hubs"><span class="tm-article-snippet__hubs-item"><a class="tm-article-snippet__hubs-item-link router-link-active" href="/ru/company/ligastavok/blog/"><span>Блог компании Лига Ставок</span> <!-- --></a></span><span class="tm-article-snippet__hubs-item"><a class="tm-article-snippet__hubs-item-link" href="/ru/hub/python/"><span>Python</span> <span class="tm-article-snippet__profiled-hub" title="Профильный хаб">*</span></a></span><span class="tm-article-snippet__hubs-item"><a class="tm-article-snippet__hubs-item-link" href="/ru/hub/mobileanalytics/"><span>Аналитика мобильных приложений</span> <span class="tm-article-snippet__profiled-hub" title="Профильный хаб">*</span></a></span><span class="tm-article-snippet__hubs-item"><a class="tm-article-snippet__hubs-item-link" href="/ru/hub/productpm/"><span>Управление продуктом</span> <span class="tm-article-snippet__profiled-hub" title="Профильный хаб">*</span></a></span><span class="tm-article-snippet__hubs-item"><a class="tm-article-snippet__hubs-item-link" href="/ru/hub/statistics/"><span>Статистика в IT</span> <!-- --></a></span></div></div> <div class="tm-article-snippet__labels-container"><div class="tm-article-snippet__labels"><div class="tm-article-snippet__label tm-article-snippet__label_variant-tutorial"><span>
+          Туториал
+        </span></div> </div></div> <!-- --> <!-- --></div></div> <!-- --> <div class="tm-article-body" data-gallery-root="" lang="ru"><div></div> <div id="post-content-body"><div><div class="article-formatted-body article-formatted-body article-formatted-body_version-2"><div xmlns="http://www.w3.org/1999/xhtml"><figure class="full-width"><img data-src="https://habrastorage.org/getpro/habr/upload_files/9a3/cd3/a34/9a3cd3a348e4ff31e0e4f2e6406b86e9.png" height="630" src="https://habrastorage.org/r/w1560/getpro/habr/upload_files/9a3/cd3/a34/9a3cd3a348e4ff31e0e4f2e6406b86e9.png" width="1120"><figcaption></figcaption></img></figure><p>Всем привет! Я Ваня Касторнов, продуктовый аналитик Лиги Ставок. На сегодняшний день все вокруг говорят о необходимости проведения а/б тестирования, но зачастую оказывается, что их проводят, не проверяя статистическую значимость, или даже не знают, как их проводить. Здесь не будет абстрактного описания, зачем и как делать а/б тесты, вместо этого я постараюсь развеять туман над тем, какие статистические методы использовать в разных ситуациях, а также приведу примеры скриптов на python, чтобы вы могли сразу ими воспользоваться. </p><p>Для кого эта статья: для аналитиков, продактов или любого, кто сам планирует провести аб тест.</p><p> Как читать? Я старался учесть последовательность при написании, но на самом деле, это скорее шпаргалка — в любой момент, когда вам нужно провести аб тест, вы можете найти в ней кейс, который подходит для вас, и воспользоваться им, в конце есть ссылка на сводную схему. </p><p>Пара слов, и начнем. Пока я писал эту статью, я старался не использовать много научной терминологии, чтобы не распугать вас, но где‑то она встречается, извините за это…)) </p><p>Что ж, начнем…</p><figure class="full-width"><img data-src="https://habrastorage.org/getpro/habr/upload_files/ea1/3a8/7e1/ea13a87e16a361ce107ddda0d0d707db.png" height="630" src="https://habrastorage.org/r/w1560/getpro/habr/upload_files/ea1/3a8/7e1/ea13a87e16a361ce107ddda0d0d707db.png" width="1120"/><figcaption></figcaption></figure><p>У нас есть две выборки, которые мы получили рандомным путем. Первое, что нам нужно сделать, чтобы начать эксперимент, это определить метрику (или метрики), на основании которой мы будем принимать решение: то, на основании чего, построена сама гипотеза. Выбор статистического метода в том числе зависит от типа метрики, на которую мы будем смотреть. Мы поделим метрики на три типа:</p><ol><li><p>Количественные (количество ставок или заказов).</p></li><li><p>Пропорционные или качественные (конверсия в покупку, CTR)</p></li><li><p>Соотношения (рентабельность или отношение открытых продуктовых карточек к количеству покупок).</p></li></ol><figure class="full-width"><img data-src="https://habrastorage.org/getpro/habr/upload_files/1d1/c36/f73/1d1c36f73bb4a0ecd163d07c0adf661e.png" height="630" src="https://habrastorage.org/r/w1560/getpro/habr/upload_files/1d1/c36/f73/1d1c36f73bb4a0ecd163d07c0adf661e.png" width="1120"/><figcaption></figcaption></figure><p>С каждым типом метрик — свой определенный подход, так как наибольшее количество А/Б тестов проводят с метриками пропорций, то с него и начнем, он же и самый простой.</p><h3>Пропорции (качественные)</h3><p>Тут все просто, наилучший метод чтобы проверить статистическую значимость изменения для пропорций это метод Хи‑Квадрат. Но перед тем, как его проводить, стоит проверить размер тестовой группы для желаемого минимального статистически значимого изменения. Это можно сделать, используя один из инструментов в интернете, например, <a href="https://www.evanmiller.org/ab-testing/sample-size.html">этот</a> или с помощью библиотеки statsmodels.stats через python, вот пример кода:</p><pre><code class="python">from statsmodels.stats.proportion import proportion_effectsize
+from statsmodels.stats.power import TTestIndPower
+
+
+baseline_cr = 0.2 # базовый уровень конверсии
+min_effect = 0.05 # минимальный значимый результат
+
+effect_size = proportion_effectsize(baseline_cr, baseline_cr + min_effect)
+
+
+alpha = 0.05 # уровень значимости
+power = 0.8  #уровень мощности
+power_analysis = TTestIndPower()
+sample_size = power_analysis.solve_power(effect_size, power=power, alpha=alpha, alternative='two-sided')
+
+print(f"Необходимый размер выборки: {sample_size:.0f}")</code></pre><p>В обоих вариантах вам необходимо указать базовый уровень конверсии, минимальное значение для обнаружения изменения, уровень a (процент раз, когда разница будет обнаружена при условии, что ее нет) и уровень мощности (процент раз, когда будет обнаружено минимальное значение изменения, если оно существует).</p><p>Обнаружив необходимый размер выборки, мы можем приступать к самому тесту.</p><p>Опять же, в интернете полно сайтов с онлайн‑калькуляторами, которые позволят это сделать, например, <a href="https://www.evanmiller.org/ab-testing/chi-squared.html">вот этот</a>. Если же вы решите провести тест используя python, то вот пример скрипта, который позволит это сделать.</p><pre><code class="python">import numpy as np
+import scipy.stats as stats
+
+# Загрузите данные в переменные
+group_A = [50, 100]
+group_B = [60, 90]
+
+# Запустите тест
+chi2, p, dof, ex = stats.chi2_contingency([group_A, group_B], correction=False)
+
+# Рассчитайте доверительный интервал для изменения
+lift = (group_B[0]/group_B[1])/(group_A[0]/group_A[1])
+std_error = np.sqrt(1/group_B[0] + 1/group_B[1] + 1/group_A[0] + 1/group_A[1])
+ci = stats.norm.interval(0.95, loc=lift, scale=std_error)
+
+# Выводим результаты
+print("Хи-квадрат p-value: ", p)
+print("Доверительный интервал изменения: ", ci)
+
+# Проверяем есть ли изменение
+if p &lt; 0.05 and ci[0] &gt; 1:
+    print("Вариант лучше.")
+else:
+    print("Разницы нет.")</code></pre><figure class="full-width"><img data-src="https://habrastorage.org/getpro/habr/upload_files/75a/9bc/7d4/75a9bc7d4eb16d5d662b2fa13401ca83.png" height="630" src="https://habrastorage.org/r/w1560/getpro/habr/upload_files/75a/9bc/7d4/75a9bc7d4eb16d5d662b2fa13401ca83.png" width="1120"/><figcaption></figcaption></figure><h3>Количественные</h3><p>Вторые по популярности аб тесты проходят с количественными метриками, примерами таких метрик могут быть: количество ставок, длина сессии и тд. При анализе количественных метрик важно выбрать правильный метод проверки статистической значимости. Так как мы выбрали рандомизированный метод сплитования, то скорее всего мы столкнемся с высоким уровнем дисперсии (разности) данных, что будет негативно влиять на определение значимости результатов, поэтому я рекомендую использовать CUPED (Controlled pre‑post experimental design) — это статистический метод, который все чаще используется в А/Б тестировании для повышения точности полученных результатов.</p><p>Таким образом, мы сможем нивелировать уровень дисперсии, сезонные изменения, маркетинговые акции и другие факторы. Подробнее про метод вы можете почитать <a href="https://medium.com/statistics-experiments/cuped-%D0%B8%D0%BB%D0%B8-%D1%83%D0%B2%D0%B5%D0%BB%D0%B8%D1%87%D0%B5%D0%BD%D0%B8%D0%B5-%D1%87%D1%83%D0%B2%D1%81%D1%82%D0%B2%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D0%BE%D1%81%D1%82%D0%B8-%D0%BC%D0%B5%D1%82%D1%80%D0%B8%D0%BA%D0%B8-de7183fc964c">тут</a> или <a href="https://www.exp-platform.com/Documents/2013-02-CUPED-ImprovingSensitivityOfControlledExperiments.pdf">в оригинальной статье</a>.</p><p>Для того, чтобы использовать cuped, нам потребуются набор данных со значением метрик в предтестовый период и само значение в момент теста. Для того, чтобы преобразовать данные, есть удобная библиотека ambrosia, вот пример скрипта:</p><pre><code class="python">import ambrosia as amb
+import pandas as pd
+
+# Загружаем данные
+data = pd.read_csv('experiment_data.csv')
+
+# Опеределяем переменные
+covariates = ['pre_experiment_data']
+outcome = 'experiment_data'
+
+cuped = amb.cuped(data, covariates, outcome)
+
+# Выводим разницу в средних после лечения
+print(f"The adjusted difference in means is: {cuped['diff']:.3f}")
+
+# сохраняем в csv
+cuped['data'].to_csv('adjusted_experiment_data.csv', index=False)</code></pre><p>После того, как мы получили данные, стоит оценить размер выборки, тут есть два варианта.</p><p>Если выборка большая…</p><p>То нужно посмотреть на нормальность распределения данных, в целом все просто, проверить нормальность распределения поможет вот этот скрипт, который использует тест <a href="https://en.wikipedia.org/wiki/Shapiro%E2%80%93Wilk_test">Шапиро‑Уилка</a>, он подойдет в большинстве случаев:</p><pre><code class="python">import numpy as np
+import matplotlib.pyplot as plt
+from scipy.stats import shapiro, norm
+
+data = pd.read_csv('adjusted_experiment_data.csv')
+
+# Применяем тест Шапиро-Уилка
+stat, p = shapiro(data)
+
+alpha = 0.05
+if p &gt; alpha:
+    print("Нормальное распределение.")
+else:
+    print("Не нормальное распределение.")
+
+# График с расрпеделением
+fig, ax = plt.subplots()
+ax.hist(data, bins=5, density=True, alpha=0.5, label='Data')
+
+mu, std = norm.fit(data)
+xmin, xmax = ax.get_xlim()
+x = np.linspace(xmin, xmax, 100)
+p = norm.pdf(x, mu, std)
+ax.plot(x, p, 'k', linewidth=2, label='Normal distribution')
+</code></pre><p>Итак, распределение получилось нормальным, что же дальше..</p><p>Дальше мы можем провести самый используемый метод проверки отсутствия нулевой гипотезы, а именно t‑test, наиболее известным является т‑критерий стъюдента, он также подойдет, если же между группами осталась неравная дисперсия, то лучше подойдет т‑критерий Уэлча, в целом может использовать его всегда не будет ошибкой, но вы можете столкнуться с меньшим уровнем значимости. Оба теста удобно проводить, используя библиотеку scipy.stats, вот примеры запросов:</p><pre><code class="python">import pandas as pd
+import scipy.stats as stats
+
+data = pd.read_csv('adjusted_experiment_data.csv')
+
+control = data[data['group_type'] == 'control']['experiment_data']
+test = data[data['group_type'] == 'test']['experiment_data']
+
+# т-критерий Уэлча
+welch_t, welch_p = stats.ttest_ind(control, test, equal_var=False)
+
+# т-критерий Стъюдента
+student_t, student_p = stats.ttest_ind(control, test, equal_var=True)
+
+
+print("Welch's t-test:")
+print("t-statistic: ", welch_t)
+print("p-value: ", welch_p)
+
+print("\nStudent's t-test:")
+print("t-statistic: ", student_t)
+print("p-value: ", student_p)</code></pre><p>Но бывает и так, что распределение данных не соответствует нормальному, что же тогда?</p><p>В этом случае лучше всего подходит U‑test Манна‑Уитни, В отличие от параметрических тестов, таких как t‑тест Стьюдента или t‑test Уэлча, <a href="https://en.wikipedia.org/wiki/Mann%E2%80%93Whitney_U_test">U‑test Манна‑Уитни</a> не делает никаких предположений о форме базового распределения. Для того, чтобы его провести, мы можем обратится к той же библиотеке scipy.stats:</p><pre><code class="python">u, p = stats.mannwhitneyu(control, test, alternative='two-sided')
+
+print("Mann-Whitney U-test:")
+print("U-statistic: ", u)
+print("p-value: ", p)</code></pre><p>Что делать, если размер выборки нормальный, мы разобрались, но бывает, когда данных очень мало, тут на помощь приходит bootstrap. Основная идея bootstrap заключается в многократной выборке с заменой из исходных данных для создания большого количества «выборок». Каждая выборка похожа на исходную выборку, но имеет немного другие значения из‑за случайного подставления, подробнее можно узнать в этой статье, а пример скрипта выглядит так:</p><pre><code class="python">import pandas as pd
+import numpy as np
+import scipy.stats as stats
+
+
+# Назначаем количество сэмплов
+n_bootstrap = 10000
+
+# генерирует сэмплы и расчитываем средние
+bootstrap_diff = []
+for i in range(n_bootstrap):
+    control_sample = np.random.choice(control, size=len(control), replace=True)
+    test_sample = np.random.choice(test, size=len(test), replace=True)
+    bootstrap_diff.append(np.mean(test_sample) - np.mean(control_sample))
+bootstrap_diff = np.array(bootstrap_diff)
+
+# считаем доверительный интервал
+ci = np.percentile(bootstrap_diff, [2.5, 97.5])
+
+# проводим т-тест
+t, p = stats.ttest_1samp(bootstrap_diff, 0)
+
+print("Bootstrap mean difference 95% CI: ({:.2f}, {:.2f})".format(ci[0], ci[1]))
+print("t-statistic: ", t)
+print("p-value: ", p)</code></pre><p>Фух, кажется с количественными метриками все…</p><h3>Соотношения</h3><p>В соотношениях два числовых значения, чаще всего числитель — это количество выполненных действий, а знаменатель — это количество пользователей, например, количество ставок на пользователей, которые открывали карточки событий, или же количество открытых карточек на количество просмотренных. Бывает, что суть гипотезы именно в изменении подобных метрик, что ж, тут мы будем ориентироваться на два варианта проверки статистической значимости, которые основываются на размерах выборки.</p><p>Перво‑наперво я рекомендую так же использовать один из вариантов сокращения дисперсии между данными, CUPED в данном случае не подойдет, так как это метод, который помогает уменьшить ошибки в данных, контролируя одну переменную, которая сильно связана с исследуемой переменной. Однако, если причина изменения исследуемой переменной является тем, имеет ли место какое‑то воздействие (например, показ обучающего баннера или получение фрибета (бесплатной ставки)), то CUPED не может использоваться, так как не существует других факторов, которые можно контролировать. В этом случае лучше использовать метод Diff‑in‑diff, который позволяет учитывать другие факторы, влияющие на результаты, и исследовать эффект воздействия на исследуемую переменную.</p><p>Чтобы использовать diff in diff, можно воспользоваться скриптом, который указан ниже, структура данных должна быть следующей: каждая строка соответствует одному участнику теста, а столбцы представляют различные переменные, например: ID участника, группа A/B‑теста, временной период, зависимая переменная:</p><pre><code class="python">import pandas as pd
+
+# загрузка данных из csv файла в DataFrame
+data = pd.read_csv('data.csv')
+
+# фильтрация данных по группе и временному периоду
+control = data[(data['group'] == 'control') &amp; (data['time'] == 'before')]
+treatment = data[(data['group'] == 'treatment') &amp; (data['time'] == 'before')]
+
+# вычисление среднего значения зависимой переменной для контрольной и экспериментальной групп до воздействия
+control_before = control['dependent_variable'].mean()
+treatment_before = treatment['dependent_variable'].mean()
+
+# фильтрация данных по временному периоду после воздействия
+control = data[(data['group'] == 'control') &amp; (data['time'] == 'after')]
+treatment = data[(data['group'] == 'treatment') &amp; (data['time'] == 'after')]
+
+# вычисление среднего значения зависимой переменной для контрольной и экспериментальной групп после воздействия
+control_after = control['dependent_variable'].mean()
+treatment_after = treatment['dependent_variable'].mean()
+
+# вычисление разницы между средними значениями для контрольной и экспериментальной групп до и после воздействия
+control_diff = control_after - control_before
+treatment_diff = treatment_after - treatment_before
+
+# вычисление оценки эффекта воздействия с помощью метода Diff-in-Diff
+diff_in_diff = treatment_diff - control_diff
+
+# сохранение преобраз
+output_data = pd.DataFrame({'group': ['control', 'treatment'], 'before': [control_before, treatment_before], 'after': [control_after, treatment_after], 'diff': [control_diff, treatment_diff]})
+output_data.to_csv('output.csv', index=False)</code></pre><p>Так, данные в порядке, переходим к проверке.</p><h4>Большая выборка</h4><p>Предположим, что выборка имеет внушительный размер, тогда нам нужно всего‑то провести t‑test, но сперва стоит взглянуть еще раз на дисперсию. Например, наша метрика это CTR, клики и просмотры являются случайными величинами, и когда мы объединяем их в одну метрику CTR, они будут иметь совместное распределение. Кроме того, если наша рандомизация основана на user_id, один пользователь может генерировать несколько просмотров, так что просмотры не являются независимыми друг от друга. Лучше использовать дельта‑метод для аппроксимации дисперсии соотношений и после этого проводить t‑test, в помощь приходит библиотека scipy.stats. Скрипт может выглядеть следующим образом.</p><pre><code class="python">import pandas as pd
+import scipy.stats as stats
+
+# загрузка преобразованных данных из CSV-файла
+data = pd.read_csv('output.csv')
+
+# вычисление стандартной ошибки разницы между средними значениями для контрольной и экспериментальной групп после воздействия с использованием дельта-метода
+se_diff = ((data['after'][0] - data['after'][1]) ** 2 * control_var / 2 + (data['before'][0] - data['before'][1]) ** 2 * treatment_var / 2) ** 0.5 / pooled_var ** 0.5
+
+# вычисление t-статистики и p-значения с использованием оценки стандартной ошибки, полученной из дельта-метода
+t_stat = (data['after'][0] - data['after'][1]) / se_diff
+df = len(data) - 2
+p_val = stats.t.sf(abs(t_stat), df) * 2
+
+# вывод результатов
+print('Diff-in-Diff with Delta Method:')
+print(f"Standard Error: {se_diff}")
+print(f"t-statistic: {t_stat}")
+print(f"p-value: {p_val}")
+</code></pre><h4>Маленькая выборка</h4><p>Ну и последний метод, который мы рассмотрим, который стоит применять если размер выборки маленький. В таком случае bootstrap будет также актуален. Но так как мы пытаемся анализировать метрику, соотношения и наблюдения в данных могут быть независимыми, то больше подойдет блочный bootstrap. В обычном bootstrap данные берутся из исходной выборки с заменой, в блочном данные берутся группами (или блоками). Это нужно потому, что мы хотим учесть структуру зависимости в данных. В конце проведем уже известным нам t‑test.</p><p>Скрипт похож на обычный bootstrap:</p><pre><code class="python">import pandas as pd
+import numpy as np
+import scipy.stats as stats
+
+data = pd.read_csv('output.csv')
+
+control = data[data['group'] == 'control']
+treatment = data[data['group'] == 'test']
+
+observed_effect = treatment['after'].mean() - control['after'].mean()
+
+# определяем количество блоков
+num_blocks = 100
+block_size = len(data) // num_blocks
+
+bootstrap_samples = []
+for i in range(num_blocks):
+    # вставляем данные в блоки
+    block_indices = np.random.choice(range(len(data)), size=block_size, replace=True)
+    bootstrap_sample = data.iloc[block_indices]
+
+    # сплитуем по группам
+    bootstrap_control = bootstrap_sample[bootstrap_sample['group'] == 'control']
+    bootstrap_test = bootstrap_sample[bootstrap_sample['group'] == 'test']
+
+    # считаем эффект через bootstrap
+    bootstrap_effect = bootstrap_test['after'].mean() - bootstrap_control['after'].mean()
+
+    bootstrap_samples.append(bootstrap_effect)
+
+# стандартная ошибка bootstrap
+bootstrap_std_err = np.std(bootstrap_samples)
+
+# проводим t-test
+t_statistic = observed_effect / bootstrap_std_err
+p_value = stats.t.sf(np.abs(t_statistic), len(data) - 1) * 2
+
+print("Observed treatment effect: ", observed_effect)
+print("Bootstrap estimate of standard error: ", bootstrap_std_err)
+print("t-statistic: ", t_statistic)
+print("p-value: ", p_value)
+</code></pre><h4>Проверка Мощности</h4><p>Важный критерий после проведения тестов статистической значимости — это проверка мощности. Эксперимент с низкой мощностью будет страдать от высокой частоты ложных отрицательных результатов (ошибка второго типа). Размер эффекта обычно представляет собой разницу в средних между контрольной и тестовой группами, деленную на стандартное отклонение. Чтобы проверить мощность после получения результатов, можно воспользоваться <strong>TTestIndPower</strong> из библиотеки statsmodels, а скрипт может выглядеть следующим образом:</p><pre><code class="python">import pandas as pd
+import numpy as np
+from statsmodels.stats.power import TTestIndPower
+
+# загрузка данных из CSV-файла
+data = pd.read_csv('output.csv')
+
+# вычисление размера выборок на основе количества уникальных значений ID
+n1 = len(data[data['group'] == 'control']['id'].unique())
+n2 = len(data[data['group'] == 'test']['id'].unique())
+
+# вычисление ожидаемого эффекта на основе наблюдаемого эффекта
+observed_effect = data[data['group'] == 'test']['after'].mean() - data[data['group'] == 'control']['after'].mean()
+effect_size = observed_effect / data['after'].std()
+
+# задание параметров теста
+alpha = 0.05  # уровень значимости
+power = 0.8  # мощность теста
+
+# вычисление мощности теста
+power_analysis = TTestIndPower()
+sample_size = power_analysis.solve_power(effect_size=effect_size, alpha=alpha, power=power, ratio=n2/n1)
+power = power_analysis.power(effect_size=effect_size, nobs1=sample_size, alpha=alpha, ratio=n2/n1)
+
+# вывод результатов
+print("Sample size required: ", sample_size)
+print("Power of the test: ", power)
+</code></pre><h4>Вывод</h4><p>В итоге, чтобы провести успешный A/B тест, необходимо выбрать метод анализа, который подходит для конкретных метрик и размера выборки, а также учитывать все факторы, которые могут повлиять на результаты. Важно следить за мощностью эксперимента после его проведения, чтобы убедиться, что результаты являются значимыми.</p><p>Для более простого восприятия <a href="https://miro.com/app/board/uXjVPlG4fck=/?share_link_id=28801291450">я добавил в Miro общую схему</a>, которая будет работать как навигатор выбора стат метода для вашего теста.</p><p>Я надеюсь, что эта статья поможет вам в проведении А\Б тестов и увеличит значимость принимаемых решений, что положительно отразится на вашем продукте и личном прогрессе.</p><p>Подписывайтесь на <a href="https://t.me/vankastor_life_and_product">мой телеграм канал</a>, где я собираюсь рассказывать про развитие продуктов, аналитику и гедонизм, а также добавляйте статью в избранное, и до скорой встречи!</p><p></p></div></div></div> <!-- --> <!-- --></div> <!-- --> <!-- --></div> <!-- --> <div class="tm-article-presenter__meta"><div class="tm-separated-list tm-article-presenter__meta-list"><span class="tm-separated-list__title">Теги:</span> <ul class="tm-separated-list__list"><li class="tm-separated-list__item"><a class="tm-tags-list__link" href="/ru/search/?target_type=posts&amp;order=relevance&amp;q=%5B%D0%B0%D0%BD%D0%B0%D0%BB%D0%B8%D0%B7%20%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85%5D">анализ данных</a></li><li class="tm-separated-list__item"><a class="tm-tags-list__link" href="/ru/search/?target_type=posts&amp;order=relevance&amp;q=%5B%D1%81%D1%82%D0%B0%D1%82%D0%B8%D1%81%D1%82%D0%B8%D0%BA%D0%B0%5D">статистика</a></li><li class="tm-separated-list__item"><a class="tm-tags-list__link" href="/ru/search/?target_type=posts&amp;order=relevance&amp;q=%5B%D0%B0%D0%B1%20%D1%82%D0%B5%D1%81%D1%82%D1%8B%5D">аб тесты</a></li><li class="tm-separated-list__item"><a class="tm-tags-list__link" href="/ru/search/?target_type=posts&amp;order=relevance&amp;q=%5Bpython%5D">python</a></li><li class="tm-separated-list__item"><a class="tm-tags-list__link" href="/ru/search/?target_type=posts&amp;order=relevance&amp;q=%5B%D0%BC%D0%B5%D1%82%D0%BE%D0%B4%D0%BE%D0%BB%D0%BE%D0%B3%D0%B8%D1%8F%20%D0%BC%D0%B0%D1%82%D0%B5%D0%BC%D0%B0%D1%82%D0%B8%D0%BA%D0%B8%5D">методология математики</a></li></ul></div> <div class="tm-separated-list tm-article-presenter__meta-list"><span class="tm-separated-list__title">Хабы:</span> <ul class="tm-separated-list__list"><li class="tm-separated-list__item"><a class="tm-hubs-list__link router-link-active" href="/ru/company/ligastavok/blog/">Блог компании Лига Ставок</a></li><li class="tm-separated-list__item"><a class="tm-hubs-list__link" href="/ru/hub/python/">Python</a></li><li class="tm-separated-list__item"><a class="tm-hubs-list__link" href="/ru/hub/mobileanalytics/">Аналитика мобильных приложений</a></li><li class="tm-separated-list__item"><a class="tm-hubs-list__link" href="/ru/hub/productpm/">Управление продуктом</a></li><li class="tm-separated-list__item"><a class="tm-hubs-list__link" href="/ru/hub/statistics/">Статистика в IT</a></li></ul></div></div></article></div> <!-- --></div> <div class="tm-article-sticky-panel"><div class="tm-data-icons tm-article-sticky-panel__icons"><div class="tm-article-rating tm-data-icons__item"><div class="tm-votes-meter tm-article-rating__votes-switcher"><svg class="tm-svg-img tm-votes-meter__icon tm-votes-meter__icon tm-votes-meter__icon_appearance-article" height="24" width="24"><title>Всего голосов 4: ↑3 и ↓1</title> <use xlink:href="/img/megazord-v28.2b11c25e..svg#counter-rating"></use></svg> <span class="tm-votes-meter__value tm-votes-meter__value tm-votes-meter__value_positive tm-votes-meter__value_appearance-article tm-votes-meter__value_rating" title="Всего голосов 4: ↑3 и ↓1">+2</span></div> <div class="v-portal" style="display:none;"></div></div> <!-- --> <!-- --> <button class="bookmarks-button tm-data-icons__item" title="Добавить в закладки" type="button"><span class="tm-svg-icon__wrapper bookmarks-button__icon"><svg class="tm-svg-img tm-svg-icon" height="24" width="24"><title>Добавить в закладки</title> <use xlink:href="/img/megazord-v28.2b11c25e..svg#counter-favorite"></use></svg></span> <span class="bookmarks-button__counter" title="Количество пользователей, добавивших публикацию в закладки">
+    23
+  </span></button> <div class="tm-article-comments-counter-link tm-data-icons__item" title="Читать комментарии"><a class="tm-article-comments-counter-link__link" href="/ru/company/ligastavok/blog/718336/comments/"><svg class="tm-svg-img tm-article-comments-counter-link__icon" height="24" width="24"><title>Комментарии</title> <use xlink:href="/img/megazord-v28.2b11c25e..svg#counter-comments"></use></svg> <span class="tm-article-comments-counter-link__value">
+      2
+    </span></a> <!-- --></div> <div class="tm-sharing tm-data-icons__item" title="Поделиться"><button class="tm-sharing__button" type="button"><svg class="tm-sharing__icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M13.8 13.8V18l7.2-6.6L13.8 5v3.9C5 8.9 3 18.6 3 18.6c2.5-4.4 6-4.8 10.8-4.8z" fill="currentColor"></path></svg></button> <div class="v-portal" style="display:none;"></div></div> <div class="v-portal" style="display:none;"></div></div> </div></div> <div class="v-portal" style="display:none;"></div> <div class="tm-article-presenter__footer"><div class="tm-article-blocks"><!-- --> <div></div> <section class="tm-block tm-block tm-block_spacing-bottom"><!-- --> <div class="tm-block__body tm-block__body tm-block__body_variant-balanced"><div class="tm-article-author"><div class="tm-article-author__company"><div class="tm-article-author__company-card"><div class="tm-company-snippet"><a class="tm-company-snippet__logo-link" href="/ru/company/ligastavok/profile/"><div class="tm-entity-image"><img alt="" class="tm-entity-image__pic" height="40" src="//habrastorage.org/getpro/habr/company/5f6/ad7/32b/5f6ad732bc3af744d65b237187266279.png" width="40"/></div></a> <div class="tm-company-snippet__info"><a class="tm-company-snippet__title" href="/ru/company/ligastavok/profile/">Лига Ставок</a> <div class="tm-company-snippet__description">Компания</div></div></div> <div class="tm-article-author__buttons"><!-- --> <!-- --></div></div> <div class="tm-article-author__company-contacts"><a class="tm-article-author__contact" href="https://www.ligastavok.ru/" rel="noopener" target="_blank">
+      Сайт
+    </a></div> <div class="tm-article-author__separator"></div></div> <div class="tm-user-card tm-article-author__user-card tm-user-card tm-user-card_variant-article"><div class="tm-user-card__info-container"><div class="tm-user-card__header"><div class="tm-user-card__header-data"><a class="tm-user-card__userpic tm-user-card__userpic_size-40" href="/ru/users/vankastor/"><div class="tm-entity-image"><img alt="" class="tm-entity-image__pic" src="//habrastorage.org/getpro/habr/avatars/028/d45/130/028d45130ac2e6f3356b1202ffb8be9b.jpg"/></div></a> <div class="tm-user-card__meta"><div class="tm-counter-container tm-karma tm-karma" title=" 1 голос "><div class="tm-counter-container__header"><div class="tm-karma__votes tm-karma__votes_positive">
+      1
+    </div></div> <div class="tm-counter-container__footer"><div class="tm-karma__text">
+      Карма
+    </div> <div class="v-portal" style="display:none;"></div></div></div> <div class="tm-counter-container" title="Рейтинг пользователя"><div class="tm-counter-container__header"> <div class="tm-votes-lever tm-votes-lever tm-votes-lever_appearance-rating"><!-- --> <div class="tm-votes-lever__score tm-votes-lever__score tm-votes-lever__score_appearance-rating"><span class="tm-votes-lever__score-counter tm-votes-lever__score-counter tm-votes-lever__score-counter_rating">
+        2
+      </span></div> <!-- --></div></div> <div class="tm-counter-container__footer"><span class="tm-rating__text tm-rating__text">
+      Рейтинг
+    </span></div></div></div></div></div> <div class="tm-user-card__info tm-user-card__info tm-user-card__info_variant-article"><div class="tm-user-card__title tm-user-card__title tm-user-card__title_variant-article"><span class="tm-user-card__name tm-user-card__name tm-user-card__name_variant-article">Иван Касторнов</span> <a class="tm-user-card__nickname tm-user-card__nickname tm-user-card__nickname_variant-article" href="/ru/users/vankastor/">
+          @vankastor
+        </a> <!-- --></div> <p class="tm-user-card__short-info tm-user-card__short-info tm-user-card__short-info_variant-article">Продуктовый аналитик Лиги Ставок</p></div></div> <div class="tm-user-card__buttons tm-user-card__buttons tm-user-card__buttons_variant-article"><!-- --> <!-- --> <!-- --> <!-- --> <!-- --></div></div> <!-- --></div> <div class="v-portal" style="display:none;"></div></div> <!-- --></section> <!-- --> <div class="tm-article-blocks__comments"><div class="tm-article-page-comments"><div class="tm-article-comments-counter-link tm-article-comments-counter-button"><a class="tm-article-comments-counter-link__link tm-article-comments-counter-link__link_button-style" href="/ru/company/ligastavok/blog/718336/comments/"><svg class="tm-svg-img tm-article-comments-counter-link__icon tm-article-comments-counter-link__icon_contrasted" height="24" width="24"><title>Комментарии</title> <use xlink:href="/img/megazord-v28.2b11c25e..svg#counter-comments"></use></svg> <span class="tm-article-comments-counter-link__value tm-article-comments-counter-link__value_contrasted">
+       Комментарии 2 
+    </span></a> <!-- --></div></div></div> <section class="tm-block tm-block tm-block_spacing-bottom"><header class="tm-block__header tm-block__header tm-block__header_variant-borderless"><div class="tm-block__header-container"><h2 class="tm-block__title tm-block__title tm-block__title_variant-large">Публикации</h2> </div> <!-- --></header> <div class="tm-block__body tm-block__body tm-block__body_variant-condensed-slim"><div class="tm-tabs tm-tabs"><div><span class="tm-tabs__tab-item"><button class="tm-tabs__tab-link tm-tabs__tab-link tm-tabs__tab-link_active tm-tabs__tab-link_slim">
+        Лучшие за сутки
+      </button></span><span class="tm-tabs__tab-item"><button class="tm-tabs__tab-link tm-tabs__tab-link tm-tabs__tab-link_slim">
+        Похожие
+      </button></span></div> <!-- --></div> <div class="similar-and-daily__tab-view"><div><!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <div class="tm-placeholder-article-cards"><div class="tm-placeholder-article-card"><div class="tm-placeholder__user"><div class="tm-placeholder__user-pic loads"></div> <div class="tm-placeholder__user-date loads"></div></div> <div class="tm-placeholder-article-card__title"><div class="tm-placeholder__line tm-placeholder-article-card__title-line loads"></div> <div class="tm-placeholder__line tm-placeholder-article-card__title-line loads"></div></div> <div class="tm-placeholder-article-card__icons tm-placeholder__counters"><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div></div></div><div class="tm-placeholder-article-card"><div class="tm-placeholder__user"><div class="tm-placeholder__user-pic loads"></div> <div class="tm-placeholder__user-date loads"></div></div> <div class="tm-placeholder-article-card__title"><div class="tm-placeholder__line tm-placeholder-article-card__title-line loads"></div> <div class="tm-placeholder__line tm-placeholder-article-card__title-line loads"></div></div> <div class="tm-placeholder-article-card__icons tm-placeholder__counters"><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div></div></div><div class="tm-placeholder-article-card"><div class="tm-placeholder__user"><div class="tm-placeholder__user-pic loads"></div> <div class="tm-placeholder__user-date loads"></div></div> <div class="tm-placeholder-article-card__title"><div class="tm-placeholder__line tm-placeholder-article-card__title-line loads"></div> <div class="tm-placeholder__line tm-placeholder-article-card__title-line loads"></div></div> <div class="tm-placeholder-article-card__icons tm-placeholder__counters"><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div></div></div><div class="tm-placeholder-article-card"><div class="tm-placeholder__user"><div class="tm-placeholder__user-pic loads"></div> <div class="tm-placeholder__user-date loads"></div></div> <div class="tm-placeholder-article-card__title"><div class="tm-placeholder__line tm-placeholder-article-card__title-line loads"></div> <div class="tm-placeholder__line tm-placeholder-article-card__title-line loads"></div></div> <div class="tm-placeholder-article-card__icons tm-placeholder__counters"><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div></div></div><div class="tm-placeholder-article-card"><div class="tm-placeholder__user"><div class="tm-placeholder__user-pic loads"></div> <div class="tm-placeholder__user-date loads"></div></div> <div class="tm-placeholder-article-card__title"><div class="tm-placeholder__line tm-placeholder-article-card__title-line loads"></div> <div class="tm-placeholder__line tm-placeholder-article-card__title-line loads"></div></div> <div class="tm-placeholder-article-card__icons tm-placeholder__counters"><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div></div></div></div> <!-- --> <!-- --> <!-- --> <!-- --></div> <!-- --></div></div> <!-- --></section> <div><!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <div class="tm-placeholder-inset tm-placeholder-vacancies"><div class="tm-placeholder-inset__header"><div class="tm-placeholder__line tm-placeholder__line_inset-header loads"></div></div> <div class="tm-placeholder-inset__body"><ul class="tm-placeholder-list"><li class="tm-placeholder-list__item tm-placeholder-list__item_inset"><div class="tm-placeholder-list__title-container"><div class="tm-placeholder__line tm-placeholder__line_item-title loads"></div></div> <div class="tm-project-block-items__properties"><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span></div></li><li class="tm-placeholder-list__item tm-placeholder-list__item_inset"><div class="tm-placeholder-list__title-container"><div class="tm-placeholder__line tm-placeholder__line_item-title loads"></div></div> <div class="tm-project-block-items__properties"><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span></div></li><li class="tm-placeholder-list__item tm-placeholder-list__item_inset"><div class="tm-placeholder-list__title-container"><div class="tm-placeholder__line tm-placeholder__line_item-title loads"></div></div> <div class="tm-project-block-items__properties"><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span></div></li><li class="tm-placeholder-list__item tm-placeholder-list__item_inset"><div class="tm-placeholder-list__title-container"><div class="tm-placeholder__line tm-placeholder__line_item-title loads"></div></div> <div class="tm-project-block-items__properties"><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span></div></li><li class="tm-placeholder-list__item tm-placeholder-list__item_inset"><div class="tm-placeholder-list__title-container"><div class="tm-placeholder__line tm-placeholder__line_item-title loads"></div></div> <div class="tm-project-block-items__properties"><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span></div></li></ul></div> <div class="tm-placeholder-inset__footer"><div class="tm-placeholder__line tm-placeholder__line_inset-footer loads"></div></div></div> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --></div> <!-- --> </div></div></div></div></div> <div class="tm-page__sidebar"><!-- --></div></div></div></div></main> <!-- --></div> <!-- --> <div class="tm-footer"><div class="tm-page-width"><div class="tm-footer__container"><div class="tm-footer__title"><a class="tm-svg-icon__wrapper tm-footer__title-link router-link-active" href="/ru/"><svg class="tm-svg-img tm-svg-icon" height="16" width="16"><title>Хабр</title> <use xlink:href="/img/habr-logo-ru.svg#logo"></use></svg></a></div> <div class="tm-footer__social"><a class="tm-svg-icon__wrapper tm-social-icons__icon" href="https://www.facebook.com/habrahabr.ru" rel="nofollow noopener noreferrer" target="_blank"><svg class="tm-svg-img tm-svg-icon" height="16" width="16"><title>Facebook</title> <use xlink:href="/img/social-icons-sprite.svg#social-logo-facebook"></use></svg></a><a class="tm-svg-icon__wrapper tm-social-icons__icon" href="https://twitter.com/habr_com" rel="nofollow noopener noreferrer" target="_blank"><svg class="tm-svg-img tm-svg-icon" height="16" width="16"><title>Twitter</title> <use xlink:href="/img/social-icons-sprite.svg#social-logo-twitter"></use></svg></a><a class="tm-svg-icon__wrapper tm-social-icons__icon" href="https://vk.com/habr" rel="nofollow noopener noreferrer" target="_blank"><svg class="tm-svg-img tm-svg-icon" height="16" width="16"><title>VK</title> <use xlink:href="/img/social-icons-sprite.svg#social-logo-vkontakte"></use></svg></a><a class="tm-svg-icon__wrapper tm-social-icons__icon" href="https://telegram.me/habr_com" rel="nofollow noopener noreferrer" target="_blank"><svg class="tm-svg-img tm-svg-icon" height="16" width="16"><title>Telegram</title> <use xlink:href="/img/social-icons-sprite.svg#social-logo-telegram"></use></svg></a><a class="tm-svg-icon__wrapper tm-social-icons__icon" href="https://www.youtube.com/channel/UCd_sTwKqVrweTt4oAKY5y4w" rel="nofollow noopener noreferrer" target="_blank"><svg class="tm-svg-img tm-svg-icon" height="16" width="16"><title>Youtube</title> <use xlink:href="/img/social-icons-sprite.svg#social-logo-youtube"></use></svg></a><a class="tm-svg-icon__wrapper tm-social-icons__icon" href="https://zen.yandex.ru/habr" rel="nofollow noopener noreferrer" target="_blank"><svg class="tm-svg-img tm-svg-icon" height="16" width="16"><title>Яндекс Дзен</title> <use xlink:href="/img/social-icons-sprite.svg#social-logo-zen"></use></svg></a></div> <div class="v-portal" style="display:none;"></div> <button class="tm-footer__link"><svg class="tm-svg-img tm-footer__icon" height="16" width="16"><title>Язык</title> <use xlink:href="/img/megazord-v28.2b11c25e..svg#lang"></use></svg>
+        Настройка языка
+      </button> <a class="tm-footer__link" href="/ru/feedback/">
+        Техническая поддержка
+      </a> <a class="tm-footer__link" href="/berserk-mode-nope">
+        Вернуться на старую версию
+      </a> <div class="tm-footer-copyright"><span class="tm-copyright"><span class="tm-copyright__years">© 2006–2023, </span> <span class="tm-copyright__name"><a class="tm-copyright__link" href="https://company.habr.com/" rel="noopener" target="_blank">Habr</a></span></span></div></div></div></div> <!-- --> <!-- --></div> <div class="vue-portal-target"></div></div>
+
+
+
+
+
+
+
+
+</body>
+</html>

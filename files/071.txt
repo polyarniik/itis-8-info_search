@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+
+<html data-vue-meta="%7B%22lang%22:%7B%22ssr%22:%22ru%22%7D%7D" lang="ru">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1.0,viewport-fit=cover,maximum-scale=1,user-scalable=0" name="viewport"/>
+<meta content="unsafe-url" name="referrer"/>
+<title>Запуск R кода по расписанию / Хабр</title>
+
+
+
+
+
+
+
+<meta content="2.113.0" name="habr-version"/>
+<meta content="444736788986613" data-vue-meta="ssr" property="fb:app_id"/><meta content="472597926099084" data-vue-meta="ssr" property="fb:pages"/><meta content="summary_large_image" data-vue-meta="ssr" name="twitter:card"/><meta content="@habr_com" data-vue-meta="ssr" name="twitter:site"/><meta content="Хабр" data-vmid="og:site_name" data-vue-meta="ssr" property="og:site_name"/><meta content="Запуск R кода по расписанию" data-vmid="og:title" data-vue-meta="ssr" property="og:title"/><meta content="Запуск R кода по расписанию" data-vmid="twitter:title" data-vue-meta="ssr" name="twitter:title"/><meta content="Запуск R кода по расписанию" data-vmid="aiturec:title" data-vue-meta="ssr" name="aiturec:title"/><meta content="Автор статьи: Дмитрий Володин Analytics Engineer в Trafficstars Всем привет. Меня зовут Дмитрий Володин, я Analytics Engineer в&amp;nbsp;Trafficstars. Когда‑то я, как&amp;nbsp;и все,&amp;nbsp;был начинающим..." data-vmid="description" data-vue-meta="ssr" name="description"/><meta content="Автор статьи: Дмитрий Володин Analytics Engineer в Trafficstars Всем привет. Меня зовут Дмитрий Володин, я Analytics Engineer в&amp;nbsp;Trafficstars. Когда‑то я, как&amp;nbsp;и все,&amp;nbsp;был начинающим..." data-vmid="description:itemprop" data-vue-meta="ssr" itemprop="description"/><meta content="Автор статьи: Дмитрий Володин Analytics Engineer в Trafficstars Всем привет. Меня зовут Дмитрий Володин, я Analytics Engineer в&amp;nbsp;Trafficstars. Когда‑то я, как&amp;nbsp;и все,&amp;nbsp;был начинающим..." data-vmid="og:description" data-vue-meta="ssr" property="og:description"/><meta content="Автор статьи: Дмитрий Володин Analytics Engineer в Trafficstars Всем привет. Меня зовут Дмитрий Володин, я Analytics Engineer в&amp;nbsp;Trafficstars. Когда‑то я, как&amp;nbsp;и все,&amp;nbsp;был начинающим..." data-vmid="twitter:description" data-vue-meta="ssr" name="twitter:description"/><meta content="Автор статьи: Дмитрий Володин Analytics Engineer в Trafficstars Всем привет. Меня зовут Дмитрий Володин, я Analytics Engineer в&amp;nbsp;Trafficstars. Когда‑то я, как&amp;nbsp;и все,&amp;nbsp;был начинающим..." data-vmid="aiturec:description" data-vue-meta="ssr" property="aiturec:description"/><meta content="https://habrastorage.org/getpro/habr/upload_files/4a6/b73/b6f/4a6b73b6f8666e1ce7c288f8d10ebabc.png" data-vmid="image:itemprop" data-vue-meta="ssr" itemprop="image"/><meta content="https://habrastorage.org/getpro/habr/upload_files/4a6/b73/b6f/4a6b73b6f8666e1ce7c288f8d10ebabc.png" data-vmid="og:image" data-vue-meta="ssr" property="og:image"/><meta content="1200" data-vmid="og:image:width" data-vue-meta="ssr" property="og:image:width"/><meta content="630" data-vmid="og:image:height" data-vue-meta="ssr" property="og:image:height"/><meta content="https://habrastorage.org/getpro/habr/upload_files/4a6/b73/b6f/4a6b73b6f8666e1ce7c288f8d10ebabc.png" data-vmid="aiturec:image" data-vue-meta="ssr" property="aiturec:image"/><meta content="https://habrastorage.org/getpro/habr/upload_files/4a6/b73/b6f/4a6b73b6f8666e1ce7c288f8d10ebabc.png" data-vmid="twitter:image" data-vue-meta="ssr" name="twitter:image"/><meta content="https://habrastorage.org/getpro/habr/upload_files/4a6/b73/b6f/4a6b73b6f8666e1ce7c288f8d10ebabc.png?format=vk" data-vmid="vk:image" data-vue-meta="ssr" property="vk:image"/><meta content="718400" data-vmid="aiturec:item_id" data-vue-meta="ssr" property="aiturec:item_id"/><meta content="2023-02-21T15:40:40.000Z" data-vmid="aiturec:datetime" data-vue-meta="ssr" property="aiturec:datetime"/><meta content="https://habr.com/ru/company/otus/blog/718400/" data-vmid="og:url" data-vue-meta="ssr" property="og:url"/><meta content="article" data-vmid="og:type" data-vue-meta="ssr" property="og:type"/><meta content="ru_RU" data-vmid="og:locale" data-vue-meta="ssr" property="og:locale"/><meta content="r, аналитика данных, cron" data-vue-meta="ssr" name="keywords"/>
+
+<meta content="#303b44" name="apple-mobile-web-app-status-bar-style"/>
+<meta content="#629FBC" name="msapplication-TileColor"/>
+<meta content="yes" name="apple-mobile-web-app-capable"/>
+<meta content="yes" name="mobile-web-app-capable"/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body>
+<div data-async-called="true" data-server-rendered="true" id="app"><div class="tm-layout__wrapper"><!-- --> <div></div> <div class="tm-feature tm-feature"><!-- --></div> <header class="tm-header"><div class="tm-page-width"><div class="tm-header__container"><div class="tm-header__burger-nav"><button class="tm-header__button tm-header__button_burger" type="button"><svg class="tm-svg-img tm-header__icon tm-header__icon-burger" height="16" width="16"><title>Меню</title> <use xlink:href="/img/megazord-v28.2b11c25e..svg#header-burger"></use></svg></button></div> <span class="tm-header__logo-wrap"><a class="tm-header__logo tm-header__logo_ru" href="/ru/"><svg class="tm-svg-img tm-header__icon" height="16" width="16"><title>Хабр</title> <use xlink:href="/img/habr-logo-ru.svg#logo"></use></svg></a> <span class="tm-header__beta-sign" style="display:none;">β</span></span> <!-- --> <div class="tm-header-user-menu tm-header_user-menu"><a class="tm-header-user-menu__item tm-header-user-menu__search" href="/ru/search/"><svg class="tm-svg-img tm-header-user-menu__icon tm-header-user-menu__icon_search" height="24" width="24"><title>Поиск</title> <use xlink:href="/img/megazord-v28.2b11c25e..svg#search"></use></svg></a> <!-- --> <!-- --> <!-- --> <div class="tm-header-user-menu__item"><button class="tm-header-user-menu__toggle" data-test-id="menu-toggle-guest"><svg class="tm-svg-img tm-header-user-menu__icon tm-header-user-menu__icon_white" height="24" width="24"><title>Профиль</title> <use xlink:href="/img/megazord-v28.2b11c25e..svg#header-user"></use></svg></button> <!-- --></div> <!-- --></div></div></div></header> <div class="tm-layout"><div class="tm-page-progress-bar"></div> <!-- --> <!-- --> <div class="tm-page-width"></div> <main class="tm-layout__container"><div class="tm-page" companyname="otus" data-async-called="true" hl="ru"><div class="tm-page-width"><div class="tm-page__header"><!-- --></div> <div class="tm-page__wrapper"><div class="tm-page__main tm-page__main_has-sidebar"><div class="pull-down"><!-- --> <div class="pull-down__header" style="height:0px;"><div class="pull-down__content" style="bottom:10px;"><svg class="tm-svg-img pull-down__arrow" height="24" width="24"><title>Обновить</title> <use xlink:href="/img/megazord-v28.2b11c25e..svg#pull-arrow"></use></svg></div></div> <div class="tm-article-presenter"> <div class="tm-article-presenter__body"><div class="tm-misprint-area"><div class="tm-misprint-area__wrapper"><article class="tm-article-presenter__content tm-article-presenter__content_narrow"><div class="tm-article-presenter__header"> <div class="tm-article-snippet tm-article-presenter__snippet tm-article-snippet"><div class="tm-article-snippet__meta-container"><div class="tm-article-snippet__meta"><span class="tm-user-info tm-article-snippet__author"><a class="tm-user-info__userpic" href="/ru/users/GolovinDS/" title="GolovinDS"><div class="tm-entity-image"><img alt="" class="tm-entity-image__pic" height="32" src="//habrastorage.org/r/w32/getpro/habr/avatars/d27/ccd/743/d27ccd743d8bccbf1a885e5dadaa7ffe.jpg" width="32"/></div></a> <span class="tm-user-info__user"><a class="tm-user-info__username" href="/ru/users/GolovinDS/">
+      GolovinDS
+      <!-- --></a> <span class="tm-article-datetime-published"><time datetime="2023-02-21T15:40:40.000Z" title="2023-02-21, 18:40">вчера в 18:40</time></span></span></span></div> <!-- --></div> <h1 class="tm-article-snippet__title tm-article-snippet__title_h1" lang="ru"><span>Запуск R кода по расписанию</span></h1> <div class="tm-article-snippet__stats"><div class="tm-article-complexity tm-article-complexity_complexity-low"><span class="tm-svg-icon__wrapper tm-article-complexity__icon"><svg class="tm-svg-img tm-svg-icon" height="24" width="24"><title>Уровень сложности</title> <use xlink:href="/img/megazord-v28.2b11c25e..svg#complexity-low"></use></svg></span> <span class="tm-article-complexity__label">
+    Простой
+  </span></div> <div class="tm-article-reading-time"><span class="tm-svg-icon__wrapper tm-article-reading-time__icon"><svg class="tm-svg-img tm-svg-icon" height="24" width="24"><title>Время на прочтение</title> <use xlink:href="/img/megazord-v28.2b11c25e..svg#clock"></use></svg></span> <span class="tm-article-reading-time__label">
+    14 мин
+  </span></div> <span class="tm-icon-counter tm-data-icons__item"><svg class="tm-svg-img tm-icon-counter__icon" height="24" width="24"><title>Количество просмотров</title> <use xlink:href="/img/megazord-v28.2b11c25e..svg#counter-views"></use></svg> <span class="tm-icon-counter__value">651</span></span></div> <div class="tm-article-snippet__hubs-container"><div class="tm-article-snippet__hubs"><span class="tm-article-snippet__hubs-item"><a class="tm-article-snippet__hubs-item-link router-link-active" href="/ru/company/otus/blog/"><span>Блог компании OTUS</span> <!-- --></a></span><span class="tm-article-snippet__hubs-item"><a class="tm-article-snippet__hubs-item-link" href="/ru/hub/r/"><span>R</span> <span class="tm-article-snippet__profiled-hub" title="Профильный хаб">*</span></a></span></div></div> <div class="tm-article-snippet__labels-container"><div class="tm-article-snippet__labels"><div class="tm-article-snippet__label tm-article-snippet__label_variant-tutorial"><span>
+          Туториал
+        </span></div> <div class="tm-article-snippet__label tm-article-snippet__label tm-article-snippet__label_variant-recovery"><span>
+          Recovery mode
+        </span></div></div></div> <!-- --> <!-- --></div></div> <!-- --> <div class="tm-article-body" data-gallery-root="" lang="ru"><div></div> <div id="post-content-body"><div><div class="article-formatted-body article-formatted-body article-formatted-body_version-2"><div xmlns="http://www.w3.org/1999/xhtml"><figure class="full-width"><img data-src="https://habrastorage.org/getpro/habr/upload_files/4a6/b73/b6f/4a6b73b6f8666e1ce7c288f8d10ebabc.png" height="439" src="https://habrastorage.org/r/w1560/getpro/habr/upload_files/4a6/b73/b6f/4a6b73b6f8666e1ce7c288f8d10ebabc.png" width="780"><figcaption></figcaption></img></figure><div class="persona" persona="true"><img class="image persona__image" data-blurred="true" data-src="https://habrastorage.org/getpro/habr/upload_files/1ce/964/eda/1ce964eda2a885ac39e58462a2ea0a66.jpg" persona="true" src="https://habrastorage.org/r/w780q1/getpro/habr/upload_files/1ce/964/eda/1ce964eda2a885ac39e58462a2ea0a66.jpg"/><h5 class="persona__heading" persona="true">Автор статьи: Дмитрий Володин</h5><p>Analytics Engineer в Trafficstars</p></div><p>Всем привет. Меня зовут Дмитрий Володин, я Analytics Engineer в Trafficstars. Когда‑то я, как и все, был начинающим аналитиком данных на R и передо мной на этом этапе остро встал вопрос запуска моего кода по расписанию. Ещё желательно было иметь возможность запускать откуда угодно. А уж запускать «кнопочкой play» вообще казалось мечтой.</p><p>Эта статья нацелена на начинающих аналитиков данных (не обязательно на R). Также она может быть полезна и опытным аналитикам. Особенно если плохо с коммуникацией с разработчиками и инфраструктурщиками (или их просто нет у вас в компании). Я пересказываю свой опыт, но кажется, он будет весьма полезен читателям.</p><h3>Простые способы</h3><p>Когда говорят про выполнение команд по расписанию, то сразу вспоминают cron. Инструмент с историей и огромным влиянием. Но всё‑таки не такой гибкий, как некоторые другие способы.</p><p><em>Cron — утилита linux и macos, Windows и его Task Scheduler я не буду рассматривать просто по тому, что в целом у них с кроном примерно те же болячки и недобства (и у меня нет с ним опыта). В R можно использовать пакет taskscheduleR, там и add‑in для RStudio есть.</em></p><p>Чтобы запустить скрипт по расписанию, вам необходимо отредактировать файл (написав в терминале команду <code>crontab -e</code>), где хранится расписание команд у вас в системе и написать там довольно простую строчку (часто есть простая подсказка в самом файле, но зависит от системы):</p><pre><code class="bash">m h  dom mon dow   command</code></pre><p>Так как cron‑нотация используется почти везде, где надо выполнять команды по расписанию, разберём подробнее, что здесь есть что:</p><ul><li><p><strong>m</strong> — на какой минуте (от 0 до 59)</p></li><li><p><strong>h</strong> — в который час (от 0 до 23)</p></li><li><p><strong>dom</strong> — в какой по номеру (1–31) день месяца</p></li><li><p><strong>mon</strong> — в какой месяц (1–12)</p></li><li><p><strong>dow</strong> — в какой день недели (0–6, где 0 — это воскресенье).</p></li><li><p>будет выполняться ваша <strong>command</strong></p></li></ul><p>В качестве значений можно использовать не только числа, но и специальные символы:</p><ul><li><p>* — означает любое значение (в каждую минуту или месяц);</p></li><li><p>n‑m — означает диапазон значений от n до m (включительно);</p></li><li><p>/k — означает шаг (каждый k‑ый день месяца);</p></li><li><p>список допустимых значений можно передавать через запятую.</p></li></ul><p>Также если явно указаны значения для dom и dow, то команда будет выполняться, когда выпадает подходящее значения для хотя бы одного из них. То есть запись <code>30 11 1 * 0</code> перед командой будет означать «выполняй следующую команду в 11:30 каждый месяц первого числа или каждое воскресенье». Выходит вместе они работают как или, а не как и (но есть нюансы). Вообще вот этот <a href="https://crontab.guru/">сайт</a> в помощь, крайне полезный.</p><p>Для работы с cron в R есть пакет cronR, с помощью которого можно как ставить задачи в расписание, так и работать с уже имеющимися. У него есть и add‑in для RStudio</p><h3>Развитие cron</h3><p>Cron — прекрасный инструмент, но лишён многих полезных вещей. Например, мониторинг и алёртинг не так легко сюда прикрутить. Логи централизованно хранить и удобно читать тоже возможно только с использованием дополнительных инструментов (например ELK стек). Также выполнение привязано к конкретной машине. И если машина не работает, то и ваше расписание тоже. И ещё на много весёлого можно наткнуться (права на выполнение, переменные окружения, относительные пути).</p><p>Развитие cron получил в виде различных утилит, сервисов и их компонентов. Например: <a href="https://docs.gitlab.com/ee/ci/pipelines/schedules.html">scheduled pipelines в Gitlab</a>, <a href="https://kubernetes.io/docs/concepts/workloads/controllers/cron-jobs/">cronjob в Kubernetes</a>, <a href="https://airflow.apache.org/">Airflow</a>. Последний является самой распространённой технологией для ETL и вообще оркестрации аналитических (и дата инженерных) задач. Его я далее и буду рассматривать. Хотя искушённый читатель может и удивиться, ведь если речь о языках программирвоания, то в Airflow можно запускать только Python код, но я этой статьёй это заблуждение развенчаю.</p><p>Кроме знания R вам для реализации подхода понадобятся минимальные знания Docker. Мы будем как запускать контейнеры из готовых образов, так и создавать образы самостоятельно. Почитать документацию всегда полезно (и постоянно к ней возвращаться совершенно не стыдно). Также я крайне рекомендую (потому что требовать не могу) использовать систему контроля версий (например git).</p><p>Перед дальнейшим чтением желательно установить Docker desktop. И будет ещё лучше иметь виртуальную машину на линукс. Благо с распространением облачных сервисов это не сложно. А можно и попросить у своих коллег из соответсвующего департамента. Потом ваши наработки помогут вам вместе поставить всё на прочные рельсы.</p><p><a href="https://docs.docker.com/get-docker/">Ссылка на скачивание Docker desktop</a>.<br/><a href="https://docs.docker.com/engine/reference/commandline/cli/">Документация по утилите командной строки docker</a><br/><a href="https://docs.docker.com/engine/reference/builder/">Документация по Dockerfile</a><br/><a href="https://docs.docker.com/compose/compose-file/">Документация по docker‑compose файлу</a></p><h3>Контейнеризация</h3><p>Заглавная мысль статьи — запуск кода где и когда угодно. И если разработчики в этот момент скажут, ну понятно же всё, заворачиваем код в Docker образ, то для начинающих аналитиков это может быть не так очевидно.</p><p>Коротко про контейнеры. Рассматривайте их как изолированные от окружения хоста виртуальные машины. Это не совсем правильное описание, зато наиболее понятное. Запуская на своём ноутбуке контейнер, собранный из вот такого образа (rocker/tidyverse), вы получаете отдельную систему на линукс с установленным R и пакетом tidyverse. В простом запуске нет особого смысла (если это не готовый сервис, который работает сам по себе), потому можно передать команду, которая выполнится в контейнере прямо в момент запуска.</p><pre><code class="bash">docker run rocker/tidyverse R -e print\('"Hello, world!"'\)</code></pre><p>Такая команда создаст контейнер из образа <code>rocker/tidyverse</code>, запустит и его и в нём выполнит команду R <code>-e print('"Hello, world!"')</code>. Думаю, теперь понятно, куда я клоню: нам надо подготовить образ, в котором можно выполнить нужную команду.</p><p>Если образ — это подготовленный к непосредственному запуску стартовый шаблонный контейнер, то Dockerfile — инструкция по созданию образа. Его‑то и надо написать в нашей папке с кодом. Я приведу пример очень простого Dockerfile, без какой‑либо конкретики.</p><pre><code># Стартовый образ из которого мы будем делать свой.
+# Я использую именно этот, потому что там есть почти всё необходимое,
+# особенно это касается linux библиотек
+FROM rocker/tidyverse
+
+# Тут можно объявить переменную, значение которой будет определяться
+# на стадии сборки образа. Полезно для передачи логинов и паролей
+ARG VERY_SECRET_VARIABLE
+
+# Тут мы значение переменной присвоим переменной окружения, которая
+# будет доступна в любом контейнере, созданном на основе этого образа
+ENV VERY_SECRET_VARIABLE=$VERY_SECRET_VARIABLE
+
+# Тут можно выполнить любые команды, доступные в исходной для образа версии линукс
+# Здесь я, например, устанавливаю пакеты
+RUN R -e "install.packages(с('lgr', 'gt'))"
+
+# Если необходимо выполнить несколько команд, то для каждой надо писать отдельно RUN
+# Здесь я создаю папку для своего кода в образе
+RUN mkdir /home/my_cool_r_project
+
+# Специальная команда для копирования файлов с хоста в образ
+# Тут я копирую код из папки src, которая находится в той же папке, что и
+# Dockerfile, и помещаю её в образ по указанному адресу
+COPY src /home/my_cool_r_project
+</code></pre><p>Я не буду здесь касаться сложных материй вроде ENTRYPOINT и CMD. Наша задача крайне проста — создать Docker образ с нашим кодом. Чтобы потом этот код запускать из любого утюга.</p><p>Собираем образ простой командой docker build. Флаг ‑t отвечает за название образа (my_cool_r_project). Точка в конце — относительный путь к папке с докерфайлом (в данном случае буквально: он здесь и лежит, где команда выполняется). Файл должен называться Dockerfile.</p><pre><code class="bash">docker build -t my_cool_r_project .</code></pre><p>Итак, код готов и запакован в образ. Осталось его только поставить в расписание? Нет, для начала его надо отправить в реестр контейнеров. Но сначала надо в нём зарегистрироваться. Для тестовых целей можно воспользоваться <a href="https://hub.docker.com/">docker hub</a>. Для этого надо будет сначала там зарегистрироваться, а потом залогиниться в docker desktop (а после этого надо будет это сделать и в терминале).</p><pre><code class="bash">docker login
+docker push my_cool_r_project</code></pre><p>В вашем личном реестре в докер хабе после этого появится только что созданный образ. И оттуда его можно забирать с помощью DockerOperator в Airflow.</p><h4>Airflow</h4><p>На самом деле запустить Airflow не так просто, как кажется. По туториалу на сайте можно запустить только урезанную версию и DockerOperator там использовать совершенно невозможно. Потому я буду пользоваться готовым docker compose файлом с некоторыми доработками для использования DockerOperator (да, это docker‑in‑docker).</p><p>Я рассматриваю следующую конфигурацию Airflow как тестовую, но имеющую ряд недостатков. Особенно в части безопасности. Но в учебных целях нам это подходит как раз.</p><p>Сама папка, откуда всё будем запускать, имеет следующую структуру:</p><figure class="full-width"><img data-src="https://habrastorage.org/getpro/habr/upload_files/b97/d6b/1d6/b97d6b1d673c0d38b329a9ec6926746d.png" height="328" src="https://habrastorage.org/r/w1560/getpro/habr/upload_files/b97/d6b/1d6/b97d6b1d673c0d38b329a9ec6926746d.png" width="644"/><figcaption></figcaption></figure><p>Папку dags советую сосздать сразу. Остальные будут созданы автоматически. Сейчас нас интересует Dockerfile и requirements.txt. В последнем пишутся все python библиотеки, которые могут понадобится в нашей работе. В данном примере там только <strong>apache‑airflow‑providers‑docker</strong>.</p><p>Текст докерфайла:</p><pre><code>FROM apache/airflow:2.3.3
+
+# Install Docker
+RUN pip install Docker
+
+USER root
+ARG DOCKER_GROUP_ID
+
+# Add permissions for running docker.sock
+RUN groupadd -g $DOCKER_GROUP_ID docker &amp;&amp; gpasswd -a airflow docker
+
+USER airflow
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+</code></pre><p>Дополнив базовый образ airflow некоторыми расширениями прав и библиотеками, мы сможем пользоваться докер демоном на хосте из контейнера эйрфлоу воркера в контейнере.</p><pre><code class="yaml">version: '3'
+# Описание общих настроек для всех airflow-контейнеров
+x-airflow-common:
+  &amp;airflow-common
+  # Здесь собираем образ по инструкции из локального Dockerfile
+  build:
+    context: .
+    args:
+      DOCKER_GROUP_ID: 999
+  environment:
+    &amp;airflow-common-env
+    AIRFLOW__CORE__EXECUTOR: CeleryExecutor
+    AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres/airflow
+    AIRFLOW__CORE__ENABLE_XCOM_PICKLING: True
+    # For backward compatibility, with Airflow &lt;2.3
+    AIRFLOW__CORE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres/airflow
+    AIRFLOW__CELERY__RESULT_BACKEND: db+postgresql://airflow:airflow@postgres/airflow
+    AIRFLOW__CELERY__BROKER_URL: redis://:@redis:6379/0
+    AIRFLOW__CORE__FERNET_KEY: ''
+    AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: 'true'
+    AIRFLOW__CORE__LOAD_EXAMPLES: 'false'
+    AIRFLOW__API__AUTH_BACKENDS: 'airflow.api.auth.backend.basic_auth'
+    _PIP_ADDITIONAL_REQUIREMENTS: ${_PIP_ADDITIONAL_REQUIREMENTS:-}
+  # Биндим папки на хосте с папками в airflow контейнерах
+  volumes:
+    - ./dags:/opt/airflow/dags
+    - ./logs:/opt/airflow/logs
+    - ./plugins:/opt/airflow/plugins
+    # Обязательное условие, иначе докер демоном хоста невозможно будет воспользоваться
+    - /var/run/docker.sock:/var/run/docker.sock
+  user: 0:0
+  depends_on:
+    &amp;airflow-common-depends-on
+    redis:
+      condition: service_healthy
+    postgres:
+      condition: service_healthy
+
+# Не эйрфлоу сервисы довольно стандартные
+services:
+  postgres:
+    image: postgres:13
+    environment:
+      POSTGRES_USER: airflow
+      POSTGRES_PASSWORD: airflow
+      POSTGRES_DB: airflow
+    volumes:
+      - postgres-db-volume:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "airflow"]
+      interval: 5s
+      retries: 5
+    restart: always
+
+  redis:
+    image: redis:latest
+    expose:
+      - 6379
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 30s
+      retries: 50
+    restart: always
+
+  airflow-webserver:
+    &lt;&lt;: *airflow-common
+    command: webserver
+    ports:
+      - 8080:8080
+    healthcheck:
+      test: ["CMD", "curl", "--fail", "http://localhost:8080/health"]
+      interval: 10s
+      timeout: 10s
+      retries: 5
+    restart: always
+    depends_on:
+      &lt;&lt;: *airflow-common-depends-on
+      airflow-init:
+        condition: service_completed_successfully
+
+  airflow-scheduler:
+    &lt;&lt;: *airflow-common
+    command: scheduler
+    healthcheck:
+      test: ["CMD-SHELL", 'airflow jobs check --job-type SchedulerJob --hostname "$${HOSTNAME}"']
+      interval: 10s
+      timeout: 10s
+      retries: 5
+    restart: always
+    depends_on:
+      &lt;&lt;: *airflow-common-depends-on
+      airflow-init:
+        condition: service_completed_successfully
+
+  airflow-worker:
+    &lt;&lt;: *airflow-common
+    command: celery worker
+    healthcheck:
+      test:
+        - "CMD-SHELL"
+        - 'celery --app airflow.executors.celery_executor.app inspect ping -d "celery@$${HOSTNAME}"'
+      interval: 10s
+      timeout: 10s
+      retries: 5
+    environment:
+      &lt;&lt;: *airflow-common-env
+      # Required to handle warm shutdown of the celery workers properly
+      # See https://airflow.apache.org/docs/docker-stack/entrypoint.html#signal-propagation
+      DUMB_INIT_SETSID: "0"
+    restart: always
+    depends_on:
+      &lt;&lt;: *airflow-common-depends-on
+      airflow-init:
+        condition: service_completed_successfully
+
+  airflow-triggerer:
+    &lt;&lt;: *airflow-common
+    command: triggerer
+    healthcheck:
+      test: ["CMD-SHELL", 'airflow jobs check --job-type TriggererJob --hostname "$${HOSTNAME}"']
+      interval: 10s
+      timeout: 10s
+      retries: 5
+    restart: always
+    depends_on:
+      &lt;&lt;: *airflow-common-depends-on
+      airflow-init:
+        condition: service_completed_successfully
+
+  airflow-init:
+    &lt;&lt;: *airflow-common
+    entrypoint: /bin/bash
+    # yamllint disable rule:line-length
+    command:
+      - -c
+      - |
+        function ver() {
+          printf "%04d%04d%04d%04d" $${1//./ }
+        }
+        airflow_version=$$(AIRFLOW__LOGGING__LOGGING_LEVEL=INFO &amp;&amp; gosu airflow airflow version)
+        airflow_version_comparable=$$(ver $${airflow_version})
+        min_airflow_version=2.2.0
+        min_airflow_version_comparable=$$(ver $${min_airflow_version})
+        if (( airflow_version_comparable &lt; min_airflow_version_comparable )); then
+          echo
+          echo -e "\033[1;31mERROR!!!: Too old Airflow version $${airflow_version}!\e[0m"
+          echo "The minimum Airflow version supported: $${min_airflow_version}. Only use this or higher!"
+          echo
+          exit 1
+        fi
+        if [[ -z "${AIRFLOW_UID}" ]]; then
+          echo
+          echo -e "\033[1;33mWARNING!!!: AIRFLOW_UID not set!\e[0m"
+          echo "If you are on Linux, you SHOULD follow the instructions below to set "
+          echo "AIRFLOW_UID environment variable, otherwise files will be owned by root."
+          echo "For other operating systems you can get rid of the warning with manually created .env file:"
+          echo "    See: https://airflow.apache.org/docs/apache-airflow/stable/start/docker.html#setting-the-right-airflow-user"
+          echo
+        fi
+        one_meg=1048576
+        mem_available=$$(($$(getconf _PHYS_PAGES) * $$(getconf PAGE_SIZE) / one_meg))
+        cpus_available=$$(grep -cE 'cpu[0-9]+' /proc/stat)
+        disk_available=$$(df / | tail -1 | awk '{print $$4}')
+        warning_resources="false"
+        if (( mem_available &lt; 4000 )) ; then
+          echo
+          echo -e "\033[1;33mWARNING!!!: Not enough memory available for Docker.\e[0m"
+          echo "At least 4GB of memory required. You have $$(numfmt --to iec $$((mem_available * one_meg)))"
+          echo
+          warning_resources="true"
+        fi
+        if (( cpus_available &lt; 2 )); then
+          echo
+          echo -e "\033[1;33mWARNING!!!: Not enough CPUS available for Docker.\e[0m"
+          echo "At least 2 CPUs recommended. You have $${cpus_available}"
+          echo
+          warning_resources="true"
+        fi
+        if (( disk_available &lt; one_meg * 10 )); then
+          echo
+          echo -e "\033[1;33mWARNING!!!: Not enough Disk space available for Docker.\e[0m"
+          echo "At least 10 GBs recommended. You have $$(numfmt --to iec $$((disk_available * 1024 )))"
+          echo
+          warning_resources="true"
+        fi
+        if [[ $${warning_resources} == "true" ]]; then
+          echo
+          echo -e "\033[1;33mWARNING!!!: You have not enough resources to run Airflow (see above)!\e[0m"
+          echo "Please follow the instructions to increase amount of resources available:"
+          echo "   https://airflow.apache.org/docs/apache-airflow/stable/start/docker.html#before-you-begin"
+          echo
+        fi
+        mkdir -p /sources/logs /sources/dags /sources/plugins
+        chown -R "${AIRFLOW_UID}:0" /sources/{logs,dags,plugins}
+        exec /entrypoint airflow version
+    # yamllint enable rule:line-length
+    environment:
+      &lt;&lt;: *airflow-common-env
+      _AIRFLOW_DB_UPGRADE: 'true'
+      _AIRFLOW_WWW_USER_CREATE: 'true'
+      _AIRFLOW_WWW_USER_USERNAME: ${_AIRFLOW_WWW_USER_USERNAME:-airflow}
+      _AIRFLOW_WWW_USER_PASSWORD: ${_AIRFLOW_WWW_USER_PASSWORD:-airflow}
+      _PIP_ADDITIONAL_REQUIREMENTS: ''
+    user: 0:0
+    volumes:
+      - .:/sources
+
+  airflow-cli:
+    &lt;&lt;: *airflow-common
+    profiles:
+      - debug
+    environment:
+      &lt;&lt;: *airflow-common-env
+      CONNECTION_CHECK_MAX_COUNT: "0"
+    # Workaround for entrypoint issue. See: https://github.com/apache/airflow/issues/16252
+    command:
+      - bash
+      - -c
+      - airflow
+
+  flower:
+    &lt;&lt;: *airflow-common
+    command: celery flower
+    profiles:
+      - flower
+    ports:
+      - 5555:5555
+    healthcheck:
+      test: ["CMD", "curl", "--fail", "http://localhost:5555/"]
+      interval: 10s
+      timeout: 10s
+      retries: 5
+    restart: always
+    depends_on:
+      &lt;&lt;: *airflow-common-depends-on
+      airflow-init:
+        condition: service_completed_successfully
+
+volumes:
+  postgres-db-volume:
+</code></pre><p>Далее нам нужен наш DAG (далее я буду писать ДАГ), то есть пайплайн задач airflow, который будет выполнять код на R. Напишем простейший, который будет брать из общедоступного докер хаба базовый образ R и выполнять в нём какую‑нибудь команду.</p><p><code>dags/my_cool_r_dag.py</code></p><pre><code class="python">from airflow.models import DAG
+from airflow.providers.docker.operators.docker import DockerOperator
+from datetime import datetime
+
+
+with DAG(
+	# Идентификатор ДАГа
+    dag_id='cool_r_dag',
+    # Дата первого прогона ДАГа
+    start_date=datetime(2023, 2, 21),
+    # Расписание, по которому будет выполняться ДАГ
+    # В 10 минут раз в 2 часа каждый вторник
+    schedule_interval='10 */2 * * 2'
+) as dag:
+
+    task = DockerOperator(
+	    # Путь к докер демону
+        docker_url='unix://var/run/docker.sock',
+        api_version='auto',
+        # Команда, которая будет выполняться в контейнере
+        command='''R -e print\('"Hello, world!"'\)''',
+        # Образ, из которого будет собираться контейнер
+        image='arm64v8/r-base',
+        # Идентификатор задачи (ДАГи состоят из задач)
+        task_id='hello',
+        # Автоудаление контейнера после выполнения
+        auto_remove=True,
+        # В каком даге выполняется эта задача
+        dag=dag,
+        # Запрет на связывание временных папок в контейнере и на хосте
+        mount_tmp_dir=False
+    )
+</code></pre><p>После этого остаётся запустить сервис и выполнение задач.</p><pre><code class="bash">docker compose build
+docker compose up -d</code></pre><p>По адресу localhost:8080 доступен web UI airflow (логин/пароль: airflow/airflow). После логина там будет такой список:</p><figure class="full-width"><img data-src="https://habrastorage.org/getpro/habr/upload_files/727/1e2/233/7271e2233827c851fd51466e3e0243be.png" height="334" src="https://habrastorage.org/r/w1560/getpro/habr/upload_files/727/1e2/233/7271e2233827c851fd51466e3e0243be.png" width="3418"/><figcaption></figcaption></figure><p>Активируем ДАГ тумблером слева и нажимаем кнопку play справа (там выбираем Trigger DAG). После нажимаем на название ДАГа, выбираем раздел Graph, там нажимаем на бокс с задачей (hello) и выбираем сверху раздел Log. Там мы увидим примерно что‑то такое:</p><figure class="full-width"><img data-src="https://habrastorage.org/getpro/habr/upload_files/cf9/6eb/a8f/cf96eba8fcb767c9bca0dace205f8d32.png" height="1684" src="https://habrastorage.org/r/w1560/getpro/habr/upload_files/cf9/6eb/a8f/cf96eba8fcb767c9bca0dace205f8d32.png" width="3354"/><figcaption></figcaption></figure><p>Идеально, мы запустили R код в airflow. Теперь не обязательно переписывать все свои манипуляция с данными на питон.</p><h3>Заключение</h3><p>Это прямо обзорная статья, не подробное руководство к действию. В ней я хотел показать примитивный пример того, как лучше всего организовать подход к запуску кода по расписанию. Правда немного не хватает этапа автоматизации сборки образа (потому что решил не усложнять туториал ещё одним звеном в инфраструктуре), его я попробую описать словами и ссылками. Итак, этапы:</p><ol><li><p>Написание R кода</p></li><li><p>Упаковка его в docker‑образ </p><ol><li><p>По автоматизации советую почитать <a href="https://docs.gitlab.com/ee/ci/">gitlab CI/CD</a>. Многие как раз хранят код в гитлабе, там можно настроить сборку простейшим раннером. Сама сборка буквально состоит из docker build → docker push. Хотя стоит ещё тесты накинуть.</p></li><li><p>Также можно использовать гитлабовский же container registry. Для того, чтобы использовать собранный образ в airflow, надо будет в connections создать подключение к этому container registry и в коде задачи (DockerOperator) ДАГа указать идентификатор этого подкючения.</p></li></ol></li><li><p>Запуск по расписанию конейтенера из этого образа с любой выполнимой командой.</p></li></ol><p>Я специально ничего не сказал про airflow в последнем пункте, так как запакованный в docker образ R код можно выполнять по расписанию где угодно.</p><p>Ещэ не много про автоматизацию. У меня сейчас как раз настроен процесс на GitLab CI/CD (self‑hosted) и Airflow. В итоге чтобы внести изменения в бизнес‑логику отчёта или пофиксить баг мне буквально нужно сделать три действия:</p><ol><li><p>Внести изменения в код в отдельной ветке.</p></li><li><p>Отправить ветку с изменениями в gitlab.</p></li><li><p>Дождаться ревью (если необходимо) и смёрджить ветку с изменениями в основную.</p></li></ol><p>После этого в реестре контейнеров появится обновлённый с таким же тегом образом, а Airflow в следующий запуск ДАГа по расписанию будет использовать уже его, то есть подхватит все исправления.</p><p>Итого мы имеем не просто запущенный по расписанию код, а много следующих преимуществ:</p><ol><li><p>Код можно запустить на любой машине, где есть докер демон (но стоит обратить внимание на архитектуру процессора).</p></li><li><p>Код можно запустить «кнопочкой».</p></li><li><p>Если код не выполнился, это легко увидеть в веб интерфейсе (а можно ещё и алёрты настроить).</p></li><li><p>Логи легко доступны по каждому выполнению, на каждом этапе.</p></li><li><p>Если добавить CI/CD, то вносить изменения в код становится крайне легко и не надо думать, как это правильно доставить до клиента.</p></li><li><p>Ну и вы не привязаны к языку, пишите на любом, который подходит вам и решает поставленные задачи.</p></li></ol><p>Статья направлена и на тех аналитиков, которые всё же думают, что так как почти все ETL/ELT инструменты так или иначе связаны с Python, то и писать придётся на нём, а R стоит забросить. Я решил показать, что это не так, вы можете пользоваться всеми удобствами обоих языков. И как раз 30 марта в OTUS стартует мой курс по Анализу данных на языке R. Там вы научитесь быстрым, эффективным и элегантным приёмам работы с данными.</p><p>Прямо сейчас хочу пригласить вас на <a href="https://otus.pw/slzN/">бесплатный урок</a>, где я расскажу как получать данные практически из любых источников в сети с помощью библиотеки httr2. А также отправлять данные и команды также по сети. Еще рассмотрим как собирать сложные HTTP запросы из простых блоков.</p><ul><li><p><a href="https://otus.pw/slzN/">Зарегистрироваться на бесплатный вебинар</a></p></li></ul><p></p></div></div></div> <!-- --> <!-- --></div> <!-- --> <!-- --></div> <!-- --> <div class="tm-article-presenter__meta"><div class="tm-separated-list tm-article-presenter__meta-list"><span class="tm-separated-list__title">Теги:</span> <ul class="tm-separated-list__list"><li class="tm-separated-list__item"><a class="tm-tags-list__link" href="/ru/search/?target_type=posts&amp;order=relevance&amp;q=%5Br%5D">r</a></li><li class="tm-separated-list__item"><a class="tm-tags-list__link" href="/ru/search/?target_type=posts&amp;order=relevance&amp;q=%5B%D0%B0%D0%BD%D0%B0%D0%BB%D0%B8%D1%82%D0%B8%D0%BA%D0%B0%20%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85%5D">аналитика данных</a></li><li class="tm-separated-list__item"><a class="tm-tags-list__link" href="/ru/search/?target_type=posts&amp;order=relevance&amp;q=%5Bcron%5D">cron</a></li></ul></div> <div class="tm-separated-list tm-article-presenter__meta-list"><span class="tm-separated-list__title">Хабы:</span> <ul class="tm-separated-list__list"><li class="tm-separated-list__item"><a class="tm-hubs-list__link router-link-active" href="/ru/company/otus/blog/">Блог компании OTUS</a></li><li class="tm-separated-list__item"><a class="tm-hubs-list__link" href="/ru/hub/r/">R</a></li></ul></div></div></article></div> <!-- --></div> <div class="tm-article-sticky-panel"><div class="tm-data-icons tm-article-sticky-panel__icons"><div class="tm-article-rating tm-data-icons__item"><div class="tm-votes-meter tm-article-rating__votes-switcher"><svg class="tm-svg-img tm-votes-meter__icon tm-votes-meter__icon tm-votes-meter__icon_appearance-article" height="24" width="24"><title>Всего голосов 12: ↑12 и ↓0</title> <use xlink:href="/img/megazord-v28.2b11c25e..svg#counter-rating"></use></svg> <span class="tm-votes-meter__value tm-votes-meter__value tm-votes-meter__value_positive tm-votes-meter__value_appearance-article tm-votes-meter__value_rating" title="Всего голосов 12: ↑12 и ↓0">+12</span></div> <div class="v-portal" style="display:none;"></div></div> <!-- --> <!-- --> <button class="bookmarks-button tm-data-icons__item" title="Добавить в закладки" type="button"><span class="tm-svg-icon__wrapper bookmarks-button__icon"><svg class="tm-svg-img tm-svg-icon" height="24" width="24"><title>Добавить в закладки</title> <use xlink:href="/img/megazord-v28.2b11c25e..svg#counter-favorite"></use></svg></span> <span class="bookmarks-button__counter" title="Количество пользователей, добавивших публикацию в закладки">
+    10
+  </span></button> <div class="tm-article-comments-counter-link tm-data-icons__item" title="Читать комментарии"><a class="tm-article-comments-counter-link__link" href="/ru/company/otus/blog/718400/comments/"><svg class="tm-svg-img tm-article-comments-counter-link__icon" height="24" width="24"><title>Комментарии</title> <use xlink:href="/img/megazord-v28.2b11c25e..svg#counter-comments"></use></svg> <span class="tm-article-comments-counter-link__value">
+      0
+    </span></a> <!-- --></div> <div class="tm-sharing tm-data-icons__item" title="Поделиться"><button class="tm-sharing__button" type="button"><svg class="tm-sharing__icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M13.8 13.8V18l7.2-6.6L13.8 5v3.9C5 8.9 3 18.6 3 18.6c2.5-4.4 6-4.8 10.8-4.8z" fill="currentColor"></path></svg></button> <div class="v-portal" style="display:none;"></div></div> <div class="v-portal" style="display:none;"></div></div> </div></div> <div class="v-portal" style="display:none;"></div> <div class="tm-article-presenter__footer"><div class="tm-article-blocks"><!-- --> <div></div> <section class="tm-block tm-block tm-block_spacing-bottom"><!-- --> <div class="tm-block__body tm-block__body tm-block__body_variant-balanced"><div class="tm-article-author"><div class="tm-article-author__company"><div class="tm-article-author__company-card"><div class="tm-company-snippet"><a class="tm-company-snippet__logo-link" href="/ru/company/otus/profile/"><div class="tm-entity-image"><img alt="" class="tm-entity-image__pic" height="40" src="//habrastorage.org/getpro/habr/company/2d5/0ed/b57/2d50edb57cf45fa07cc4f39f53b78395.png" width="40"/></div></a> <div class="tm-company-snippet__info"><a class="tm-company-snippet__title" href="/ru/company/otus/profile/">OTUS</a> <div class="tm-company-snippet__description">Цифровые навыки от ведущих экспертов</div></div></div> <div class="tm-article-author__buttons"><!-- --> <!-- --></div></div> <div class="tm-article-author__company-contacts"><a class="tm-article-author__contact" href="https://otus.ru" rel="noopener" target="_blank">
+      Сайт
+    </a><a class="tm-article-author__contact" href="https://vk.com/club145052891" rel="noopener" target="_blank">
+      ВКонтакте
+    </a><a class="tm-article-author__contact" href="https://telegram.me/Otusjava" rel="noopener" target="_blank">
+      Telegram
+    </a></div> <div class="tm-article-author__separator"></div></div> <div class="tm-user-card tm-article-author__user-card tm-user-card tm-user-card_variant-article"><div class="tm-user-card__info-container"><div class="tm-user-card__header"><div class="tm-user-card__header-data"><a class="tm-user-card__userpic tm-user-card__userpic_size-40" href="/ru/users/GolovinDS/"><div class="tm-entity-image"><img alt="" class="tm-entity-image__pic" src="//habrastorage.org/getpro/habr/avatars/d27/ccd/743/d27ccd743d8bccbf1a885e5dadaa7ffe.jpg"/></div></a> <div class="tm-user-card__meta"><div class="tm-counter-container tm-karma tm-karma" title=" 149 голосов "><div class="tm-counter-container__header"><div class="tm-karma__votes tm-karma__votes_negative">
+      -3
+    </div></div> <div class="tm-counter-container__footer"><div class="tm-karma__text">
+      Карма
+    </div> <div class="v-portal" style="display:none;"></div></div></div> <div class="tm-counter-container" title="Рейтинг пользователя"><div class="tm-counter-container__header"> <div class="tm-votes-lever tm-votes-lever tm-votes-lever_appearance-rating"><!-- --> <div class="tm-votes-lever__score tm-votes-lever__score tm-votes-lever__score_appearance-rating"><span class="tm-votes-lever__score-counter tm-votes-lever__score-counter tm-votes-lever__score-counter_rating">
+        20
+      </span></div> <!-- --></div></div> <div class="tm-counter-container__footer"><span class="tm-rating__text tm-rating__text">
+      Рейтинг
+    </span></div></div></div></div></div> <div class="tm-user-card__info tm-user-card__info tm-user-card__info_variant-article"><div class="tm-user-card__title tm-user-card__title tm-user-card__title_variant-article"><span class="tm-user-card__name tm-user-card__name tm-user-card__name_variant-article">Дмитрий Головин</span> <a class="tm-user-card__nickname tm-user-card__nickname tm-user-card__nickname_variant-article" href="/ru/users/GolovinDS/">
+          @GolovinDS
+        </a> <!-- --></div> <p class="tm-user-card__short-info tm-user-card__short-info tm-user-card__short-info_variant-article">Контент-маркетолог</p></div></div> <div class="tm-user-card__buttons tm-user-card__buttons tm-user-card__buttons_variant-article"><!-- --> <!-- --> <!-- --> <!-- --> <!-- --></div></div> <!-- --></div> <div class="v-portal" style="display:none;"></div></div> <!-- --></section> <!-- --> <div class="tm-article-blocks__comments"><div class="tm-article-page-comments"><div class="tm-article-comments-counter-link tm-article-comments-counter-button"><a class="tm-article-comments-counter-link__link tm-article-comments-counter-link__link_button-style" href="/ru/company/otus/blog/718400/comments/"><svg class="tm-svg-img tm-article-comments-counter-link__icon tm-article-comments-counter-link__icon_contrasted" height="24" width="24"><title>Комментарии</title> <use xlink:href="/img/megazord-v28.2b11c25e..svg#counter-comments"></use></svg> <span class="tm-article-comments-counter-link__value tm-article-comments-counter-link__value_contrasted">
+       Комментировать 
+    </span></a> <!-- --></div></div></div> <section class="tm-block tm-block tm-block_spacing-bottom"><header class="tm-block__header tm-block__header tm-block__header_variant-borderless"><div class="tm-block__header-container"><h2 class="tm-block__title tm-block__title tm-block__title_variant-large">Публикации</h2> </div> <!-- --></header> <div class="tm-block__body tm-block__body tm-block__body_variant-condensed-slim"><div class="tm-tabs tm-tabs"><div><span class="tm-tabs__tab-item"><button class="tm-tabs__tab-link tm-tabs__tab-link tm-tabs__tab-link_active tm-tabs__tab-link_slim">
+        Лучшие за сутки
+      </button></span><span class="tm-tabs__tab-item"><button class="tm-tabs__tab-link tm-tabs__tab-link tm-tabs__tab-link_slim">
+        Похожие
+      </button></span></div> <!-- --></div> <div class="similar-and-daily__tab-view"><div><!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <div class="tm-placeholder-article-cards"><div class="tm-placeholder-article-card"><div class="tm-placeholder__user"><div class="tm-placeholder__user-pic loads"></div> <div class="tm-placeholder__user-date loads"></div></div> <div class="tm-placeholder-article-card__title"><div class="tm-placeholder__line tm-placeholder-article-card__title-line loads"></div> <div class="tm-placeholder__line tm-placeholder-article-card__title-line loads"></div></div> <div class="tm-placeholder-article-card__icons tm-placeholder__counters"><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div></div></div><div class="tm-placeholder-article-card"><div class="tm-placeholder__user"><div class="tm-placeholder__user-pic loads"></div> <div class="tm-placeholder__user-date loads"></div></div> <div class="tm-placeholder-article-card__title"><div class="tm-placeholder__line tm-placeholder-article-card__title-line loads"></div> <div class="tm-placeholder__line tm-placeholder-article-card__title-line loads"></div></div> <div class="tm-placeholder-article-card__icons tm-placeholder__counters"><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div></div></div><div class="tm-placeholder-article-card"><div class="tm-placeholder__user"><div class="tm-placeholder__user-pic loads"></div> <div class="tm-placeholder__user-date loads"></div></div> <div class="tm-placeholder-article-card__title"><div class="tm-placeholder__line tm-placeholder-article-card__title-line loads"></div> <div class="tm-placeholder__line tm-placeholder-article-card__title-line loads"></div></div> <div class="tm-placeholder-article-card__icons tm-placeholder__counters"><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div></div></div><div class="tm-placeholder-article-card"><div class="tm-placeholder__user"><div class="tm-placeholder__user-pic loads"></div> <div class="tm-placeholder__user-date loads"></div></div> <div class="tm-placeholder-article-card__title"><div class="tm-placeholder__line tm-placeholder-article-card__title-line loads"></div> <div class="tm-placeholder__line tm-placeholder-article-card__title-line loads"></div></div> <div class="tm-placeholder-article-card__icons tm-placeholder__counters"><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div></div></div><div class="tm-placeholder-article-card"><div class="tm-placeholder__user"><div class="tm-placeholder__user-pic loads"></div> <div class="tm-placeholder__user-date loads"></div></div> <div class="tm-placeholder-article-card__title"><div class="tm-placeholder__line tm-placeholder-article-card__title-line loads"></div> <div class="tm-placeholder__line tm-placeholder-article-card__title-line loads"></div></div> <div class="tm-placeholder-article-card__icons tm-placeholder__counters"><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div></div></div></div> <!-- --> <!-- --> <!-- --> <!-- --></div> <!-- --></div></div> <!-- --></section> <div><!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <div class="tm-placeholder-inset tm-placeholder-vacancies"><div class="tm-placeholder-inset__header"><div class="tm-placeholder__line tm-placeholder__line_inset-header loads"></div></div> <div class="tm-placeholder-inset__body"><ul class="tm-placeholder-list"><li class="tm-placeholder-list__item tm-placeholder-list__item_inset"><div class="tm-placeholder-list__title-container"><div class="tm-placeholder__line tm-placeholder__line_item-title loads"></div></div> <div class="tm-project-block-items__properties"><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span></div></li><li class="tm-placeholder-list__item tm-placeholder-list__item_inset"><div class="tm-placeholder-list__title-container"><div class="tm-placeholder__line tm-placeholder__line_item-title loads"></div></div> <div class="tm-project-block-items__properties"><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span></div></li><li class="tm-placeholder-list__item tm-placeholder-list__item_inset"><div class="tm-placeholder-list__title-container"><div class="tm-placeholder__line tm-placeholder__line_item-title loads"></div></div> <div class="tm-project-block-items__properties"><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span></div></li><li class="tm-placeholder-list__item tm-placeholder-list__item_inset"><div class="tm-placeholder-list__title-container"><div class="tm-placeholder__line tm-placeholder__line_item-title loads"></div></div> <div class="tm-project-block-items__properties"><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span></div></li><li class="tm-placeholder-list__item tm-placeholder-list__item_inset"><div class="tm-placeholder-list__title-container"><div class="tm-placeholder__line tm-placeholder__line_item-title loads"></div></div> <div class="tm-project-block-items__properties"><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span></div></li></ul></div> <div class="tm-placeholder-inset__footer"><div class="tm-placeholder__line tm-placeholder__line_inset-footer loads"></div></div></div> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --></div> <!-- --> </div></div></div></div></div> <div class="tm-page__sidebar"><!-- --></div></div></div></div></main> <!-- --></div> <!-- --> <div class="tm-footer"><div class="tm-page-width"><div class="tm-footer__container"><div class="tm-footer__title"><a class="tm-svg-icon__wrapper tm-footer__title-link router-link-active" href="/ru/"><svg class="tm-svg-img tm-svg-icon" height="16" width="16"><title>Хабр</title> <use xlink:href="/img/habr-logo-ru.svg#logo"></use></svg></a></div> <div class="tm-footer__social"><a class="tm-svg-icon__wrapper tm-social-icons__icon" href="https://www.facebook.com/habrahabr.ru" rel="nofollow noopener noreferrer" target="_blank"><svg class="tm-svg-img tm-svg-icon" height="16" width="16"><title>Facebook</title> <use xlink:href="/img/social-icons-sprite.svg#social-logo-facebook"></use></svg></a><a class="tm-svg-icon__wrapper tm-social-icons__icon" href="https://twitter.com/habr_com" rel="nofollow noopener noreferrer" target="_blank"><svg class="tm-svg-img tm-svg-icon" height="16" width="16"><title>Twitter</title> <use xlink:href="/img/social-icons-sprite.svg#social-logo-twitter"></use></svg></a><a class="tm-svg-icon__wrapper tm-social-icons__icon" href="https://vk.com/habr" rel="nofollow noopener noreferrer" target="_blank"><svg class="tm-svg-img tm-svg-icon" height="16" width="16"><title>VK</title> <use xlink:href="/img/social-icons-sprite.svg#social-logo-vkontakte"></use></svg></a><a class="tm-svg-icon__wrapper tm-social-icons__icon" href="https://telegram.me/habr_com" rel="nofollow noopener noreferrer" target="_blank"><svg class="tm-svg-img tm-svg-icon" height="16" width="16"><title>Telegram</title> <use xlink:href="/img/social-icons-sprite.svg#social-logo-telegram"></use></svg></a><a class="tm-svg-icon__wrapper tm-social-icons__icon" href="https://www.youtube.com/channel/UCd_sTwKqVrweTt4oAKY5y4w" rel="nofollow noopener noreferrer" target="_blank"><svg class="tm-svg-img tm-svg-icon" height="16" width="16"><title>Youtube</title> <use xlink:href="/img/social-icons-sprite.svg#social-logo-youtube"></use></svg></a><a class="tm-svg-icon__wrapper tm-social-icons__icon" href="https://zen.yandex.ru/habr" rel="nofollow noopener noreferrer" target="_blank"><svg class="tm-svg-img tm-svg-icon" height="16" width="16"><title>Яндекс Дзен</title> <use xlink:href="/img/social-icons-sprite.svg#social-logo-zen"></use></svg></a></div> <div class="v-portal" style="display:none;"></div> <button class="tm-footer__link"><svg class="tm-svg-img tm-footer__icon" height="16" width="16"><title>Язык</title> <use xlink:href="/img/megazord-v28.2b11c25e..svg#lang"></use></svg>
+        Настройка языка
+      </button> <a class="tm-footer__link" href="/ru/feedback/">
+        Техническая поддержка
+      </a> <a class="tm-footer__link" href="/berserk-mode-nope">
+        Вернуться на старую версию
+      </a> <div class="tm-footer-copyright"><span class="tm-copyright"><span class="tm-copyright__years">© 2006–2023, </span> <span class="tm-copyright__name"><a class="tm-copyright__link" href="https://company.habr.com/" rel="noopener" target="_blank">Habr</a></span></span></div></div></div></div> <!-- --> <!-- --></div> <div class="vue-portal-target"></div></div>
+
+
+
+
+
+
+
+
+</body>
+</html>

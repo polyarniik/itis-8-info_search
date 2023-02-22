@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+
+<html data-vue-meta="%7B%22lang%22:%7B%22ssr%22:%22ru%22%7D%7D" lang="ru">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1.0,viewport-fit=cover,maximum-scale=1,user-scalable=0" name="viewport"/>
+<meta content="unsafe-url" name="referrer"/>
+<title>Псалом параноика: мессенджер с максимальной безопасностью / Хабр</title>
+
+
+
+
+
+
+
+<meta content="2.113.0" name="habr-version"/>
+<meta content="444736788986613" data-vue-meta="ssr" property="fb:app_id"/><meta content="472597926099084" data-vue-meta="ssr" property="fb:pages"/><meta content="summary_large_image" data-vue-meta="ssr" name="twitter:card"/><meta content="@habr_com" data-vue-meta="ssr" name="twitter:site"/><meta content="Хабр" data-vmid="og:site_name" data-vue-meta="ssr" property="og:site_name"/><meta content="Псалом параноика: мессенджер с максимальной безопасностью" data-vmid="og:title" data-vue-meta="ssr" property="og:title"/><meta content="Псалом параноика: мессенджер с максимальной безопасностью" data-vmid="twitter:title" data-vue-meta="ssr" name="twitter:title"/><meta content="Псалом параноика: мессенджер с максимальной безопасностью" data-vmid="aiturec:title" data-vue-meta="ssr" name="aiturec:title"/><meta content="Приветствую. На фоне недавних новостей о многочисленных сливах данных из мессенджеров посетила мысль разработать концепт мессенджера, максимально устойчивого к взлому — пусть даже и ценой удобства...." data-vmid="description" data-vue-meta="ssr" name="description"/><meta content="Приветствую. На фоне недавних новостей о многочисленных сливах данных из мессенджеров посетила мысль разработать концепт мессенджера, максимально устойчивого к взлому — пусть даже и ценой удобства...." data-vmid="description:itemprop" data-vue-meta="ssr" itemprop="description"/><meta content="Приветствую. На фоне недавних новостей о многочисленных сливах данных из мессенджеров посетила мысль разработать концепт мессенджера, максимально устойчивого к взлому — пусть даже и ценой удобства...." data-vmid="og:description" data-vue-meta="ssr" property="og:description"/><meta content="Приветствую. На фоне недавних новостей о многочисленных сливах данных из мессенджеров посетила мысль разработать концепт мессенджера, максимально устойчивого к взлому — пусть даже и ценой удобства...." data-vmid="twitter:description" data-vue-meta="ssr" name="twitter:description"/><meta content="Приветствую. На фоне недавних новостей о многочисленных сливах данных из мессенджеров посетила мысль разработать концепт мессенджера, максимально устойчивого к взлому — пусть даже и ценой удобства...." data-vmid="aiturec:description" data-vue-meta="ssr" property="aiturec:description"/><meta content="https://habrastorage.org/webt/mo/za/vf/mozavfwk-hwo4ev3uqmxzub7pg4.png" data-vmid="image:itemprop" data-vue-meta="ssr" itemprop="image"/><meta content="https://habrastorage.org/webt/mo/za/vf/mozavfwk-hwo4ev3uqmxzub7pg4.png" data-vmid="og:image" data-vue-meta="ssr" property="og:image"/><meta content="1200" data-vmid="og:image:width" data-vue-meta="ssr" property="og:image:width"/><meta content="630" data-vmid="og:image:height" data-vue-meta="ssr" property="og:image:height"/><meta content="https://habrastorage.org/webt/mo/za/vf/mozavfwk-hwo4ev3uqmxzub7pg4.png" data-vmid="aiturec:image" data-vue-meta="ssr" property="aiturec:image"/><meta content="https://habrastorage.org/webt/mo/za/vf/mozavfwk-hwo4ev3uqmxzub7pg4.png" data-vmid="twitter:image" data-vue-meta="ssr" name="twitter:image"/><meta content="https://habrastorage.org/webt/mo/za/vf/mozavfwk-hwo4ev3uqmxzub7pg4.png?format=vk" data-vmid="vk:image" data-vue-meta="ssr" property="vk:image"/><meta content="718348" data-vmid="aiturec:item_id" data-vue-meta="ssr" property="aiturec:item_id"/><meta content="2023-02-21T15:50:46.000Z" data-vmid="aiturec:datetime" data-vue-meta="ssr" property="aiturec:datetime"/><meta content="https://habr.com/ru/post/718348/" data-vmid="og:url" data-vue-meta="ssr" property="og:url"/><meta content="article" data-vmid="og:type" data-vue-meta="ssr" property="og:type"/><meta content="ru_RU" data-vmid="og:locale" data-vue-meta="ssr" property="og:locale"/><meta content="react native, javascript, криптография" data-vue-meta="ssr" name="keywords"/>
+
+<meta content="#303b44" name="apple-mobile-web-app-status-bar-style"/>
+<meta content="#629FBC" name="msapplication-TileColor"/>
+<meta content="yes" name="apple-mobile-web-app-capable"/>
+<meta content="yes" name="mobile-web-app-capable"/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body>
+<div data-async-called="true" data-server-rendered="true" id="app"><div class="tm-layout__wrapper"><!-- --> <div></div> <div class="tm-feature tm-feature"><!-- --></div> <header class="tm-header"><div class="tm-page-width"><div class="tm-header__container"><div class="tm-header__burger-nav"><button class="tm-header__button tm-header__button_burger" type="button"><svg class="tm-svg-img tm-header__icon tm-header__icon-burger" height="16" width="16"><title>Меню</title> <use xlink:href="/img/megazord-v28.2b11c25e..svg#header-burger"></use></svg></button></div> <span class="tm-header__logo-wrap"><a class="tm-header__logo tm-header__logo_ru" href="/ru/"><svg class="tm-svg-img tm-header__icon" height="16" width="16"><title>Хабр</title> <use xlink:href="/img/habr-logo-ru.svg#logo"></use></svg></a> <span class="tm-header__beta-sign" style="display:none;">β</span></span> <!-- --> <div class="tm-header-user-menu tm-header_user-menu"><a class="tm-header-user-menu__item tm-header-user-menu__search" href="/ru/search/"><svg class="tm-svg-img tm-header-user-menu__icon tm-header-user-menu__icon_search" height="24" width="24"><title>Поиск</title> <use xlink:href="/img/megazord-v28.2b11c25e..svg#search"></use></svg></a> <!-- --> <!-- --> <!-- --> <div class="tm-header-user-menu__item"><button class="tm-header-user-menu__toggle" data-test-id="menu-toggle-guest"><svg class="tm-svg-img tm-header-user-menu__icon tm-header-user-menu__icon_white" height="24" width="24"><title>Профиль</title> <use xlink:href="/img/megazord-v28.2b11c25e..svg#header-user"></use></svg></button> <!-- --></div> <!-- --></div></div></div></header> <div class="tm-layout"><div class="tm-page-progress-bar"></div> <!-- --> <!-- --> <div class="tm-page-width"></div> <main class="tm-layout__container"><div class="tm-page" data-async-called="true" hl="ru"><div class="tm-page-width"><!-- --> <div class="tm-page__wrapper"><div class="tm-page__main tm-page__main_has-sidebar"><div class="pull-down"><!-- --> <div class="pull-down__header" style="height:0px;"><div class="pull-down__content" style="bottom:10px;"><svg class="tm-svg-img pull-down__arrow" height="24" width="24"><title>Обновить</title> <use xlink:href="/img/megazord-v28.2b11c25e..svg#pull-arrow"></use></svg></div></div> <div class="tm-article-presenter"> <div class="tm-article-presenter__body"><div class="tm-misprint-area"><div class="tm-misprint-area__wrapper"><article class="tm-article-presenter__content tm-article-presenter__content_narrow"><div class="tm-article-presenter__header"> <div class="tm-article-snippet tm-article-presenter__snippet tm-article-snippet"><div class="tm-article-snippet__meta-container"><div class="tm-article-snippet__meta"><span class="tm-user-info tm-article-snippet__author"><a class="tm-user-info__userpic" href="/ru/users/p07a1330/" title="p07a1330"><div class="tm-entity-image"><svg class="tm-svg-img tm-image-placeholder tm-image-placeholder_green" height="32" width="32"><!-- --> <use xlink:href="/img/megazord-v28.2b11c25e..svg#placeholder-user"></use></svg></div></a> <span class="tm-user-info__user"><a class="tm-user-info__username" href="/ru/users/p07a1330/">
+      p07a1330
+      <!-- --></a> <span class="tm-article-datetime-published"><time datetime="2023-02-21T15:50:46.000Z" title="2023-02-21, 18:50">вчера в 18:50</time></span></span></span></div> <!-- --></div> <h1 class="tm-article-snippet__title tm-article-snippet__title_h1" lang="ru"><span>Псалом параноика: мессенджер с максимальной безопасностью</span></h1> <div class="tm-article-snippet__stats"><!-- --> <div class="tm-article-reading-time"><span class="tm-svg-icon__wrapper tm-article-reading-time__icon"><svg class="tm-svg-img tm-svg-icon" height="24" width="24"><title>Время на прочтение</title> <use xlink:href="/img/megazord-v28.2b11c25e..svg#clock"></use></svg></span> <span class="tm-article-reading-time__label">
+    9 мин
+  </span></div> <span class="tm-icon-counter tm-data-icons__item"><svg class="tm-svg-img tm-icon-counter__icon" height="24" width="24"><title>Количество просмотров</title> <use xlink:href="/img/megazord-v28.2b11c25e..svg#counter-views"></use></svg> <span class="tm-icon-counter__value">3K</span></span></div> <div class="tm-article-snippet__hubs-container"><div class="tm-article-snippet__hubs"><span class="tm-article-snippet__hubs-item"><a class="tm-article-snippet__hubs-item-link" href="/ru/hub/infosecurity/"><span>Информационная безопасность</span> <span class="tm-article-snippet__profiled-hub" title="Профильный хаб">*</span></a></span><span class="tm-article-snippet__hubs-item"><a class="tm-article-snippet__hubs-item-link" href="/ru/hub/instant_messaging/"><span>Мессенджеры</span> <span class="tm-article-snippet__profiled-hub" title="Профильный хаб">*</span></a></span><span class="tm-article-snippet__hubs-item"><a class="tm-article-snippet__hubs-item-link" href="/ru/hub/crypto/"><span>Криптография</span> <span class="tm-article-snippet__profiled-hub" title="Профильный хаб">*</span></a></span><span class="tm-article-snippet__hubs-item"><a class="tm-article-snippet__hubs-item-link" href="/ru/hub/javascript/"><span>JavaScript</span> <span class="tm-article-snippet__profiled-hub" title="Профильный хаб">*</span></a></span></div></div> <div class="tm-article-snippet__labels-container"><div class="tm-article-snippet__labels"><!-- --> <div class="tm-article-snippet__label tm-article-snippet__label tm-article-snippet__label_variant-recovery"><span>
+          Recovery mode
+        </span></div></div></div> <!-- --> <!-- --></div></div> <!-- --> <div class="tm-article-body" data-gallery-root="" lang="ru"><div></div> <div id="post-content-body"><div><div class="article-formatted-body article-formatted-body article-formatted-body_version-1"><div xmlns="http://www.w3.org/1999/xhtml">Приветствую.<br/>
+<br/>
+На фоне недавних новостей о многочисленных сливах данных из мессенджеров посетила мысль разработать концепт мессенджера, максимально устойчивого к взлому — пусть даже и ценой удобства. Подробности реализации, интересные проблемы и полные исходники — под катом.<br/>
+<br/>
+<a name="habracut"></a><br/>
+<h2>Предпосылки</h2><br/>
+<blockquote>There’s a man by the door<br/>
+in a raincoat<br/>
+smoking a cigarette</blockquote><br/>
+Как уже упоминалось выше, на сегодняшний день большинство популярных мессенджеров так или иначе были уличены в проблемах с безопасностью. Была ли тому причиной техническая проблема, или же об этом вежливо попросили — история умалчивает, но на самом деле это и не важно. Факт в том, что данные были скомпроментированы. <br/>
+<br/>
+Казалось бы, решением проблемы с технической стороны могут послужить self-hosted решения с открытым кодом, типа RocketChat или Wire. И в некотором смысле это действительно так, однако, как говорится — есть нюанс.<br/>
+<br/>
+Во первых, подобные проекты весьма масштабны, и даже с учетом того, что у них открытый исходный код, полностью проверить его на бекдоры не представляется возможным.<br/>
+<br/>
+Во вторых, пользуясь подобным решением приходится доверять хостеру — и если сервер будет скомпроментирован, данные попадут в чужие руки. Именно эту проблему и было интересно решить.<br/>
+<br/>
+<h2>Защита от скомпроментированного хостера</h2><br/>
+<blockquote>My brother’s with them, did I tell you?<br/>
+His wife is Russian and he<br/>
+keeps asking me to fill out forms.</blockquote><br/>
+Единственное решение данной проблемы — избегать хранения чувствительной информации на сервере. То есть нужно исходить из того, что любая информация, которая попадает на сервер, может оказаться в публичном доступе — и при этом она не должна быть раскрыта. Простой способ реализации этого подхода — если получатель(Алиса) и отправитель(Боб) заранее обмениваются публичными ключами друг друга, используя локальный компьютер или безусловно защищенный канал (например, конверт с шифрованной флешкой). Однако в таком случае — изчезает основная проблема шифра Вернама, который является более стойким чем классический RSA. Кроме того, он сильно проще в реализации и менее требователен к ресурсам, в связи с чем было принято решение использовать его. <br/>
+<br/>
+В таком случае, флоу установки защищенного канала сообщений между сообщений будет выглядеть таким образом:<br/>
+<ul>
+<li> Алиса генерирует блокнот с множеством случайных страниц и передает его Бобу.</li>
+<li> Боб получает файл с шифрами, сохраняет его к себе на устройство и уничтожает носитель.</li>
+<li> Боб сообщает Алисе о готовности принять сообщение.</li>
+<li> Алиса пишет сообщение, шифрует его своей копией блокнота и сообщает по открытому каналу Бобу как скачать зашифрованное сообщение и номер страницы блокнота, после чего уничтожает ее.</li>
+<li>Боб скачивает сообщение и расшифровывает своим блокнотом, а затем тоже удаляет использованную страницу.</li>
+</ul><br/>
+<h2>Генерация блокнота</h2><br/>
+<blockquote>500 mailers bought from<br/>
+500 drug counters each one different<br/>
+and 500 notebooks<br/>
+with 500 pages in everyone.</blockquote><br/>
+Было принято решение хранить данные в формате JSON. Длина 1 страницы блокнота фиксирована и составляет 768 символов (цифра выбрана не случайно, при таком размере ключа и размере сообщения 1 сообщение будет занимать ровно 1 килобайт).<br/>
+<br/>
+Код генерации блокнотов под спойлером, в общем смысле он довольно зауряден, за исключением функции generateRealRandomString.<br/>
+<br/>
+<div class="spoiler" role="button" tabindex="0">
+<b class="spoiler_title">Исходный код</b>
+<div class="spoiler_text"><pre><code class="javascript">const crypto = require("crypto");
+const fs = require('fs');
+
+
+const MAX_MESSAGE_LENGTH = 768;
+
+const readline = require('readline').createInterface({
+    input: process.stdin,
+    output: process.stdout
+});
+
+readline.question('Enter sheets amount: ', amount =&gt; {
+    generateKeys(amount)
+    readline.close();
+});
+
+const generateKeys = (amount) =&gt; {
+    const keys = []
+    for (let i = 0; i &lt; amount; i++) {
+        keys.push({
+            number: i,
+            key: toBase64(generateRealRandomString())
+        })
+    }
+    saveFile(JSON.stringify(keys))
+}
+const generateRealRandomString = () =&gt; {
+    let string = ''
+    for (let i = 0; i &lt; MAX_MESSAGE_LENGTH; i++) {
+        string += String.fromCharCode(crypto.randomInt(0, 65530))
+    }
+    return string
+}
+const toBase64 = (srcString) =&gt; {
+    return new Buffer(srcString).toString('base64');
+}
+const generateRandomString = (lenght) =&gt; {
+    const alphabet = "QWERTYUIOPLKJHGFDSAZXCVBNMqwertyuioplkjhgfdsazxcvbnm";
+    const shuffled = alphabet.split('').sort(() =&gt; 0.5 - Math.random()).join('');
+    return shuffled.slice(0, lenght)
+}
+
+const saveFile = (content) =&gt; {
+    const fileName = generateRandomString(20)
+    fs.writeFile(`keys/${fileName}.json`, content, err =&gt; {
+        if (err) {
+            console.error(err);
+        }
+        console.log("Keys were generated")
+    });
+}
+</code></pre><br/>
+</div>
+</div><br/>
+Что тут любопытного — по умолчанию, для кодирования символов в JS используется UTF-16. Изначальной задумкой было использовать для ключа последовательность символов до 65535, однако при этом некоторые символы «бились». Связано это с тем, что юникод хранится в нескольких символах подряд (в случае с UFT-16 — от 1 до 2х). И не все символы после расположения друг за другом расшифровываются корректно. Так как сообщение в общем смысле произвольное, гарантировать что такое не случится нельзя. Кроме того, экранировать символы тоже нельзя, путь вероятность случайного совпадения не высока — она отлична от нуля. В связи с этим, было принято решение после генерации случайных символов по основанию 65530 (последние 5 символов не используются осознанно, ниже уточню почему) кодировать их в base64. Это решение не лишено проблем, которые решаются уже на уровне приложения, но — при этом и возможна удобная отладка, и блокнот открывается корректно на абсолютно любом устройстве.<br/>
+<br/>
+<div class="spoiler" role="button" tabindex="0">
+<b class="spoiler_title">Пример блокнота</b>
+<div class="spoiler_text">Для наглядности, длина ключа сокращена до 20 символов<br/>
+<pre><code class="json">[{"number":0,"key":"476W6LC477+94peZ47KB67OI7I6R5K6i6run65O866Wt6JaE4pWd6I606qia55Gs45S06ISZ45al5La2"},{"number":1,"key":"5rig7I6M74Cp5beT6KW85KyF76WU6a+A7Yqe47C06IG05r2c5KqN5aSW6a2S6Z6Mx7Lihbnuj4DsvLs="},{"number":2,"key":"57u57IGJ6aO47o2B65Sp57Sr57Wd6Iq06r247JK/55mC666/6Km56IOG4bCA74im5J+m5Imj74694b6w"}]</code></pre><br/>
+</div>
+</div><br/>
+<h2> Сервер </h2><br/>
+<blockquote>I’ve put him in my diary<br/>
+and the mailers are all lined up<br/>
+on the bed, bloody in the glow<br/>
+of the bar sign next door</blockquote><br/>
+Сервер — максимально простая часть приложения. Он принимает POST запрос от Алисы, записывает его в базу, а взамен отдает ей хэш. После того, как Алиса получила хэш — она передает его Бобу, который в свою очередь передает его как параметр GET запроса — и получает зашифрованное сообщение. После получения данных Бобом, сообщение удаляется. В случае любого нештатного поведения — выбрасывается внутренняя ошибка. <br/>
+<br/>
+Даже если вся информация с сервера будет в руках злоумышленника — во первых, он получит только доступ к непрочитанным сообщениям, во вторых — не имея хотя бы блокнота, подобрать ключ невозможно даже теоретически.<br/>
+<br/>
+Еще из примененных концепций — искусственное ограничение числа запросов в секунду. Служит защитой от брутфорса и в качестве снижения нагрузки на систему. <br/>
+<br/>
+Полностью приводить код бекенда тут не вижу смысла, полные исходники доступны на гитхабе, по ссылке внизу<br/>
+<br/>
+<h2>Приложение </h2><br/>
+<blockquote>In the rain, at the bus stop.<br/>
+black crows with black umbrellas<br/>
+pretend to look at their watches, but<br/>
+it’s not raining.</blockquote><br/>
+Приложение — как мне кажется, наиболее интересная часть проекта. Именно тут происходит шифрование и дешифрование сообщений, проверка хэшей и — сокрытие функционала. Но обо всем по порядку.<br/>
+<br/>
+<h4>Подгрузка ключа</h4><br/>
+Как уже было упомянуто выше, ключ по сути представляет из себя произвольный текстовый файл особого формата. Нет никаких требований ни к тому, как он должен называться, ни к тому, где он должен храниться — более того, если ключ лежит в случайном месте в системе, то сам по себе он не дает никакой информации о том, зачем он нужен и как его использовать. <br/>
+<br/>
+В связи с этим, ключ выбирается с помощью пикера документов, открываемого по кнопке, десериализуется и записывается в состояние компонента — чтения или записи. Как только компонент будет размонтирован — данные о ключе будут потеряны. Кроме всего прочего, такой подход позволяет использовать множество разных блокнотов, например — для разных собеседников. <br/>
+<br/>
+<h4>Передача данных в на сервер</h4><br/>
+Сначала в паре слов опишу графический интерфейс — в иллюстративных целях.<br/>
+Для отправки сообщения производятся следующие действия:<br/>
+<ul>
+<li> Выбирается блокнот </li>
+<li> Вводится номер используемой страницы блокнота</li>
+<li> Вводится текст,. подлежащий шифрованию</li>
+<li> Нажимется кнопка «Отправить»</li>
+</ul><br/>
+Если все идет хорошо, то после этого кнопка шифрования заменится на кнопку копирования, а текст сообщения заменится на JSON строку с данными о хэше и номере страницы блокнота.<br/>
+<br/>
+<div class="spoiler" role="button" tabindex="0">
+<b class="spoiler_title">В картинках</b>
+<div class="spoiler_text">До шифрования: <br/>
+<img data-blurred="true" data-src="https://habrastorage.org/webt/qh/xp/hw/qhxphw2qyleoh_-q3tvykuerxeu.jpeg" src="https://habrastorage.org/r/w780q1/webt/qh/xp/hw/qhxphw2qyleoh_-q3tvykuerxeu.jpeg"/><br/>
+После шифрования (обрезано из соображений компактности):<br/>
+<img data-blurred="true" data-src="https://habrastorage.org/webt/j4/lg/_p/j4lg_p5rgmosssfpj8apcu3wuko.jpeg" src="https://habrastorage.org/r/w780q1/webt/j4/lg/_p/j4lg_p5rgmosssfpj8apcu3wuko.jpeg"/><br/>
+</div>
+</div><br/>
+При нажатии на кнопку «Зашифровать» происходят следующие дествия:<br/>
+<ul>
+<li> В объекте с ключами находится ключ с выбранным номером. При его отсутсвии кидается ошибка </li>
+<li> Исходное сообщение кодируется в base64.</li>
+<li> Происходит шифрование выбранным ключом.</li>
+<li> Сообщение отправляется на сервер, в ответ приходит хэш.</li>
+<li> Из хэша и номер страницы формируется JSON который подставляется в текстовое поле.</li>
+</ul><br/>
+Более подробно стоит остановиться на функции шифрования. Изначально было желание брать код символа i-ого символа ключа и сообщения, XOR`ить их и записывать в результирующее сообщение символ с получившимся кодом символа. Однако подход «в лоб» был неудачным — ввиду того, что нельзя гарантировать, что результат операции тоже будет входить в 64-х символьное подмножество. <br/>
+<br/>
+В связи с этим, был предпринят следующий шаг — была сформирована строка из 65 символов, используемых в base64, и вместо кодов символов используется индекс в этой строке. <br/>
+<br/>
+Полный код функции шифрования/дешифрования приведен под спойлером:<br/>
+<br/>
+<div class="spoiler" role="button" tabindex="0">
+<b class="spoiler_title">Функция шифрования/дешифрования</b>
+<div class="spoiler_text"><pre><code class="javascript">const charSet = "QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm0123456789+/=";
+const getIndexByChar = (char) =&gt; {
+    return charSet.indexOf(char)
+}
+const getCharByIndex = (index) =&gt; {
+    return charSet[index]
+}
+export const encode = (text, key) =&gt; {
+    let encodedString = ""
+    for (let i = 0; i &lt; text.length; i++) {
+        if (text[i] === "=" || text[i] === undefined) break;
+
+        const orderedTextCharCode = getIndexByChar(text[i]);
+        const orderedKeyCharCode = getIndexByChar(key[i]);
+
+        const orderedEncryptedChar = getCharByIndex(orderedKeyCharCode ^ orderedTextCharCode)
+        encodedString = encodedString + orderedEncryptedChar
+    }
+
+    return encodedString
+}
+</code></pre><br/>
+</div>
+</div><br/>
+Знак равенства служит для выравнивания длины перекодированного сообщения по границе байтов, в данном случае им можно пренебречь.<br/>
+<br/>
+<h4>Получение данных с сервера </h4><br/>
+При получении данных с сервера цепочка раскручивается в обратном порядке. Сначала Боб выбирает тот же самый блокнот, который использовала Алиса. Затем — вводит JSON, полученный от нее в поле ввода и нажимает «Расшифровать», после чего код заменяется на исходное сообщение.<br/>
+<br/>
+Последовательность действий тут полностью инвертирована относительно шифрования — сначала приложение собирает требуемые данные, потом по хэшу скачивает сообщение, дешифрует его с помощью ключа и переводит в UTF-16.<br/>
+<br/>
+Единственное интересное дополнение здесь — проверка корректности хэша. После получения сообщения, приложение хэширует его уже локально и проверяет, что получившийся хэш совпадает с введенным хэшем — в противном случае можно утверждать, что сервер был скомпроментирован и сообщение было подменено.<br/>
+<br/>
+<h4>Экран-обманка</h4><br/>
+Подобное приложение в чистом виде — как минимум, провоцирует вопросы. Для того, чтобы обезопасить информацию о раскрытии еще и с этой стороны, было принято решение добавить ложный экран, который выполняет какой-либо не подозрительный функционал, но позволяет по совершению некоторого неочевидного действия перейти в режим получения/передачи защищенных сообщений. <br/>
+<br/>
+В версии, представленной в репозитории, в качестве экрана обманки служит секундомер. Секундомер не красивый, не удобный, но формально — полностью рабочий и главное — не вызывающий подозрений.<br/>
+<br/>
+<div class="spoiler" role="button" tabindex="0">
+<b class="spoiler_title">Пример секундомера</b>
+<div class="spoiler_text"><img data-blurred="true" data-src="https://habrastorage.org/webt/pp/47/lw/pp47lwojvf_cs5rpyueuoveymyk.jpeg" src="https://habrastorage.org/r/w780q1/webt/pp/47/lw/pp47lwojvf_cs5rpyueuoveymyk.jpeg"/><br/>
+</div>
+</div><br/>
+Его назначение в другом. Если остановить таймер на 4х секундах, с погрешностью не более 0,5 секунды, то после долгого зажатия заголовка приложение будет перенаправлено на экран отправки сообщений. И тут может быть на самом деле любое приложение и любая логика, главное, чтобы она нормально воспроизводилась только тем, кто знает как это воспроизвести — например, змейка, в которой надо 4 раза подряд проиграть на 5 очках или калькулятор, в котором надо посчитать ln(-pi^e).<br/>
+<br/>
+А режим навигации с помощью жестов позволяет вернуться на подобный экран буквально в 1 нажатие. Этот функционал даже был вынесен в отдельный хук.<br/>
+<br/>
+<div class="spoiler" role="button" tabindex="0">
+<b class="spoiler_title">Навигация в 1 касание</b>
+<div class="spoiler_text"><pre><code class="javascript">export const useGestureNavigation = (touchX, touchY, setTouchX, setTouchY, xDest)=&gt;{
+
+    const navigate = useNavigate();
+    const gestureEnd = (e) =&gt; {
+        console.log(e.nativeEvent)
+        const xDiff = e.nativeEvent.locationX - touchX
+        const yDiff = e.nativeEvent.locationY - touchY
+
+        if (Math.abs(yDiff) &gt; constants.Y_SENSITIVITY) {
+            navigate(ROUTES.MOCK)
+            return
+        }
+
+        if (Math.abs(xDiff) &gt; constants.Y_SENSITIVITY) {
+            navigate(xDest)
+        }
+
+    }
+    const gestureStart = (e) =&gt; {
+        setTouchX(e.nativeEvent.locationX);
+        setTouchY(e.nativeEvent.locationY)
+    }
+    return [gestureStart, gestureEnd]
+}
+</code></pre><br/>
+</div>
+</div><br/>
+Данные хендлеры добавляются на View обертки для экранов чтения и записи, позволяют переключаться между ними в 1 свайп, а при вертикальном свайпе — возвращаться обратно на экран-заглушку. <br/>
+<br/>
+Кроме того, если выставить в константах небольшую чувствительность по Y, а после расшифровки сообщения поставить на экран палец и немного его подвигать — сообщение, как и свя информация о нем, пропадет как только палец будет снят с экрана. После чего снова увидеть сообщение не получится — с сервера оно удалено, а состояния очищены. Конечно, кэши никто не отменял, но это едва ли можно считать реальным способом получения информации — нормально доступно оно только в режиме отладки.<br/>
+<br/>
+<h2>Заключение</h2><br/>
+<blockquote>Did I tell you I can’t go out no more?<br/>
+There’s a man by the door<br/>
+in a raincoat.</blockquote><br/>
+Можно ли неправомерно получить доступ к информации, передаваемой подобным образом? Да, в теории можно. Для этого нужно иметь доступ к блокноту, иметь доступ к каналу связи между Алисой и Бобом, по которому они передают хэши (условно — почта или Телеграм), доступ к приложению, а также иметь доступ к серверу, чтобы восстановить сообщение после удаления — или отключить удаление сообщений, чтобы Боб ничего не заподозрил. <br/>
+<br/>
+Но — в случае, если скомпроментировано 2 любох звена — канал связи останется надежным. Кроме того, если скомпроментированы 3 любых звена — сообщение может быть прочитано и не доставлено, но не может быть искажено. <br/>
+<br/>
+Анализировал варианты, чем текущий подход может быть уязвим — не удалость что-либо найти. Кроме того, не удалость найти и аналогов с сопоставимой степенью защиты.<br/>
+<br/>
+На текущий момент приложение скорее представляет из себя концепцию, нежели готовый продукт — но оно полностью работоспособно, и я не возражаю против его использования во имя Добра, но не во имя Зла. <br/>
+<br/>
+<a href="https://github.com/Toxa-p07a1330/MaxSafetyMessage/tree/master/MaxSafetyMessage" rel="nofollow noopener noreferrer">Исходники</a></div></div></div> <!-- --> <!-- --></div> <!-- --> <!-- --></div> <!-- --> <div class="tm-article-presenter__meta"><div class="tm-separated-list tm-article-presenter__meta-list"><span class="tm-separated-list__title">Теги:</span> <ul class="tm-separated-list__list"><li class="tm-separated-list__item"><a class="tm-tags-list__link" href="/ru/search/?target_type=posts&amp;order=relevance&amp;q=%5Breact%20native%5D">react native</a></li><li class="tm-separated-list__item"><a class="tm-tags-list__link" href="/ru/search/?target_type=posts&amp;order=relevance&amp;q=%5Bjavascript%5D">javascript</a></li><li class="tm-separated-list__item"><a class="tm-tags-list__link" href="/ru/search/?target_type=posts&amp;order=relevance&amp;q=%5B%D0%BA%D1%80%D0%B8%D0%BF%D1%82%D0%BE%D0%B3%D1%80%D0%B0%D1%84%D0%B8%D1%8F%5D">криптография</a></li></ul></div> <div class="tm-separated-list tm-article-presenter__meta-list"><span class="tm-separated-list__title">Хабы:</span> <ul class="tm-separated-list__list"><li class="tm-separated-list__item"><a class="tm-hubs-list__link" href="/ru/hub/infosecurity/">Информационная безопасность</a></li><li class="tm-separated-list__item"><a class="tm-hubs-list__link" href="/ru/hub/instant_messaging/">Мессенджеры</a></li><li class="tm-separated-list__item"><a class="tm-hubs-list__link" href="/ru/hub/crypto/">Криптография</a></li><li class="tm-separated-list__item"><a class="tm-hubs-list__link" href="/ru/hub/javascript/">JavaScript</a></li></ul></div></div></article></div> <!-- --></div> <div class="tm-article-sticky-panel"><div class="tm-data-icons tm-article-sticky-panel__icons"><div class="tm-article-rating tm-data-icons__item"><div class="tm-votes-meter tm-article-rating__votes-switcher"><svg class="tm-svg-img tm-votes-meter__icon tm-votes-meter__icon tm-votes-meter__icon_appearance-article" height="24" width="24"><title>Всего голосов 6: ↑4 и ↓2</title> <use xlink:href="/img/megazord-v28.2b11c25e..svg#counter-rating"></use></svg> <span class="tm-votes-meter__value tm-votes-meter__value tm-votes-meter__value_positive tm-votes-meter__value_appearance-article tm-votes-meter__value_rating" title="Всего голосов 6: ↑4 и ↓2">+2</span></div> <div class="v-portal" style="display:none;"></div></div> <!-- --> <!-- --> <button class="bookmarks-button tm-data-icons__item" title="Добавить в закладки" type="button"><span class="tm-svg-icon__wrapper bookmarks-button__icon"><svg class="tm-svg-img tm-svg-icon" height="24" width="24"><title>Добавить в закладки</title> <use xlink:href="/img/megazord-v28.2b11c25e..svg#counter-favorite"></use></svg></span> <span class="bookmarks-button__counter" title="Количество пользователей, добавивших публикацию в закладки">
+    15
+  </span></button> <div class="tm-article-comments-counter-link tm-data-icons__item" title="Читать комментарии"><a class="tm-article-comments-counter-link__link" href="/ru/post/718348/comments/"><svg class="tm-svg-img tm-article-comments-counter-link__icon" height="24" width="24"><title>Комментарии</title> <use xlink:href="/img/megazord-v28.2b11c25e..svg#counter-comments"></use></svg> <span class="tm-article-comments-counter-link__value">
+      19
+    </span></a> <!-- --></div> <div class="tm-sharing tm-data-icons__item" title="Поделиться"><button class="tm-sharing__button" type="button"><svg class="tm-sharing__icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M13.8 13.8V18l7.2-6.6L13.8 5v3.9C5 8.9 3 18.6 3 18.6c2.5-4.4 6-4.8 10.8-4.8z" fill="currentColor"></path></svg></button> <div class="v-portal" style="display:none;"></div></div> <div class="v-portal" style="display:none;"></div></div> </div></div> <div class="v-portal" style="display:none;"></div> <div class="tm-article-presenter__footer"><div class="tm-article-blocks"><!-- --> <div></div> <section class="tm-block tm-block tm-block_spacing-bottom"><!-- --> <div class="tm-block__body tm-block__body tm-block__body_variant-balanced"><div class="tm-article-author"> <div class="tm-user-card tm-article-author__user-card tm-user-card tm-user-card_variant-article"><div class="tm-user-card__info-container"><div class="tm-user-card__header"><div class="tm-user-card__header-data"><a class="tm-user-card__userpic tm-user-card__userpic_size-40" href="/ru/users/p07a1330/"><div class="tm-entity-image"><svg class="tm-svg-img tm-image-placeholder tm-image-placeholder_green"><!-- --> <use xlink:href="/img/megazord-v28.2b11c25e..svg#placeholder-user"></use></svg></div></a> <div class="tm-user-card__meta"><div class="tm-counter-container tm-karma tm-karma" title=" 133 голоса "><div class="tm-counter-container__header"><div class="tm-karma__votes tm-karma__votes_negative">
+      -5
+    </div></div> <div class="tm-counter-container__footer"><div class="tm-karma__text">
+      Карма
+    </div> <div class="v-portal" style="display:none;"></div></div></div> <div class="tm-counter-container" title="Рейтинг пользователя"><div class="tm-counter-container__header"> <div class="tm-votes-lever tm-votes-lever tm-votes-lever_appearance-rating"><!-- --> <div class="tm-votes-lever__score tm-votes-lever__score tm-votes-lever__score_appearance-rating"><span class="tm-votes-lever__score-counter tm-votes-lever__score-counter tm-votes-lever__score-counter_rating">
+        2.7
+      </span></div> <!-- --></div></div> <div class="tm-counter-container__footer"><span class="tm-rating__text tm-rating__text">
+      Рейтинг
+    </span></div></div></div></div></div> <div class="tm-user-card__info tm-user-card__info tm-user-card__info_variant-article"><div class="tm-user-card__title tm-user-card__title tm-user-card__title_variant-article"><span class="tm-user-card__name tm-user-card__name tm-user-card__name_variant-article">Марчук Антон</span> <a class="tm-user-card__nickname tm-user-card__nickname tm-user-card__nickname_variant-article" href="/ru/users/p07a1330/">
+          @p07a1330
+        </a> <!-- --></div> <p class="tm-user-card__short-info tm-user-card__short-info tm-user-card__short-info_variant-article">Senior frontend dev of LLC JUSTDOLUCK</p></div></div> <div class="tm-user-card__buttons tm-user-card__buttons tm-user-card__buttons_variant-article"><!-- --> <!-- --> <!-- --> <!-- --> <!-- --></div></div> <!-- --></div> <div class="v-portal" style="display:none;"></div></div> <!-- --></section> <div class="tm-adfox-banner__container tm-page-article__banner"><!-- --> <div class="tm-adfox-banner tm-adfox-banner tm-adfox-banner_variant-leaderboard" id="adfox_164725660339535756"></div></div> <div class="tm-article-blocks__comments"><div class="tm-article-page-comments"><div class="tm-article-comments-counter-link tm-article-comments-counter-button"><a class="tm-article-comments-counter-link__link tm-article-comments-counter-link__link_button-style" href="/ru/post/718348/comments/"><svg class="tm-svg-img tm-article-comments-counter-link__icon tm-article-comments-counter-link__icon_contrasted" height="24" width="24"><title>Комментарии</title> <use xlink:href="/img/megazord-v28.2b11c25e..svg#counter-comments"></use></svg> <span class="tm-article-comments-counter-link__value tm-article-comments-counter-link__value_contrasted">
+       Комментарии 19 
+    </span></a> <!-- --></div></div></div> <section class="tm-block tm-block tm-block_spacing-bottom"><header class="tm-block__header tm-block__header tm-block__header_variant-borderless"><div class="tm-block__header-container"><h2 class="tm-block__title tm-block__title tm-block__title_variant-large">Публикации</h2> </div> <!-- --></header> <div class="tm-block__body tm-block__body tm-block__body_variant-condensed-slim"><div class="tm-tabs tm-tabs"><div><span class="tm-tabs__tab-item"><button class="tm-tabs__tab-link tm-tabs__tab-link tm-tabs__tab-link_active tm-tabs__tab-link_slim">
+        Лучшие за сутки
+      </button></span><span class="tm-tabs__tab-item"><button class="tm-tabs__tab-link tm-tabs__tab-link tm-tabs__tab-link_slim">
+        Похожие
+      </button></span></div> <!-- --></div> <div class="similar-and-daily__tab-view"><div><!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <div class="tm-placeholder-article-cards"><div class="tm-placeholder-article-card"><div class="tm-placeholder__user"><div class="tm-placeholder__user-pic loads"></div> <div class="tm-placeholder__user-date loads"></div></div> <div class="tm-placeholder-article-card__title"><div class="tm-placeholder__line tm-placeholder-article-card__title-line loads"></div> <div class="tm-placeholder__line tm-placeholder-article-card__title-line loads"></div></div> <div class="tm-placeholder-article-card__icons tm-placeholder__counters"><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div></div></div><div class="tm-placeholder-article-card"><div class="tm-placeholder__user"><div class="tm-placeholder__user-pic loads"></div> <div class="tm-placeholder__user-date loads"></div></div> <div class="tm-placeholder-article-card__title"><div class="tm-placeholder__line tm-placeholder-article-card__title-line loads"></div> <div class="tm-placeholder__line tm-placeholder-article-card__title-line loads"></div></div> <div class="tm-placeholder-article-card__icons tm-placeholder__counters"><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div></div></div><div class="tm-placeholder-article-card"><div class="tm-placeholder__user"><div class="tm-placeholder__user-pic loads"></div> <div class="tm-placeholder__user-date loads"></div></div> <div class="tm-placeholder-article-card__title"><div class="tm-placeholder__line tm-placeholder-article-card__title-line loads"></div> <div class="tm-placeholder__line tm-placeholder-article-card__title-line loads"></div></div> <div class="tm-placeholder-article-card__icons tm-placeholder__counters"><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div></div></div><div class="tm-placeholder-article-card"><div class="tm-placeholder__user"><div class="tm-placeholder__user-pic loads"></div> <div class="tm-placeholder__user-date loads"></div></div> <div class="tm-placeholder-article-card__title"><div class="tm-placeholder__line tm-placeholder-article-card__title-line loads"></div> <div class="tm-placeholder__line tm-placeholder-article-card__title-line loads"></div></div> <div class="tm-placeholder-article-card__icons tm-placeholder__counters"><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div></div></div><div class="tm-placeholder-article-card"><div class="tm-placeholder__user"><div class="tm-placeholder__user-pic loads"></div> <div class="tm-placeholder__user-date loads"></div></div> <div class="tm-placeholder-article-card__title"><div class="tm-placeholder__line tm-placeholder-article-card__title-line loads"></div> <div class="tm-placeholder__line tm-placeholder-article-card__title-line loads"></div></div> <div class="tm-placeholder-article-card__icons tm-placeholder__counters"><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div></div></div></div> <!-- --> <!-- --> <!-- --> <!-- --></div> <!-- --></div></div> <!-- --></section> <section class="tm-block tm-stories-block tm-block tm-block_spacing-around" data-async-called="true" data-navigatable="" tabindex="0"><header class="tm-block__header tm-block__header"><div class="tm-block__header-container"><h2 class="tm-block__title tm-block__title">Истории</h2> </div> <!-- --></header> <div class="tm-block__body tm-block__body tm-block__body_variant-equal"><div class="tm-stories-empty"><div class="tm-stories-card-empty"><div class="tm-stories-card-empty__image"></div> <div class="tm-stories-card-empty__title"><div class="tm-stories-card-empty__title-block"></div> <div class="tm-stories-card-empty__title-block"></div> <div class="tm-stories-card-empty__title-block"></div></div></div><div class="tm-stories-card-empty"><div class="tm-stories-card-empty__image"></div> <div class="tm-stories-card-empty__title"><div class="tm-stories-card-empty__title-block"></div> <div class="tm-stories-card-empty__title-block"></div> <div class="tm-stories-card-empty__title-block"></div></div></div><div class="tm-stories-card-empty"><div class="tm-stories-card-empty__image"></div> <div class="tm-stories-card-empty__title"><div class="tm-stories-card-empty__title-block"></div> <div class="tm-stories-card-empty__title-block"></div> <div class="tm-stories-card-empty__title-block"></div></div></div><div class="tm-stories-card-empty"><div class="tm-stories-card-empty__image"></div> <div class="tm-stories-card-empty__title"><div class="tm-stories-card-empty__title-block"></div> <div class="tm-stories-card-empty__title-block"></div> <div class="tm-stories-card-empty__title-block"></div></div></div><div class="tm-stories-card-empty"><div class="tm-stories-card-empty__image"></div> <div class="tm-stories-card-empty__title"><div class="tm-stories-card-empty__title-block"></div> <div class="tm-stories-card-empty__title-block"></div> <div class="tm-stories-card-empty__title-block"></div></div></div><div class="tm-stories-card-empty"><div class="tm-stories-card-empty__image"></div> <div class="tm-stories-card-empty__title"><div class="tm-stories-card-empty__title-block"></div> <div class="tm-stories-card-empty__title-block"></div> <div class="tm-stories-card-empty__title-block"></div></div></div></div> <!-- --></div> <!-- --></section> <div hubs="infosecurity,instant_messaging,crypto,javascript"><!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <div class="tm-placeholder-inset tm-placeholder-questions"><div class="tm-placeholder-inset__header"><div class="tm-placeholder__line tm-placeholder__line_inset-header loads"></div></div> <div class="tm-placeholder-inset__body"><ul class="tm-placeholder-list"><li class="tm-placeholder-list__item tm-placeholder-list__item_inset"><div class="tm-placeholder__line tm-placeholder__line_item-title loads"></div> <div class="tm-project-block-items__properties"><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span></div></li><li class="tm-placeholder-list__item tm-placeholder-list__item_inset"><div class="tm-placeholder__line tm-placeholder__line_item-title loads"></div> <div class="tm-project-block-items__properties"><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span></div></li><li class="tm-placeholder-list__item tm-placeholder-list__item_inset"><div class="tm-placeholder__line tm-placeholder__line_item-title loads"></div> <div class="tm-project-block-items__properties"><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span></div></li><li class="tm-placeholder-list__item tm-placeholder-list__item_inset"><div class="tm-placeholder__line tm-placeholder__line_item-title loads"></div> <div class="tm-project-block-items__properties"><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span></div></li><li class="tm-placeholder-list__item tm-placeholder-list__item_inset"><div class="tm-placeholder__line tm-placeholder__line_item-title loads"></div> <div class="tm-project-block-items__properties"><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span></div></li></ul></div> <div class="tm-placeholder-inset__footer"><div class="tm-placeholder__line tm-placeholder__line_inset-footer loads"></div></div></div> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --></div> <!-- --> <div><div><!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <div class="tm-placeholder-promo"><div class="tm-placeholder-promo__header"><div class="tm-placeholder__line tm-placeholder__line_promo-title"></div></div> <div class="tm-placeholder-promo__body"><div class="tm-placeholder-promo__posts"><div class="tm-placeholder-promo__post"><div class="tm-placeholder-promo__image"></div> <div class="tm-placeholder__line tm-placeholder__line_post-title"></div></div> <div class="tm-placeholder-promo__post"><div class="tm-placeholder-promo__image"></div> <div class="tm-placeholder__line tm-placeholder__line_post-title"></div></div> <div class="tm-placeholder-promo__post"><div class="tm-placeholder-promo__image"></div> <div class="tm-placeholder__line tm-placeholder__line_post-title"></div></div></div> <div class="tm-placeholder-promo__dots"><div class="tm-placeholder-promo__dot"></div> <div class="tm-placeholder-promo__dot"></div> <div class="tm-placeholder-promo__dot"></div></div></div></div> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --></div></div> <section class="tm-block tm-block tm-block_spacing-top" data-async-called="true"><header class="tm-block__header tm-block__header"><div class="tm-block__header-container"><h2 class="tm-block__title tm-block__title">Работа</h2> </div> <!-- --></header> <div class="tm-block__body tm-block__body"><div class="tm-vacancies-block__item"><a class="tm-vacancies-block__vacancy-title" href="https://career.habr.com/vacancies/programmist_javascript" target="_blank">
+        JavaScript разработчик
+      </a> <div class="tm-vacancies-block__vacancies-count">
+        311
+    вакансий
+      </div></div><div class="tm-vacancies-block__item"><a class="tm-vacancies-block__vacancy-title" href="https://career.habr.com/vacancies/react_razrabotchik" target="_blank">
+        React разработчик
+      </a> <div class="tm-vacancies-block__vacancies-count">
+        121
+    вакансия
+      </div></div><div class="tm-vacancies-block__item"><a class="tm-vacancies-block__vacancy-title" href="https://career.habr.com/vacancies/specialist_po_informacionnoj_bezopasnosti" target="_blank">
+        Специалист по информационной безопасности
+      </a> <div class="tm-vacancies-block__vacancies-count">
+        97
+    вакансий
+      </div></div></div> <footer class="tm-block__footer"><a class="tm-block-extralink" href="https://career.habr.com/catalog">
+      Все вакансии
+    </a></footer></section></div></div></div></div></div> <div class="tm-page__sidebar"><!-- --></div></div></div></div></main> <!-- --></div> <!-- --> <div class="tm-footer"><div class="tm-page-width"><div class="tm-footer__container"><div class="tm-footer__title"><a class="tm-svg-icon__wrapper tm-footer__title-link router-link-active" href="/ru/"><svg class="tm-svg-img tm-svg-icon" height="16" width="16"><title>Хабр</title> <use xlink:href="/img/habr-logo-ru.svg#logo"></use></svg></a></div> <div class="tm-footer__social"><a class="tm-svg-icon__wrapper tm-social-icons__icon" href="https://www.facebook.com/habrahabr.ru" rel="nofollow noopener noreferrer" target="_blank"><svg class="tm-svg-img tm-svg-icon" height="16" width="16"><title>Facebook</title> <use xlink:href="/img/social-icons-sprite.svg#social-logo-facebook"></use></svg></a><a class="tm-svg-icon__wrapper tm-social-icons__icon" href="https://twitter.com/habr_com" rel="nofollow noopener noreferrer" target="_blank"><svg class="tm-svg-img tm-svg-icon" height="16" width="16"><title>Twitter</title> <use xlink:href="/img/social-icons-sprite.svg#social-logo-twitter"></use></svg></a><a class="tm-svg-icon__wrapper tm-social-icons__icon" href="https://vk.com/habr" rel="nofollow noopener noreferrer" target="_blank"><svg class="tm-svg-img tm-svg-icon" height="16" width="16"><title>VK</title> <use xlink:href="/img/social-icons-sprite.svg#social-logo-vkontakte"></use></svg></a><a class="tm-svg-icon__wrapper tm-social-icons__icon" href="https://telegram.me/habr_com" rel="nofollow noopener noreferrer" target="_blank"><svg class="tm-svg-img tm-svg-icon" height="16" width="16"><title>Telegram</title> <use xlink:href="/img/social-icons-sprite.svg#social-logo-telegram"></use></svg></a><a class="tm-svg-icon__wrapper tm-social-icons__icon" href="https://www.youtube.com/channel/UCd_sTwKqVrweTt4oAKY5y4w" rel="nofollow noopener noreferrer" target="_blank"><svg class="tm-svg-img tm-svg-icon" height="16" width="16"><title>Youtube</title> <use xlink:href="/img/social-icons-sprite.svg#social-logo-youtube"></use></svg></a><a class="tm-svg-icon__wrapper tm-social-icons__icon" href="https://zen.yandex.ru/habr" rel="nofollow noopener noreferrer" target="_blank"><svg class="tm-svg-img tm-svg-icon" height="16" width="16"><title>Яндекс Дзен</title> <use xlink:href="/img/social-icons-sprite.svg#social-logo-zen"></use></svg></a></div> <div class="v-portal" style="display:none;"></div> <button class="tm-footer__link"><svg class="tm-svg-img tm-footer__icon" height="16" width="16"><title>Язык</title> <use xlink:href="/img/megazord-v28.2b11c25e..svg#lang"></use></svg>
+        Настройка языка
+      </button> <a class="tm-footer__link" href="/ru/feedback/">
+        Техническая поддержка
+      </a> <a class="tm-footer__link" href="/berserk-mode-nope">
+        Вернуться на старую версию
+      </a> <div class="tm-footer-copyright"><span class="tm-copyright"><span class="tm-copyright__years">© 2006–2023, </span> <span class="tm-copyright__name"><a class="tm-copyright__link" href="https://company.habr.com/" rel="noopener" target="_blank">Habr</a></span></span></div></div></div></div> <!-- --> <!-- --></div> <div class="vue-portal-target"></div></div>
+
+
+
+
+
+
+
+
+</body>
+</html>

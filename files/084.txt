@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+
+<html data-vue-meta="%7B%22lang%22:%7B%22ssr%22:%22ru%22%7D%7D" lang="ru">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1.0,viewport-fit=cover,maximum-scale=1,user-scalable=0" name="viewport"/>
+<meta content="unsafe-url" name="referrer"/>
+<title>Live coding интервью для iOS разработчиков / Хабр</title>
+
+
+
+
+
+
+
+<meta content="2.113.0" name="habr-version"/>
+<meta content="444736788986613" data-vue-meta="ssr" property="fb:app_id"/><meta content="472597926099084" data-vue-meta="ssr" property="fb:pages"/><meta content="summary_large_image" data-vue-meta="ssr" name="twitter:card"/><meta content="@habr_com" data-vue-meta="ssr" name="twitter:site"/><meta content="Хабр" data-vmid="og:site_name" data-vue-meta="ssr" property="og:site_name"/><meta content="Live coding интервью для iOS разработчиков" data-vmid="og:title" data-vue-meta="ssr" property="og:title"/><meta content="Live coding интервью для iOS разработчиков" data-vmid="twitter:title" data-vue-meta="ssr" name="twitter:title"/><meta content="Live coding интервью для iOS разработчиков" data-vmid="aiturec:title" data-vue-meta="ssr" name="aiturec:title"/><meta content="Процесс технического собеседования для&amp;nbsp;разработчиков может различаться в&amp;nbsp;зависимости от&amp;nbsp;компании и конкретной роли. Какие этапы все&amp;nbsp;же стоит ожидать: Телефонный скрининг. Первым..." data-vmid="description" data-vue-meta="ssr" name="description"/><meta content="Процесс технического собеседования для&amp;nbsp;разработчиков может различаться в&amp;nbsp;зависимости от&amp;nbsp;компании и конкретной роли. Какие этапы все&amp;nbsp;же стоит ожидать: Телефонный скрининг. Первым..." data-vmid="description:itemprop" data-vue-meta="ssr" itemprop="description"/><meta content="Процесс технического собеседования для&amp;nbsp;разработчиков может различаться в&amp;nbsp;зависимости от&amp;nbsp;компании и конкретной роли. Какие этапы все&amp;nbsp;же стоит ожидать: Телефонный скрининг. Первым..." data-vmid="og:description" data-vue-meta="ssr" property="og:description"/><meta content="Процесс технического собеседования для&amp;nbsp;разработчиков может различаться в&amp;nbsp;зависимости от&amp;nbsp;компании и конкретной роли. Какие этапы все&amp;nbsp;же стоит ожидать: Телефонный скрининг. Первым..." data-vmid="twitter:description" data-vue-meta="ssr" name="twitter:description"/><meta content="Процесс технического собеседования для&amp;nbsp;разработчиков может различаться в&amp;nbsp;зависимости от&amp;nbsp;компании и конкретной роли. Какие этапы все&amp;nbsp;же стоит ожидать: Телефонный скрининг. Первым..." data-vmid="aiturec:description" data-vue-meta="ssr" property="aiturec:description"/><meta content="https://habrastorage.org/getpro/habr/upload_files/e69/46e/fed/e6946efed921aec5ab5712e4194e48f0.png" data-vmid="image:itemprop" data-vue-meta="ssr" itemprop="image"/><meta content="https://habrastorage.org/getpro/habr/upload_files/e69/46e/fed/e6946efed921aec5ab5712e4194e48f0.png" data-vmid="og:image" data-vue-meta="ssr" property="og:image"/><meta content="1200" data-vmid="og:image:width" data-vue-meta="ssr" property="og:image:width"/><meta content="630" data-vmid="og:image:height" data-vue-meta="ssr" property="og:image:height"/><meta content="https://habrastorage.org/getpro/habr/upload_files/e69/46e/fed/e6946efed921aec5ab5712e4194e48f0.png" data-vmid="aiturec:image" data-vue-meta="ssr" property="aiturec:image"/><meta content="https://habrastorage.org/getpro/habr/upload_files/e69/46e/fed/e6946efed921aec5ab5712e4194e48f0.png" data-vmid="twitter:image" data-vue-meta="ssr" name="twitter:image"/><meta content="https://habrastorage.org/getpro/habr/upload_files/e69/46e/fed/e6946efed921aec5ab5712e4194e48f0.png?format=vk" data-vmid="vk:image" data-vue-meta="ssr" property="vk:image"/><meta content="718334" data-vmid="aiturec:item_id" data-vue-meta="ssr" property="aiturec:item_id"/><meta content="2023-02-21T12:57:17.000Z" data-vmid="aiturec:datetime" data-vue-meta="ssr" property="aiturec:datetime"/><meta content="https://habr.com/ru/post/718334/" data-vmid="og:url" data-vue-meta="ssr" property="og:url"/><meta content="article" data-vmid="og:type" data-vue-meta="ssr" property="og:type"/><meta content="ru_RU" data-vmid="og:locale" data-vue-meta="ssr" property="og:locale"/><meta content="ios, ios development, ios разработка, ios programming, swift, swift  разработка, swift development, интервью, собеседование, live coding" data-vue-meta="ssr" name="keywords"/>
+
+<meta content="#303b44" name="apple-mobile-web-app-status-bar-style"/>
+<meta content="#629FBC" name="msapplication-TileColor"/>
+<meta content="yes" name="apple-mobile-web-app-capable"/>
+<meta content="yes" name="mobile-web-app-capable"/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body>
+<div data-async-called="true" data-server-rendered="true" id="app"><div class="tm-layout__wrapper"><!-- --> <div></div> <div class="tm-feature tm-feature"><!-- --></div> <header class="tm-header"><div class="tm-page-width"><div class="tm-header__container"><div class="tm-header__burger-nav"><button class="tm-header__button tm-header__button_burger" type="button"><svg class="tm-svg-img tm-header__icon tm-header__icon-burger" height="16" width="16"><title>Меню</title> <use xlink:href="/img/megazord-v28.2b11c25e..svg#header-burger"></use></svg></button></div> <span class="tm-header__logo-wrap"><a class="tm-header__logo tm-header__logo_ru" href="/ru/"><svg class="tm-svg-img tm-header__icon" height="16" width="16"><title>Хабр</title> <use xlink:href="/img/habr-logo-ru.svg#logo"></use></svg></a> <span class="tm-header__beta-sign" style="display:none;">β</span></span> <!-- --> <div class="tm-header-user-menu tm-header_user-menu"><a class="tm-header-user-menu__item tm-header-user-menu__search" href="/ru/search/"><svg class="tm-svg-img tm-header-user-menu__icon tm-header-user-menu__icon_search" height="24" width="24"><title>Поиск</title> <use xlink:href="/img/megazord-v28.2b11c25e..svg#search"></use></svg></a> <!-- --> <!-- --> <!-- --> <div class="tm-header-user-menu__item"><button class="tm-header-user-menu__toggle" data-test-id="menu-toggle-guest"><svg class="tm-svg-img tm-header-user-menu__icon tm-header-user-menu__icon_white" height="24" width="24"><title>Профиль</title> <use xlink:href="/img/megazord-v28.2b11c25e..svg#header-user"></use></svg></button> <!-- --></div> <!-- --></div></div></div></header> <div class="tm-layout"><div class="tm-page-progress-bar"></div> <!-- --> <!-- --> <div class="tm-page-width"></div> <main class="tm-layout__container"><div class="tm-page" data-async-called="true" hl="ru"><div class="tm-page-width"><!-- --> <div class="tm-page__wrapper"><div class="tm-page__main tm-page__main_has-sidebar"><div class="pull-down"><!-- --> <div class="pull-down__header" style="height:0px;"><div class="pull-down__content" style="bottom:10px;"><svg class="tm-svg-img pull-down__arrow" height="24" width="24"><title>Обновить</title> <use xlink:href="/img/megazord-v28.2b11c25e..svg#pull-arrow"></use></svg></div></div> <div class="tm-article-presenter"> <div class="tm-article-presenter__body"><div class="tm-misprint-area"><div class="tm-misprint-area__wrapper"><article class="tm-article-presenter__content tm-article-presenter__content_narrow"><div class="tm-article-presenter__header"> <div class="tm-article-snippet tm-article-presenter__snippet tm-article-snippet"><div class="tm-article-snippet__meta-container"><div class="tm-article-snippet__meta"><span class="tm-user-info tm-article-snippet__author"><a class="tm-user-info__userpic" href="/ru/users/titanium007/" title="titanium007"><div class="tm-entity-image"><img alt="" class="tm-entity-image__pic" height="32" src="//habrastorage.org/r/w32/getpro/habr/avatars/f36/557/a50/f36557a50f938ffed030160cdd1931f2.jpg" width="32"/></div></a> <span class="tm-user-info__user"><a class="tm-user-info__username" href="/ru/users/titanium007/">
+      titanium007
+      <!-- --></a> <span class="tm-article-datetime-published"><time datetime="2023-02-21T12:57:17.000Z" title="2023-02-21, 15:57">вчера в 15:57</time></span></span></span></div> <!-- --></div> <h1 class="tm-article-snippet__title tm-article-snippet__title_h1" lang="ru"><span>Live coding интервью для iOS разработчиков</span></h1> <div class="tm-article-snippet__stats"><div class="tm-article-complexity tm-article-complexity_complexity-medium"><span class="tm-svg-icon__wrapper tm-article-complexity__icon"><svg class="tm-svg-img tm-svg-icon" height="24" width="24"><title>Уровень сложности</title> <use xlink:href="/img/megazord-v28.2b11c25e..svg#complexity-medium"></use></svg></span> <span class="tm-article-complexity__label">
+    Средний
+  </span></div> <div class="tm-article-reading-time"><span class="tm-svg-icon__wrapper tm-article-reading-time__icon"><svg class="tm-svg-img tm-svg-icon" height="24" width="24"><title>Время на прочтение</title> <use xlink:href="/img/megazord-v28.2b11c25e..svg#clock"></use></svg></span> <span class="tm-article-reading-time__label">
+    11 мин
+  </span></div> <span class="tm-icon-counter tm-data-icons__item"><svg class="tm-svg-img tm-icon-counter__icon" height="24" width="24"><title>Количество просмотров</title> <use xlink:href="/img/megazord-v28.2b11c25e..svg#counter-views"></use></svg> <span class="tm-icon-counter__value">668</span></span></div> <div class="tm-article-snippet__hubs-container"><div class="tm-article-snippet__hubs"><span class="tm-article-snippet__hubs-item"><a class="tm-article-snippet__hubs-item-link" href="/ru/hub/ios_dev/"><span>Разработка под iOS</span> <span class="tm-article-snippet__profiled-hub" title="Профильный хаб">*</span></a></span><span class="tm-article-snippet__hubs-item"><a class="tm-article-snippet__hubs-item-link" href="/ru/hub/mobile_dev/"><span>Разработка мобильных приложений</span> <span class="tm-article-snippet__profiled-hub" title="Профильный хаб">*</span></a></span><span class="tm-article-snippet__hubs-item"><a class="tm-article-snippet__hubs-item-link" href="/ru/hub/swift/"><span>Swift</span> <span class="tm-article-snippet__profiled-hub" title="Профильный хаб">*</span></a></span><span class="tm-article-snippet__hubs-item"><a class="tm-article-snippet__hubs-item-link" href="/ru/hub/career/"><span>Карьера в IT-индустрии</span> <!-- --></a></span></div></div> <div class="tm-article-snippet__labels-container"><div class="tm-article-snippet__labels"><div class="tm-article-snippet__label tm-article-snippet__label_variant-review"><span>
+          Обзор
+        </span></div> </div></div> <!-- --> <!-- --></div></div> <!-- --> <div class="tm-article-body" data-gallery-root="" lang="ru"><div></div> <div id="post-content-body"><div><div class="article-formatted-body article-formatted-body article-formatted-body_version-2"><div xmlns="http://www.w3.org/1999/xhtml"><p>Процесс технического собеседования для разработчиков может различаться в зависимости от компании и конкретной роли. Какие этапы все же стоит ожидать:</p><ol><li><p><strong>Телефонный скрининг.</strong> Первым шагом в процессе собеседования обычно является телефонный разговор с рекрутером. Это короткая беседа, которая проводится для того, чтобы узнать больше о вашем прошлом опыте. Вы можете задать HR менеджеру любые первоначальные вопросы о текущей роли и компании, которые могут у вас возникнуть. Встречается практически всегда, но даже первый созвон с HR‑ом может превратиться в технический скрининг. Рекрутер по списку заранее заготовленных вопросов будет неловко спрашивать вас о вещах, которые ему самому могут быть совершенно неизвестны, а вы должны попасть как можно точнее в ответ. Иногда становится неловко даже вам, но, как правило, вопросы достаточно базовые и не должны вызывать проблем.</p></li><li><p><strong>Техническое собеседование.</strong> Следующим шагом обычно является техническое собеседование, которое может принимать различные формы. Некоторые компании могут попросить вас выполнить тестовое задание дома или пройти техническую онлайн‑оценку, в то время как другие могут провести Live coding сессию или попросить вас показать предыдущий проект, над которым вы работали. Техническое собеседование — это возможность для интервьюера оценить ваши технические навыки, способность решать проблемы и проверить, насколько хорошо вы знакомы с инструментами и фреймворками разработки.</p></li><li><p><strong>Onsite встреча</strong>. Если вы пройдете техническое собеседование, вас могут пригласить на собеседование в офис. Она может включать встречи с различными членами команды, разработчиками, менеджерами по продуктам и дизайнерами. У вас появится возможность узнать больше о культуре компании и динамике команды, а команда сможет оценить вашу квалификацию при помощи дополнительных сессий. Например, решение алгоритмический задач на whiteboard или system design интервью.</p></li><li><p><strong>Поведенческое интервью</strong>: Вас также могут попросить принять участие в поведенческом интервью. Больше свойственно для западных компаний особенно <s>FAANG</s> MAANG. Это возможность для интервьюера узнать больше о вашем стиле работы, навыках общения, и о том, как вы справляетесь с различными ситуациями. Вас могут попросить привести примеры того, как вы справлялись с трудными или конфликтными ситуациями в прошлом.</p></li></ol><h2>Live coding</h2><p>Найти хорошо собранный список вопросов для теоретической части интервью не составит труда. Выделить для себя топ 50-150 довольно просто:</p><p><a href="https://intellipaat.com/blog/interview-question/ios-interview-questions/" rel="noopener noreferrer nofollow"><u>Top iOS Interview Questions and Answers</u></a></p><p><a href="https://www.hackingwithswift.com/interview-questions" rel="noopener noreferrer nofollow"><u>Over 150 iOS interview questions</u></a></p><p>Об этом написано немало статей и даже книг.</p><p>В крупных международных компаниях ищут «инженеров». То есть универсальных солдат, которые могут поменять свой стек за пару недель. Live coding интервью в таких компаниях ориентировано на решение алгоритмических задач. Как правило, они не зависят от операционной системы или выбранного языка программирования. </p><p>Компании поменьше, особенно компании в СНГ странах предпочитают более предметный подход. Если это собеседование на iOS разработчика, то задачи будут в рамках этой платформы. </p><p>Попробуем разобрать наиболее популярные задачи, которые вы можете встретить на live coding этапе. Время, затраченное на решение таких задач, не должно превышать 30 минут, а их количество, обычно, ограничивается 1–2 задачами за одно интервью.</p><h2>Thread-safe class</h2><p>Swift дает нам возможность работать в многопоточной среде.</p><p>Но что произойдет, если два потока попытаются записать в одну и ту же коллекцию одновременно или один поток читает значение, а другой поток записывает значение? Получаем ли мы самое последнее значение из коллекции?</p><p>Ответ на эти вопросы заключается в том, что вы не можете одновременно писать в одну и ту же область памяти или читать во время записи из той же области памяти.</p><p>Тогда возникает вопрос, а зачем нам нужна не потокобезопасные объекты? Ответ: потому что потокобезопасная коллекция/переменная/свойство замедляет выполнение программы.</p><p>Вы можете столкнуться с этой проблемой, при работе с коллекциями например: <code>Array</code>, <code>Dictionary</code>, <code>Set</code> <br/><br/>Чтобы получить потокобезопасную коллекцию, нам нужно определить геттер и сеттер. Всякий раз, когда мы устанавливаем какую‑либо коллекцию, мы должны убедиться, что никакие другие потоки в настоящее время не получают доступ к ней. </p><p>Для решения этой проблемы можно применить разные подходы. Например:</p><p><code>NSLock</code>, <code>NSRecursiveLock</code>, <code>pthread_mutex_t</code>, <code>DispatchQueue.</code></p><p>Давайте рассмотрим некоторые из них. На интервью вам могут предложить шаблон будущего класса:</p><pre><code class="swift">final class ThreadSafeDictionary {
+ 
+    func removeAll() {
+        //Implement me
+    }
+
+    func removeValue(forKey key: Key) {
+        //Implement me
+    }
+
+    func contains(key: Key) -&gt; Bool {
+        //Implement me
+    }
+
+    var count: Int {
+        //Implement me
+    }
+}</code></pre><p>Чтобы получить и установить значение словаря, можно использовать параллельную очередь. Синхронный вызов выдаст значение из словаря, если оно существует, а для установки значения в словарь используется асинхронный вызов с барьером.</p><p>Блок с флагом <code>.barrier</code> будет действовать как реальный барьер. Все блоки, которые были отправлены на выполнение до барьерной операции, будут завершены, и только после этого будет выполнен блок с барьером. Все блоки, отправленные после прохождения барьера, не будут запущены до тех пор, пока блок с барьером не будет завершен.</p><pre><code class="swift">final class ThreadSafeDictionary&lt;Key: Hashable, Value&gt; {
+    
+    private var dictionary = [Key: Value]()
+    private let queue = DispatchQueue(
+        label: "com.example.ThreadSafeDictionary",
+        attributes: .concurrent
+    )
+
+    subscript(key: Key) -&gt; Value? {
+        get {
+            var value: Value?
+            queue.sync {
+                value = dictionary[key]
+            }
+            return value
+        }
+        set(newValue) {
+            queue.async(flags: .barrier) { [weak self] in
+                self?.dictionary[key] = newValue
+            }
+        }
+    }
+
+    func removeAll() {
+        queue.async(flags: .barrier) { [weak self] in
+            self?.dictionary.removeAll()
+        }
+    }
+
+    func removeValue(forKey key: Key) {
+        queue.async(flags: .barrier) { [weak self] in
+            self?.dictionary.removeValue(forKey: key)
+        }
+    }
+
+    func contains(key: Key) -&gt; Bool {
+        var contains = false
+        queue.sync {
+            contains = dictionary[key] != nil
+        }
+        return contains
+    }
+
+    var count: Int {
+        var count = 0
+        queue.sync {
+            count = dictionary.count
+        }
+        return count
+    }
+}</code></pre><p>В этой реализации класс <code>ThreadSafeDictionary</code> хранит приватные ссылки на словарь для хранения своих внутренних данных и очереди для синхронизации доступа к этим данным. Методы <code>removeAll</code>, <code>removeValue(forKey:),</code> получают доступ к внутреннему словарю через <code>queue.async(flags: .barrier)</code>, a <code>contains(key:)</code> и <code>count</code> через <code>queue.sync</code> тем самым, обеспечивая потокобезопасный доступ и модификацию словаря.</p><p>Для следующего способа решения этой же задачи мы используем <code>@propertyWrapper</code>, который обеспечивает атомарные операции в Swift с использованием механизма <code>os_unfair_lock</code>:</p><pre><code class="swift">@propertyWrapper
+struct Atomic&lt;Value&gt; {
+    private var value: Value
+    private var lock = os_unfair_lock()
+
+    var wrappedValue: Value {
+        mutating get {
+            os_unfair_lock_lock(&amp;lock)
+            defer { os_unfair_lock_unlock(&amp;lock) }
+            return value
+        }
+        set {
+            os_unfair_lock_lock(&amp;lock)
+            defer { os_unfair_lock_unlock(&amp;lock) }
+            value = newValue
+        }
+    }
+
+    init(wrappedValue: Value) {
+        self.value = wrappedValue
+    }
+}</code></pre><ul><li><p>Структура <code>Atomic</code> имеет единственное дженерик свойство <code>value</code>, которое представляет тип обернутого значения;</p></li><li><p>Свойство <code>value</code> содержит обернутое значение, а свойство <code>lock</code> содержит объект <code>os_unfair_lock_t</code>, который используется для синхронизации доступа к значению;</p></li><li><p>Свойство <code>wrappedValue</code> имеет <code>get</code> и <code>set</code>, которые используют функции <code>os_unfair_lock_lock</code> и <code>os_unfair_lock_unlock</code> для блокирования и разблокирования доступа к свойству соответственно;</p></li><li><p>Ключевое слово <code>defer</code> используется для обеспечения того, чтобы блокировка всегда снималась, даже если в геттере или сеттере возникает ошибка. Это замыкание будет вызвано после выполнения геттера или сеттера.</p></li></ul><p>В этом подходе реализация потокобезопасного словаря будет выглядеть следующим образом:</p><pre><code class="swift">final class AtomicDictionary&lt;Key: Hashable, Value&gt; {
+    
+    private var dictionary = Atomic(wrappedValue: [Key: Value]())
+
+    subscript(key: Key) -&gt; Value? {
+        get {
+            return dictionary.wrappedValue[key]
+        }
+        set(newValue) {
+            dictionary.wrappedValue[key] = newValue
+        }
+    }
+
+    func removeAll() {
+        dictionary.wrappedValue.removeAll()
+    }
+
+    func removeValue(forKey key: Key) {
+        dictionary.wrappedValue.removeValue(forKey: key)
+    }
+
+    func contains(key: Key) -&gt; Bool {
+        dictionary.wrappedValue[key] != nil
+    }
+
+    var count: Int {
+        dictionary.wrappedValue.count
+    }
+
+}</code></pre><p>Данная задача позволяет интервьюерам проверить ваши знания по работе с многопоточностью, потокобезопасностью и инструментами синхронизации.</p><p>Детальней познакомиться с отличиями и скоростью выполнения этих реализаций можно <a href="https://swiftrocks.com/thread%E2%80%91safety%E2%80%91in%E2%80%91swift" rel="noopener noreferrer nofollow"><u>по ссылке</u></a>.</p><h3>DispatchGroup</h3><p>Часто встречается задача на понимание как работать с <code>DispatchGroup</code> и для чего она может пригодится на практике. Рассмотрим проблему: </p><pre><code class="swift">final class AsyncPerformer {
+    
+    // Асинхронная тяжелая операция
+    func performWork&lt;T&gt;(object: T, complete: @escaping (T) -&gt; Void) {
+        ... 
+        // Замыкание вызывается ассинхронно,
+        // через какой-то промежуток времени
+        complete(object)
+    }
+
+    // Асинхронно выполняет несколько операций
+    func performWorks&lt;T&gt;(objects: [T], complete: @escaping ([T]) -&gt; Void) {
+        ...
+    }
+}</code></pre><ul><li><p>Требуется реализовать метод <code>performWorks</code>;</p></li><li><p>Замыкание <code>complete</code> должно вызываться по завершению всех операций;</p></li><li><p>Последовательность элементов внутри замыкания должна оставаться как в исходном массиве;</p></li><li><p>Метод <code>performWork</code> требует много ресурсов.</p></li></ul><p>Возможное решение:</p><pre><code class="swift">final class AsyncPerformer {
+    
+    func performWork&lt;T&gt;(object: T, complete: @escaping (T) -&gt; Void) {
+        ... 
+        complete(object)
+    }
+
+    // Асинхронно выполняет несколько операций
+    func performWorks&lt;T&gt;(objects: [T], complete: @escaping ([T]) -&gt; Void) {
+        //1
+        let group = DispatchGroup()        
+        let queue = DispatchQueue(
+            label: "perform.queue", 
+            attributes: .concurrent
+        )
+        //2
+        var result = objects
+        //3
+        group.notify(queue: DispatchQueue.main) {
+            complete(result)
+        }
+        //4
+        for (index, object) in objects.enumerated() {
+            queue.async {
+                //5
+                group.enter()
+                performWork(object: object) { response in
+                    //6
+                    queue.async(flags: .barrier) {
+                        result[index] = response
+                    }
+                    //7
+                    group.leave()
+                }
+            }
+        }
+    }
+}</code></pre><ol><li><p>Создаем объект типа DispatchGroup и кастомную параллельную очередь;</p></li><li><p>Копируем исходный массив в локальную переменную — чтобы в последствии использовать для сохранения порядка;</p></li><li><p>Устанавливаем <code>notify</code> для группы. Когда все операции выйдут из группы, будет вызвано замыкание <code>complete</code>;</p></li><li><p>В цикле выполняем операции. Код внутри цикла исполняется асинхронно на параллельной очереди т.к. по условию метод <code>performWork</code> требует много ресурсов;</p></li><li><p><code>group.enter()</code> вызывается до вызова метода <code>performWork</code>;</p></li><li><p>Чтобы обезопасить доступ к результирующему массиву, следует записывать в него значения используя флаг <code>.barrier</code>;</p></li><li><p>После сохранения результата выполнения замыкания выходим из группы с помощью <code>group.leave()</code>.</p></li></ol><p>Навыки работы с <code>DispatchGroup</code> необходимы для работы с набором ассинхронных операций. Также вы можете попробовать решить эту задачу используя фреймворк <code>Combine</code> и оператор <code>collect.</code></p><h2>High-order functions</h2><p>В Swift функции высшего порядка — это функции, которые принимают одну или несколько функций в качестве аргументов или возвращают функцию в качестве результата. Это мощный инструмент для работы с коллекциями, поскольку они позволяют писать лаконичный и выразительный код, который можно легко настроить для различных вариантов использования.</p><p>Вот некоторые из них и их назначение:</p><ol><li><p><code>map</code> — преобразует каждый элемент коллекции с помощью замыкания и возвращает новую коллекцию того же размера;</p></li><li><p><code>filter</code> — возвращает новую коллекцию, содержащую только те элементы, которые удовлетворяют заданному предикату;</p></li><li><p> <code>reduce</code> — объединяет элементы коллекции в одно значение, используя замыкание, которое принимает два аргумента: накопленное значение и следующий элемент коллекции;</p></li><li><p><code>compactMap</code> — возвращает новую коллекцию с ненулевыми результатами вызова замыкания для каждого элемента исходной коллекции.</p></li></ol><p>На интервью вас могут попросить написать реализацию этих методов. Рассмотрим пример:</p><pre><code class="swift">extension Collection {
+    func map() {
+        // implement me!
+    }
+}</code></pre><p>Как может выглядеть ваше решение:</p><pre><code class="swift">extension Collection {
+    func map&lt;T&gt;(_ transform: (Element) throws -&gt; T) rethrows -&gt; [T] {
+        var result = [T]()
+        result.reserveCapacity(count)
+        for element in self {
+            result.append(try transform(element))
+        }
+        return result
+    }
+}</code></pre><p>В этом примере функция <code>map</code> определена как расширение типа <code>Collection</code>. Функция <code>map</code> принимает замыкание, которое преобразует элементы типа <code>Element</code> в элементы типа <code>T</code>. Замыкание помечено ключевым словом <code>throws</code>, чтобы указать, что оно может вызвать ошибку. Сама функция <code>map</code> также помечена ключевым словом <code>rethrows</code>, чтобы указать, что она может повторно вызывать любые ошибки, вызванные замыканием.</p><p>Внутри функции <code>map</code> создается новый пустой массив типа <code>[T]</code> для хранения преобразованных элементов. Метод <code>reserveCapacity</code> вызывается у нового массива, чтобы предварительно выделить достаточно места для всех элементов исходного массива, что может повысить производительность. Затем цикл <code>for</code> используется для перебора каждого элемента исходного массива. Замыкание применяется к каждому элементу с помощью ключевого слова <code>try</code>, а преобразованный элемент добавляется к новому массиву. Наконец, новый массив возвращается.</p><p>Остальные функций высшего порядка попробуйте реализовать сами =)</p><h2>Type erasure</h2><p>Предположим, есть протокол <code>Request</code> с <code>associated type</code>. Он позволяет нам скрывать различные формы запросов данных (например, сетевые запросы, запросы к базе данных и работы с кэшом) за одним унифицированным интерфейсом:</p><pre><code class="swift">protocol Request {
+    associatedtype Response
+    associatedtype Error: Swift.Error
+    
+    typealias Handler = (Result&lt;Response, Error&gt;) -&gt; Void
+    
+    var handler: Handler { get }
+        
+    func perform(then handler: @escaping Handler)
+}</code></pre><p>Задача реализовать класс‑очередь, которая позволяет работать с разными запросами по правилам <a href="https://en.wikipedia.org/wiki/FIFO_(computing_and_electronics)" rel="noopener noreferrer nofollow">FIFO</a>. </p><p>Исходные данные выглядят следующим образом: Есть класс <code>RequestQueue</code> и метод <code>add(_ :)</code>. Нужно реализовать всю логику класса.</p><pre><code class="swift">class RequestQueue {
+    // Error: protocol 'Request' can only be used as a generic
+    // constraint because it has Self or associated type requirements
+    //
+    // Or in Swift 5.7
+    // Use of protocol 'Request' as a type must be written 'any Request'
+    func add(_ request: Request) {
+        ...
+    }
+}</code></pre><p>Мы не можем просто так передать параметр типа <code>Request</code> т.к. он имеет <code>assoсiated type</code>. В таком случае, для хранения запросов в очереди нам придется применить технику <code>TypeErasure</code>. </p><pre><code class="swift">class RequestQueue {
+    private var queue = [() -&gt; Void]()
+    private var isPerformingRequest = false
+
+    func add&lt;R: Request&gt;(_ request: R) {
+        // 1
+        let typeErased = {
+            request.perform { [weak self] result in
+                request.handler(result)
+                self?.isPerformingRequest = false
+                self?.performNextIfNeeded()
+            }
+        }
+
+        //2
+        queue.append(typeErased)
+        performNextIfNeeded()
+    }
+
+    //3
+    private func performNextIfNeeded() {
+        guard !isPerformingRequest &amp;&amp; !queue.isEmpty else {
+            return
+        }
+
+        //4
+        isPerformingRequest = true
+        let closure = queue.removeFirst()
+        closure()
+    }
+}</code></pre><ol><li><p>Замыкание <code>typeErased</code> будет захватывать как запрос (request), так и его обработчик (handler), не раскрывая никакой информации об этом типе за его пределами, обеспечивая полное стирание типа (type erasure);</p></li><li><p>Замыкания сохраняются в массив с типом <code>[() -&gt; Void]</code>;</p></li><li><p>Метод <code>performNextIfNeeded</code> проверяет, нет ли выполнения в данный момент и есть ли в массиве еще запросы на очереди;</p></li><li><p>Если запрос есть, выставляем флаг <code>isPerformingRequest</code> в <code>true</code>, достаем из массива следующий запрос на очереди и выполняем его, вызывая замыкание.</p></li></ol><h2>Any and Some</h2><p>В Swift 5.6 и 5.7 произошло много изменений относительно концепции <code>type erasure</code>, и теперь она выглядит более нативно. Подробности можно посмотреть <a href="https://swiftrocks.com/whats-any-understanding-type-erasure-in-swift" rel="noopener noreferrer nofollow">здесь</a> и <a href="https://github.com/apple/swift-evolution/blob/main/proposals/0335-existential-any.md" rel="noopener noreferrer nofollow">здесь</a>. Давайте посмотрим, как решение задачи с очередью запросов может выглядеть при использовании ключевых слов <code>any</code> и <code>some</code>:</p><pre><code class="swift">class RequestQueue {
+    private var queue = [any NewRequest]()
+    private var isPerformingRequest = false
+
+    func add(request: some NewRequest) {
+        queue.append(request)
+        performNextIfNeeded()
+    }
+    
+    private func performNextIfNeeded() {
+        guard !isPerformingRequest &amp;&amp; !queue.isEmpty else { return }
+        isPerformingRequest = true
+        
+        let outgoing = queue.removeFirst()
+        perform(request: outgoing)
+    }
+    
+    private func perform(request: some NewRequest) {
+        request.perform { [weak self] result in
+            request.handler(result)
+            self?.isPerformingRequest = false
+            self?.performNextIfNeeded()
+        }
+    }
+}</code></pre><p>Теперь нам не нужно хранить в массиве <code>typeErased</code> замыкания. Ключевые слова <code>some</code> и <code>any</code> позволяют использовать type erasure технику с помощью <code>opaque type</code><strong> </strong> и <code>existential type</code> соответственно. </p><p>Заметьте, что класс <code>RequestQueue</code> не является потокобезопасным, что в реальном проекте, скорее всего, вызвало бы проблемы.</p><h2>Заключение</h2><p>Список приведенных мною задач отражает темы, которые важны для любого iOS разработчика. Цель проверить знания и умения работать с той или иной технологией. Разумеется, список неполный и может быть добавлен и содержать другие вариации задач. Вы можете использовать эти примеры при проведении интервью в своих компаниях или для подготовки к собеседованиям. Если даете эти примеры, постарайтесь, прежде всего, понять, как кандидат размышляет во время решения, а не получить точную имплементацию с соблюдением синтаксиса языка, особенно если вы используете IDE без подсказок. Будьте снисходительны, принимая во внимание стресс и волнение на интервью, а также тот факт, что решение кандидата может отличаться стилистически от вашего.</p><p></p></div></div></div> <!-- --> <!-- --></div> <!-- --> <div class="tm-article-poll-container"><div class="tm-article-poll tm-article-poll_variant-bordered"><div class="tm-notice tm-article-poll__notice tm-notice_positive"><!-- --> <div class="tm-notice__inner"><!-- --> <div class="tm-notice__content"><span>Только зарегистрированные пользователи могут участвовать в опросе. <a href="/kek/v1/auth/habrahabr/?back=/ru/post/718334/&amp;hl=ru" rel="nofollow">Войдите</a>, пожалуйста.</span></div></div></div> <div class="tm-article-poll__header">Какие задачи встречались вам на собеседованиях?</div> <div class="tm-article-poll__answers"><div class="tm-article-poll__answer"><div class="tm-article-poll__answer-data"><span class="tm-article-poll__answer-percent tm-article-poll__answer-percent_winning">
+            100%
+          </span> <span class="tm-article-poll__answer-label">Thread safe collection</span> <span class="tm-article-poll__answer-votes">
+            3
+          </span></div> <div class="tm-article-poll__answer-bar"><div class="tm-article-poll__answer-progress tm-article-poll__answer-progress_winning" style="width:100%;"></div></div></div><div class="tm-article-poll__answer"><div class="tm-article-poll__answer-data"><span class="tm-article-poll__answer-percent">
+            66.67%
+          </span> <span class="tm-article-poll__answer-label">Dispatch group problem</span> <span class="tm-article-poll__answer-votes">
+            2
+          </span></div> <div class="tm-article-poll__answer-bar"><div class="tm-article-poll__answer-progress" style="width:66.67%;"></div></div></div><div class="tm-article-poll__answer"><div class="tm-article-poll__answer-data"><span class="tm-article-poll__answer-percent">
+            33.33%
+          </span> <span class="tm-article-poll__answer-label">High-order function</span> <span class="tm-article-poll__answer-votes">
+            1
+          </span></div> <div class="tm-article-poll__answer-bar"><div class="tm-article-poll__answer-progress" style="width:33.33%;"></div></div></div><div class="tm-article-poll__answer"><div class="tm-article-poll__answer-data"><span class="tm-article-poll__answer-percent">
+            33.33%
+          </span> <span class="tm-article-poll__answer-label">Type erasure</span> <span class="tm-article-poll__answer-votes">
+            1
+          </span></div> <div class="tm-article-poll__answer-bar"><div class="tm-article-poll__answer-progress" style="width:33.33%;"></div></div></div><div class="tm-article-poll__answer"><div class="tm-article-poll__answer-data"><span class="tm-article-poll__answer-percent">
+            0%
+          </span> <span class="tm-article-poll__answer-label">Any and some</span> <span class="tm-article-poll__answer-votes">
+            0
+          </span></div> <div class="tm-article-poll__answer-bar"><div class="tm-article-poll__answer-progress" style="width:0%;"></div></div></div></div> <div class="tm-article-poll__stats">
+       Проголосовали 3 пользователя.  
+
+       Воздержались 5 пользователей. 
+    </div></div></div></div> <!-- --> <div class="tm-article-presenter__meta"><div class="tm-separated-list tm-article-presenter__meta-list"><span class="tm-separated-list__title">Теги:</span> <ul class="tm-separated-list__list"><li class="tm-separated-list__item"><a class="tm-tags-list__link" href="/ru/search/?target_type=posts&amp;order=relevance&amp;q=%5Bios%5D">ios</a></li><li class="tm-separated-list__item"><a class="tm-tags-list__link" href="/ru/search/?target_type=posts&amp;order=relevance&amp;q=%5Bios%20development%5D">ios development</a></li><li class="tm-separated-list__item"><a class="tm-tags-list__link" href="/ru/search/?target_type=posts&amp;order=relevance&amp;q=%5Bios%20%D1%80%D0%B0%D0%B7%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D0%B0%5D">ios разработка</a></li><li class="tm-separated-list__item"><a class="tm-tags-list__link" href="/ru/search/?target_type=posts&amp;order=relevance&amp;q=%5Bios%20programming%5D">ios programming</a></li><li class="tm-separated-list__item"><a class="tm-tags-list__link" href="/ru/search/?target_type=posts&amp;order=relevance&amp;q=%5Bswift%5D">swift</a></li><li class="tm-separated-list__item"><a class="tm-tags-list__link" href="/ru/search/?target_type=posts&amp;order=relevance&amp;q=%5Bswift%20%20%D1%80%D0%B0%D0%B7%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D0%B0%5D">swift  разработка</a></li><li class="tm-separated-list__item"><a class="tm-tags-list__link" href="/ru/search/?target_type=posts&amp;order=relevance&amp;q=%5Bswift%20development%5D">swift development</a></li><li class="tm-separated-list__item"><a class="tm-tags-list__link" href="/ru/search/?target_type=posts&amp;order=relevance&amp;q=%5B%D0%B8%D0%BD%D1%82%D0%B5%D1%80%D0%B2%D1%8C%D1%8E%5D">интервью</a></li><li class="tm-separated-list__item"><a class="tm-tags-list__link" href="/ru/search/?target_type=posts&amp;order=relevance&amp;q=%5B%D1%81%D0%BE%D0%B1%D0%B5%D1%81%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%5D">собеседование</a></li><li class="tm-separated-list__item"><a class="tm-tags-list__link" href="/ru/search/?target_type=posts&amp;order=relevance&amp;q=%5Blive%20coding%5D">live coding</a></li></ul></div> <div class="tm-separated-list tm-article-presenter__meta-list"><span class="tm-separated-list__title">Хабы:</span> <ul class="tm-separated-list__list"><li class="tm-separated-list__item"><a class="tm-hubs-list__link" href="/ru/hub/ios_dev/">Разработка под iOS</a></li><li class="tm-separated-list__item"><a class="tm-hubs-list__link" href="/ru/hub/mobile_dev/">Разработка мобильных приложений</a></li><li class="tm-separated-list__item"><a class="tm-hubs-list__link" href="/ru/hub/swift/">Swift</a></li><li class="tm-separated-list__item"><a class="tm-hubs-list__link" href="/ru/hub/career/">Карьера в IT-индустрии</a></li></ul></div></div></article></div> <!-- --></div> <div class="tm-article-sticky-panel"><div class="tm-data-icons tm-article-sticky-panel__icons"><div class="tm-article-rating tm-data-icons__item"><div class="tm-votes-meter tm-article-rating__votes-switcher"><svg class="tm-svg-img tm-votes-meter__icon tm-votes-meter__icon tm-votes-meter__icon_appearance-article" height="24" width="24"><title>Всего голосов 4: ↑2 и ↓2</title> <use xlink:href="/img/megazord-v28.2b11c25e..svg#counter-rating"></use></svg> <span class="tm-votes-meter__value tm-votes-meter__value tm-votes-meter__value_appearance-article tm-votes-meter__value_rating" title="Всего голосов 4: ↑2 и ↓2">0</span></div> <div class="v-portal" style="display:none;"></div></div> <!-- --> <!-- --> <button class="bookmarks-button tm-data-icons__item" title="Добавить в закладки" type="button"><span class="tm-svg-icon__wrapper bookmarks-button__icon"><svg class="tm-svg-img tm-svg-icon" height="24" width="24"><title>Добавить в закладки</title> <use xlink:href="/img/megazord-v28.2b11c25e..svg#counter-favorite"></use></svg></span> <span class="bookmarks-button__counter" title="Количество пользователей, добавивших публикацию в закладки">
+    10
+  </span></button> <div class="tm-article-comments-counter-link tm-data-icons__item" title="Читать комментарии"><a class="tm-article-comments-counter-link__link" href="/ru/post/718334/comments/"><svg class="tm-svg-img tm-article-comments-counter-link__icon" height="24" width="24"><title>Комментарии</title> <use xlink:href="/img/megazord-v28.2b11c25e..svg#counter-comments"></use></svg> <span class="tm-article-comments-counter-link__value">
+      1
+    </span></a> <!-- --></div> <div class="tm-sharing tm-data-icons__item" title="Поделиться"><button class="tm-sharing__button" type="button"><svg class="tm-sharing__icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M13.8 13.8V18l7.2-6.6L13.8 5v3.9C5 8.9 3 18.6 3 18.6c2.5-4.4 6-4.8 10.8-4.8z" fill="currentColor"></path></svg></button> <div class="v-portal" style="display:none;"></div></div> <div class="v-portal" style="display:none;"></div></div> </div></div> <div class="v-portal" style="display:none;"></div> <div class="tm-article-presenter__footer"><div class="tm-article-blocks"><!-- --> <div></div> <section class="tm-block tm-block tm-block_spacing-bottom"><!-- --> <div class="tm-block__body tm-block__body tm-block__body_variant-balanced"><div class="tm-article-author"> <div class="tm-user-card tm-article-author__user-card tm-user-card tm-user-card_variant-article"><div class="tm-user-card__info-container"><div class="tm-user-card__header"><div class="tm-user-card__header-data"><a class="tm-user-card__userpic tm-user-card__userpic_size-40" href="/ru/users/titanium007/"><div class="tm-entity-image"><img alt="" class="tm-entity-image__pic" src="//habrastorage.org/getpro/habr/avatars/f36/557/a50/f36557a50f938ffed030160cdd1931f2.jpg"/></div></a> <div class="tm-user-card__meta"><div class="tm-counter-container tm-karma tm-karma" title=" 3 голоса "><div class="tm-counter-container__header"><div class="tm-karma__votes tm-karma__votes_positive">
+      3
+    </div></div> <div class="tm-counter-container__footer"><div class="tm-karma__text">
+      Карма
+    </div> <div class="v-portal" style="display:none;"></div></div></div> <div class="tm-counter-container" title="Рейтинг пользователя"><div class="tm-counter-container__header"> <div class="tm-votes-lever tm-votes-lever tm-votes-lever_appearance-rating"><!-- --> <div class="tm-votes-lever__score tm-votes-lever__score tm-votes-lever__score_appearance-rating"><span class="tm-votes-lever__score-counter tm-votes-lever__score-counter tm-votes-lever__score-counter_rating">
+        0
+      </span></div> <!-- --></div></div> <div class="tm-counter-container__footer"><span class="tm-rating__text tm-rating__text">
+      Рейтинг
+    </span></div></div></div></div></div> <div class="tm-user-card__info tm-user-card__info tm-user-card__info_variant-article"><div class="tm-user-card__title tm-user-card__title tm-user-card__title_variant-article"><span class="tm-user-card__name tm-user-card__name tm-user-card__name_variant-article">Чистяков Вадим</span> <a class="tm-user-card__nickname tm-user-card__nickname tm-user-card__nickname_variant-article" href="/ru/users/titanium007/">
+          @titanium007
+        </a> <!-- --></div> <p class="tm-user-card__short-info tm-user-card__short-info tm-user-card__short-info_variant-article">Senior iOS разработчик. iOS Team lead</p></div></div> <div class="tm-user-card__buttons tm-user-card__buttons tm-user-card__buttons_variant-article"><!-- --> <!-- --> <!-- --> <!-- --> <!-- --></div></div> <!-- --></div> <div class="v-portal" style="display:none;"></div></div> <!-- --></section> <div class="tm-adfox-banner__container tm-page-article__banner"><!-- --> <div class="tm-adfox-banner tm-adfox-banner tm-adfox-banner_variant-leaderboard" id="adfox_164725660339535756"></div></div> <div class="tm-article-blocks__comments"><div class="tm-article-page-comments"><div class="tm-article-comments-counter-link tm-article-comments-counter-button"><a class="tm-article-comments-counter-link__link tm-article-comments-counter-link__link_button-style" href="/ru/post/718334/comments/"><svg class="tm-svg-img tm-article-comments-counter-link__icon tm-article-comments-counter-link__icon_contrasted" height="24" width="24"><title>Комментарии</title> <use xlink:href="/img/megazord-v28.2b11c25e..svg#counter-comments"></use></svg> <span class="tm-article-comments-counter-link__value tm-article-comments-counter-link__value_contrasted">
+       Комментарии 1 
+    </span></a> <!-- --></div></div></div> <section class="tm-block tm-block tm-block_spacing-bottom"><header class="tm-block__header tm-block__header tm-block__header_variant-borderless"><div class="tm-block__header-container"><h2 class="tm-block__title tm-block__title tm-block__title_variant-large">Публикации</h2> </div> <!-- --></header> <div class="tm-block__body tm-block__body tm-block__body_variant-condensed-slim"><div class="tm-tabs tm-tabs"><div><span class="tm-tabs__tab-item"><button class="tm-tabs__tab-link tm-tabs__tab-link tm-tabs__tab-link_active tm-tabs__tab-link_slim">
+        Лучшие за сутки
+      </button></span><span class="tm-tabs__tab-item"><button class="tm-tabs__tab-link tm-tabs__tab-link tm-tabs__tab-link_slim">
+        Похожие
+      </button></span></div> <!-- --></div> <div class="similar-and-daily__tab-view"><div><!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <div class="tm-placeholder-article-cards"><div class="tm-placeholder-article-card"><div class="tm-placeholder__user"><div class="tm-placeholder__user-pic loads"></div> <div class="tm-placeholder__user-date loads"></div></div> <div class="tm-placeholder-article-card__title"><div class="tm-placeholder__line tm-placeholder-article-card__title-line loads"></div> <div class="tm-placeholder__line tm-placeholder-article-card__title-line loads"></div></div> <div class="tm-placeholder-article-card__icons tm-placeholder__counters"><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div></div></div><div class="tm-placeholder-article-card"><div class="tm-placeholder__user"><div class="tm-placeholder__user-pic loads"></div> <div class="tm-placeholder__user-date loads"></div></div> <div class="tm-placeholder-article-card__title"><div class="tm-placeholder__line tm-placeholder-article-card__title-line loads"></div> <div class="tm-placeholder__line tm-placeholder-article-card__title-line loads"></div></div> <div class="tm-placeholder-article-card__icons tm-placeholder__counters"><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div></div></div><div class="tm-placeholder-article-card"><div class="tm-placeholder__user"><div class="tm-placeholder__user-pic loads"></div> <div class="tm-placeholder__user-date loads"></div></div> <div class="tm-placeholder-article-card__title"><div class="tm-placeholder__line tm-placeholder-article-card__title-line loads"></div> <div class="tm-placeholder__line tm-placeholder-article-card__title-line loads"></div></div> <div class="tm-placeholder-article-card__icons tm-placeholder__counters"><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div></div></div><div class="tm-placeholder-article-card"><div class="tm-placeholder__user"><div class="tm-placeholder__user-pic loads"></div> <div class="tm-placeholder__user-date loads"></div></div> <div class="tm-placeholder-article-card__title"><div class="tm-placeholder__line tm-placeholder-article-card__title-line loads"></div> <div class="tm-placeholder__line tm-placeholder-article-card__title-line loads"></div></div> <div class="tm-placeholder-article-card__icons tm-placeholder__counters"><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div></div></div><div class="tm-placeholder-article-card"><div class="tm-placeholder__user"><div class="tm-placeholder__user-pic loads"></div> <div class="tm-placeholder__user-date loads"></div></div> <div class="tm-placeholder-article-card__title"><div class="tm-placeholder__line tm-placeholder-article-card__title-line loads"></div> <div class="tm-placeholder__line tm-placeholder-article-card__title-line loads"></div></div> <div class="tm-placeholder-article-card__icons tm-placeholder__counters"><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div></div></div></div> <!-- --> <!-- --> <!-- --> <!-- --></div> <!-- --></div></div> <!-- --></section> <section class="tm-block tm-stories-block tm-block tm-block_spacing-around" data-async-called="true" data-navigatable="" tabindex="0"><header class="tm-block__header tm-block__header"><div class="tm-block__header-container"><h2 class="tm-block__title tm-block__title">Истории</h2> </div> <!-- --></header> <div class="tm-block__body tm-block__body tm-block__body_variant-equal"><div class="tm-stories-empty"><div class="tm-stories-card-empty"><div class="tm-stories-card-empty__image"></div> <div class="tm-stories-card-empty__title"><div class="tm-stories-card-empty__title-block"></div> <div class="tm-stories-card-empty__title-block"></div> <div class="tm-stories-card-empty__title-block"></div></div></div><div class="tm-stories-card-empty"><div class="tm-stories-card-empty__image"></div> <div class="tm-stories-card-empty__title"><div class="tm-stories-card-empty__title-block"></div> <div class="tm-stories-card-empty__title-block"></div> <div class="tm-stories-card-empty__title-block"></div></div></div><div class="tm-stories-card-empty"><div class="tm-stories-card-empty__image"></div> <div class="tm-stories-card-empty__title"><div class="tm-stories-card-empty__title-block"></div> <div class="tm-stories-card-empty__title-block"></div> <div class="tm-stories-card-empty__title-block"></div></div></div><div class="tm-stories-card-empty"><div class="tm-stories-card-empty__image"></div> <div class="tm-stories-card-empty__title"><div class="tm-stories-card-empty__title-block"></div> <div class="tm-stories-card-empty__title-block"></div> <div class="tm-stories-card-empty__title-block"></div></div></div><div class="tm-stories-card-empty"><div class="tm-stories-card-empty__image"></div> <div class="tm-stories-card-empty__title"><div class="tm-stories-card-empty__title-block"></div> <div class="tm-stories-card-empty__title-block"></div> <div class="tm-stories-card-empty__title-block"></div></div></div><div class="tm-stories-card-empty"><div class="tm-stories-card-empty__image"></div> <div class="tm-stories-card-empty__title"><div class="tm-stories-card-empty__title-block"></div> <div class="tm-stories-card-empty__title-block"></div> <div class="tm-stories-card-empty__title-block"></div></div></div></div> <!-- --></div> <!-- --></section> <div><!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <div class="tm-placeholder-inset tm-placeholder-courses"><div class="tm-placeholder-inset__header"><div class="tm-placeholder__line tm-placeholder__line_inset-header loads"></div></div> <div class="tm-placeholder-inset__body"><ul class="tm-placeholder-list"><li class="tm-placeholder-list__item tm-placeholder-list__item_inset"><div class="tm-placeholder-list__title-container"><div class="tm-placeholder__company-avatar"></div> <div class="tm-placeholder__line tm-placeholder__line_item-title loads"></div></div> <div class="tm-project-block-items__properties"><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span></div></li><li class="tm-placeholder-list__item tm-placeholder-list__item_inset"><div class="tm-placeholder-list__title-container"><div class="tm-placeholder__company-avatar"></div> <div class="tm-placeholder__line tm-placeholder__line_item-title loads"></div></div> <div class="tm-project-block-items__properties"><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span></div></li><li class="tm-placeholder-list__item tm-placeholder-list__item_inset"><div class="tm-placeholder-list__title-container"><div class="tm-placeholder__company-avatar"></div> <div class="tm-placeholder__line tm-placeholder__line_item-title loads"></div></div> <div class="tm-project-block-items__properties"><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span></div></li><li class="tm-placeholder-list__item tm-placeholder-list__item_inset"><div class="tm-placeholder-list__title-container"><div class="tm-placeholder__company-avatar"></div> <div class="tm-placeholder__line tm-placeholder__line_item-title loads"></div></div> <div class="tm-project-block-items__properties"><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span></div></li><li class="tm-placeholder-list__item tm-placeholder-list__item_inset"><div class="tm-placeholder-list__title-container"><div class="tm-placeholder__company-avatar"></div> <div class="tm-placeholder__line tm-placeholder__line_item-title loads"></div></div> <div class="tm-project-block-items__properties"><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span></div></li></ul></div> <div class="tm-placeholder-inset__footer"><div class="tm-placeholder__line tm-placeholder__line_inset-footer loads"></div></div></div> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --></div> <!-- --> <div><div><!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <div class="tm-placeholder-promo"><div class="tm-placeholder-promo__header"><div class="tm-placeholder__line tm-placeholder__line_promo-title"></div></div> <div class="tm-placeholder-promo__body"><div class="tm-placeholder-promo__posts"><div class="tm-placeholder-promo__post"><div class="tm-placeholder-promo__image"></div> <div class="tm-placeholder__line tm-placeholder__line_post-title"></div></div> <div class="tm-placeholder-promo__post"><div class="tm-placeholder-promo__image"></div> <div class="tm-placeholder__line tm-placeholder__line_post-title"></div></div> <div class="tm-placeholder-promo__post"><div class="tm-placeholder-promo__image"></div> <div class="tm-placeholder__line tm-placeholder__line_post-title"></div></div></div> <div class="tm-placeholder-promo__dots"><div class="tm-placeholder-promo__dot"></div> <div class="tm-placeholder-promo__dot"></div> <div class="tm-placeholder-promo__dot"></div></div></div></div> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --></div></div> <section class="tm-block tm-block tm-block_spacing-top" data-async-called="true"><header class="tm-block__header tm-block__header"><div class="tm-block__header-container"><h2 class="tm-block__title tm-block__title">Работа</h2> </div> <!-- --></header> <div class="tm-block__body tm-block__body"><div class="tm-vacancies-block__item"><a class="tm-vacancies-block__vacancy-title" href="https://career.habr.com/vacancies/ios_razrabotchik" target="_blank">
+        iOS разработчик
+      </a> <div class="tm-vacancies-block__vacancies-count">
+        44
+    вакансии
+      </div></div><div class="tm-vacancies-block__item"><a class="tm-vacancies-block__vacancy-title" href="https://career.habr.com/vacancies/ios_razrabotchik_swift" target="_blank">
+        Swift разработчик
+      </a> <div class="tm-vacancies-block__vacancies-count">
+        57
+    вакансий
+      </div></div><div class="tm-vacancies-block__item"><a class="tm-vacancies-block__vacancy-title" href="https://career.habr.com/vacancies/android_developer" target="_blank">
+        Android разработчик 
+      </a> <div class="tm-vacancies-block__vacancies-count">
+        52
+    вакансии
+      </div></div></div> <footer class="tm-block__footer"><a class="tm-block-extralink" href="https://career.habr.com/catalog">
+      Все вакансии
+    </a></footer></section></div></div></div></div></div> <div class="tm-page__sidebar"><!-- --></div></div></div></div></main> <!-- --></div> <!-- --> <div class="tm-footer"><div class="tm-page-width"><div class="tm-footer__container"><div class="tm-footer__title"><a class="tm-svg-icon__wrapper tm-footer__title-link router-link-active" href="/ru/"><svg class="tm-svg-img tm-svg-icon" height="16" width="16"><title>Хабр</title> <use xlink:href="/img/habr-logo-ru.svg#logo"></use></svg></a></div> <div class="tm-footer__social"><a class="tm-svg-icon__wrapper tm-social-icons__icon" href="https://www.facebook.com/habrahabr.ru" rel="nofollow noopener noreferrer" target="_blank"><svg class="tm-svg-img tm-svg-icon" height="16" width="16"><title>Facebook</title> <use xlink:href="/img/social-icons-sprite.svg#social-logo-facebook"></use></svg></a><a class="tm-svg-icon__wrapper tm-social-icons__icon" href="https://twitter.com/habr_com" rel="nofollow noopener noreferrer" target="_blank"><svg class="tm-svg-img tm-svg-icon" height="16" width="16"><title>Twitter</title> <use xlink:href="/img/social-icons-sprite.svg#social-logo-twitter"></use></svg></a><a class="tm-svg-icon__wrapper tm-social-icons__icon" href="https://vk.com/habr" rel="nofollow noopener noreferrer" target="_blank"><svg class="tm-svg-img tm-svg-icon" height="16" width="16"><title>VK</title> <use xlink:href="/img/social-icons-sprite.svg#social-logo-vkontakte"></use></svg></a><a class="tm-svg-icon__wrapper tm-social-icons__icon" href="https://telegram.me/habr_com" rel="nofollow noopener noreferrer" target="_blank"><svg class="tm-svg-img tm-svg-icon" height="16" width="16"><title>Telegram</title> <use xlink:href="/img/social-icons-sprite.svg#social-logo-telegram"></use></svg></a><a class="tm-svg-icon__wrapper tm-social-icons__icon" href="https://www.youtube.com/channel/UCd_sTwKqVrweTt4oAKY5y4w" rel="nofollow noopener noreferrer" target="_blank"><svg class="tm-svg-img tm-svg-icon" height="16" width="16"><title>Youtube</title> <use xlink:href="/img/social-icons-sprite.svg#social-logo-youtube"></use></svg></a><a class="tm-svg-icon__wrapper tm-social-icons__icon" href="https://zen.yandex.ru/habr" rel="nofollow noopener noreferrer" target="_blank"><svg class="tm-svg-img tm-svg-icon" height="16" width="16"><title>Яндекс Дзен</title> <use xlink:href="/img/social-icons-sprite.svg#social-logo-zen"></use></svg></a></div> <div class="v-portal" style="display:none;"></div> <button class="tm-footer__link"><svg class="tm-svg-img tm-footer__icon" height="16" width="16"><title>Язык</title> <use xlink:href="/img/megazord-v28.2b11c25e..svg#lang"></use></svg>
+        Настройка языка
+      </button> <a class="tm-footer__link" href="/ru/feedback/">
+        Техническая поддержка
+      </a> <a class="tm-footer__link" href="/berserk-mode-nope">
+        Вернуться на старую версию
+      </a> <div class="tm-footer-copyright"><span class="tm-copyright"><span class="tm-copyright__years">© 2006–2023, </span> <span class="tm-copyright__name"><a class="tm-copyright__link" href="https://company.habr.com/" rel="noopener" target="_blank">Habr</a></span></span></div></div></div></div> <!-- --> <!-- --></div> <div class="vue-portal-target"></div></div>
+
+
+
+
+
+
+
+
+</body>
+</html>

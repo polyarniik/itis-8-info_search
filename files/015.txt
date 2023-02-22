@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+
+<html data-vue-meta="%7B%22lang%22:%7B%22ssr%22:%22ru%22%7D%7D" lang="ru">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1.0,viewport-fit=cover,maximum-scale=1,user-scalable=0" name="viewport"/>
+<meta content="unsafe-url" name="referrer"/>
+<title>HabraTab: извлечение и модернизация движка (о, сколько нам открытий чудных...) / Хабр</title>
+
+
+
+
+
+
+
+<meta content="2.113.0" name="habr-version"/>
+<meta content="444736788986613" data-vue-meta="ssr" property="fb:app_id"/><meta content="472597926099084" data-vue-meta="ssr" property="fb:pages"/><meta content="summary_large_image" data-vue-meta="ssr" name="twitter:card"/><meta content="@habr_com" data-vue-meta="ssr" name="twitter:site"/><meta content="Хабр" data-vmid="og:site_name" data-vue-meta="ssr" property="og:site_name"/><meta content="HabraTab: извлечение и модернизация движка (о, сколько нам открытий чудных...)" data-vmid="og:title" data-vue-meta="ssr" property="og:title"/><meta content="HabraTab: извлечение и модернизация движка (о, сколько нам открытий чудных...)" data-vmid="twitter:title" data-vue-meta="ssr" name="twitter:title"/><meta content="HabraTab: извлечение и модернизация движка (о, сколько нам открытий чудных...)" data-vmid="aiturec:title" data-vue-meta="ssr" name="aiturec:title"/><meta content="Недавно на Хабре вышла статья « HabraTab — девайс для хаброзависимых », которая вызвала неподдельный интерес у хабропользователей и, можно сказать, произвела своего рода фурор (на данный момент..." data-vmid="description" data-vue-meta="ssr" name="description"/><meta content="Недавно на Хабре вышла статья « HabraTab — девайс для хаброзависимых », которая вызвала неподдельный интерес у хабропользователей и, можно сказать, произвела своего рода фурор (на данный момент..." data-vmid="description:itemprop" data-vue-meta="ssr" itemprop="description"/><meta content="Недавно на Хабре вышла статья « HabraTab — девайс для хаброзависимых », которая вызвала неподдельный интерес у хабропользователей и, можно сказать, произвела своего рода фурор (на данный момент..." data-vmid="og:description" data-vue-meta="ssr" property="og:description"/><meta content="Недавно на Хабре вышла статья « HabraTab — девайс для хаброзависимых », которая вызвала неподдельный интерес у хабропользователей и, можно сказать, произвела своего рода фурор (на данный момент..." data-vmid="twitter:description" data-vue-meta="ssr" name="twitter:description"/><meta content="Недавно на Хабре вышла статья « HabraTab — девайс для хаброзависимых », которая вызвала неподдельный интерес у хабропользователей и, можно сказать, произвела своего рода фурор (на данный момент..." data-vmid="aiturec:description" data-vue-meta="ssr" property="aiturec:description"/><meta content="https://habrastorage.org/webt/ya/8p/s_/ya8ps_p1d2u9xasbis5gq4oslsm.jpeg" data-vmid="image:itemprop" data-vue-meta="ssr" itemprop="image"/><meta content="https://habrastorage.org/webt/ya/8p/s_/ya8ps_p1d2u9xasbis5gq4oslsm.jpeg" data-vmid="og:image" data-vue-meta="ssr" property="og:image"/><meta content="1200" data-vmid="og:image:width" data-vue-meta="ssr" property="og:image:width"/><meta content="630" data-vmid="og:image:height" data-vue-meta="ssr" property="og:image:height"/><meta content="https://habrastorage.org/webt/ya/8p/s_/ya8ps_p1d2u9xasbis5gq4oslsm.jpeg" data-vmid="aiturec:image" data-vue-meta="ssr" property="aiturec:image"/><meta content="https://habrastorage.org/webt/ya/8p/s_/ya8ps_p1d2u9xasbis5gq4oslsm.jpeg" data-vmid="twitter:image" data-vue-meta="ssr" name="twitter:image"/><meta content="https://habrastorage.org/webt/ya/8p/s_/ya8ps_p1d2u9xasbis5gq4oslsm.jpeg?format=vk" data-vmid="vk:image" data-vue-meta="ssr" property="vk:image"/><meta content="718254" data-vmid="aiturec:item_id" data-vue-meta="ssr" property="aiturec:item_id"/><meta content="2023-02-22T14:01:01.000Z" data-vmid="aiturec:datetime" data-vue-meta="ssr" property="aiturec:datetime"/><meta content="https://habr.com/ru/company/timeweb/blog/718254/" data-vmid="og:url" data-vue-meta="ssr" property="og:url"/><meta content="article" data-vmid="og:type" data-vue-meta="ssr" property="og:type"/><meta content="ru_RU" data-vmid="og:locale" data-vue-meta="ssr" property="og:locale"/><meta content="timeweb_статьи, микроконтроллеры, программирование, Arduino, IoT, интернет вещей, автоматизация, smart home, умный дом, ESP32, HabraTab, карма, рейтинг" data-vue-meta="ssr" name="keywords"/>
+
+<meta content="#303b44" name="apple-mobile-web-app-status-bar-style"/>
+<meta content="#629FBC" name="msapplication-TileColor"/>
+<meta content="yes" name="apple-mobile-web-app-capable"/>
+<meta content="yes" name="mobile-web-app-capable"/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body>
+<div data-async-called="true" data-server-rendered="true" id="app"><div class="tm-layout__wrapper"><!-- --> <div></div> <div class="tm-feature tm-feature"><!-- --></div> <header class="tm-header"><div class="tm-page-width"><div class="tm-header__container"><div class="tm-header__burger-nav"><button class="tm-header__button tm-header__button_burger" type="button"><svg class="tm-svg-img tm-header__icon tm-header__icon-burger" height="16" width="16"><title>Меню</title> <use xlink:href="/img/megazord-v28.2b11c25e..svg#header-burger"></use></svg></button></div> <span class="tm-header__logo-wrap"><a class="tm-header__logo tm-header__logo_ru" href="/ru/"><svg class="tm-svg-img tm-header__icon" height="16" width="16"><title>Хабр</title> <use xlink:href="/img/habr-logo-ru.svg#logo"></use></svg></a> <span class="tm-header__beta-sign" style="display:none;">β</span></span> <!-- --> <div class="tm-header-user-menu tm-header_user-menu"><a class="tm-header-user-menu__item tm-header-user-menu__search" href="/ru/search/"><svg class="tm-svg-img tm-header-user-menu__icon tm-header-user-menu__icon_search" height="24" width="24"><title>Поиск</title> <use xlink:href="/img/megazord-v28.2b11c25e..svg#search"></use></svg></a> <!-- --> <!-- --> <!-- --> <div class="tm-header-user-menu__item"><button class="tm-header-user-menu__toggle" data-test-id="menu-toggle-guest"><svg class="tm-svg-img tm-header-user-menu__icon tm-header-user-menu__icon_white" height="24" width="24"><title>Профиль</title> <use xlink:href="/img/megazord-v28.2b11c25e..svg#header-user"></use></svg></button> <!-- --></div> <!-- --></div></div></div></header> <div class="tm-layout"><div class="tm-page-progress-bar"></div> <!-- --> <!-- --> <div class="tm-page-width"></div> <main class="tm-layout__container"><div class="tm-page" companyname="timeweb" data-async-called="true" hl="ru"><div class="tm-page-width"><div class="tm-page__header"><!-- --></div> <div class="tm-page__wrapper"><div class="tm-page__main tm-page__main_has-sidebar"><div class="pull-down"><!-- --> <div class="pull-down__header" style="height:0px;"><div class="pull-down__content" style="bottom:10px;"><svg class="tm-svg-img pull-down__arrow" height="24" width="24"><title>Обновить</title> <use xlink:href="/img/megazord-v28.2b11c25e..svg#pull-arrow"></use></svg></div></div> <div class="tm-article-presenter"> <div class="tm-article-presenter__body"><div class="tm-misprint-area"><div class="tm-misprint-area__wrapper"><article class="tm-article-presenter__content tm-article-presenter__content_narrow"><div class="tm-article-presenter__header"> <div class="tm-article-snippet tm-article-presenter__snippet tm-article-snippet"><div class="tm-article-snippet__meta-container"><div class="tm-article-snippet__meta"><span class="tm-user-info tm-article-snippet__author"><a class="tm-user-info__userpic" href="/ru/users/smart_alex/" title="smart_alex"><div class="tm-entity-image"><svg class="tm-svg-img tm-image-placeholder tm-image-placeholder_blue" height="32" width="32"><!-- --> <use xlink:href="/img/megazord-v28.2b11c25e..svg#placeholder-user"></use></svg></div></a> <span class="tm-user-info__user"><a class="tm-user-info__username" href="/ru/users/smart_alex/">
+      smart_alex
+      <!-- --></a> <span class="tm-article-datetime-published"><time datetime="2023-02-22T14:01:01.000Z" title="2023-02-22, 17:01">5 часов назад</time></span></span></span></div> <!-- --></div> <h1 class="tm-article-snippet__title tm-article-snippet__title_h1" lang="ru"><span>HabraTab: извлечение и модернизация движка (о, сколько нам открытий чудных...)</span></h1> <div class="tm-article-snippet__stats"><div class="tm-article-complexity tm-article-complexity_complexity-medium"><span class="tm-svg-icon__wrapper tm-article-complexity__icon"><svg class="tm-svg-img tm-svg-icon" height="24" width="24"><title>Уровень сложности</title> <use xlink:href="/img/megazord-v28.2b11c25e..svg#complexity-medium"></use></svg></span> <span class="tm-article-complexity__label">
+    Средний
+  </span></div> <div class="tm-article-reading-time"><span class="tm-svg-icon__wrapper tm-article-reading-time__icon"><svg class="tm-svg-img tm-svg-icon" height="24" width="24"><title>Время на прочтение</title> <use xlink:href="/img/megazord-v28.2b11c25e..svg#clock"></use></svg></span> <span class="tm-article-reading-time__label">
+    14 мин
+  </span></div> <span class="tm-icon-counter tm-data-icons__item"><svg class="tm-svg-img tm-icon-counter__icon" height="24" width="24"><title>Количество просмотров</title> <use xlink:href="/img/megazord-v28.2b11c25e..svg#counter-views"></use></svg> <span class="tm-icon-counter__value">892</span></span></div> <div class="tm-article-snippet__hubs-container"><div class="tm-article-snippet__hubs"><span class="tm-article-snippet__hubs-item"><a class="tm-article-snippet__hubs-item-link router-link-active" href="/ru/company/timeweb/blog/"><span>Блог компании Timeweb Cloud</span> <!-- --></a></span><span class="tm-article-snippet__hubs-item"><a class="tm-article-snippet__hubs-item-link" href="/ru/hub/controllers/"><span>Программирование микроконтроллеров</span> <span class="tm-article-snippet__profiled-hub" title="Профильный хаб">*</span></a></span><span class="tm-article-snippet__hubs-item"><a class="tm-article-snippet__hubs-item-link" href="/ru/hub/iot_dev/"><span>Разработка для интернета вещей</span> <span class="tm-article-snippet__profiled-hub" title="Профильный хаб">*</span></a></span><span class="tm-article-snippet__hubs-item"><a class="tm-article-snippet__hubs-item-link" href="/ru/hub/home_automation/"><span>Умный дом</span> <!-- --></a></span><span class="tm-article-snippet__hubs-item"><a class="tm-article-snippet__hubs-item-link" href="/ru/hub/DIY/"><span>DIY или Сделай сам</span> <!-- --></a></span></div></div> <div class="tm-article-snippet__labels-container"><div class="tm-article-snippet__labels"><div class="tm-article-snippet__label tm-article-snippet__label_variant-review"><span>
+          Обзор
+        </span></div> </div></div> <!-- --> <!-- --></div></div> <!-- --> <div class="tm-article-body" data-gallery-root="" lang="ru"><div></div> <div id="post-content-body"><div><div class="article-formatted-body article-formatted-body article-formatted-body_version-1"><div xmlns="http://www.w3.org/1999/xhtml"><a href="https://habr.com/ru/post/111/"><img data-blurred="true" data-src="https://habrastorage.org/webt/ya/8p/s_/ya8ps_p1d2u9xasbis5gq4oslsm.jpeg" src="https://habrastorage.org/r/w780q1/webt/ya/8p/s_/ya8ps_p1d2u9xasbis5gq4oslsm.jpeg"/></a><br/>
+<br/>
+Недавно на Хабре вышла статья «<a href="https://habr.com/ru/post/712114/">HabraTab — девайс для хаброзависимых</a>», которая вызвала неподдельный интерес у хабропользователей и, можно сказать, произвела своего рода фурор (на данный момент рейтинг статьи +137).<br/>
+<br/>
+Действительно, проект довольно интересный как своей концепцией, так и исполнением, как программным, так железным и даже дизайнерским — девайс выглядит весьма своеобразно и оригинально.<br/>
+<br/>
+Каждый нашёл в нём что-то своё, сам девайс меня не заинтересовал, но зато заинтересовал код, который может получать данные (кроме Хабра) с различных сайтов в интернете и затем эти данные использовать в IoT системах. Также этот код можно использовать для получения данных со встроенных веб-интерфейсов различных устройств в локальной сети, чему можно найти множество применений в реальных проектах по автоматизации (и не только).<br/>
+<br/>
+Автор любезно открыл код, что сделало возможным его исследование и модернизацию, чем я с большим удовольствием и занялся. Далее я представлю результаты своих изысканий по этой теме.<br/>
+<br/>
+Итак, начнём…<br/>
+<a name="habracut"></a><br/>
+<h2><font color="#1c22be">❯</font> <font color="#454cee"> План статьи</font></h2><br/>
+Статья будет поделена на 5 частей:<br/>
+<br/>
+<ol>
+<li>Извлечение движка парсинга данных из оригинального кода</li>
+<li>Добавление подсистемы сбора статистики и анализ её работы</li>
+<li>Приколы в коде</li>
+<li>Пример получения данных о статье (статьях) с Хабра</li>
+<li>Общие вопросы и планы на будущее</li>
+</ol><br/>
+Вообще, каждой из этих частей можно посвятить отдельную статью, тут всё зависит от степени детализации и количества объяснений. Я постараюсь осветить все эти вопросы в одной статье, надеюсь мне удастся уложиться в эти рамки.<br/>
+<br/>
+<h2><font color="#1c22be">❯</font> <font color="#454cee"> 1. Извлечение движка</font></h2><br/>
+В принципе, HabraTab является законченным и довольно гармоничным устройством и многих он в таком виде вполне устроит — спаял плату, залил прошивку — всё работает и больше от устройства ничего не нужно.<br/>
+<br/>
+С другой стороны, кому-то не нужны показания температуры и влажности на Хабро-шильдике, а кому-то не нужно на нём текущее время и т. д. А у кого-то есть в наличии другой дисплей, а кому-то нужен крупный шрифт на огромном дисплее и т. п.<br/>
+<br/>
+Мне, так вообще нужен только движок для использования в IoT системах для получения данных с различных сайтов и веб-интерфейсов сетевых устройств. Поэтому первым естественным желанием у меня было «отделить мух от котлет» и извлечь движок из прошивки HabraTab, чтобы потом можно было его использовать в других проектах. <br/>
+<br/>
+Ломать, как говорится, — не строить. Или, как любил говаривать старина Микеланджело, — создать шедевр нетрудно, нужно только отсечь всё лишнее. В данном случае операция не очень сложная, но нужно, конечно, иметь какое-то представление о том, что делаешь.<br/>
+<br/>
+После нескольких взмахов скальпелем и некоторых доработок кода, в моём распоряжении оказался сам движок. Положительным побочным эффектом этой операции стало отсутствие необходимости в дополнительных библиотеках — теперь проект компилируется без них.<br/>
+<br/>
+Код движка. Нужно понимать, что это не законченное решение, а только первый шаг на долгом пути совершенствования подсистемы получения данных со страниц сайтов при помощи контроллеров на ESP32.<br/>
+<br/>
+<pre><code class="java">/*
+  Parsing Engine test
+*/
+
+#include &lt;HTTPClient.h&gt;
+
+const char ssid[] = "ssid"; // &lt;--- актуализировать
+const char pass[] = "pass"; // &lt;--- актуализировать
+
+String sURL = "https://habr.com/ru/users/";
+String userName = "ENGIN33RRR";
+
+WiFiClientSecure client;
+HTTPClient http;
+
+String karma = "000";
+String ratin = "000.0";
+String posit = "000";
+
+void setup() {
+  xTaskCreatePinnedToCore(
+    FileUpdate, // функция потока
+    "Task1",    // название потока
+    10000,      // стек потока
+    NULL,       // параметры потока
+    2,          // приоритет потока
+    NULL,       // идентифкатор потока
+    1);         // ядро для выполнения потока
+    
+  delay(500);
+
+  xTaskCreatePinnedToCore(
+    Graph,
+    "Task2",
+    16000,
+    NULL,
+    1,
+    NULL,
+    0);
+    
+  delay(500);
+} // setup
+
+void connectWifi() {
+  WiFi.mode(WIFI_STA);
+  delay(10);
+  
+  Serial.print(F("Connecting to Wi-Fi"));
+  WiFi.begin(ssid, pass);
+  delay(10);
+  byte count = 0;
+  while (WiFi.status() != WL_CONNECTED &amp;&amp; count &lt; 15) {
+    Serial.print('.');
+    count++;
+    delay(500);
+  }
+  Serial.println();
+  delay(10);
+}
+
+void reconnectWifi() {
+  WiFi.disconnect();
+  vTaskDelay(1000);
+  
+  Serial.print(F("Reconnecting to Wi-Fi"));
+  WiFi.begin(ssid, pass);
+  byte count = 0;
+  while (WiFi.status() != WL_CONNECTED &amp;&amp; count &lt; 15 ) {
+    Serial.print('.');
+    count++;
+    delay(500); 
+  }
+  Serial.println();
+  delay(10);
+}
+
+void printValuesFilter() {
+  Serial.print(karma.toInt());      Serial.print('/');
+  Serial.print(ratin.toFloat(), 1); Serial.print('/');
+  Serial.print(posit.toInt());      Serial.println();
+}
+
+void getValues() {
+  Serial.println(F("Request..."));
+
+  http.begin(client, sURL + userName + "/");  // открываем HTTP соединение
+  delay(10);
+  
+  int httpCode = http.GET();
+  delay(10);
+
+  Serial.print(F(" code: ")); Serial.println(httpCode);
+  
+  if (httpCode == 200) {
+    WiFiClient* stream = http.getStreamPtr(); // пребразуем данные в поток Stream
+
+    if (stream-&gt;available()) {
+      // Karma
+      stream-&gt;find(R"rawliteral(karma__votes_positive"&gt;)rawliteral");
+      for (int i = 0; i &lt; 5; i++) {
+        stream-&gt;read();
+      }
+      for (byte i = 0; i &lt; 5; i++) {
+        karma[i] = stream-&gt;read();
+      }
+      
+      // Rating
+      stream-&gt;find(R"rawliteral(tm-rating__counter"&gt;)rawliteral");
+      for (byte i = 0; i &lt; 7; i++) {ratin[i] = stream-&gt;read();}
+
+      // Position
+      stream-&gt;find("В рейтинге");
+      for (int i = 0; i &lt; 118; i++) {stream-&gt;read();}
+      for (byte i = 0; i &lt; 4; i++) {posit[i] = stream-&gt;read();}
+
+      printValuesFilter();
+    }
+
+    delay(10);
+  } else {
+    Serial.printf(" (%s)\n", http.errorToString(httpCode).c_str());
+  }
+
+  http.end();
+  delay(10);
+}
+
+void requestWorks() {
+  if (WiFi.status() == WL_CONNECTED) {
+    getValues();
+  } else {
+    reconnectWifi();
+  }
+}
+
+void FileUpdate(void* pvParameters) {
+  Serial.begin(115200);
+  Serial.println();
+  Serial.println(F("Starting Parsing Engine test..."));
+  http.setTimeout(3000);
+  //http.setReuse(true);
+  connectWifi();
+  client.setInsecure(); // игнорирование HTTPS сертификатов
+  
+  for (;;) {
+    requestWorks();
+    vTaskDelay(10000);
+  }
+}
+
+void printData() {
+  //...
+}
+
+void Graph(void* pvParameters) { // поток отрисовки
+  
+  for (;;) {
+    printData();
+    vTaskDelay(1);
+  }
+}
+
+void loop() {
+  
+}
+</code></pre><br/>
+Этот движок работает и работает вполне прилично, то есть его уже в таком виде можно «засунуть» в прошивку на ESP32 и использовать для своих целей от получения данных о курсах валют до парсинга данных с различных устройств в локальной сети (сетевые принтеры, UPS-ы и т. д.), которые штатно не имеют API интерфейсов и не предусматривают выдачу внутренних данных по запросам из сети.<br/>
+<br/>
+Скриншот тестовой работы движка. Всё работает хорошо, но есть моменты, о которых мы поговорим далее.<br/>
+<br/>
+<img data-src="https://habrastorage.org/webt/c-/lf/fx/c-lffxgevzu_1kbssgluorf8fda.png" src="https://habrastorage.org/r/w1560/webt/c-/lf/fx/c-lffxgevzu_1kbssgluorf8fda.png"/><br/>
+<br/>
+В этой версии кода парсинг сделан на «педальной тяге», здесь вручную в скетче задаются «якоря» и вручную же задаётся алгоритм поиска на странице нужных значений. Недостаток этого метода и его «ахиллесова пята» очевидны: стоит сайту, с которого получают данные, немного изменить HTML код — и работа системы мгновенно «сломается».<br/>
+<br/>
+<pre><code class="java">      stream-&gt;find(R"rawliteral(karma__votes_positive"&gt;)rawliteral");
+      for (int i = 0; i &lt; 5; i++) {
+        stream-&gt;read();
+      }
+      for (byte i = 0; i &lt; 5; i++) {
+        karma[i] = stream-&gt;read();
+      }
+</code></pre><br/>
+Для каких-то экспериментов это допустимо, но для готовой системы нужно, конечно, предусматривать решение этой проблемы. Первое, что приходит в голову — это создание веб-интерфейса, в котором можно будет задать якоря и отступы без перекомпиляции самого кода прошивки ESP32.<br/>
+<br/>
+<i><b>Примечание.</b> Особо продвинутые программисты могут попытаться автоматизировать этот процесс или вообще переложить бремя поиска новых якорей и отступов на ChatGPT.</i><br/>
+<br/>
+Вторая часть проблемы заключается в том, что с сайта мы получаем сырые данные с вкраплениями по(ту)стороннего мусора. Это происходит потому, что мы заранее не можем определить количество разрядов в получаемых данных. Например, рейтинг пользователя может иметь один разряд, а может и три; может быть целым числом, а может иметь дробную часть и т. д.<br/>
+<br/>
+<pre><code class="java">void printValuesFilter() {
+  Serial.print(karma.toInt());      Serial.print('/');
+  Serial.print(ratin.toFloat(), 1); Serial.print('/');
+  Serial.print(posit.toInt());      Serial.println();
+}
+</code></pre><br/>
+Поэтому в текущей версии кода в качестве «фильтра» применяется преобразование строковых значений (сырых данных, полученных с сайта) в значения типов Int и Float. Это паллиативное решение, которое как-то работает, но в дальнейшем, конечно, должно быть заменено на нормальный фильтр. <br/>
+<br/>
+Следующая проблема заключается в том, что движок в нынешнем его виде, не имеет 100% эффективности, то есть часть запросов выполняется успешно, а часть по тем или иным причинам оканчивается неудачей.<br/>
+<br/>
+Это конечно «не дело» и так быть не должно. Далее мы попробуем разобраться с причинами возникновения ошибок и вообще глубиной этой проблемы.<br/>
+<br/>
+<h2><font color="#1c22be">❯</font> <font color="#454cee"> Добавление подсистемы сбора статистики и анализ её работы</font></h2><br/>
+Все ошибки получения данных и работы движка можно подразделить на два типа:<br/>
+<br/>
+<ol>
+<li>Ошибки доступа к сайту и веб-странице.</li>
+<li>Ошибки парсинга и фильтрации данных.</li>
+</ol><br/>
+Из просмотра листингов вывода телеметрии в Serial невозможно ничего понять и невозможно сделать какие-то осмысленные и объективные выводы о причинах возникновения ошибок парсинга. Поэтому в код пришлось добавить специальную подсистему сбора статистики работы движка.<br/>
+<br/>
+Эта подсистема автоматически собирает статистику по произведённым запросам и в реальном времени выводит процентные соотношения по всем типам ошибок. А вот уже на основании этой (объективной) статистики можно будет сделать какие-то осмысленные выводы о качестве работы движка и причинах возникновения ошибок.<br/>
+<br/>
+Код движка с добавленной подсистемой сбора статистики:<br/>
+<br/>
+<div class="spoiler" role="button" tabindex="0">
+<b class="spoiler_title">Parsing Engine Stat</b>
+<div class="spoiler_text"><pre><code class="java">/*
+  Parsing Engine Stat
+*/
+
+#include &lt;HTTPClient.h&gt;
+
+const char ssid[] = "ssid"; // актуализировать
+const char pass[] = "pass"; // актуализировать
+
+String sURL = "https://habr.com/ru/users/";
+String userName = "ENGIN33RRR";
+
+WiFiClientSecure client;
+HTTPClient http;
+
+String karma = "000";
+String ratin = "000.0";
+String posit = "000";
+
+int   kma = 68;    // актуализировать
+float rtg = 134.3; // актуализировать
+int   pos = 21;    // актуализировать
+
+unsigned long counter1 = 0;
+
+long cntReq = 0;
+long cntSuc = 0;
+long cntErr = 0;
+long cntBad = 0;
+
+void setup() {
+  xTaskCreatePinnedToCore(
+    FileUpdate, // функция потока
+    "Task1",    // название потока
+    10000,      // стек потока
+    NULL,       // параметры потока
+    2,          // приоритет потока
+    NULL,       // идентифкатор потока
+    1);         // ядро для выполнения потока
+    
+  delay(500);
+
+  xTaskCreatePinnedToCore(
+    Graph,
+    "Task2",
+    16000,
+    NULL,
+    1,
+    NULL,
+    0);
+    
+  delay(500);
+} // setup
+
+void FileUpdate(void* pvParameters) {
+  Serial.begin(115200);
+  Serial.println();
+  Serial.println(F("Starting Parsing Engine Stat..."));
+  http.setTimeout(3000);
+  //http.setReuse(true);
+  connectWifi();
+  client.setInsecure(); // игнорирование HTTPS сертификатов
+  
+  for (;;) {
+    requestWorks();
+    vTaskDelay(10000);
+  }
+}
+
+
+void Graph(void* pvParameters) { // поток отрисовки
+  
+  for (;;) {
+    //counter1Works();
+    printData();
+    vTaskDelay(1);
+  }
+}
+
+
+void loop() {
+  
+}
+</code></pre><br/>
+</div>
+</div><br/>
+<div class="spoiler" role="button" tabindex="0">
+<b class="spoiler_title">Module Request</b>
+<div class="spoiler_text"><pre><code class="java">/*
+  Module Request
+*/
+
+void checkBad() {
+  if (karma.toInt() != kma || ratin.toFloat() != rtg || posit.toInt() != pos) {
+    cntBad++;
+  }
+}
+
+void getValues() {
+  Serial.println(F("Request..."));
+
+  http.begin(client, sURL + userName + "/");  // открываем HTTP соединение
+  delay(10);
+  
+  int httpCode = http.GET();
+  delay(10);
+  cntReq++;
+  Serial.print(F(" code: ")); Serial.println(httpCode);
+  
+  if (httpCode == 200) {
+    WiFiClient* stream = http.getStreamPtr(); // пребразуем данные в поток Stream
+
+    if (stream-&gt;available()) {
+      // Karma
+      stream-&gt;find(R"rawliteral(karma__votes_positive"&gt;)rawliteral");
+      for (int i = 0; i &lt; 5; i++) {
+        stream-&gt;read();
+      }
+      for (byte i = 0; i &lt; 5; i++) {
+        karma[i] = stream-&gt;read();
+      }
+      
+      // Rating
+      stream-&gt;find(R"rawliteral(tm-rating__counter"&gt;)rawliteral");
+      for (byte i = 0; i &lt; 7; i++) {ratin[i] = stream-&gt;read();}
+
+      // Rating
+      stream-&gt;find(R"rawliteral(tm-rating__counter"&gt;)rawliteral");
+      for (byte i = 0; i &lt; 7; i++) {ratin[i] = stream-&gt;read();}
+
+      // Position
+      stream-&gt;find("В рейтинге");
+      for (int i = 0; i &lt; 118; i++) {stream-&gt;read();}
+      for (byte i = 0; i &lt; 4; i++) {posit[i] = stream-&gt;read();}
+
+      //printValuesRaw();
+      printValuesFilter();
+    }
+    cntSuc++;
+    checkBad();
+    delay(10);
+  } else {
+    Serial.printf(" (%s)\n", http.errorToString(httpCode).c_str());
+    cntErr++;
+  }
+
+  http.end();
+  delay(10);
+}
+
+void requestWorks() {
+  if (WiFi.status() == WL_CONNECTED) {
+    getValues();
+    
+    printStat();
+  } else {
+    reconnectWifi();
+  }
+}
+</code></pre><br/>
+</div>
+</div><br/>
+<div class="spoiler" role="button" tabindex="0">
+<b class="spoiler_title">Module Print</b>
+<div class="spoiler_text"><pre><code class="java">/*
+  Module Print
+*/
+
+void printStat() {
+  float perc = (float)cntReq / 100.0;
+  float percSuc = (float)cntSuc / 100.0;
+  long cntOk = cntSuc - cntBad;
+  Serial.print(F(" Req:")); Serial.print(cntReq);
+  Serial.print(F(" Suc:"));   Serial.print(cntSuc); Serial.print(F("(")); Serial.print((float)cntSuc/perc, 0);
+  Serial.print(F("%) Err:")); Serial.print(cntErr); Serial.print(F("(")); Serial.print((float)cntErr/perc, 0);
+  Serial.print(F("%) Bad:")); Serial.print(cntBad); Serial.print(F("(")); Serial.print((float)cntBad/percSuc, 0);
+  Serial.print(F("%) Ok:"));  Serial.print(cntOk); Serial.print(F("(")); Serial.print((float)cntOk/perc, 0);
+  Serial.print(F("%)"));
+  Serial.println();
+}
+
+void printValuesFilter() {
+  Serial.print(karma.toInt());      Serial.print('/');
+  Serial.print(ratin.toFloat(), 1); Serial.print('/');
+  Serial.print(posit.toInt());      Serial.println();
+}
+
+void printValuesRaw() {
+  Serial.println(karma);
+  Serial.println(ratin);
+  Serial.println(posit);
+}
+
+void counter1Works() {
+  if (millis() &gt; counter1 + 1000) {
+    Serial.println('.');
+    counter1 = millis();
+  }
+}
+</code></pre><br/>
+</div>
+</div><br/>
+<div class="spoiler" role="button" tabindex="0">
+<b class="spoiler_title">Module Wi-Fi</b>
+<div class="spoiler_text"><pre><code class="java">/*
+  Module Wi-Fi
+*/
+
+void connectWifi() {
+  WiFi.mode(WIFI_STA);
+  delay(10);
+  
+  Serial.print(F("Connecting to Wi-Fi"));
+  WiFi.begin(ssid, pass);
+  delay(10);
+  byte count = 0;
+  while (WiFi.status() != WL_CONNECTED &amp;&amp; count &lt; 15) {
+    Serial.print('.');
+    count++;
+    delay(500);
+  }
+  Serial.println();
+  delay(10);
+}
+
+void reconnectWifi() {
+  WiFi.disconnect();
+  vTaskDelay(1000);
+  
+  Serial.print(F("Reconnecting to Wi-Fi"));
+  WiFi.begin(ssid, pass);
+  byte count = 0;
+  while (WiFi.status() != WL_CONNECTED &amp;&amp; count &lt; 15 ) {
+    Serial.print('.');
+    count++;
+    delay(500); 
+  }
+  Serial.println();
+  delay(10);
+}
+</code></pre><br/>
+</div>
+</div><br/>
+Стартуем движок и наблюдаем за статистикой. В начале всё нормально, но уже третий запрос заканчивается ошибкой. Для каких-то выводов ждём сбора статистики с нескольких сотен запросов.<br/>
+<br/>
+<img data-src="https://habrastorage.org/webt/vq/u8/ji/vqu8ji_kt8xzblcv0bic4npnvys.png" src="https://habrastorage.org/r/w1560/webt/vq/u8/ji/vqu8ji_kt8xzblcv0bic4npnvys.png"/><br/>
+<br/>
+Расшифровка сокращений в строке статистики:<br/>
+<br/>
+<b>Req</b> — общее количество произведённых запросов и номер текущего запроса.<br/>
+<br/>
+<b>Suc</b> — количество успешных запросов к серверу и их процентное соотношение. «Успешных» технически, то есть вообще полученных от сервера. Качество ответов не учитывается, данные в ответе могут быть и «битыми».<br/>
+<br/>
+<b>Err</b> — количество запросов к серверу, которые завершились ошибкой (то есть ответ вообще не получен) и их процентное соотношение.<br/>
+<br/>
+<b>Bad</b> — данные получены, но они «битые» и их процентное отношение ко всем полученным данным (но не к количеству всех запросов).<br/>
+<br/>
+<b>Ok</b> — количество успешно завершённых запросов и их процентное соотношение к количеству всех произведённых запросов (по существу «главный» параметр, который определяет качество работы всей системы в целом).<br/>
+<br/>
+Небольшие пояснения по новому варианту кода.<br/>
+<br/>
+Добавляем в скетч переменные для подсчёта статистики:<br/>
+<br/>
+<pre><code class="java">long cntReq = 0;
+long cntSuc = 0;
+long cntErr = 0;
+long cntBad = 0;
+</code></pre><br/>
+Для определения количества полученных «битых» данных от сервера вручную добавляем в скетч заведомо правильные значения (на момент запуска теста).<br/>
+<br/>
+<pre><code class="java">int   kma = 68;    // актуализировать
+float rtg = 137.3; // актуализировать
+int   pos = 20;    // актуализировать
+</code></pre><br/>
+В функции printStat() подсчитываем процентные соотношения и выводим в Serial статистику по запросам.<br/>
+<br/>
+<pre><code class="java">void printStat() {
+  float perc = (float)cntReq / 100.0;
+  float percSuc = (float)cntSuc / 100.0;
+  long cntOk = cntSuc - cntBad;
+  Serial.print(F(" Req:")); Serial.print(cntReq);
+  Serial.print(F(" Suc:"));   Serial.print(cntSuc); Serial.print(F("(")); Serial.print((float)cntSuc/perc, 0);
+  Serial.print(F("%) Err:")); Serial.print(cntErr); Serial.print(F("(")); Serial.print((float)cntErr/perc, 0);
+  Serial.print(F("%) Bad:")); Serial.print(cntBad); Serial.print(F("(")); Serial.print((float)cntBad/percSuc, 0);
+  Serial.print(F("%) Ok:"));  Serial.print(cntOk); Serial.print(F("(")); Serial.print((float)cntOk/perc, 0);
+  Serial.print(F("%)"));
+  Serial.println();
+}
+</code></pre><br/>
+Ниже представлен скриншот со статистикой работы движка после 200 запросов к серверу Хабра. Цифры процентов могут немного «гулять» из-за округления до целых значений. Это округление сделано умышленно — тут нам не важны десятые и сотые доли процентов — нам нужно понять общую картину качества работы движка.<br/>
+<br/>
+<img data-src="https://habrastorage.org/webt/rh/y3/jy/rhy3jyhswzq4jzovjtof6nbhxka.png" src="https://habrastorage.org/r/w1560/webt/rh/y3/jy/rhy3jyhswzq4jzovjtof6nbhxka.png"/><br/>
+<br/>
+Из представленного скриншота видно, что около 9% запросов к серверу Хабра оканчиваются неудачей. Как правило это код 7 (no HTTP server) и код 11 (read Timeout). Иногда встречаются и более экзотические ошибки. Трудно сказать в чём причина этих ошибок — возможно это связано с тем, что сервер Хабра не справляется с пиковыми нагрузками от множества клиентов. Кстати, различные «глюки» загрузки страниц Хабра наблюдаются и при работе с обычным веб-браузером.<br/>
+<br/>
+Нужно сказать, вышеприведённая статистика работы движка довольно благостная — ошибок относительно немного и такие ошибки хорошо детектируются и обходятся в коде. Но не всё так радужно: иногда (по пока невыясненным мной причинам) начинают «сыпаться» Bad ошибки парсинга переменных. То ли это связано с сервером Хабра, то ли с самим кодом движка, но я бы поставил на какие-то глюки работы FreeRTOS, её алгоритмов распределения памяти и работы со стеком и кучей — по косвенным признакам очень похоже на подобную природу «глюков».<br/>
+<br/>
+Сетевое взаимодействие и работа движка — это динамические процессы, то есть определённым (нелинейным) образом растянутые по времени, поэтому для более полного понимания работы системы нужно каким-то образом отображать временные интервалы происходящих событий.<br/>
+<br/>
+Для этого в Serial вывод добавляются секундные маркеры (в виде точек) — и сразу становится видна динамика сетевого взаимодействия движка и сайта.<br/>
+<br/>
+<pre><code class="java">void counter1Works() {
+  if (millis() &gt; counter1 + 1000) {
+    Serial.println('.');
+    counter1 = millis();
+  }
+}
+</code></pre><br/>
+Динамический режим вывода можно включать и отключать в скетче — он не всегда нужен, иногда важна не динамика, а только последовательность событий и текущие значения параметров и элементов системы.<br/>
+<br/>
+<pre><code class="java">void Graph(void* pvParameters) { // поток отрисовки
+  
+  for (;;) {
+    //counter1Works();
+    printData();
+    vTaskDelay(1);
+  }
+}
+</code></pre><br/>
+Например, в динамическом режиме хорошо видно, что на получение ответа (страницы) от сервера Хабра, после посылки запроса к нему, уходит около трёх секунд, а вот поиск значений в HTML коде страницы и их обработка происходит практически «мгновенно». <br/>
+<br/>
+<img data-src="https://habrastorage.org/webt/jj/lg/wr/jjlgwrnzu8j_t5tud-c0kc8rmgg.png" src="https://habrastorage.org/r/w1560/webt/jj/lg/wr/jjlgwrnzu8j_t5tud-c0kc8rmgg.png"/><br/>
+<br/>
+<h2><font color="#1c22be">❯</font> <font color="#454cee"> Приколы в коде</font></h2><br/>
+В процессе экспериментов я столкнулся с необъяснимым для меня поведением компилятора, который я иначе как «приколом» назвать не могу.<br/>
+<br/>
+Вышеприведённый код движка с подсистемой сбора статистики прекрасно компилируется и работает и в нём есть такой (совершенно безобидный) фрагмент:<br/>
+<br/>
+<pre><code class="java">      // Rating
+      stream-&gt;find(R"rawliteral(tm-rating__counter"&gt;)rawliteral");
+      for (byte i = 0; i &lt; 7; i++) {ratin[i] = stream-&gt;read();}
+</code></pre><br/>
+Но, если продублировать этот фрагмент в коде<br/>
+<br/>
+<pre><code class="java">      // Rating
+      stream-&gt;find(R"rawliteral(tm-rating__counter"&gt;)rawliteral");
+      for (byte i = 0; i &lt; 7; i++) {ratin[i] = stream-&gt;read();}
+
+      // Rating
+      stream-&gt;find(R"rawliteral(tm-rating__counter"&gt;)rawliteral");
+      for (byte i = 0; i &lt; 7; i++) {ratin[i] = stream-&gt;read();}
+</code></pre><br/>
+то скетч перестаёт компилироваться, чего никак не может быть в принципе — если этот участок кода один раз прошёл проверку компилятором, то и второй раз обязан её пройти.<br/>
+<br/>
+Я пока не успел разобраться с этим вопросом, но у меня есть два предположения:<br/>
+<ol>
+<li>Это ошибка компилятора (что маловероятно и в это с трудом верится).</li>
+<li>Сам код содержит синтаксическую ошибку, которая по каким-то причинам «пропускается» компилятором.</li>
+</ol><br/>
+Надеюсь, «старшие товарищи» внесут ясность в этот вопрос и объяснят как такое вообще может быть.<br/>
+<br/>
+<h2><font color="#1c22be">❯</font> <font color="#454cee"> Пример получения данных о статье (статьях) с Хабра</font></h2><br/>
+Здесь нас ожидает «облом» в самом неожиданном месте. У меня уже был готов код для этого раздела и я начал его описание, но меня вдруг посетила мысль:<br/>
+<br/>
+<i>«Ё! Когда мы получаем данные со страницы пользователя на Хабре, то это не очень изящное, но более-менее допустимое действие, но когда мы получаем данные о параметрах статьи со страницы самой этой статьи, то каждый раз заново загружаем всю страницу и тем самым… попутно увеличиваем количество просмотров!»</i><br/>
+<br/>
+Очевидно, что это уже (хоть и ненамеренно) выходит за рамки безобидных экспериментов с электричеством и может быть неоднозначно воспринято администрацией Хабра.<br/>
+<br/>
+Поэтому публикацию этого раздела и кода я остановил и обратился к администрации Хабра за официальными комментариями и разъяснениями её позиции по этому вопросу.<br/>
+<br/>
+Официального ответа я пока не получил, возможно он последует после публикации этой статьи.<br/>
+<br/>
+А пока администрация Хабра размышляет над свой позицией по этому вопросу, мы можем немного порассуждать об ещё одной интересной теме — API Хабра.<br/>
+<br/>
+Насколько я понял из неофициальных контактов с официальными представителями Хабра, API у Хабра есть, но он непубличный. Мне со стороны трудно рассуждать о технических и организационных проблемах, не дающих сделать его публичным, но, если всё-таки есть такая возможность, то может быть настало время Хабру, наконец, запустить в полноценную работу этот сервис.<br/>
+<br/>
+Ждём-с…<br/>
+<br/>
+<h2><font color="#1c22be">❯</font> <font color="#454cee"> Общие вопросы и планы на будущее</font></h2><br/>
+Ну и напоследок несколько вопросов, которые у меня возникли в процессе экспериментов с движком HabraTab:<br/>
+<br/>
+<ul>
+<li>Почему одни и те же запросы на одних и тех же страницах иногда дают различные результаты? По идее, так не должно быть и сырые данные всегда должны быть одинаковыми (при одинаковых исходных условиях).</li>
+<li>В чём причина спорадического возникновения Bad ошибок?</li>
+<li>Как на ESP32 получать данные с сайтов, которые требуют для своей работы Javascript?</li>
+<li>Как на ESP32 получать данные с сайтов, которые требуют авторизации?</li>
+</ul><br/>
+Планы на будущее:<br/>
+<br/>
+Основная проблема на данный момент — возникновения Bad ошибок, поэтому в планах в первую очередь разобраться с причинами этого явления и сделать движок на 100% стабильным.<br/>
+<br/>
+Затем можно поэкспериментировать с сетевым взаимодействием и поднять его эффективность с 90 до 100%.<br/>
+<br/>
+Далее можно будет упростить или автоматизировать определение якорей и отступов на целевых страницах.<br/>
+<br/>
+Ну и т. д. и т. п., усовершенствовать движок можно до бесконечности или в соответствии с требованием конкретных проектов.<br/>
+<br/>
+<h2><font color="#1c22be">❯</font> <font color="#454cee"> Заключение</font></h2><br/>
+Как пример: в моём хозяйстве есть замечательный сетевой блок бесперебойного питания APC Back-UPS HS 500, который имеет веб-интерфейс, но не имеет сетевого API, через которое я бы мог получать данные о его текущих параметрах для интеграции в систему «умного дома».<br/>
+<br/>
+Раньше эту проблему я решал при помощи инструментария системы MajorDoMo, теперь можно попробовать отказаться от её услуг и решить проблему с помощью маломощного и недорогого контроллера на ESP32.<br/>
+<br/>
+Я надеюсь, что на этих примерах мне удалось донести до вас потенциал движка HabraTab для использования в IoT проектах и проектах по автоматизации.<br/>
+<br/>
+<a href="https://timeweb.cloud//vds-vps?utm_source=habr&amp;utm_medium=banner&amp;utm_campaign=vds-promo-6-rub"><img data-src="https://habrastorage.org/webt/p-/u9/l2/p-u9l27ynelxi92bcmdxhu76ma8.png" src="https://habrastorage.org/r/w1560/webt/p-/u9/l2/p-u9l27ynelxi92bcmdxhu76ma8.png"/></a></div></div></div> <!-- --> <!-- --></div> <!-- --> <!-- --></div> <!-- --> <div class="tm-article-presenter__meta"><div class="tm-separated-list tm-article-presenter__meta-list"><span class="tm-separated-list__title">Теги:</span> <ul class="tm-separated-list__list"><li class="tm-separated-list__item"><a class="tm-tags-list__link" href="/ru/search/?target_type=posts&amp;order=relevance&amp;q=%5Btimeweb_%D1%81%D1%82%D0%B0%D1%82%D1%8C%D0%B8%5D">timeweb_статьи</a></li><li class="tm-separated-list__item"><a class="tm-tags-list__link" href="/ru/search/?target_type=posts&amp;order=relevance&amp;q=%5B%D0%BC%D0%B8%D0%BA%D1%80%D0%BE%D0%BA%D0%BE%D0%BD%D1%82%D1%80%D0%BE%D0%BB%D0%BB%D0%B5%D1%80%D1%8B%5D">микроконтроллеры</a></li><li class="tm-separated-list__item"><a class="tm-tags-list__link" href="/ru/search/?target_type=posts&amp;order=relevance&amp;q=%5B%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%5D">программирование</a></li><li class="tm-separated-list__item"><a class="tm-tags-list__link" href="/ru/search/?target_type=posts&amp;order=relevance&amp;q=%5BArduino%5D">Arduino</a></li><li class="tm-separated-list__item"><a class="tm-tags-list__link" href="/ru/search/?target_type=posts&amp;order=relevance&amp;q=%5BIoT%5D">IoT</a></li><li class="tm-separated-list__item"><a class="tm-tags-list__link" href="/ru/search/?target_type=posts&amp;order=relevance&amp;q=%5B%D0%B8%D0%BD%D1%82%D0%B5%D1%80%D0%BD%D0%B5%D1%82%20%D0%B2%D0%B5%D1%89%D0%B5%D0%B9%5D">интернет вещей</a></li><li class="tm-separated-list__item"><a class="tm-tags-list__link" href="/ru/search/?target_type=posts&amp;order=relevance&amp;q=%5B%D0%B0%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D1%8F%5D">автоматизация</a></li><li class="tm-separated-list__item"><a class="tm-tags-list__link" href="/ru/search/?target_type=posts&amp;order=relevance&amp;q=%5Bsmart%20home%5D">smart home</a></li><li class="tm-separated-list__item"><a class="tm-tags-list__link" href="/ru/search/?target_type=posts&amp;order=relevance&amp;q=%5B%D1%83%D0%BC%D0%BD%D1%8B%D0%B9%20%D0%B4%D0%BE%D0%BC%5D">умный дом</a></li><li class="tm-separated-list__item"><a class="tm-tags-list__link" href="/ru/search/?target_type=posts&amp;order=relevance&amp;q=%5BESP32%5D">ESP32</a></li><li class="tm-separated-list__item"><a class="tm-tags-list__link" href="/ru/search/?target_type=posts&amp;order=relevance&amp;q=%5BHabraTab%5D">HabraTab</a></li><li class="tm-separated-list__item"><a class="tm-tags-list__link" href="/ru/search/?target_type=posts&amp;order=relevance&amp;q=%5B%D0%BA%D0%B0%D1%80%D0%BC%D0%B0%5D">карма</a></li><li class="tm-separated-list__item"><a class="tm-tags-list__link" href="/ru/search/?target_type=posts&amp;order=relevance&amp;q=%5B%D1%80%D0%B5%D0%B9%D1%82%D0%B8%D0%BD%D0%B3%5D">рейтинг</a></li></ul></div> <div class="tm-separated-list tm-article-presenter__meta-list"><span class="tm-separated-list__title">Хабы:</span> <ul class="tm-separated-list__list"><li class="tm-separated-list__item"><a class="tm-hubs-list__link router-link-active" href="/ru/company/timeweb/blog/">Блог компании Timeweb Cloud</a></li><li class="tm-separated-list__item"><a class="tm-hubs-list__link" href="/ru/hub/controllers/">Программирование микроконтроллеров</a></li><li class="tm-separated-list__item"><a class="tm-hubs-list__link" href="/ru/hub/iot_dev/">Разработка для интернета вещей</a></li><li class="tm-separated-list__item"><a class="tm-hubs-list__link" href="/ru/hub/home_automation/">Умный дом</a></li><li class="tm-separated-list__item"><a class="tm-hubs-list__link" href="/ru/hub/DIY/">DIY или Сделай сам</a></li></ul></div></div></article></div> <!-- --></div> <div class="tm-article-sticky-panel"><div class="tm-data-icons tm-article-sticky-panel__icons"><div class="tm-article-rating tm-data-icons__item"><div class="tm-votes-meter tm-article-rating__votes-switcher"><svg class="tm-svg-img tm-votes-meter__icon tm-votes-meter__icon tm-votes-meter__icon_appearance-article" height="24" width="24"><title>Всего голосов 18: ↑17 и ↓1</title> <use xlink:href="/img/megazord-v28.2b11c25e..svg#counter-rating"></use></svg> <span class="tm-votes-meter__value tm-votes-meter__value tm-votes-meter__value_positive tm-votes-meter__value_appearance-article tm-votes-meter__value_rating" title="Всего голосов 18: ↑17 и ↓1">+16</span></div> <div class="v-portal" style="display:none;"></div></div> <!-- --> <!-- --> <button class="bookmarks-button tm-data-icons__item" title="Добавить в закладки" type="button"><span class="tm-svg-icon__wrapper bookmarks-button__icon"><svg class="tm-svg-img tm-svg-icon" height="24" width="24"><title>Добавить в закладки</title> <use xlink:href="/img/megazord-v28.2b11c25e..svg#counter-favorite"></use></svg></span> <span class="bookmarks-button__counter" title="Количество пользователей, добавивших публикацию в закладки">
+    11
+  </span></button> <div class="tm-article-comments-counter-link tm-data-icons__item" title="Читать комментарии"><a class="tm-article-comments-counter-link__link" href="/ru/company/timeweb/blog/718254/comments/"><svg class="tm-svg-img tm-article-comments-counter-link__icon" height="24" width="24"><title>Комментарии</title> <use xlink:href="/img/megazord-v28.2b11c25e..svg#counter-comments"></use></svg> <span class="tm-article-comments-counter-link__value">
+      2
+    </span></a> <!-- --></div> <div class="tm-sharing tm-data-icons__item" title="Поделиться"><button class="tm-sharing__button" type="button"><svg class="tm-sharing__icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M13.8 13.8V18l7.2-6.6L13.8 5v3.9C5 8.9 3 18.6 3 18.6c2.5-4.4 6-4.8 10.8-4.8z" fill="currentColor"></path></svg></button> <div class="v-portal" style="display:none;"></div></div> <div class="v-portal" style="display:none;"></div></div> </div></div> <div class="v-portal" style="display:none;"></div> <div class="tm-article-presenter__footer"><div class="tm-article-blocks"><!-- --> <div></div> <section class="tm-block tm-block tm-block_spacing-bottom"><!-- --> <div class="tm-block__body tm-block__body tm-block__body_variant-balanced"><div class="tm-article-author"><div class="tm-article-author__company"><div class="tm-article-author__company-card"><div class="tm-company-snippet"><a class="tm-company-snippet__logo-link" href="/ru/company/timeweb/profile/"><div class="tm-entity-image"><img alt="" class="tm-entity-image__pic" height="40" src="//habrastorage.org/getpro/habr/company/fc0/4f0/3f7/fc04f03f7188eca615ef971283d62dc5.png" width="40"/></div></a> <div class="tm-company-snippet__info"><a class="tm-company-snippet__title" href="/ru/company/timeweb/profile/">Timeweb Cloud</a> <div class="tm-company-snippet__description">Облачная платформа для разработчиков и бизнеса</div></div></div> <div class="tm-article-author__buttons"><!-- --> <!-- --></div></div> <!-- --> <div class="tm-article-author__separator"></div></div> <div class="tm-user-card tm-article-author__user-card tm-user-card tm-user-card_variant-article"><div class="tm-user-card__info-container"><div class="tm-user-card__header"><div class="tm-user-card__header-data"><a class="tm-user-card__userpic tm-user-card__userpic_size-40" href="/ru/users/smart_alex/"><div class="tm-entity-image"><svg class="tm-svg-img tm-image-placeholder tm-image-placeholder_blue"><!-- --> <use xlink:href="/img/megazord-v28.2b11c25e..svg#placeholder-user"></use></svg></div></a> <div class="tm-user-card__meta"><div class="tm-counter-container tm-karma tm-karma" title=" 205 голосов "><div class="tm-counter-container__header"><div class="tm-karma__votes tm-karma__votes_positive">
+      77
+    </div></div> <div class="tm-counter-container__footer"><div class="tm-karma__text">
+      Карма
+    </div> <div class="v-portal" style="display:none;"></div></div></div> <div class="tm-counter-container" title="Рейтинг пользователя"><div class="tm-counter-container__header"> <div class="tm-votes-lever tm-votes-lever tm-votes-lever_appearance-rating"><!-- --> <div class="tm-votes-lever__score tm-votes-lever__score tm-votes-lever__score_appearance-rating"><span class="tm-votes-lever__score-counter tm-votes-lever__score-counter tm-votes-lever__score-counter_rating">
+        70.6
+      </span></div> <!-- --></div></div> <div class="tm-counter-container__footer"><span class="tm-rating__text tm-rating__text">
+      Рейтинг
+    </span></div></div></div></div></div> <div class="tm-user-card__info tm-user-card__info tm-user-card__info_variant-article"><div class="tm-user-card__title tm-user-card__title tm-user-card__title_variant-article"><!-- --> <a class="tm-user-card__nickname tm-user-card__nickname tm-user-card__nickname_variant-article" href="/ru/users/smart_alex/">
+          @smart_alex
+        </a> <!-- --></div> <p class="tm-user-card__short-info tm-user-card__short-info tm-user-card__short-info_variant-article">Пользователь</p></div></div> <div class="tm-user-card__buttons tm-user-card__buttons tm-user-card__buttons_variant-article"><!-- --> <!-- --> <!-- --> <!-- --> <!-- --></div></div> <!-- --></div> <div class="v-portal" style="display:none;"></div></div> <!-- --></section> <!-- --> <div class="tm-article-blocks__comments"><div class="tm-article-page-comments"><div class="tm-article-comments-counter-link tm-article-comments-counter-button"><a class="tm-article-comments-counter-link__link tm-article-comments-counter-link__link_button-style" href="/ru/company/timeweb/blog/718254/comments/"><svg class="tm-svg-img tm-article-comments-counter-link__icon tm-article-comments-counter-link__icon_contrasted" height="24" width="24"><title>Комментарии</title> <use xlink:href="/img/megazord-v28.2b11c25e..svg#counter-comments"></use></svg> <span class="tm-article-comments-counter-link__value tm-article-comments-counter-link__value_contrasted">
+       Комментарии 2 
+    </span></a> <!-- --></div></div></div> <section class="tm-block tm-block tm-block_spacing-bottom"><header class="tm-block__header tm-block__header tm-block__header_variant-borderless"><div class="tm-block__header-container"><h2 class="tm-block__title tm-block__title tm-block__title_variant-large">Публикации</h2> </div> <!-- --></header> <div class="tm-block__body tm-block__body tm-block__body_variant-condensed-slim"><div class="tm-tabs tm-tabs"><div><span class="tm-tabs__tab-item"><button class="tm-tabs__tab-link tm-tabs__tab-link tm-tabs__tab-link_active tm-tabs__tab-link_slim">
+        Лучшие за сутки
+      </button></span><span class="tm-tabs__tab-item"><button class="tm-tabs__tab-link tm-tabs__tab-link tm-tabs__tab-link_slim">
+        Похожие
+      </button></span></div> <!-- --></div> <div class="similar-and-daily__tab-view"><div><!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <div class="tm-placeholder-article-cards"><div class="tm-placeholder-article-card"><div class="tm-placeholder__user"><div class="tm-placeholder__user-pic loads"></div> <div class="tm-placeholder__user-date loads"></div></div> <div class="tm-placeholder-article-card__title"><div class="tm-placeholder__line tm-placeholder-article-card__title-line loads"></div> <div class="tm-placeholder__line tm-placeholder-article-card__title-line loads"></div></div> <div class="tm-placeholder-article-card__icons tm-placeholder__counters"><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div></div></div><div class="tm-placeholder-article-card"><div class="tm-placeholder__user"><div class="tm-placeholder__user-pic loads"></div> <div class="tm-placeholder__user-date loads"></div></div> <div class="tm-placeholder-article-card__title"><div class="tm-placeholder__line tm-placeholder-article-card__title-line loads"></div> <div class="tm-placeholder__line tm-placeholder-article-card__title-line loads"></div></div> <div class="tm-placeholder-article-card__icons tm-placeholder__counters"><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div></div></div><div class="tm-placeholder-article-card"><div class="tm-placeholder__user"><div class="tm-placeholder__user-pic loads"></div> <div class="tm-placeholder__user-date loads"></div></div> <div class="tm-placeholder-article-card__title"><div class="tm-placeholder__line tm-placeholder-article-card__title-line loads"></div> <div class="tm-placeholder__line tm-placeholder-article-card__title-line loads"></div></div> <div class="tm-placeholder-article-card__icons tm-placeholder__counters"><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div></div></div><div class="tm-placeholder-article-card"><div class="tm-placeholder__user"><div class="tm-placeholder__user-pic loads"></div> <div class="tm-placeholder__user-date loads"></div></div> <div class="tm-placeholder-article-card__title"><div class="tm-placeholder__line tm-placeholder-article-card__title-line loads"></div> <div class="tm-placeholder__line tm-placeholder-article-card__title-line loads"></div></div> <div class="tm-placeholder-article-card__icons tm-placeholder__counters"><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div></div></div><div class="tm-placeholder-article-card"><div class="tm-placeholder__user"><div class="tm-placeholder__user-pic loads"></div> <div class="tm-placeholder__user-date loads"></div></div> <div class="tm-placeholder-article-card__title"><div class="tm-placeholder__line tm-placeholder-article-card__title-line loads"></div> <div class="tm-placeholder__line tm-placeholder-article-card__title-line loads"></div></div> <div class="tm-placeholder-article-card__icons tm-placeholder__counters"><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div></div></div></div> <!-- --> <!-- --> <!-- --> <!-- --></div> <!-- --></div></div> <!-- --></section> <div><!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <div class="tm-placeholder-inset tm-placeholder-vacancies"><div class="tm-placeholder-inset__header"><div class="tm-placeholder__line tm-placeholder__line_inset-header loads"></div></div> <div class="tm-placeholder-inset__body"><ul class="tm-placeholder-list"><li class="tm-placeholder-list__item tm-placeholder-list__item_inset"><div class="tm-placeholder-list__title-container"><div class="tm-placeholder__line tm-placeholder__line_item-title loads"></div></div> <div class="tm-project-block-items__properties"><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span></div></li><li class="tm-placeholder-list__item tm-placeholder-list__item_inset"><div class="tm-placeholder-list__title-container"><div class="tm-placeholder__line tm-placeholder__line_item-title loads"></div></div> <div class="tm-project-block-items__properties"><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span></div></li><li class="tm-placeholder-list__item tm-placeholder-list__item_inset"><div class="tm-placeholder-list__title-container"><div class="tm-placeholder__line tm-placeholder__line_item-title loads"></div></div> <div class="tm-project-block-items__properties"><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span></div></li><li class="tm-placeholder-list__item tm-placeholder-list__item_inset"><div class="tm-placeholder-list__title-container"><div class="tm-placeholder__line tm-placeholder__line_item-title loads"></div></div> <div class="tm-project-block-items__properties"><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span></div></li><li class="tm-placeholder-list__item tm-placeholder-list__item_inset"><div class="tm-placeholder-list__title-container"><div class="tm-placeholder__line tm-placeholder__line_item-title loads"></div></div> <div class="tm-project-block-items__properties"><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span></div></li></ul></div> <div class="tm-placeholder-inset__footer"><div class="tm-placeholder__line tm-placeholder__line_inset-footer loads"></div></div></div> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --></div> <!-- --> </div></div></div></div></div> <div class="tm-page__sidebar"><!-- --></div></div></div></div></main> <!-- --></div> <!-- --> <div class="tm-footer"><div class="tm-page-width"><div class="tm-footer__container"><div class="tm-footer__title"><a class="tm-svg-icon__wrapper tm-footer__title-link router-link-active" href="/ru/"><svg class="tm-svg-img tm-svg-icon" height="16" width="16"><title>Хабр</title> <use xlink:href="/img/habr-logo-ru.svg#logo"></use></svg></a></div> <div class="tm-footer__social"><a class="tm-svg-icon__wrapper tm-social-icons__icon" href="https://www.facebook.com/habrahabr.ru" rel="nofollow noopener noreferrer" target="_blank"><svg class="tm-svg-img tm-svg-icon" height="16" width="16"><title>Facebook</title> <use xlink:href="/img/social-icons-sprite.svg#social-logo-facebook"></use></svg></a><a class="tm-svg-icon__wrapper tm-social-icons__icon" href="https://twitter.com/habr_com" rel="nofollow noopener noreferrer" target="_blank"><svg class="tm-svg-img tm-svg-icon" height="16" width="16"><title>Twitter</title> <use xlink:href="/img/social-icons-sprite.svg#social-logo-twitter"></use></svg></a><a class="tm-svg-icon__wrapper tm-social-icons__icon" href="https://vk.com/habr" rel="nofollow noopener noreferrer" target="_blank"><svg class="tm-svg-img tm-svg-icon" height="16" width="16"><title>VK</title> <use xlink:href="/img/social-icons-sprite.svg#social-logo-vkontakte"></use></svg></a><a class="tm-svg-icon__wrapper tm-social-icons__icon" href="https://telegram.me/habr_com" rel="nofollow noopener noreferrer" target="_blank"><svg class="tm-svg-img tm-svg-icon" height="16" width="16"><title>Telegram</title> <use xlink:href="/img/social-icons-sprite.svg#social-logo-telegram"></use></svg></a><a class="tm-svg-icon__wrapper tm-social-icons__icon" href="https://www.youtube.com/channel/UCd_sTwKqVrweTt4oAKY5y4w" rel="nofollow noopener noreferrer" target="_blank"><svg class="tm-svg-img tm-svg-icon" height="16" width="16"><title>Youtube</title> <use xlink:href="/img/social-icons-sprite.svg#social-logo-youtube"></use></svg></a><a class="tm-svg-icon__wrapper tm-social-icons__icon" href="https://zen.yandex.ru/habr" rel="nofollow noopener noreferrer" target="_blank"><svg class="tm-svg-img tm-svg-icon" height="16" width="16"><title>Яндекс Дзен</title> <use xlink:href="/img/social-icons-sprite.svg#social-logo-zen"></use></svg></a></div> <div class="v-portal" style="display:none;"></div> <button class="tm-footer__link"><svg class="tm-svg-img tm-footer__icon" height="16" width="16"><title>Язык</title> <use xlink:href="/img/megazord-v28.2b11c25e..svg#lang"></use></svg>
+        Настройка языка
+      </button> <a class="tm-footer__link" href="/ru/feedback/">
+        Техническая поддержка
+      </a> <a class="tm-footer__link" href="/berserk-mode-nope">
+        Вернуться на старую версию
+      </a> <div class="tm-footer-copyright"><span class="tm-copyright"><span class="tm-copyright__years">© 2006–2023, </span> <span class="tm-copyright__name"><a class="tm-copyright__link" href="https://company.habr.com/" rel="noopener" target="_blank">Habr</a></span></span></div></div></div></div> <!-- --> <!-- --></div> <div class="vue-portal-target"></div></div>
+
+
+
+
+
+
+
+
+</body>
+</html>

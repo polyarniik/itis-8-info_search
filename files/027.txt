@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+
+<html data-vue-meta="%7B%22lang%22:%7B%22ssr%22:%22ru%22%7D%7D" lang="ru">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1.0,viewport-fit=cover,maximum-scale=1,user-scalable=0" name="viewport"/>
+<meta content="unsafe-url" name="referrer"/>
+<title>Yii Validator — простой и мощный / Хабр</title>
+
+
+
+
+
+
+
+<meta content="2.113.0" name="habr-version"/>
+<meta content="444736788986613" data-vue-meta="ssr" property="fb:app_id"/><meta content="472597926099084" data-vue-meta="ssr" property="fb:pages"/><meta content="summary_large_image" data-vue-meta="ssr" name="twitter:card"/><meta content="@habr_com" data-vue-meta="ssr" name="twitter:site"/><meta content="Хабр" data-vmid="og:site_name" data-vue-meta="ssr" property="og:site_name"/><meta content="Yii Validator — простой и мощный" data-vmid="og:title" data-vue-meta="ssr" property="og:title"/><meta content="Yii Validator — простой и мощный" data-vmid="twitter:title" data-vue-meta="ssr" name="twitter:title"/><meta content="Yii Validator — простой и мощный" data-vmid="aiturec:title" data-vue-meta="ssr" name="aiturec:title"/><meta content="Меня зовут Сергей Предводителев и я уже пару лет занимаюсь разработкой Yii3. Последнее время много усилий&amp;nbsp;было направлено на&amp;nbsp;разработку валидатора, а&amp;nbsp;это один из&amp;nbsp;ключевых пакетов..." data-vmid="description" data-vue-meta="ssr" name="description"/><meta content="Меня зовут Сергей Предводителев и я уже пару лет занимаюсь разработкой Yii3. Последнее время много усилий&amp;nbsp;было направлено на&amp;nbsp;разработку валидатора, а&amp;nbsp;это один из&amp;nbsp;ключевых пакетов..." data-vmid="description:itemprop" data-vue-meta="ssr" itemprop="description"/><meta content="Меня зовут Сергей Предводителев и я уже пару лет занимаюсь разработкой Yii3. Последнее время много усилий&amp;nbsp;было направлено на&amp;nbsp;разработку валидатора, а&amp;nbsp;это один из&amp;nbsp;ключевых пакетов..." data-vmid="og:description" data-vue-meta="ssr" property="og:description"/><meta content="Меня зовут Сергей Предводителев и я уже пару лет занимаюсь разработкой Yii3. Последнее время много усилий&amp;nbsp;было направлено на&amp;nbsp;разработку валидатора, а&amp;nbsp;это один из&amp;nbsp;ключевых пакетов..." data-vmid="twitter:description" data-vue-meta="ssr" name="twitter:description"/><meta content="Меня зовут Сергей Предводителев и я уже пару лет занимаюсь разработкой Yii3. Последнее время много усилий&amp;nbsp;было направлено на&amp;nbsp;разработку валидатора, а&amp;nbsp;это один из&amp;nbsp;ключевых пакетов..." data-vmid="aiturec:description" data-vue-meta="ssr" property="aiturec:description"/><meta content="https://habr.com/share/publication/718444/9ca1086cf7e4bc3943f265ea61b6ea5d/" data-vmid="image:itemprop" data-vue-meta="ssr" itemprop="image"/><meta content="https://habr.com/share/publication/718444/9ca1086cf7e4bc3943f265ea61b6ea5d/" data-vmid="og:image" data-vue-meta="ssr" property="og:image"/><meta content="1200" data-vmid="og:image:width" data-vue-meta="ssr" property="og:image:width"/><meta content="630" data-vmid="og:image:height" data-vue-meta="ssr" property="og:image:height"/><meta content="https://habr.com/share/publication/718444/9ca1086cf7e4bc3943f265ea61b6ea5d/" data-vmid="aiturec:image" data-vue-meta="ssr" property="aiturec:image"/><meta content="https://habr.com/share/publication/718444/9ca1086cf7e4bc3943f265ea61b6ea5d/" data-vmid="twitter:image" data-vue-meta="ssr" name="twitter:image"/><meta content="https://habr.com/share/publication/718444/9ca1086cf7e4bc3943f265ea61b6ea5d/?format=vk" data-vmid="vk:image" data-vue-meta="ssr" property="vk:image"/><meta content="718444" data-vmid="aiturec:item_id" data-vue-meta="ssr" property="aiturec:item_id"/><meta content="2023-02-22T12:00:00.000Z" data-vmid="aiturec:datetime" data-vue-meta="ssr" property="aiturec:datetime"/><meta content="https://habr.com/ru/post/718444/" data-vmid="og:url" data-vue-meta="ssr" property="og:url"/><meta content="article" data-vmid="og:type" data-vue-meta="ssr" property="og:type"/><meta content="ru_RU" data-vmid="og:locale" data-vue-meta="ssr" property="og:locale"/><meta content="yii, yii3, валидатор, валидация" data-vue-meta="ssr" name="keywords"/>
+
+<meta content="#303b44" name="apple-mobile-web-app-status-bar-style"/>
+<meta content="#629FBC" name="msapplication-TileColor"/>
+<meta content="yes" name="apple-mobile-web-app-capable"/>
+<meta content="yes" name="mobile-web-app-capable"/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body>
+<div data-async-called="true" data-server-rendered="true" id="app"><div class="tm-layout__wrapper"><!-- --> <div></div> <div class="tm-feature tm-feature"><!-- --></div> <header class="tm-header"><div class="tm-page-width"><div class="tm-header__container"><div class="tm-header__burger-nav"><button class="tm-header__button tm-header__button_burger" type="button"><svg class="tm-svg-img tm-header__icon tm-header__icon-burger" height="16" width="16"><title>Меню</title> <use xlink:href="/img/megazord-v28.2b11c25e..svg#header-burger"></use></svg></button></div> <span class="tm-header__logo-wrap"><a class="tm-header__logo tm-header__logo_ru" href="/ru/"><svg class="tm-svg-img tm-header__icon" height="16" width="16"><title>Хабр</title> <use xlink:href="/img/habr-logo-ru.svg#logo"></use></svg></a> <span class="tm-header__beta-sign" style="display:none;">β</span></span> <!-- --> <div class="tm-header-user-menu tm-header_user-menu"><a class="tm-header-user-menu__item tm-header-user-menu__search" href="/ru/search/"><svg class="tm-svg-img tm-header-user-menu__icon tm-header-user-menu__icon_search" height="24" width="24"><title>Поиск</title> <use xlink:href="/img/megazord-v28.2b11c25e..svg#search"></use></svg></a> <!-- --> <!-- --> <!-- --> <div class="tm-header-user-menu__item"><button class="tm-header-user-menu__toggle" data-test-id="menu-toggle-guest"><svg class="tm-svg-img tm-header-user-menu__icon tm-header-user-menu__icon_white" height="24" width="24"><title>Профиль</title> <use xlink:href="/img/megazord-v28.2b11c25e..svg#header-user"></use></svg></button> <!-- --></div> <!-- --></div></div></div></header> <div class="tm-layout"><div class="tm-page-progress-bar"></div> <!-- --> <!-- --> <div class="tm-page-width"></div> <main class="tm-layout__container"><div class="tm-page" data-async-called="true" hl="ru"><div class="tm-page-width"><!-- --> <div class="tm-page__wrapper"><div class="tm-page__main tm-page__main_has-sidebar"><div class="pull-down"><!-- --> <div class="pull-down__header" style="height:0px;"><div class="pull-down__content" style="bottom:10px;"><svg class="tm-svg-img pull-down__arrow" height="24" width="24"><title>Обновить</title> <use xlink:href="/img/megazord-v28.2b11c25e..svg#pull-arrow"></use></svg></div></div> <div class="tm-article-presenter"> <div class="tm-article-presenter__body"><div class="tm-misprint-area"><div class="tm-misprint-area__wrapper"><article class="tm-article-presenter__content tm-article-presenter__content_narrow"><div class="tm-article-presenter__header"> <div class="tm-article-snippet tm-article-presenter__snippet tm-article-snippet"><div class="tm-article-snippet__meta-container"><div class="tm-article-snippet__meta"><span class="tm-user-info tm-article-snippet__author"><a class="tm-user-info__userpic" href="/ru/users/NikoX/" title="NikoX"><div class="tm-entity-image"><img alt="" class="tm-entity-image__pic" height="32" src="//habrastorage.org/r/w32/getpro/habr/avatars/d6a/0a1/909/d6a0a190918412c46593d74f43facc17.png" width="32"/></div></a> <span class="tm-user-info__user"><a class="tm-user-info__username" href="/ru/users/NikoX/">
+      NikoX
+      <!-- --></a> <span class="tm-article-datetime-published"><time datetime="2023-02-22T12:00:00.000Z" title="2023-02-22, 15:00">7 часов назад</time></span></span></span></div> <!-- --></div> <h1 class="tm-article-snippet__title tm-article-snippet__title_h1" lang="ru"><span>Yii Validator — простой и мощный</span></h1> <div class="tm-article-snippet__stats"><div class="tm-article-complexity tm-article-complexity_complexity-low"><span class="tm-svg-icon__wrapper tm-article-complexity__icon"><svg class="tm-svg-img tm-svg-icon" height="24" width="24"><title>Уровень сложности</title> <use xlink:href="/img/megazord-v28.2b11c25e..svg#complexity-low"></use></svg></span> <span class="tm-article-complexity__label">
+    Простой
+  </span></div> <div class="tm-article-reading-time"><span class="tm-svg-icon__wrapper tm-article-reading-time__icon"><svg class="tm-svg-img tm-svg-icon" height="24" width="24"><title>Время на прочтение</title> <use xlink:href="/img/megazord-v28.2b11c25e..svg#clock"></use></svg></span> <span class="tm-article-reading-time__label">
+    14 мин
+  </span></div> <span class="tm-icon-counter tm-data-icons__item"><svg class="tm-svg-img tm-icon-counter__icon" height="24" width="24"><title>Количество просмотров</title> <use xlink:href="/img/megazord-v28.2b11c25e..svg#counter-views"></use></svg> <span class="tm-icon-counter__value">884</span></span></div> <div class="tm-article-snippet__hubs-container"><div class="tm-article-snippet__hubs"><span class="tm-article-snippet__hubs-item"><a class="tm-article-snippet__hubs-item-link" href="/ru/hub/php/"><span>PHP</span> <span class="tm-article-snippet__profiled-hub" title="Профильный хаб">*</span></a></span><span class="tm-article-snippet__hubs-item"><a class="tm-article-snippet__hubs-item-link" href="/ru/hub/yii/"><span>Yii</span> <span class="tm-article-snippet__profiled-hub" title="Профильный хаб">*</span></a></span></div></div> <!-- --> <!-- --> <!-- --></div></div> <!-- --> <div class="tm-article-body" data-gallery-root="" lang="ru"><div></div> <div id="post-content-body"><div><div class="article-formatted-body article-formatted-body article-formatted-body_version-2"><div xmlns="http://www.w3.org/1999/xhtml"><p>Меня зовут <a href="https://t.me/sergei_predvoditelev" rel="noopener noreferrer nofollow">Сергей Предводителев</a> и я уже пару лет занимаюсь разработкой Yii3. Последнее время много усилий было направлено на разработку валидатора, а это один из ключевых пакетов фреймворка. Мы доделали всё, что планировали сделать к релизу и, наконец, выпустили первую версию.</p><p>Путь валидатора в Yii3 к релизу был долог. После множества мозговых штурмов, жарких обсуждений, а также нескольких глобальных рефакторингов (были даже <a href="https://www.youtube.com/watch?v=cIjNU4aVtbs&amp;" rel="noopener noreferrer nofollow">публичные</a> с Валентином Удальцовым и Леонидом Корсаковым), наконец, 22 февраля 2023 года состоялся релиз пакета <a href="https://github.com/yiisoft/validator" rel="noopener noreferrer nofollow">Yii Validator</a>.</p><p>На мой взгляд получилась крайне удачная библиотека: с одной стороны использование на практике очень простое и интуитивно понятное, с другой — мощный функционал, который покрывает множество кейсов, и наличие нескольких точек расширения.</p><h2>Простой пример</h2><p>DTO, где с помощью атрибутов указаны правила валидации:</p><pre><code class="php">final class Product  
+{  
+    #[Required]  
+    #[Length(min: 3, max: 50)]  
+    private ?string $name = null;  
+  
+    #[Required]  
+    #[Number(min: 0)]  
+    private ?float $price = null;  
+  
+    #[Number(min: 0, max: 24)]  
+    private ?int $count = null;  
+
+    // ...
+}</code></pre><p>Валидация:</p><pre><code class="php">use Yiisoft\Validator\Validator;
+
+/** @var Product $product */
+$result = (new Validator())-&gt;validate($product);</code></pre><p>Результат валидации:</p><pre><code class="php">$result-&gt;isValid(); // Валидно ли значение?
+$result-&gt;getErrorMessages(); // Массив с ошибками валидации</code></pre><p>Как и написано в начале статьи — использовать валидатор очень просто:</p><ul><li><p>создаём валидатор (все зависимости опциональны, достаточно <code>new Validator()</code>);</p></li><li><p>проверяем значение с помощью метода <code>validate()</code>;</p></li><li><p>всё, можно работать с результатами валидации.</p></li></ul><p>Ну а теперь пойдём по порядку.</p><h2>Валидатор и его интерфейс</h2><p><code>Validator</code> и реализуемый им интерфейс <code>ValidatorInterface</code> предоставляют всего один метод:</p><pre><code class="php">interface ValidatorInterface  
+{
+    public function validate(
+        mixed $data,  
+        callable|iterable|object|string|null $rules = null,  
+        ?ValidationContext $context = null,
+    ): Result;
+}</code></pre><p><code>$data</code> — валидируемое значение, может быть любым. «Грязные» данные до валидации, как правило, получаются из не очень надёжных источников, где мы не можем гарантировать какую-либо типизацию.</p><p><code>$rules</code> — правила валидации. Можно передать одно правило или массив правил, на соответствие которым требуется проверить входящие данные. Также поддерживается ещё несколько вариантов передачи правил, их мы рассмотрим чуть позже.</p><p><code>$context</code> — контекст валидации. Позволяет при необходимости передать произвольные параметры в валидатор, которые в дальнейшем могут быть использованы некоторыми правилами в процессе валидации.</p><p>Интерфейс валидатора не подразумевает произвольной реализации (в этом нет смысла), но необходим, если потребуется использовать композицию.</p><h2>Валидируй это!</h2><p>Валидатор позволяет проверить данные в любом формате. Рассмотрим популярные кейсы.</p><h3>Валидация произвольного значения</h3><p>Проверить значение можно с помощью одного правила валидации:</p><pre><code class="php">$value = 7;  
+$result = (new Validator())-&gt;validate($value, new Number(min: 42));</code></pre><p>Или нескольких правил:</p><pre><code class="php">$value = 'mrX';  
+$result = (new Validator())-&gt;validate(
+    $value, 
+    [
+        new Length(min: 4, max: 20),  
+        new Regex('~^[a-z_\-]*$~i'),  
+    ]
+);</code></pre><h3>Валидация массива</h3><p>При проверке массива данных мы можем проверить как в целом массив, так и значения конкретных элементов. Например:</p><pre><code class="php">$data = [  
+    'name' =&gt; 'John',  
+    'age' =&gt; 17,  
+    'email' =&gt; 'jonh@example.com',  
+    'phone' =&gt; null,  
+];  
+  
+$result = (new Validator())-&gt;validate(  
+    $data,  
+    [  
+        // В массиве должно быть 4 элемента  
+        new Count(4),  
+        
+        // Хотя бы одно из полей "email" или "phone" должно быть заполнено  
+        new AtLeast(['email', 'phone']),   
+          
+        'name' =&gt; [  
+            new Required(), // Поле "name" обязательно  
+            new Length(min: 2), // Длина имени должна быть не менее двух символов  
+        ],
+          
+        'age' =&gt; new Number(min: 21), // Возраст должен быть не менее 21 года  
+        
+        'email' =&gt; new Email(), // Почта должна быть корректной  
+    ]  
+);</code></pre><h3>Валидация объекта</h3><p>По аналогии с массивом, объект можно проверить как целиком, так и его отдельные свойства.</p><p>Дополнительно в объектах есть возможность сконфигурировать валидацию с помощью атрибутов, что позволяет не передавать в валидатор правила отдельно, достаточно передать сам объект. Например:</p><pre><code class="php">#[AtLeast(['email', 'phone'])]  
+final class Member  
+{  
+    public function __construct(  
+        #[Required]  
+        #[Length(min: 2)]  
+        public readonly ?string $name = null,  
+  
+        #[Number(min: 21)]  
+        public readonly ?int $age = null,  
+  
+        #[Email]  
+        public readonly ?string $email = null,  
+  
+        public readonly ?string $phone = null,  
+    ) {  
+    }  
+}
+
+$member = new Member('Jonh', 17, 'jonh@example.com', null);  
+  
+$result = (new Validator())-&gt;validate($member);</code></pre><h2>Правила валидации</h2><p>В PHP 8 появились именованные аргументы, что позволило отказаться от вариантов с конфигурацией правил с помощью массива или множества методов с текучим интерфейсом. Параметры правил валидации задаются прямо в конструкторе, а с помощью имён это можно делать в произвольном порядке:</p><pre><code class="php">new Number(
+    min: 7,
+    max: 42,
+    integerOnly: true,
+);</code></pre><p>Из коробки пакет предоставляет базовые правила <code>Required</code>, <code>Number</code>, <code>Length</code>, <code>Regex</code>, <code>Email</code>, <code>Url</code> и так далее, всего 27 правил. В целом в первой версии Yii Validator правил не так много, но основные кейсы они покрывают, а реализация недостающих — дело времени. Главное, что архитектура пакета позволяет легко добавлять новые правила.</p><p>Рассмотрим подробнее некоторые функциональные правила.</p><h3>Callback  — правило-обёртка над callable</h3><p>Правило позволяет проверять значения с использованием функций обратного вызова (callback-функции). Например:</p><pre><code class="php">new Callback(
+    static function (mixed $value): Result {  
+        $result = new Result();  
+        if ($value !== 42) {  
+            $result-&gt;addError('Value should be 42!');  
+        }  
+        return $result;  
+    }
+);</code></pre><p>При использовании правила в качестве атрибута свойства объекта можно просто указать метод этого объекта:</p><pre><code class="php">final class MyNumber {
+    public function __construct(
+        #[Callback(method: 'validateNumber')]
+        private int $number,
+    ) {}
+
+    private function validateNumber(mixed $value): Result 
+    {
+        $result = new Result();  
+        if ($value !== 42) {  
+            $result-&gt;addError('Value should be 42!');  
+        }  
+        return $result;  
+    }
+}</code></pre><p>А можно проверить и целиком объект:</p><pre><code class="php">#[Callback(method: 'validate')]
+final class MyNumber {
+    public function __construct(        
+        private int $number,
+    ) {}
+
+    private function validate(): Result 
+    {
+        $result = new Result();  
+        if ($this-&gt;number !== 42) {  
+            $result-&gt;addError('Value should be 42!');  
+        }  
+        return $result;  
+    }
+}</code></pre><p>Обратите внимание, что правило <code>Callback</code> позволяет использовать методы в любой области видимости, а не только публичные.</p><h3>Composite — композитное правило</h3><p>Композит позволяет объединить несколько правил под одной крышей. Это даёт возможность указать опции пропуска один раз для группы правил. Например, пропускать правила, если во время валидации уже были найдены ошибки:</p><pre><code class="php">new Composite(
+    [
+        new Length(max: 255),
+        new Email(),
+    ],
+    skipOnError: true,
+);</code></pre><p>Условная валидация (в том числе и <code>skipOnError</code>) будет рассмотрена более детально позднее.</p><p><code>Composite</code> — один из немногих классов в пакете, который не финализирован. Это значит, что от него можно наследоваться и переопределить метод <code>getRules()</code>:</p><pre><code class="php">final class UsernameConstraint extends Composite
+{
+    public function getRules(): array
+    {
+        return [
+            new Length(min: 2, max: 20),
+            new Regex('~^[a-z_\-]*$~i'),
+        ];
+    }
+}</code></pre><p>И использовать группу правил как одно правило:</p><pre><code class="php">$result = (new Validator())-&gt;validate($username, new UsernameConstraint());</code></pre><h3>StopOnError — валидация до первой ошибки</h3><p>Правило позволяет прекратить применение группы правил, как только в одном из них проверка прошла неудачно. Это может быть полезно в случаях, когда в процессе валидации есть «тяжёлые» проверки (например, нужно сходить в базу данных или выполнить какие-то сложные вычисления): такие проверки не будут выполняться, если в процессе валидации ранее были найдены ошибки.</p><p>Более «лёгкие» правила помещаем в списке выше, а «тяжёлые» — ниже. Например:</p><pre><code class="php">new StopOnError([  
+    new Length(min: 3),
+    new MyHeavyRule(), // «Тяжёлое» правило
+]);</code></pre><h3>Each — валидация каждого элемента массива</h3><p>Правило даёт возможность применить набор правил к каждому элементу проверяемого массива. Например, правило для проверки RGB-цвета:</p><pre><code class="php">$rules = [
+    // В массиве должно быть 3 элемента
+    new Count(exactly: 3),
+    
+    // Каждый элемент должен быть...
+    new Each(
+        // .. целым числом от 0 до 255
+        new Number(min: 0, max: 255, integerOnly: true),
+    ),
+];</code></pre><h3>Nested — валидация вложенных структур</h3><p>Правило используется для значений, представляющих собой какие-либо структуры, то есть массивов или объектов. Например:</p><pre><code class="php">final class Point {
+    #[Nested([
+        'latitude' =&gt; new Number(min: -90, max: 90), 
+        'longitude' =&gt; new Number(min: -180, max: 180),
+    ])]
+    private array $coordinates;
+    // ...
+}</code></pre><p>Если у значения-объекта есть свои атрибуты-правила, то для такого значения можно указать атрибут <code>Nested</code> без параметров, это покажет валидатору, что нужно проверить значение по правилам, которые в нём указаны:</p><pre><code class="php">final class Coordinates {
+    #[Number(min: -90, max: 90)]
+    private float $latitude;
+    #[Number(min: -180, max: 180)]
+    private float $longitude;
+    // ...
+}
+
+final class Point {
+    #[Nested]
+    private Coordinates $coordinates;
+    // ...
+}</code></pre><h2>Условная валидация</h2><p>Валидатор поддерживает несколько видов опций, указывающих ему нужно ли выполнять конкретное правило или нет. Почти все правила поддерживают следующие опции.</p><h3>skipOnError</h3><p>Позволяет пропустить выполнение правила если ранее в процессе валидации выполнение каких-либо правил уже закончилось неудачей.</p><p>Можно, например, пропустить проверку корректности имени пользователя, если поле вообще не заполнено:</p><pre><code class="php">$result = (new Validator())-&gt;validate(  
+    $username,  
+    [  
+        new Required(),  
+        new Length(min: 4, max: 20, skipOnError: true),  
+    ],  
+);</code></pre><h3>skipOnEmpty</h3><p>Опция указывает валидатору, что необходимо пропустить выполнение правила, если значение «пустое». По умолчанию «пустыми» считаются значения <code>null</code>, пустая строка, пустой массив или же совсем отсутствие значения. Пример использования:</p><pre><code class="php">$result = (new Validator())-&gt;validate(  
+    $language,  
+    [  
+        new Required(),  
+        new In(['ru', 'en'], skipOnEmpty: true),  
+    ],  
+);</code></pre><p>Можно использовать произвольный критерий определения «пустоты» значения, передав callback-функцию вместо <code>true</code>. Например, считать «пустыми» нули или отсутствие значения:</p><pre><code class="php">$result = (new Validator())-&gt;validate(  
+    $data,  
+    [  
+        'age' =&gt;  
+            new Number(  
+                min: 21,  
+                skipOnEmpty: static function (mixed $value, bool $isAttributeMissing): bool {  
+                    return $isAttributeMissing || $value === 0;  
+                },  
+            ),  
+    ],  
+);</code></pre><p>Из коробки валидатор предоставляет четыре класса, которые можно использовать в качестве callback-функции:</p><ul><li><p><code>WhenEmpty</code> — пустые значения: <code>null</code>, пустая строка, пустой массив или отсутствие значения;</p></li><li><p><code>WhenNull</code> —  пустые значения: <code>null</code> или отсутствие значения;</p></li><li><p><code>WhenMissing</code> — пустым считается только отсутствие значения;</p></li><li><p><code>NeverEmpty</code> — все значения считаются НЕ «пустыми».</p></li></ul><p>Например, использование класса <code>WhenNull</code>:</p><pre><code class="php">$result = (new Validator())-&gt;validate(  
+    $value,  
+    new Number(  
+        min: 7,  
+        skipOnEmpty: new WhenNull(),  
+    ),  
+);</code></pre><h3>when</h3><p>Произвольное условие в виде callback-функции, определяющее нужно ли пропустить правило. Сигнатура функции:</p><pre><code class="php">function (mixed $value, ValidationContext $context): bool;</code></pre><p>Как видим, в функцию передаются два аргумента:</p><ul><li><p><code>$value</code> — проверяемое значение;</p></li><li><p><code>$context</code> — контекст валидации.</p></li></ul><p>Рассмотрим пример:</p><pre><code class="php">$result = (new Validator())-&gt;validate(  
+    $data,  
+    [  
+        'country' =&gt; [  
+            new Required(),  
+            new Length(min: 2),  
+        ],  
+        'state' =&gt; new Required(  
+            when: static function (mixed $value, ValidationContext $context): bool {  
+                return $context-&gt;getDataSet()-&gt;getAttributeValue('country') === 'Brazil';  
+            }  
+        )  
+    ],  
+);</code></pre><p>Наличие заполненного атрибута <code>state</code> будет проверяться только в случае, когда значение атрибута <code>country</code> будет равно <code>Brazil</code>. Метод <code>$context-&gt;getDataSet()-&gt;getAttributeValue()</code> позволяет получить значение любого атрибута в проверяемом наборе данных.</p><h2>Результат валидации</h2><p>Результат валидации представляет собой объект, содержащий всю информацию о возникших в процессе валидации ошибках.</p><h3>Успешна ли валидация?</h3><p>Ответ на самый главный вопрос "валидны ли данные" получаем следующим образом:</p><pre><code class="php">$result-&gt;isValid();</code></pre><p>Можно также проверить, валиден ли какой-то конкретный атрибут:</p><pre><code class="php">$result-&gt;isAttributeValid('name');</code></pre><h3>Ошибки валидации</h3><p>Для получения информации об ошибках валидации в результате валидации предусмотрено сразу несколько методов, которые могут быть полезны в разных ситуациях.</p><p>Вероятно, один из самых популярных кейсов — это просто получение плоского списка сообщений об ошибках. Выглядит это так:</p><pre><code class="php">// [
+//   'Value must be no less than 21.',
+//   'This value is not a valid email address.',
+// ]
+$result-&gt;getErrorMessages();</code></pre><p>Но на самом деле информации об ошибках немного больше. Внутри ошибки хранятся в виде специальных объектов <code>Error</code>, которые хранят в себе:</p><ul><li><p>шаблон сообщения (например, <code>Value must be no less than {min}.</code>),</p></li><li><p>параметры сообщения (например, <code>['min' =&gt; 7]</code>),</p></li><li><p>путь к значению в проверяемой структуре (например, <code>['user', 'name', 'firstName']</code>).</p></li></ul><p>Для получения всех объектов ошибок служит специальный метод:</p><pre><code class="php">$result-&gt;getErrors();</code></pre><p>Благодаря детальной информации об ошибках мы получили возможность создать методы, позволяющие получить сообщения об ошибках в различных форматах.</p><p>Сообщения, проиндексированные по атрибуту:</p><pre><code class="php">// [
+//   'user' =&gt; [
+//     'Value cannot be blank.',
+//     'This value must contain at least 4 characters.',
+//   ],
+//   'email' =&gt; ['This value is not a valid email address.'],
+// ]
+$result-&gt;getErrorMessagesIndexedByAttribute();</code></pre><p>Сообщения, не привязанные к какому-либо атрибуту:</p><pre><code class="php">$result-&gt;getCommonErrorMessages();</code></pre><p>Дополнительно предусмотрены методы, которые позволяют получить информацию об ошибках аналогичную описанной выше для конкретного атрибута:</p><pre><code class="php">$result-&gt;getAttributeErrorMessages('attrubuteName');
+$result-&gt;getAttributeErrorMessagesIndexedByPath('attrubuteName');
+$result-&gt;getAttributeErrors('attrubuteName');</code></pre><h2>Сообщения об ошибках</h2><p>Сообщения об ошибках можно переопределить при создании правила валидации. Как правило, за сообщение об ошибке отвечает параметр <code>message</code>:</p><pre><code class="php">new Required(
+    message: '{attribute} is required.'
+);</code></pre><p>Некоторые правила имеют несколько сообщений об ошибках и, соответственно, несколько параметров:</p><pre><code class="php">new Length(  
+    min: 4,  
+    max: 10,  
+    lessThanMinMessage: 'The {attribute} is too short.',  
+    greaterThanMaxMessage: 'The {attribute} is too long.',  
+);</code></pre><h3>Перевод сообщений об ошибках</h3><p>Перевод сообщений реализован с помощью пакета <a href="https://github.com/yiisoft/translator" rel="noopener noreferrer nofollow">Yii Translator</a>, оригиналы сообщений на английском языке.</p><p>Вместе с валидатором идут переводы на русский, узбекский и польский языки (пока так, в будущем будут и другие) в виде массива в PHP-файле. Для их использования необходимо установить пакет для чтения переводов из PHP-файлов:</p><pre><code>composer require yiisoft/translator-message-php</code></pre><p>Если вы используете валидатор в Yii-окружении (приложение использует <a href="https://github.com/yiisoft/config" rel="noopener noreferrer nofollow">Yii Config</a>, а сам валидатор получаете как зависимость через контейнер <a href="https://github.com/yiisoft/di" rel="noopener noreferrer nofollow">Yii DI</a>), то переводы подключатся автоматически.</p><p>Если же валидатор используется отдельно, то объект переводчика нужно будет создать вручную. Например, так:</p><pre><code class="php">// Путь к папке с переводами
+$translationsPath = '/app/vendor/yiisoft/validator/messages';  
+  
+$categorySource = new CategorySource(  
+    Validator::DEFAULT_TRANSLATION_CATEGORY,  
+    new MessageSource($translationsPath),  
+    new SimpleMessageFormatter(),  
+);  
+  
+$translator = new Translator(locale: 'ru');  
+$translator-&gt;addCategorySources($categorySource);  
+  
+$validator = new Validator(translator: $translator);</code></pre><h3>Перевод имён атрибутов</h3><p>Практически во всех шаблонах сообщений ошибок можно использовать переменную <code>{attribute}</code>, которая заменяется на название атрибута.</p><p>По умолчанию имя атрибута используется в сообщении как есть. На английском языке это выглядит хоть как-то читаемо (например, "currentPassword is required."), а вот если использовать переводы сообщений, то будет совсем плохо ("currentPassword обязателен.").</p><p>Чтобы решить задачу, мы сделали отдельный интерфейс <code>AttributeTranslatorInterface</code>, который предназначен специально для перевода атрибутов. Из коробки предоставляется три реализации:</p><ul><li><p><code>ArrayAttributeTranslator</code> — для перевода используется массив переводов, где ключи являются оригинальными именами атрибутов, а значения — переводами;</p></li><li><p><code>TranslatorAttributeTranslator</code> — для перевода используется переводчик <a href="https://github.com/yiisoft/translator" rel="noopener noreferrer nofollow">Yii Translator</a>;</p></li><li><p><code>NullAttributeTranslator</code> — ничего не переводит, возвращает имя атрибута как есть.</p></li></ul><p>Есть несколько способов использовать переводчик атрибутов.</p><h4>Переводчик атрибутов в валидаторе</h4><p>Тут всё просто, создаём переводчик атрибутов и передаём его через конструктор валидатора:</p><pre><code class="php">$attributeTranslator = new ArrayAttributeTranslator([  
+    'currentPassword' =&gt; 'Текущий пароль',  
+    'newPassword' =&gt; 'Новый пароль',  
+]);  
+  
+$validator = new Validator(  
+    defaultAttributeTranslator: $attributeTranslator,  
+);</code></pre><h4>Переводчик атрибутов в объекте</h4><p>Вариант с переводчиком атрибутов прямо в валидируемом объекте более интересный и может быть использован, например, для создания классов форм.</p><p>Специально для этого случая создан интерфейс <code>AttributeTranslatorProviderInterface</code>, позволяющий валидатору использовать переводы из объектов, которые его реализуют. Выглядит это следующим образом:</p><pre><code class="php">final class PasswordForm implements AttributeTranslatorProviderInterface  
+{  
+    public function __construct(  
+        #[Required(  
+            message: '{attribute} обязателен для ввода.'  
+        )]  
+        public string $currentPassword = '',  
+  
+        #[Length(  
+            min: 8,  
+            skipOnEmpty: false,  
+            lessThanMinMessage: '{attribute} должен быть сложный, не менее 8 символов.'  
+        )]  
+        public string $newPassword = '',  
+    ) {  
+    }  
+  
+    public function getAttributeTranslator(): ?AttributeTranslatorInterface  
+    {  
+        return new ArrayAttributeTranslator([  
+            'currentPassword' =&gt; 'Текущий пароль',  
+            'newPassword' =&gt; 'Новый пароль',  
+        ]);  
+    }  
+}
+
+$form = new PasswordForm();  
+  
+$result = (new Validator())-&gt;validate($form);</code></pre><h2>Валидация на стороне клиента</h2><p>Для передачи правил валидации на клиентскую сторону пакет предоставляет класс <code>RulesDumper</code>, позволяющий преобразовать объекты правил в массив. Пример использования:</p><pre><code class="php">$rules = [  
+    'name' =&gt; [  
+        new Length(min: 4, max: 10),  
+    ],  
+];  
+
+//  [  
+//      'name' =&gt; [  
+//          [  
+//              'length',  
+//              'min' =&gt; 4,  
+//              'max' =&gt; 10,  
+//              'exactly' =&gt; null,  
+//              'lessThanMinMessage' =&gt; [  
+//                  'template' =&gt; 'This value must contain at least {min, number} {min, plural, one{character} other{characters}}.',  
+//                  'parameters' =&gt; ['min' =&gt; 4],  
+//              ],  
+//              'greaterThanMaxMessage' =&gt; [  
+//                  'template' =&gt; 'This value must contain at most {max, number} {max, plural, one{character} other{characters}}.',  
+//                  'parameters' =&gt; ['max' =&gt; 10],  
+//              ],  
+//              'notExactlyMessage' =&gt; [  
+//                  'template' =&gt; 'This value must contain exactly {exactly, number} {exactly, plural, one{character} other{characters}}.',  
+//                  'parameters' =&gt; ['exactly' =&gt; null],  
+//              ],  
+//              'incorrectInputMessage' =&gt; [  
+//                  'template' =&gt; 'The value must be a string.',  
+//                  'parameters' =&gt; [],  
+//              ],  
+//              'encoding' =&gt; 'UTF-8',  
+//              'skipOnEmpty' =&gt; false,  
+//              'skipOnError' =&gt; false,  
+//          ]  
+//      ],  
+//  ],
+$rulesAsArray = RulesDumper::asArray($rules);</code></pre><p>Какую-либо обработку правил валидации на стороне клиента пакет не предоставляет. Это пространство для разработки в дальнейшем в рамках отдельного пакета.</p><h2>Создание правил валидации</h2><p>Ключевая особенность правил — разделение правила на две части:</p><ul><li><p>конфигурация (класс, реализующий <code>RuleInterface</code>),</p></li><li><p>обработчик (класс, реализующий <code>RuleHandlerInterface</code>).</p></li></ul><p>Такой подход позволяет использовать автоматическое разрешение зависимостей для обработчика. Например, если для правила нужно подключение базы данных, то его не нужно передавать в правило, оно может быть автоматически получено из контейнера зависимостей.</p><p>Попробуем создать правило, которое проверяет, что значение является RGB-цветом (массив, 3 элемента, каждый из которых число от 0 до 255).</p><p>Правило, из опций только текст сообщения об ошибке:</p><pre><code class="php">final class RgbColor implements RuleInterface  
+{  
+    public function __construct(  
+        public readonly string $message = 'Invalid RGB color value.',  
+    ) {  
+    }  
+  
+    public function getName(): string  
+    {  
+        return 'rgbColor';  
+    }  
+  
+    public function getHandler(): string|RuleHandlerInterface  
+    {  
+        return RgbColorHandler::class;  
+    }  
+}</code></pre><p>Обработчик правила:</p><pre><code class="php">final class RgbColorHandler implements RuleHandlerInterface  
+{  
+    public function validate(
+        mixed $value,
+        object $rule,
+        ValidationContext $context
+    ): Result {  
+        /** @var RgbColor $rule */  
+  
+        if (!$this-&gt;isValid($value)) {  
+            return (new Result())-&gt;addError($rule-&gt;message);  
+        }  
+  
+        return new Result();  
+    }  
+  
+    private function isValid(mixed $color): bool  
+    {  
+        if (  
+            !is_array($color) ||  
+            array_keys($color) !== [0, 1, 2]  
+        ) {  
+            return false;  
+        }  
+  
+        foreach ($color as $item) {  
+            if (!is_int($item) || $item &lt; 0 || $item &gt; 255) {  
+                return false;  
+            }  
+        }  
+  
+        return true;  
+    }  
+}</code></pre><p>Это пример простейшего правила, к нему можно добавить опции для условной валидации, возможность использования в качестве атрибута и другие «фишки». В общем, создание правил валидации — тема отдельной статьи.</p><h2>Расширения Yii Validator</h2><p>Архитектура валидатора позволяет писать довольно функциональные расширения для него. Уже есть несколько неофициальных дополнений.</p><h3>Сценарии валидации</h3><p>Пакет <a href="https://github.com/vjik/yii-validator-scenarios" rel="noopener noreferrer nofollow">Yii Validator Scenarios</a> (<code>vjik/yii-validator-scenarios</code>) предоставляет специальное правило <code>On</code>, которое позволяет использовать сценарии валидации.</p><p>Пример класса, использующего сценарии:</p><pre><code class="php">final class UserDto
+{
+    public function __construct(
+        #[On(
+            'register',
+            [new Required(), new Length(min: 7, max: 10)]
+        )]
+        public string $name,
+
+        #[Required]
+        #[Email]
+        public string $email,
+
+        #[On(
+            ['login', 'register'],
+            [new Required(), new Length(min: 8)],
+        )]
+        public string $password,
+    ) {
+    }
+}</code></pre><p>Указание валидатору по какому сценарию выполнять валидацию осуществляется с помощью параметра в контексте валидации:</p><pre><code class="php">$result = (new Validator())-&gt;validate(
+    $userDto, 
+    context: new ValidationContext([
+        On::SCENARIO_PARAMETER =&gt; $scenario,
+    ]),
+);</code></pre><p>С точки зрения архитектуры приложения использовать сценарии в валидации настоятельно НЕ рекомендуется. Как показывает практика, использование сценариев приводит к коду крайне сложному для восприятия и внесения изменений, а переписывание выливается в довольно трудозатратную задачу. Именно по этой причине не стали включать данный функционал в официальный пакет валидатора. Но, как говорится, если очень хочется, то можно 😉</p><h3>Обёртка для Symfony-правил</h3><p>Пакет <a href="https://github.com/vjik/yii-validator-symfony-rule/" rel="noopener noreferrer nofollow">Yii Validator Symfony Rule</a> (<code>vjik/yii-validator-symfony-rule</code>) позволяет использовать правила ("constraints") из валидатора Symfony в валидаторе Yii3.</p><p>Использовать Symfony-правила очень просто, достаточно обернуть правило или массив правил валидации из Symfony в предоставляемое пакетом правило <code>SymfonyRule</code>. Пример:</p><pre><code class="php">use Symfony\Component\Validator\Constraints\{CssColor, NotEqualTo, Positive};
+use Vjik\Yii\ValidatorSymfonyRule\SymfonyRule;
+use Yiisoft\Validator\Rule\Length;
+use Yiisoft\Validator\Rule\Required;
+
+final class Car
+{
+    #[Required]
+    #[Length(min: 3, skipOnEmpty: true)]
+    public string $name = '';
+
+    #[Required]
+    #[SymfonyRule(
+        new CssColor(CssColor::RGB),
+        skipOnEmpty: true,
+    )]
+    public string $cssColor = '#1123';
+
+    #[SymfonyRule([
+        new Positive(),
+        new NotEqualTo(13),
+    ])]
+    public int $number = 13;
+}</code></pre><h2>Вместо заключения</h2><p>Целью написания данной статьи была презентация нового валидатора в Yii3. Хотелось показать всё многообразие его возможностей, которое при этом не мешает простоте и удобству использования. И если с "простотой", надеюсь, получилось, то с "многообразием" вышло лишь частично.</p><p>Оказалось, что возможностей довольно много и статья росла как на дрожжах. Поэтому часть тем пришлось опустить: композиция валидатора, особенности создания правил, правило <code>Required</code> и «пустые» значения, и так далее... Думаю, это темы будущих статей.</p><p>И, напоследок, хотелось бы обратить внимание на высокие технические показатели качества валидатора, что обеспечивает низкую вероятность наличия ошибок:</p><ul><li><p>покрытие модульными тестами — 100%,</p></li><li><p>уровень типизации — 99%,</p></li><li><p>индекс мутационного тестирования — 98%,</p></li><li><p>используется статическое тестирование (psalm 1 уровня).</p></li></ul><p>Большой релиз Yii3 близок. Выпуск валидатора — важный шаг на этом пути 😎</p><p>PS Поддержать разработку Yii3 можно на <a href="https://boosty.to/yiisoft" rel="noopener noreferrer nofollow">Boosty</a> или <a href="https://opencollective.com/yiisoft" rel="noopener noreferrer nofollow">Open Collective</a>.</p><p></p></div></div></div> <!-- --> <!-- --></div> <!-- --> <!-- --></div> <!-- --> <div class="tm-article-presenter__meta"><div class="tm-separated-list tm-article-presenter__meta-list"><span class="tm-separated-list__title">Теги:</span> <ul class="tm-separated-list__list"><li class="tm-separated-list__item"><a class="tm-tags-list__link" href="/ru/search/?target_type=posts&amp;order=relevance&amp;q=%5Byii%5D">yii</a></li><li class="tm-separated-list__item"><a class="tm-tags-list__link" href="/ru/search/?target_type=posts&amp;order=relevance&amp;q=%5Byii3%5D">yii3</a></li><li class="tm-separated-list__item"><a class="tm-tags-list__link" href="/ru/search/?target_type=posts&amp;order=relevance&amp;q=%5B%D0%B2%D0%B0%D0%BB%D0%B8%D0%B4%D0%B0%D1%82%D0%BE%D1%80%5D">валидатор</a></li><li class="tm-separated-list__item"><a class="tm-tags-list__link" href="/ru/search/?target_type=posts&amp;order=relevance&amp;q=%5B%D0%B2%D0%B0%D0%BB%D0%B8%D0%B4%D0%B0%D1%86%D0%B8%D1%8F%5D">валидация</a></li></ul></div> <div class="tm-separated-list tm-article-presenter__meta-list"><span class="tm-separated-list__title">Хабы:</span> <ul class="tm-separated-list__list"><li class="tm-separated-list__item"><a class="tm-hubs-list__link" href="/ru/hub/php/">PHP</a></li><li class="tm-separated-list__item"><a class="tm-hubs-list__link" href="/ru/hub/yii/">Yii</a></li></ul></div></div></article></div> <!-- --></div> <div class="tm-article-sticky-panel"><div class="tm-data-icons tm-article-sticky-panel__icons"><div class="tm-article-rating tm-data-icons__item"><div class="tm-votes-meter tm-article-rating__votes-switcher"><svg class="tm-svg-img tm-votes-meter__icon tm-votes-meter__icon tm-votes-meter__icon_appearance-article" height="24" width="24"><title>Всего голосов 21: ↑21 и ↓0</title> <use xlink:href="/img/megazord-v28.2b11c25e..svg#counter-rating"></use></svg> <span class="tm-votes-meter__value tm-votes-meter__value tm-votes-meter__value_positive tm-votes-meter__value_appearance-article tm-votes-meter__value_rating" title="Всего голосов 21: ↑21 и ↓0">+21</span></div> <div class="v-portal" style="display:none;"></div></div> <!-- --> <!-- --> <button class="bookmarks-button tm-data-icons__item" title="Добавить в закладки" type="button"><span class="tm-svg-icon__wrapper bookmarks-button__icon"><svg class="tm-svg-img tm-svg-icon" height="24" width="24"><title>Добавить в закладки</title> <use xlink:href="/img/megazord-v28.2b11c25e..svg#counter-favorite"></use></svg></span> <span class="bookmarks-button__counter" title="Количество пользователей, добавивших публикацию в закладки">
+    4
+  </span></button> <div class="tm-article-comments-counter-link tm-data-icons__item" title="Читать комментарии"><a class="tm-article-comments-counter-link__link" href="/ru/post/718444/comments/"><svg class="tm-svg-img tm-article-comments-counter-link__icon" height="24" width="24"><title>Комментарии</title> <use xlink:href="/img/megazord-v28.2b11c25e..svg#counter-comments"></use></svg> <span class="tm-article-comments-counter-link__value">
+      0
+    </span></a> <!-- --></div> <div class="tm-sharing tm-data-icons__item" title="Поделиться"><button class="tm-sharing__button" type="button"><svg class="tm-sharing__icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M13.8 13.8V18l7.2-6.6L13.8 5v3.9C5 8.9 3 18.6 3 18.6c2.5-4.4 6-4.8 10.8-4.8z" fill="currentColor"></path></svg></button> <div class="v-portal" style="display:none;"></div></div> <div class="v-portal" style="display:none;"></div></div> </div></div> <div class="v-portal" style="display:none;"></div> <div class="tm-article-presenter__footer"><div class="tm-article-blocks"><!-- --> <div></div> <section class="tm-block tm-block tm-block_spacing-bottom"><!-- --> <div class="tm-block__body tm-block__body tm-block__body_variant-balanced"><div class="tm-article-author"> <div class="tm-user-card tm-article-author__user-card tm-user-card tm-user-card_variant-article"><div class="tm-user-card__info-container"><div class="tm-user-card__header"><div class="tm-user-card__header-data"><a class="tm-user-card__userpic tm-user-card__userpic_size-40" href="/ru/users/NikoX/"><div class="tm-entity-image"><img alt="" class="tm-entity-image__pic" src="//habrastorage.org/getpro/habr/avatars/d6a/0a1/909/d6a0a190918412c46593d74f43facc17.png"/></div></a> <div class="tm-user-card__meta"><div class="tm-counter-container tm-karma tm-karma" title=" 18 голосов "><div class="tm-counter-container__header"><div class="tm-karma__votes tm-karma__votes_positive">
+      18
+    </div></div> <div class="tm-counter-container__footer"><div class="tm-karma__text">
+      Карма
+    </div> <div class="v-portal" style="display:none;"></div></div></div> <div class="tm-counter-container" title="Рейтинг пользователя"><div class="tm-counter-container__header"> <div class="tm-votes-lever tm-votes-lever tm-votes-lever_appearance-rating"><!-- --> <div class="tm-votes-lever__score tm-votes-lever__score tm-votes-lever__score_appearance-rating"><span class="tm-votes-lever__score-counter tm-votes-lever__score-counter tm-votes-lever__score-counter_rating">
+        21
+      </span></div> <!-- --></div></div> <div class="tm-counter-container__footer"><span class="tm-rating__text tm-rating__text">
+      Рейтинг
+    </span></div></div></div></div></div> <div class="tm-user-card__info tm-user-card__info tm-user-card__info_variant-article"><div class="tm-user-card__title tm-user-card__title tm-user-card__title_variant-article"><span class="tm-user-card__name tm-user-card__name tm-user-card__name_variant-article">Сергей Предводителев</span> <a class="tm-user-card__nickname tm-user-card__nickname tm-user-card__nickname_variant-article" href="/ru/users/NikoX/">
+          @NikoX
+        </a> <!-- --></div> <p class="tm-user-card__short-info tm-user-card__short-info tm-user-card__short-info_variant-article">Пользователь</p></div></div> <div class="tm-user-card__buttons tm-user-card__buttons tm-user-card__buttons_variant-article"><!-- --> <!-- --> <!-- --> <!-- --> <!-- --></div></div> <div class="tm-article-author__user-contacts"><a class="tm-article-author__contact" href="https://predvoditelev.ru/" rel="noopener" target="_blank">
+      Сайт
+    </a><a class="tm-article-author__contact" href="https://twitter.com/predvoditelev" rel="noopener" target="_blank">
+      Twitter
+    </a><a class="tm-article-author__contact" href="https://github.com/vjik/" rel="noopener" target="_blank">
+      Github
+    </a><a class="tm-article-author__contact" href="https://telegram.me/sergei_predvoditelev" rel="noopener" target="_blank">
+      Telegram
+    </a></div></div> <div class="v-portal" style="display:none;"></div></div> <!-- --></section> <div class="tm-adfox-banner__container tm-page-article__banner"><!-- --> <div class="tm-adfox-banner tm-adfox-banner tm-adfox-banner_variant-leaderboard" id="adfox_164725660339535756"></div></div> <div class="tm-article-blocks__comments"><div class="tm-article-page-comments"><div class="tm-article-comments-counter-link tm-article-comments-counter-button"><a class="tm-article-comments-counter-link__link tm-article-comments-counter-link__link_button-style" href="/ru/post/718444/comments/"><svg class="tm-svg-img tm-article-comments-counter-link__icon tm-article-comments-counter-link__icon_contrasted" height="24" width="24"><title>Комментарии</title> <use xlink:href="/img/megazord-v28.2b11c25e..svg#counter-comments"></use></svg> <span class="tm-article-comments-counter-link__value tm-article-comments-counter-link__value_contrasted">
+       Комментировать 
+    </span></a> <!-- --></div></div></div> <section class="tm-block tm-block tm-block_spacing-bottom"><header class="tm-block__header tm-block__header tm-block__header_variant-borderless"><div class="tm-block__header-container"><h2 class="tm-block__title tm-block__title tm-block__title_variant-large">Публикации</h2> </div> <!-- --></header> <div class="tm-block__body tm-block__body tm-block__body_variant-condensed-slim"><div class="tm-tabs tm-tabs"><div><span class="tm-tabs__tab-item"><button class="tm-tabs__tab-link tm-tabs__tab-link tm-tabs__tab-link_active tm-tabs__tab-link_slim">
+        Лучшие за сутки
+      </button></span><span class="tm-tabs__tab-item"><button class="tm-tabs__tab-link tm-tabs__tab-link tm-tabs__tab-link_slim">
+        Похожие
+      </button></span></div> <!-- --></div> <div class="similar-and-daily__tab-view"><div><!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <div class="tm-placeholder-article-cards"><div class="tm-placeholder-article-card"><div class="tm-placeholder__user"><div class="tm-placeholder__user-pic loads"></div> <div class="tm-placeholder__user-date loads"></div></div> <div class="tm-placeholder-article-card__title"><div class="tm-placeholder__line tm-placeholder-article-card__title-line loads"></div> <div class="tm-placeholder__line tm-placeholder-article-card__title-line loads"></div></div> <div class="tm-placeholder-article-card__icons tm-placeholder__counters"><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div></div></div><div class="tm-placeholder-article-card"><div class="tm-placeholder__user"><div class="tm-placeholder__user-pic loads"></div> <div class="tm-placeholder__user-date loads"></div></div> <div class="tm-placeholder-article-card__title"><div class="tm-placeholder__line tm-placeholder-article-card__title-line loads"></div> <div class="tm-placeholder__line tm-placeholder-article-card__title-line loads"></div></div> <div class="tm-placeholder-article-card__icons tm-placeholder__counters"><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div></div></div><div class="tm-placeholder-article-card"><div class="tm-placeholder__user"><div class="tm-placeholder__user-pic loads"></div> <div class="tm-placeholder__user-date loads"></div></div> <div class="tm-placeholder-article-card__title"><div class="tm-placeholder__line tm-placeholder-article-card__title-line loads"></div> <div class="tm-placeholder__line tm-placeholder-article-card__title-line loads"></div></div> <div class="tm-placeholder-article-card__icons tm-placeholder__counters"><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div></div></div><div class="tm-placeholder-article-card"><div class="tm-placeholder__user"><div class="tm-placeholder__user-pic loads"></div> <div class="tm-placeholder__user-date loads"></div></div> <div class="tm-placeholder-article-card__title"><div class="tm-placeholder__line tm-placeholder-article-card__title-line loads"></div> <div class="tm-placeholder__line tm-placeholder-article-card__title-line loads"></div></div> <div class="tm-placeholder-article-card__icons tm-placeholder__counters"><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div></div></div><div class="tm-placeholder-article-card"><div class="tm-placeholder__user"><div class="tm-placeholder__user-pic loads"></div> <div class="tm-placeholder__user-date loads"></div></div> <div class="tm-placeholder-article-card__title"><div class="tm-placeholder__line tm-placeholder-article-card__title-line loads"></div> <div class="tm-placeholder__line tm-placeholder-article-card__title-line loads"></div></div> <div class="tm-placeholder-article-card__icons tm-placeholder__counters"><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div></div></div></div> <!-- --> <!-- --> <!-- --> <!-- --></div> <!-- --></div></div> <!-- --></section> <section class="tm-block tm-stories-block tm-block tm-block_spacing-around" data-async-called="true" data-navigatable="" tabindex="0"><header class="tm-block__header tm-block__header"><div class="tm-block__header-container"><h2 class="tm-block__title tm-block__title">Истории</h2> </div> <!-- --></header> <div class="tm-block__body tm-block__body tm-block__body_variant-equal"><div class="tm-stories-empty"><div class="tm-stories-card-empty"><div class="tm-stories-card-empty__image"></div> <div class="tm-stories-card-empty__title"><div class="tm-stories-card-empty__title-block"></div> <div class="tm-stories-card-empty__title-block"></div> <div class="tm-stories-card-empty__title-block"></div></div></div><div class="tm-stories-card-empty"><div class="tm-stories-card-empty__image"></div> <div class="tm-stories-card-empty__title"><div class="tm-stories-card-empty__title-block"></div> <div class="tm-stories-card-empty__title-block"></div> <div class="tm-stories-card-empty__title-block"></div></div></div><div class="tm-stories-card-empty"><div class="tm-stories-card-empty__image"></div> <div class="tm-stories-card-empty__title"><div class="tm-stories-card-empty__title-block"></div> <div class="tm-stories-card-empty__title-block"></div> <div class="tm-stories-card-empty__title-block"></div></div></div><div class="tm-stories-card-empty"><div class="tm-stories-card-empty__image"></div> <div class="tm-stories-card-empty__title"><div class="tm-stories-card-empty__title-block"></div> <div class="tm-stories-card-empty__title-block"></div> <div class="tm-stories-card-empty__title-block"></div></div></div><div class="tm-stories-card-empty"><div class="tm-stories-card-empty__image"></div> <div class="tm-stories-card-empty__title"><div class="tm-stories-card-empty__title-block"></div> <div class="tm-stories-card-empty__title-block"></div> <div class="tm-stories-card-empty__title-block"></div></div></div><div class="tm-stories-card-empty"><div class="tm-stories-card-empty__image"></div> <div class="tm-stories-card-empty__title"><div class="tm-stories-card-empty__title-block"></div> <div class="tm-stories-card-empty__title-block"></div> <div class="tm-stories-card-empty__title-block"></div></div></div></div> <!-- --></div> <!-- --></section> <div><!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <div class="tm-placeholder-inset tm-placeholder-tasks"><div class="tm-placeholder-inset__header"><div class="tm-placeholder__line tm-placeholder__line_inset-header loads"></div></div> <div class="tm-placeholder-inset__body"><ul class="tm-placeholder-list"><li class="tm-placeholder-list__item tm-placeholder-list__item_inset"><div class="tm-placeholder-list__title-container"><div class="tm-placeholder__line tm-placeholder__line_item-title loads"></div></div> <div class="tm-project-block-items__properties"><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span></div></li><li class="tm-placeholder-list__item tm-placeholder-list__item_inset"><div class="tm-placeholder-list__title-container"><div class="tm-placeholder__line tm-placeholder__line_item-title loads"></div></div> <div class="tm-project-block-items__properties"><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span></div></li><li class="tm-placeholder-list__item tm-placeholder-list__item_inset"><div class="tm-placeholder-list__title-container"><div class="tm-placeholder__line tm-placeholder__line_item-title loads"></div></div> <div class="tm-project-block-items__properties"><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span></div></li><li class="tm-placeholder-list__item tm-placeholder-list__item_inset"><div class="tm-placeholder-list__title-container"><div class="tm-placeholder__line tm-placeholder__line_item-title loads"></div></div> <div class="tm-project-block-items__properties"><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span></div></li><li class="tm-placeholder-list__item tm-placeholder-list__item_inset"><div class="tm-placeholder-list__title-container"><div class="tm-placeholder__line tm-placeholder__line_item-title loads"></div></div> <div class="tm-project-block-items__properties"><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span></div></li></ul></div> <div class="tm-placeholder-inset__footer"><div class="tm-placeholder__line tm-placeholder__line_inset-footer loads"></div></div></div> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --></div> <!-- --> <div><div><!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <div class="tm-placeholder-promo"><div class="tm-placeholder-promo__header"><div class="tm-placeholder__line tm-placeholder__line_promo-title"></div></div> <div class="tm-placeholder-promo__body"><div class="tm-placeholder-promo__posts"><div class="tm-placeholder-promo__post"><div class="tm-placeholder-promo__image"></div> <div class="tm-placeholder__line tm-placeholder__line_post-title"></div></div> <div class="tm-placeholder-promo__post"><div class="tm-placeholder-promo__image"></div> <div class="tm-placeholder__line tm-placeholder__line_post-title"></div></div> <div class="tm-placeholder-promo__post"><div class="tm-placeholder-promo__image"></div> <div class="tm-placeholder__line tm-placeholder__line_post-title"></div></div></div> <div class="tm-placeholder-promo__dots"><div class="tm-placeholder-promo__dot"></div> <div class="tm-placeholder-promo__dot"></div> <div class="tm-placeholder-promo__dot"></div></div></div></div> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --></div></div> <section class="tm-block tm-block tm-block_spacing-top" data-async-called="true"><header class="tm-block__header tm-block__header"><div class="tm-block__header-container"><h2 class="tm-block__title tm-block__title">Работа</h2> </div> <!-- --></header> <div class="tm-block__body tm-block__body"><div class="tm-vacancies-block__item"><a class="tm-vacancies-block__vacancy-title" href="https://career.habr.com/vacancies/php_programmist" target="_blank">
+        PHP программист
+      </a> <div class="tm-vacancies-block__vacancies-count">
+        168
+    вакансий
+      </div></div><div class="tm-vacancies-block__item"><a class="tm-vacancies-block__vacancy-title" href="https://career.habr.com/vacancies/programmist_laravel" target="_blank">
+        Разработчик Laravel
+      </a> <div class="tm-vacancies-block__vacancies-count">
+        65
+    вакансий
+      </div></div></div> <footer class="tm-block__footer"><a class="tm-block-extralink" href="https://career.habr.com/catalog">
+      Все вакансии
+    </a></footer></section></div></div></div></div></div> <div class="tm-page__sidebar"><!-- --></div></div></div></div></main> <!-- --></div> <!-- --> <div class="tm-footer"><div class="tm-page-width"><div class="tm-footer__container"><div class="tm-footer__title"><a class="tm-svg-icon__wrapper tm-footer__title-link router-link-active" href="/ru/"><svg class="tm-svg-img tm-svg-icon" height="16" width="16"><title>Хабр</title> <use xlink:href="/img/habr-logo-ru.svg#logo"></use></svg></a></div> <div class="tm-footer__social"><a class="tm-svg-icon__wrapper tm-social-icons__icon" href="https://www.facebook.com/habrahabr.ru" rel="nofollow noopener noreferrer" target="_blank"><svg class="tm-svg-img tm-svg-icon" height="16" width="16"><title>Facebook</title> <use xlink:href="/img/social-icons-sprite.svg#social-logo-facebook"></use></svg></a><a class="tm-svg-icon__wrapper tm-social-icons__icon" href="https://twitter.com/habr_com" rel="nofollow noopener noreferrer" target="_blank"><svg class="tm-svg-img tm-svg-icon" height="16" width="16"><title>Twitter</title> <use xlink:href="/img/social-icons-sprite.svg#social-logo-twitter"></use></svg></a><a class="tm-svg-icon__wrapper tm-social-icons__icon" href="https://vk.com/habr" rel="nofollow noopener noreferrer" target="_blank"><svg class="tm-svg-img tm-svg-icon" height="16" width="16"><title>VK</title> <use xlink:href="/img/social-icons-sprite.svg#social-logo-vkontakte"></use></svg></a><a class="tm-svg-icon__wrapper tm-social-icons__icon" href="https://telegram.me/habr_com" rel="nofollow noopener noreferrer" target="_blank"><svg class="tm-svg-img tm-svg-icon" height="16" width="16"><title>Telegram</title> <use xlink:href="/img/social-icons-sprite.svg#social-logo-telegram"></use></svg></a><a class="tm-svg-icon__wrapper tm-social-icons__icon" href="https://www.youtube.com/channel/UCd_sTwKqVrweTt4oAKY5y4w" rel="nofollow noopener noreferrer" target="_blank"><svg class="tm-svg-img tm-svg-icon" height="16" width="16"><title>Youtube</title> <use xlink:href="/img/social-icons-sprite.svg#social-logo-youtube"></use></svg></a><a class="tm-svg-icon__wrapper tm-social-icons__icon" href="https://zen.yandex.ru/habr" rel="nofollow noopener noreferrer" target="_blank"><svg class="tm-svg-img tm-svg-icon" height="16" width="16"><title>Яндекс Дзен</title> <use xlink:href="/img/social-icons-sprite.svg#social-logo-zen"></use></svg></a></div> <div class="v-portal" style="display:none;"></div> <button class="tm-footer__link"><svg class="tm-svg-img tm-footer__icon" height="16" width="16"><title>Язык</title> <use xlink:href="/img/megazord-v28.2b11c25e..svg#lang"></use></svg>
+        Настройка языка
+      </button> <a class="tm-footer__link" href="/ru/feedback/">
+        Техническая поддержка
+      </a> <a class="tm-footer__link" href="/berserk-mode-nope">
+        Вернуться на старую версию
+      </a> <div class="tm-footer-copyright"><span class="tm-copyright"><span class="tm-copyright__years">© 2006–2023, </span> <span class="tm-copyright__name"><a class="tm-copyright__link" href="https://company.habr.com/" rel="noopener" target="_blank">Habr</a></span></span></div></div></div></div> <!-- --> <!-- --></div> <div class="vue-portal-target"></div></div>
+
+
+
+
+
+
+
+
+</body>
+</html>

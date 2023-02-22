@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+
+<html data-vue-meta="%7B%22lang%22:%7B%22ssr%22:%22ru%22%7D%7D" lang="ru">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1.0,viewport-fit=cover,maximum-scale=1,user-scalable=0" name="viewport"/>
+<meta content="unsafe-url" name="referrer"/>
+<title>Основы OkHttp в Android-разработке / Хабр</title>
+
+
+
+
+
+
+
+<meta content="2.113.0" name="habr-version"/>
+<meta content="444736788986613" data-vue-meta="ssr" property="fb:app_id"/><meta content="472597926099084" data-vue-meta="ssr" property="fb:pages"/><meta content="summary_large_image" data-vue-meta="ssr" name="twitter:card"/><meta content="@habr_com" data-vue-meta="ssr" name="twitter:site"/><meta content="Хабр" data-vmid="og:site_name" data-vue-meta="ssr" property="og:site_name"/><meta content="Основы OkHttp в Android-разработке" data-vmid="og:title" data-vue-meta="ssr" property="og:title"/><meta content="Основы OkHttp в Android-разработке" data-vmid="twitter:title" data-vue-meta="ssr" name="twitter:title"/><meta content="Основы OkHttp в Android-разработке" data-vmid="aiturec:title" data-vue-meta="ssr" name="aiturec:title"/><meta content="OkHttp&amp;nbsp;— библиотека и по&amp;nbsp;совместительству HTTP‑клиент с&amp;nbsp;открытым исходным кодом для&amp;nbsp;Java и Kotlin, разработанная Square, которая также создала Retrofit. OkHttp предоставляет..." data-vmid="description" data-vue-meta="ssr" name="description"/><meta content="OkHttp&amp;nbsp;— библиотека и по&amp;nbsp;совместительству HTTP‑клиент с&amp;nbsp;открытым исходным кодом для&amp;nbsp;Java и Kotlin, разработанная Square, которая также создала Retrofit. OkHttp предоставляет..." data-vmid="description:itemprop" data-vue-meta="ssr" itemprop="description"/><meta content="OkHttp&amp;nbsp;— библиотека и по&amp;nbsp;совместительству HTTP‑клиент с&amp;nbsp;открытым исходным кодом для&amp;nbsp;Java и Kotlin, разработанная Square, которая также создала Retrofit. OkHttp предоставляет..." data-vmid="og:description" data-vue-meta="ssr" property="og:description"/><meta content="OkHttp&amp;nbsp;— библиотека и по&amp;nbsp;совместительству HTTP‑клиент с&amp;nbsp;открытым исходным кодом для&amp;nbsp;Java и Kotlin, разработанная Square, которая также создала Retrofit. OkHttp предоставляет..." data-vmid="twitter:description" data-vue-meta="ssr" name="twitter:description"/><meta content="OkHttp&amp;nbsp;— библиотека и по&amp;nbsp;совместительству HTTP‑клиент с&amp;nbsp;открытым исходным кодом для&amp;nbsp;Java и Kotlin, разработанная Square, которая также создала Retrofit. OkHttp предоставляет..." data-vmid="aiturec:description" data-vue-meta="ssr" property="aiturec:description"/><meta content="https://habr.com/share/publication/717900/974b5402a9f21e0bf96b640b19b787c4/" data-vmid="image:itemprop" data-vue-meta="ssr" itemprop="image"/><meta content="https://habr.com/share/publication/717900/974b5402a9f21e0bf96b640b19b787c4/" data-vmid="og:image" data-vue-meta="ssr" property="og:image"/><meta content="1200" data-vmid="og:image:width" data-vue-meta="ssr" property="og:image:width"/><meta content="630" data-vmid="og:image:height" data-vue-meta="ssr" property="og:image:height"/><meta content="https://habr.com/share/publication/717900/974b5402a9f21e0bf96b640b19b787c4/" data-vmid="aiturec:image" data-vue-meta="ssr" property="aiturec:image"/><meta content="https://habr.com/share/publication/717900/974b5402a9f21e0bf96b640b19b787c4/" data-vmid="twitter:image" data-vue-meta="ssr" name="twitter:image"/><meta content="https://habr.com/share/publication/717900/974b5402a9f21e0bf96b640b19b787c4/?format=vk" data-vmid="vk:image" data-vue-meta="ssr" property="vk:image"/><meta content="717900" data-vmid="aiturec:item_id" data-vue-meta="ssr" property="aiturec:item_id"/><meta content="2023-02-22T13:55:05.000Z" data-vmid="aiturec:datetime" data-vue-meta="ssr" property="aiturec:datetime"/><meta content="https://habr.com/ru/post/717900/" data-vmid="og:url" data-vue-meta="ssr" property="og:url"/><meta content="article" data-vmid="og:type" data-vue-meta="ssr" property="og:type"/><meta content="ru_RU" data-vmid="og:locale" data-vue-meta="ssr" property="og:locale"/><meta content="kotlin, okhttp, viewmodel, retrofit, android, java, square, authenticator, get, post" data-vue-meta="ssr" name="keywords"/>
+
+<meta content="#303b44" name="apple-mobile-web-app-status-bar-style"/>
+<meta content="#629FBC" name="msapplication-TileColor"/>
+<meta content="yes" name="apple-mobile-web-app-capable"/>
+<meta content="yes" name="mobile-web-app-capable"/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body>
+<div data-async-called="true" data-server-rendered="true" id="app"><div class="tm-layout__wrapper"><!-- --> <div></div> <div class="tm-feature tm-feature"><!-- --></div> <header class="tm-header"><div class="tm-page-width"><div class="tm-header__container"><div class="tm-header__burger-nav"><button class="tm-header__button tm-header__button_burger" type="button"><svg class="tm-svg-img tm-header__icon tm-header__icon-burger" height="16" width="16"><title>Меню</title> <use xlink:href="/img/megazord-v28.2b11c25e..svg#header-burger"></use></svg></button></div> <span class="tm-header__logo-wrap"><a class="tm-header__logo tm-header__logo_ru" href="/ru/"><svg class="tm-svg-img tm-header__icon" height="16" width="16"><title>Хабр</title> <use xlink:href="/img/habr-logo-ru.svg#logo"></use></svg></a> <span class="tm-header__beta-sign" style="display:none;">β</span></span> <!-- --> <div class="tm-header-user-menu tm-header_user-menu"><a class="tm-header-user-menu__item tm-header-user-menu__search" href="/ru/search/"><svg class="tm-svg-img tm-header-user-menu__icon tm-header-user-menu__icon_search" height="24" width="24"><title>Поиск</title> <use xlink:href="/img/megazord-v28.2b11c25e..svg#search"></use></svg></a> <!-- --> <!-- --> <!-- --> <div class="tm-header-user-menu__item"><button class="tm-header-user-menu__toggle" data-test-id="menu-toggle-guest"><svg class="tm-svg-img tm-header-user-menu__icon tm-header-user-menu__icon_white" height="24" width="24"><title>Профиль</title> <use xlink:href="/img/megazord-v28.2b11c25e..svg#header-user"></use></svg></button> <!-- --></div> <!-- --></div></div></div></header> <div class="tm-layout"><div class="tm-page-progress-bar"></div> <!-- --> <!-- --> <div class="tm-page-width"></div> <main class="tm-layout__container"><div class="tm-page" data-async-called="true" hl="ru"><div class="tm-page-width"><!-- --> <div class="tm-page__wrapper"><div class="tm-page__main tm-page__main_has-sidebar"><div class="pull-down"><!-- --> <div class="pull-down__header" style="height:0px;"><div class="pull-down__content" style="bottom:10px;"><svg class="tm-svg-img pull-down__arrow" height="24" width="24"><title>Обновить</title> <use xlink:href="/img/megazord-v28.2b11c25e..svg#pull-arrow"></use></svg></div></div> <div class="tm-article-presenter"> <div class="tm-article-presenter__body"><div class="tm-misprint-area"><div class="tm-misprint-area__wrapper"><article class="tm-article-presenter__content tm-article-presenter__content_narrow"><div class="tm-article-presenter__header"> <div class="tm-article-snippet tm-article-presenter__snippet tm-article-snippet"><div class="tm-article-snippet__meta-container"><div class="tm-article-snippet__meta"><span class="tm-user-info tm-article-snippet__author"><a class="tm-user-info__userpic" href="/ru/users/HIntergalactic/" title="HIntergalactic"><div class="tm-entity-image"><svg class="tm-svg-img tm-image-placeholder tm-image-placeholder_lilac" height="32" width="32"><!-- --> <use xlink:href="/img/megazord-v28.2b11c25e..svg#placeholder-user"></use></svg></div></a> <span class="tm-user-info__user"><a class="tm-user-info__username" href="/ru/users/HIntergalactic/">
+      HIntergalactic
+      <!-- --></a> <span class="tm-article-datetime-published"><time datetime="2023-02-22T13:55:05.000Z" title="2023-02-22, 16:55">6 часов назад</time></span></span></span></div> <!-- --></div> <h1 class="tm-article-snippet__title tm-article-snippet__title_h1" lang="ru"><span>Основы OkHttp в Android-разработке</span></h1> <div class="tm-article-snippet__stats"><div class="tm-article-complexity tm-article-complexity_complexity-low"><span class="tm-svg-icon__wrapper tm-article-complexity__icon"><svg class="tm-svg-img tm-svg-icon" height="24" width="24"><title>Уровень сложности</title> <use xlink:href="/img/megazord-v28.2b11c25e..svg#complexity-low"></use></svg></span> <span class="tm-article-complexity__label">
+    Простой
+  </span></div> <div class="tm-article-reading-time"><span class="tm-svg-icon__wrapper tm-article-reading-time__icon"><svg class="tm-svg-img tm-svg-icon" height="24" width="24"><title>Время на прочтение</title> <use xlink:href="/img/megazord-v28.2b11c25e..svg#clock"></use></svg></span> <span class="tm-article-reading-time__label">
+    17 мин
+  </span></div> <span class="tm-icon-counter tm-data-icons__item"><svg class="tm-svg-img tm-icon-counter__icon" height="24" width="24"><title>Количество просмотров</title> <use xlink:href="/img/megazord-v28.2b11c25e..svg#counter-views"></use></svg> <span class="tm-icon-counter__value">305</span></span></div> <div class="tm-article-snippet__hubs-container"><div class="tm-article-snippet__hubs"><span class="tm-article-snippet__hubs-item"><a class="tm-article-snippet__hubs-item-link" href="/ru/hub/java/"><span>Java</span> <span class="tm-article-snippet__profiled-hub" title="Профильный хаб">*</span></a></span><span class="tm-article-snippet__hubs-item"><a class="tm-article-snippet__hubs-item-link" href="/ru/hub/android_dev/"><span>Разработка под Android</span> <span class="tm-article-snippet__profiled-hub" title="Профильный хаб">*</span></a></span><span class="tm-article-snippet__hubs-item"><a class="tm-article-snippet__hubs-item-link" href="/ru/hub/kotlin/"><span>Kotlin</span> <span class="tm-article-snippet__profiled-hub" title="Профильный хаб">*</span></a></span></div></div> <div class="tm-article-snippet__labels-container"><div class="tm-article-snippet__labels"><div class="tm-article-snippet__label tm-article-snippet__label_variant-tutorial"><span>
+          Туториал
+        </span></div> </div></div> <!-- --> <!-- --></div></div> <!-- --> <div class="tm-article-body" data-gallery-root="" lang="ru"><div></div> <div id="post-content-body"><div><div class="article-formatted-body article-formatted-body article-formatted-body_version-2"><div xmlns="http://www.w3.org/1999/xhtml"><p>OkHttp — библиотека и по совместительству HTTP‑клиент с открытым исходным кодом для Java и Kotlin, разработанная Square, которая также создала Retrofit.</p><p>OkHttp предоставляет простой, легкий в использовании API для выполнения HTTP‑запросов, включая поддержку протоколов HTTP/1.1 и HTTP/2. Библиотека поддерживает все стандартные методы HTTP и может легко обрабатывать несколько одновременных запросов, а также предоставляет расширенные возможности: кэширование запросов/ответов, объединение подключений в пул (connection pooling), аутентификация и др.</p><p>О том, почему иногда стоит использовать OkHttp, а не вездесущий Retrofit, можно посмотреть в <a href="https://youtu.be/r6Ga9a5w6V0" rel="noopener noreferrer nofollow">видео от Android Broadcast</a>. Краткое пояснение дано в следующем пункте статьи.</p><p>В статье подробно рассмотрены основные классы и методы библиотеки и представлены основы работы с ней в Android‑разработке.</p><p>Содержание:</p><ul><li><p>Преимущества OkHttp</p></li><li><p>Основные классы и методы</p></li><li><p>Простой GET‑запрос (синхронный/асинхронный)</p></li><li><p>Сериализация/десериализация</p></li><li><p>Простой POST‑запрос</p></li><li><p>Особенности работы с HTTPS</p></li><li><p>Аутентификация на сервере</p></li><li><p>Использование вместе с ViewModel</p></li></ul><h2>Преимущества OkHttp</h2><p>OkHttp — это библиотека более низкого уровня, чем Retrofit. Это означает, что HTTP‑запросы, автоматизированные в Retrofit с помощью аннотаций, придётся писать вручную. Однако в этом и главный плюс библиотеки: она предоставляет более обширный функционал и настройки соединения, что может повысить производительность и сократить использование памяти. К слову, Retrofit под капотом использует OkHttp.</p><p>Библиотека разработана как легкая и эффективная, с акцентом на снижение задержек и повышение работоспособности. Это достигается за счет применения различных методов оптимизации, таких как повторное использование соединений, сжатие и конвейеризация.</p><p>Преимущества OkHttp:</p><ul><li><p>Гибкость: Библиотека предоставляет больше контроля над процессом сетевого взаимодействием за счёт дополнительных функций, например, пользовательской обработки запросов и ответов.</p></li><li><p>Лёгкость: OkHttp — более компактная библиотека, чем Retrofit, что позволяет минимизировать размер используемой приложением памяти.</p></li><li><p>Кэширование: Библиотека имеет встроенную поддержку HTTP‑кэширования, что может повысить производительность и снизить нагрузку на сеть.</p></li><li><p>Аутентификация: OkHttp предоставляет гибкий и расширяемый API аутентификации, что упрощает реализацию различных её моделей.</p></li><li><p>Перехватчики (Interceptors): Это механизм, позволяющий легко настраивать запросы и ответы, а также хороший выбор для приложений, требующих расширенной обработки запросов.</p></li><li><p>WebSockets: OkHttp обеспечивает встроенную поддержку WebSockets, что позволяет легко реализовать коммуникацию с сервером в режиме реального времени.</p></li></ul><h2>Основные классы и методы</h2><h4>1) Настройка клиента и запроса</h4><p>Класс <a href="https://square.github.io/okhttp/4.x/okhttp/okhttp3/-ok-http-client/" rel="noopener noreferrer nofollow">OkHttpClient </a>— клиент для HTTP-вызовов, который можно использовать для отправки запросов и чтения ответов.</p><p><a href="https://square.github.io/okhttp/3.x/okhttp/okhttp3/OkHttpClient.Builder.html" rel="noopener noreferrer nofollow">OkHttpClient.Builder</a> — класс предоставляющий методы для настройки клиента, например кэш, аутентификация, перехватчики, тайм-ауты и др. По завершению настройки используется метод build(), который возвращает экземпляр класса OkHttpClient.</p><p>OkHttp работает лучше при создании одного экземпляра OkHttpClient и повторном его использовании для всех HTTP-вызовов. Так происходит потому, что каждый клиент содержит свой собственный пул соединений и пул потоков. Повторное использование соединений и потоков уменьшает задержку и экономит память. И наоборот, создание клиента для каждого запроса приводит к трате ресурсов на незадействованные пулы.</p><p>Класс <a href="https://square.github.io/okhttp/3.x/okhttp/okhttp3/Request.html" rel="noopener noreferrer nofollow">Request</a> представляет собой HTTP-запрос. <a href="https://square.github.io/okhttp/3.x/okhttp/okhttp3/Request.Builder.html" rel="noopener noreferrer nofollow">Request.Builder</a> позволяет установить параметры запроса, например url и заголовки.</p><p>В целом, HTTP-заголовки представляют собой что-то похожее на Map&lt;String, String&gt;: каждое поле имеет одно значение или не имеет его вовсе. Однако некоторые заголовки могут иметь несколько значений. В связи с этим для добавления заголовка к запросу применяются два метода:</p><ul><li><p><strong>header(name, value)</strong> — устанавливает только одно значение заголовка name. При этом все существующие значения заголовка будут удалены, и после этого будет установлено новое значение.</p></li><li><p><strong>addHeader(name, value)</strong> — добавляет заголовок без удаления уже имеющихся значений.</p></li></ul><p>При чтении заголовка из ответа используйте header(name), чтобы вернуть последнее вхождение заголовка (зачастую это единственное вхождение). Если значение отсутствует, header(name) вернет null. Чтобы прочитать все значения заголовка в виде списка, используйте headers(name).</p><p>Для установки целевого URL-адреса запроса используется метод <strong>url()</strong>. По завершению настройки запроса используется метод <strong>build()</strong>, который возвращает объект Request.</p><h4>2) Отправка запроса</h4><p><strong>newCall </strong>— метод класса OkHttpClient, который подготавливает запрос к выполнению в будущем. Принимает объект Request и возвращает объект Call.</p><p>Класс <strong>Call </strong>(вызов) — это запрос, который был подготовлен к выполнению. Вызов может быть отменен. Поскольку экземпляр класса представляет одну пару запрос/ответ, он не может быть выполнен дважды. Для выполнения запроса существуют два метода:</p><ul><li><p><strong>execute()</strong> — при синхронном вызове. Метод незамедлительно выполняет запрос и блокирует поток до тех пор, пока ответ не будет доступен для обработки или пока не возникнет ошибка.</p></li><li><p><strong>enqueue()</strong> — при асинхронном вызове. Метод назначает запрос на выполнение в определенный момент в будущем. Диспетчер определяет, когда будет выполнен запрос: обычно сразу же, если в данный момент не выполняются несколько других запросов. Позже клиент получает объект responseCallback либо с HTTP-ответом, либо с исключением в случае возникновения ошибки.</p></li></ul><h4>3) Чтение ответа</h4><p>Класс <a href="https://square.github.io/okhttp/4.x/okhttp/okhttp3/-response/" rel="noopener noreferrer nofollow">Response </a>представляет HTTP-ответ. Тело ответа — свойство экземпляра класса, которое может быть использовано только один раз и затем закрыто. Все остальные свойства неизменяемы.</p><p>Прежде чем как-либо использовать тело ответа, необходимо проверить, был ли запрос к серверу успешен. Для этого существует метод <strong>isSuccessful()</strong> вышеупомянутого класса. Метод проверяет код состояния (status code) HTTP-ответа и возвращает значение true, если код находится в диапазоне 200-300. Если код находится за пределами этого диапазона, он возвращает значение false, указывающее, что запрос не был успешным.</p><p>Неуспешный запрос означает, что возникли проблемы на стороне клиента или сервера. Например, запрос был неправильно составлен, на сервере произошла ошибка или сервер некорректно обработал запрос. Если не проверять код состояния, то в конечном счёте можно работать с ответом, который не содержит ожидаемых данных.</p><p>Для получения тела ответа используется метод <strong>body()</strong> класса Response, который возвращает экземпляр класса ResponseBody.</p><p><a href="https://square.github.io/okhttp/4.x/okhttp/okhttp3/-response-body/" rel="noopener noreferrer nofollow">ResponseBody </a>— одноразовый поток от сервера к клиенту, содержащий тело ответа в виде необработанных байтов. Каждое тело ответа поддерживается активным подключением к веб-серверу.</p><p>Класс ResponseBody поддерживает потоковую передачу очень больших ответов. Например, его можно использовать для чтения ответа, размер которого превышает всю память, выделенную текущему процессу. Можно даже передавать в потоковом режиме ответ, объем которого превышает общий объем памяти на текущем устройстве, что является обычным требованием для стриминговых видео-приложений.</p><p>Класс не загружает весь ответ в память, поэтому тело ответа может быть считано только один раз. Для этого существует несколько методов:</p><ul><li><p><strong>bytes()</strong> и <strong>string()</strong> — считывают весь текст ответа в память, а затем возвращают его в виде массива байтов или строки соответственно. Методы следует использовать только для небольших ответов. При считывании больших ответов будет вызвана ошибка OutOfMemoryError.</p></li><li><p><strong>source</strong>, <strong>byteStream</strong>, <strong>charStream</strong> — предназначены для потокового чтения ответа. Метод source возвращает объект BufferedSource, позволяющий читать тело ответа в виде потока байтов. byteStream работает аналогично, но возвращает объект InputStream. charStream — возвращает объект Reader, который позволяет читать тело ответа в виде потока символов.</p></li></ul><p>Если использовать body() без упомянутых методов, то будет получен сам объект ResponseBody, с которым ничего особо не поделаешь.</p><h2>Простой GET-запрос (синхронный/асинхронный)</h2><p>Перед использованием библиотеки нужно добавить соответствующую зависимость в Gradle:</p><pre><code class="java">implementation 'com.squareup.okhttp3:okhttp:4.10.0'</code></pre><p>Номер последней версии можно посмотреть на <a href="https://search.maven.org/artifact/com.squareup.okhttp3/okhttp/4.10.0/jar" rel="noopener noreferrer nofollow">Maven Central</a>.</p><p>Синхронный запрос (Java):</p><pre><code class="java">OkHttpClient client = new OkHttpClient();
+
+Request request = new Request.Builder()
+        .url("https://publicobject.com/helloworld.txt")
+        .build();
+
+try (Response response = client.newCall(request).execute()) {
+    if (!response.isSuccessful()) {
+        throw new IOException("Запрос к серверу не был успешен: " +
+                response.code() + " " + response.message());
+    }
+    // пример получения конкретного заголовка ответа
+    System.out.println("Server: " + response.header("Server"));
+    // вывод тела ответа
+    System.out.println(response.body().string());
+} catch (IOException e) {
+    System.out.println("Ошибка подключения: " + e);
+}</code></pre><p>Синхронный запрос (Kotlin):</p><pre><code class="kotlin">val client = OkHttpClient()
+
+val request = Request.Builder()
+    .url("https://publicobject.com/helloworld.txt")
+    .build()
+
+try {
+    client.newCall(request).execute().use { response -&gt;
+        if (!response.isSuccessful) {
+            throw IOException("Запрос к серверу не был успешен:" +
+                    " ${response.code} ${response.message}")
+        }
+        // пример получения конкретного заголовка ответа
+        println("Server: ${response.header("Server")}")
+        // вывод тела ответа
+        println(response.body!!.string())
+    }
+} catch (e: IOException) {
+    println("Ошибка подключения: $e");
+}</code></pre><p>В то время как в Java используются методы объектов, в Kotlin иногда используются их свойства. Например, свойство body объекта Response.</p><p>Каждое тело ответа поддерживается ограниченным ресурсом. Поэтому после использования оно должно быть закрыто. Закрытие ресурса освобождает все системные средства, которые были выделены ресурсу, и делает его доступным для сбора мусора (garbage collection). Если не закрыть тело ответа, произойдет утечка ресурсов, что в конечном итоге может привести к замедлению или крашу приложения.</p><p>Для закрытия ресурса можно использовать метод close(), но предпочтительнее использовать блок try-with-resources (Java) и метод use (Kotlin). Обе конструкции выполняют блок кода относительно заданного ресурса, а затем корректно закрывают его, независимо от того, вызвано исключение или нет.</p><p>Асинхронный запрос (Java):</p><pre><code class="java">OkHttpClient client = new OkHttpClient();
+
+Request request = new Request.Builder()
+        .url("http://publicobject.com/helloworld.txt")
+        .build();
+
+client.newCall(request).enqueue(new Callback() {
+    @Override
+    public void onFailure(Call call, IOException e) {
+        e.printStackTrace();
+    }
+
+    @Override
+    public void onResponse(Call call, Response response) throws IOException {
+        try (ResponseBody responseBody = response.body()) {
+            if (!response.isSuccessful()) {
+                throw new IOException("Запрос к серверу не был успешен: " +
+                        response.code() + " " + response.message());
+            }
+
+            // пример получения всех заголовков ответа
+            Headers responseHeaders = response.headers();
+            for (int i = 0, size = responseHeaders.size(); i &lt; size; i++) {
+                // вывод заголовков
+                System.out.println(responseHeaders.name(i) + ": "
+                        + responseHeaders.value(i));
+            }
+            // вывод тела ответа
+            System.out.println(responseBody.string());
+        }
+    }
+});</code></pre><p>Асинхронный запрос (Kotlin):</p><pre><code class="kotlin">val client = OkHttpClient()
+
+val request = Request.Builder()
+    .url("http://publicobject.com/helloworld.txt")
+    .build()
+
+client.newCall(request).enqueue(object : Callback {
+    override fun onFailure(call: Call, e: IOException) {
+        e.printStackTrace()
+    }
+
+    override fun onResponse(call: Call, response: Response) {
+        response.use {
+            if (!response.isSuccessful) {
+                throw IOException("Запрос к серверу не был успешен:" +
+                        " ${response.code} ${response.message}")
+            }
+            // пример получения всех заголовков ответа
+            for ((name, value) in response.headers) {
+                println("$name: $value")
+            }
+            // вывод тела ответа
+            println(response.body!!.string())
+        }
+    }
+})</code></pre><p>Асинхронный запрос выполняется в потоке Worker. Когда ответ доступен для чтения выполняется обратный вызов (сallback). Этот вызов выполнится после того, как будут готовы заголовки ответа. Чтение тела ответа все еще может блокировать поток. OkHttp в настоящее время не предлагает асинхронных API для получения тела ответа по частям.</p><p><strong>Callback</strong> имеет два абстрактных метода:</p><ul><li><p><strong>onResponse</strong> — вызывается, когда HTTP-ответ был успешно получен от удаленного сервера.</p></li><li><p><strong>onFailure</strong> — вызывается, когда запрос не может быть выполнен из-за проблем с подключением, тайм-аута или при его отмене. Поскольку в сети может произойти сбой во время соединения с сервером, возможен случай, когда удаленный сервер успевает принять запрос до сбоя.</p></li></ul><h2>Сериализация/десериализация</h2><p>В данном пункте кратко рассмотрена сериализация и десериализация объектов (их преобразование в определённую последовательность байтов, которую можно передать по сети, и наоборот).</p><p>Для того, чтобы преобразовать объект в строку JSON или наоборот можно воспользоваться библиотеками Gson и/или Moshi.</p><p>Вкратце, если вам нужна проста использования и широкий набор функций, то выбираете Gson. Если нужна производительность и эффективное использование памяти, то лучшим выбором будет Moshi.</p><p>Рассмотрим пример сериализации с помощью Moshi (Java):</p><pre><code class="java">// Создание объекта Moshi
+Moshi moshi = new Moshi.Builder().build();
+// Создание адаптера
+JsonAdapter&lt;SomeClass&gt; jsonAdapterRequest =
+        moshi.adapter(SomeClass.class);
+// Сериализация, SomeClassInstance - экземляр класса SomeClass
+String jsonRequest = jsonAdapterRequest.toJson(SomeClassInstance);</code></pre><p>То же самое в Kotlin:</p><pre><code class="kotlin">// Создание объекта Moshi,
+// для Kotlin необходимо добавлять KotlinJsonAdapterFactory
+val moshi = Moshi.Builder()
+    .add(KotlinJsonAdapterFactory()).build()
+// Создание адаптера
+val jsonAdapterRequest = moshi.adapter(SomeClass::class.java)
+// Сериализация, SomeClassInstance - экземляр класса SomeClass
+val jsonRequest = jsonAdapterRequest.toJson(SomeClassInstance)</code></pre><p>Для сериализации необходимо создать объект Moshi, адаптер и передать ему тип сериализуемого объекта. В данном случае это тип Class.</p><p>Если требуется сериализовать более сложный объект, например коллекцию, то тип можно передать двумя способами.</p><p>1) С помощью метода Types.newParameterizedType(), который создает новый параметризованный тип.  </p><pre><code class="java">// Java
+JsonAdapter&lt;List&lt;SomeClass&gt;&gt; jsonAdapterRequest = moshi.adapter(
+        Types.newParameterizedType(List.class, SomeClass.class)
+);</code></pre><pre><code class="kotlin">// Kotlin
+val jsonAdapterRequest = moshi.adapter&lt;List&lt;SomeClass&gt;&gt;(
+    Types.newParameterizedType(List::class.java, SomeClass::class.java)</code></pre><p>2) С помощью класса TypeToken библиотеки Gson. Класс используется для передачи информации о типах во время выполнения программы. Конструктор класса возвращает представленный класс из заданного типа.</p><pre><code class="java">// Java
+JsonAdapter&lt;List&lt;SomeClass&gt;&gt; jsonAdapterRequest =
+        moshi.adapter(new TypeToken&lt;List&lt;SomeClass&gt;&gt;(){}.getType());</code></pre><pre><code class="kotlin">// Kotlin
+val jsonAdapterRequest = moshi.adapter&lt;List&lt;SomeClass&gt;&gt;(
+    object : TypeToken&lt;List&lt;SomeClass?&gt;?&gt;(){}.type
+)</code></pre><p>Разница способов состоит в том, что TypeToken более типобезопасен (typesafe), а Types.newParameterizedType более эффективен.</p><p>Десериализация осуществляется аналогичным образом.</p><pre><code class="java">// Java
+
+// Создание адаптера для десериализации
+// Используется тот же объект Moshi, что и при сериализации
+JsonAdapter&lt;SomeClass&gt; jsonAdapterResponse = 
+        moshi.adapter(SomeClass.class);
+// Десериализация
+String jsonResponse = jsonAdapterResponse.fromJson(receivedData);</code></pre><pre><code class="kotlin">// Kotlin
+
+// Создание адаптера для десериализации
+// Используется тот же объект Moshi, что и при сериализации
+val jsonAdapterResponse = moshi.adapter(SomeClass::class.java)
+// Десериализация
+val jsonResponse = jsonAdapterResponse.fromJson(receivedData)</code></pre><p>При сериализации/десериализации Moshi может вызывать разного рода исключения, к примеру если десериализуемая строка не является строкой JSON или если строка не соответствует объекту, в который её пытаются преобразовать.</p><p>Если серверная и клиентская часть настроены правильно, то такого не должно происходить. Но всё же рекомендуется оборачивать операции Moshi в блок try-catch.</p><h2>Простой POST-запрос</h2><p>Чтобы сделать POST-запрос, используется метод <strong>post()</strong> класса Request.Builder. Метод принимает RequestBody, который он добавляет к запросу.</p><p>POST-запрос в Java:</p><pre><code class="java">MediaType JSON = MediaType.get("application/json; charset=utf-8");
+String jsonRequest = "Some request";
+
+OkHttpClient client = new OkHttpClient();
+RequestBody body = RequestBody.create(jsonRequest, JSON);
+Request.Builder requestBuilder = new Request.Builder().url(serverUrl).post(body);
+Request request = requestBuilder.build();
+
+try (Response response = client.newCall(request).execute()) {
+    if (!response.isSuccessful()) {
+        throw new IOException("Запрос к серверу не был успешен: " +
+                response.code() + " " + response.message());
+    }
+    System.out.println(response.body().string());
+} catch (IOException e) {
+    System.out.println("Ошибка подключения: " + e);
+}</code></pre><p>POST-запрос в Kotlin:</p><pre><code class="kotlin">val jsonRequest = "some request"
+val JSON = "application/json; charset=utf-8".toMediaType()
+
+val client = OkHttpClient()
+val body: RequestBody = jsonRequest.toRequestBody(JSON)
+val request = Request.Builder().url(serverUrl).post(body).build()
+
+try {
+    client.newCall(request).execute().use { response -&gt;
+        if (!response.isSuccessful) {
+            throw IOException("Запрос к серверу не был успешен:" +
+                    " ${response.code} ${response.message}")
+        }
+        println(response.body!!.string())
+    }
+} catch (e: IOException) {
+    println("Ошибка подключения: $e")
+}</code></pre><p>Объект MediaType необходим для описания типа содержимого тела запроса или ответа. Обычно он используется для установки заголовка "Content-Type" в HTTP-запросе.</p><p>Чтобы получить объект <a href="https://square.github.io/okhttp/3.x/okhttp/index.html?okhttp3/MediaType.html" rel="noopener noreferrer nofollow">MediaType </a>можно использовать один из статических методов одноименного класса:</p><ul><li><p><strong>MediaType.parse(String)</strong> — создает новый экземпляр MediaType с указанным типом содержимого и кодировкой. Функция возвращает медиатип для строки, или null, если строка не является правильно сформированным медиатипом.</p></li><li><p><strong>MediaType.get(String)</strong> — работает аналогично MediaType.parse, но если строка сформирована неправильно, то вызывает исключение IllegalArgumentException.</p></li></ul><p>В Kotlin используется метод <strong>toMediaType()</strong> объекта String. Метод является аналогом MediaType.get(String).</p><p><a href="https://square.github.io/okhttp/3.x/okhttp/okhttp3/RequestBody.html" rel="noopener noreferrer nofollow">RequestBody </a>— класс, представляющий собой тело запроса. Экземпляр класса создаётся с помощью метода create.</p><p><strong>RequestBody.create(MediaType, String)</strong> создает тело запроса с указанным содержимым и его типом. Метод имеет несколько реализаций. Содержимое можно передать в виде массива байтов, файла, строки или объекта okio.ByteString. Тип содержимого всегда указывается с помощью объекта MediaType. Этот объект также устанавливает заголовку "Content-type" соответствующее значение, поэтому вручную устанавливать этот заголовок не нужно.</p><p>Аналогом RequestBody.create(MediaType, String) в Kotlin является метод <strong>toRequestBody(MediaType?)</strong> объекта String.</p><h2>Особенности работы с HTTPS</h2><p>OkHttp пытается балансировать между двумя задачами:</p><ul><li><p>Подключение к максимально возможному количеству хостов. Сюда входят как современные хосты, на которых используются последние версии boringssl, так и немного устаревшие хосты, на которых используются старые версии OpenSSL.</p></li><li><p>Безопасность соединения. Сюда входит проверка удаленного веб-сервера с помощью сертификатов и конфиденциальность данных, передаваемых с помощью надежных шифров.</p></li></ul><p>При согласовании соединения с HTTPS-сервером OkHttp должен знать, какие предлагать версии TLS и наборы шифров. Для клиента, который хочет максимизировать возможность соединения с различными серверами, это будут устаревшие версии TLS и слабые по конструкции наборы шифров. Для клиента, который хочет максимизировать безопасность, это будут только последняя версия TLS и самые сильные наборы шифров.</p><p>Конкретные решения по безопасности и соединению реализуются с помощью ConnectionSpec. OkHttp включает четыре встроенных типа соединений:</p><ul><li><p>RESTRICTED_TLS - безопасная конфигурация, предназначенная для удовлетворения более строгих требований по соответствию.</p></li><li><p>MODERN_TLS - безопасная конфигурация, позволяющая подключаться к современным HTTPS-серверам.</p></li><li><p>COMPATIBLE_TLS - безопасная конфигурация, которая подключается к безопасным, но менее современным серверам HTTPS.</p></li><li><p>CLEARTEXT - небезопасная конфигурация, которая используется для URL-адресов http://.</p></li></ul><p>По умолчанию OkHttp будет пытаться установить соединение MODERN_TLS. Если соединение MODERN_TLS не удастся, okhttp3 переключится на другой тип соединения. Точный механизм отката зависит от конкретной реализации okhttp3 и конфигурации, установленной разработчиками.</p><p>Настроить конфигурацию можно следующим образом:</p><pre><code class="java">OkHttpClient client = new OkHttpClient.Builder()
+    .connectionSpecs(Arrays.asList(
+        ConnectionSpec.MODERN_TLS, ConnectionSpec.COMPATIBLE_TLS))
+    .build()</code></pre><p>В <a href="https://square.github.io/okhttp/features/https/" rel="noopener noreferrer nofollow">официальной документации</a> можно найти дополнительные способы работы с HTTPS, такие как создание собственной спецификации подключения, закрепление сертификата и настройка доверенных сертификатов.</p><h2>Аутентификация на сервере</h2><p>Аутентификацию на сервере можно реализовать двумя способами.</p><p>1) Вручную добавить заголовок аутентификации. Полезно в случае, если нужна аутентификация только для одного запроса. Для того, чтобы добавлять заголовок ко всем запросам клиента, можно создать перехватчик. Способ полезен, если у вас статический ключ API или токен, который нужно отправлять с каждым запросом.  </p><pre><code class="kotlin">// Kotlin
+
+val client = OkHttpClient().newBuilder().addInterceptor { chain -&gt;
+        val originalRequest = chain.request()
+
+        val builder = originalRequest.newBuilder()
+               .header("Authorization", Credentials.basic("username", "password"))
+        val newRequest = builder.build()
+        chain.proceed(newRequest)
+    }.build()</code></pre><p>2) Использовать интерфейс <a href="https://square.github.io/okhttp/4.x/okhttp/okhttp3/-authenticator/" rel="noopener noreferrer nofollow">Authenticator </a>— полезно, когда необходимо динамически аутентифицироваться или нужна дополнительная настройка процесса аутентификации.</p><p>Интерфейс позволяет выполнить либо предварительную аутентификацию перед подключением к серверу, либо реактивную аутентификацию после получения ответа от веб-сервера или прокси-сервера.</p><p>Рассмотрим пример реактивной аутентификации. В таком случае, если код состояния ответа равен 401 (Unauthorized), OkHttp посылает повторный запрос, включающий заголовок "Authorization".</p><p>При этом важно сделать проверку, была ли в первоначальном запросе попытка аутентификации. Если да, то, скорее всего, дальнейшие попытки будут бесполезны, и аутентификатор должен отказаться от них.</p><pre><code class="java">// Java
+
+OkHttpClient.Builder client = new OkHttpClient.Builder();
+client.authenticator((route, response) -&gt; {
+    if (response.request().header("Authorization") != null) {
+        return null; // Остановить попытки аутентификации,
+        // т.к. у нас уже не получилось это сделать
+    }
+    String credential = Credentials.basic("name", "password");
+    return response.request().newBuilder()
+            .header("Authorization", credential).build();
+});</code></pre><p>Здесь метод <strong>authenticator</strong> с помощью лямбда-функции устанавливает экземпляр интерфейса Authenticator, который предоставляет механизм для проверки ответа от сервера и возвращает запрос, включающий в себя учетные данные клиента. Метод <strong>Credentials.basic</strong> используется для кодирования имени пользователя и пароля при базовой аутентификации.</p><h2>Использование вместе с ViewModel</h2><p>Простой асинхронный запрос в ViewModel можно сделать следующим образом.</p><pre><code class="kotlin">// MainViewModel.kt
+
+private val _response = MutableLiveData&lt;String&gt;()
+val response: LiveData&lt;String&gt; = _response
+
+private val client = OkHttpClient()
+
+fun getResponseFromServer() {
+
+    val jsonRequest = "your request body"
+
+    val body = jsonRequest.toRequestBody(JSON)
+    val request = Request.Builder().url(BASE_URL).post(body).build()
+
+    client.newCall(request).enqueue(object : Callback {
+        override fun onFailure(call: Call, e: IOException) {
+            Log.d(TAG, "Ошибка подключения: $e")
+        }
+
+        override fun onResponse(call: Call, response: Response) {
+            response.use {
+                if (!response.isSuccessful) {
+                    throw Exception("Запрос к серверу не был успешен:" +
+                            " ${response.code} ${response.message}")
+                }
+                _response.postValue(response.body!!.string())
+            }
+        }
+    })
+}</code></pre><p>Метод <strong>postValue</strong> передаёт задачу по установке значения главному потоку. Если попытаться присвоить значение напрямую, то будет вызвано исключение java.lang.IllegalStateException: Cannot invoke setValue on a background thread.</p><p>Необходимо делать именно асинхронный запрос, чтобы не блокировать поток интерфейса и чтобы приложение оставалось отзывчивым. Либо можно самостоятельно настроить синхронный вызов в другом потоке.</p><p>Начиная с SDK 10 при попытке синхронного вызова в главном потоке будет вызвано исключение android.os.NetworkOnMainThreadException.</p><p>Чтобы сделать запрос в отдельном api-файле и передать ответ переменной из ViewModel можно воспользоваться механизмом callback.</p><pre><code class="kotlin">// SomeApiService.kt
+
+interface RequestCallback {
+    fun onSuccess(response: String)
+    fun onFailure(error: String)
+}
+
+class SomeApiService () {
+
+    private val client = OkHttpClient()
+
+    fun makeRequest(callback: RequestCallback) {
+
+        val jsonRequest = "your request body"
+
+        val body = jsonRequest.toRequestBody(JSON)
+        val request = Request.Builder().url(BASE_URL).post(body).build()
+
+        client.newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call, e: IOException) {
+                callback.onFailure(e.toString());
+            }
+
+            override fun onResponse(call: Call, response: Response) {
+                response.use {
+                    if (!response.isSuccessful) {
+                        throw Exception("Запрос к серверу не был успешен:" +
+                                " ${response.code} ${response.message}")
+                    }
+                    callback.onSuccess(response.body!!.string())
+                }
+            }
+        })
+    }
+}
+
+object SomeApi {
+    val someService : SomeApiService by lazy {
+        SomeApiService()
+    }
+}</code></pre><pre><code class="kotlin">// MainViewModel.kt
+
+private val _response = MutableLiveData&lt;String&gt;()
+val response: LiveData&lt;String&gt; = _response
+
+private val client = OkHttpClient()
+
+fun getResponseFromApi() {
+    SomeApi.someService.makeRequest(object : RequestCallback {
+        override fun onSuccess(response: String) {
+            _response.postValue(response)
+        }
+
+        override fun onFailure(error: String) {
+            Log.d(TAG, "Ошибка подключения: $error")
+        }
+    })
+}</code></pre><p>В файле SomeApiService.kt находится интерфейс RequestCallback, класс SomeApiService с методом makeRequest(), который делает запрос к серверу, и объект SomeApi, через который будет осуществляться доступ к экземпляру класса.</p><p>В MainViewModel.kt функция getResponseFromApi() реализует интерфейс RequestCallback и передает его в качестве параметра методу makeRequest().</p><p>Тело функции getResponseFromApi() можно обернуть во viewModelScope.launch {...}, чтобы запрос был отменён при очистке (разрушении) MainViewModel.</p><h2>Заключение</h2><p>OkHttp — гибкая библиотека, выступающая в роли HTTP-клиента.</p><p>В отличии Retrofit настраивать клиент, писать запросы и обрабатывать ответы необходимо вручную. Это одновременно и преимущество и недостаток OkHttp. Недостаток заключается в необходимости писать много шаблонного кода. Преимущество — возможность кастомизировать соединение.</p><p>Из-за слабой кастомизируемости в некоторых случаях Retrofit может не подойти, и без OkHttp не обойтись. Также благодаря кастомизации OkHttp можно повысить производительность и уменьшить использование памяти.</p><p>Полезные ресурсы: <a href="https://square.github.io/okhttp/4.x/okhttp/okhttp3/-authenticator/" rel="noopener noreferrer nofollow">Подробнее про Authenticator</a>; <a href="https://square.github.io/okhttp/recipes/#asynchronous-get-kt-java" rel="noopener noreferrer nofollow">Различные примеры использования библиотеки</a>; <a href="https://square.github.io/okhttp/features/interceptors/" rel="noopener noreferrer nofollow">Перехватчики (Interceptors)</a>.</p><p></p></div></div></div> <!-- --> <!-- --></div> <!-- --> <!-- --></div> <!-- --> <div class="tm-article-presenter__meta"><div class="tm-separated-list tm-article-presenter__meta-list"><span class="tm-separated-list__title">Теги:</span> <ul class="tm-separated-list__list"><li class="tm-separated-list__item"><a class="tm-tags-list__link" href="/ru/search/?target_type=posts&amp;order=relevance&amp;q=%5Bkotlin%5D">kotlin</a></li><li class="tm-separated-list__item"><a class="tm-tags-list__link" href="/ru/search/?target_type=posts&amp;order=relevance&amp;q=%5Bokhttp%5D">okhttp</a></li><li class="tm-separated-list__item"><a class="tm-tags-list__link" href="/ru/search/?target_type=posts&amp;order=relevance&amp;q=%5Bviewmodel%5D">viewmodel</a></li><li class="tm-separated-list__item"><a class="tm-tags-list__link" href="/ru/search/?target_type=posts&amp;order=relevance&amp;q=%5Bretrofit%5D">retrofit</a></li><li class="tm-separated-list__item"><a class="tm-tags-list__link" href="/ru/search/?target_type=posts&amp;order=relevance&amp;q=%5Bandroid%5D">android</a></li><li class="tm-separated-list__item"><a class="tm-tags-list__link" href="/ru/search/?target_type=posts&amp;order=relevance&amp;q=%5Bjava%5D">java</a></li><li class="tm-separated-list__item"><a class="tm-tags-list__link" href="/ru/search/?target_type=posts&amp;order=relevance&amp;q=%5Bsquare%5D">square</a></li><li class="tm-separated-list__item"><a class="tm-tags-list__link" href="/ru/search/?target_type=posts&amp;order=relevance&amp;q=%5Bauthenticator%5D">authenticator</a></li><li class="tm-separated-list__item"><a class="tm-tags-list__link" href="/ru/search/?target_type=posts&amp;order=relevance&amp;q=%5Bget%5D">get</a></li><li class="tm-separated-list__item"><a class="tm-tags-list__link" href="/ru/search/?target_type=posts&amp;order=relevance&amp;q=%5Bpost%5D">post</a></li></ul></div> <div class="tm-separated-list tm-article-presenter__meta-list"><span class="tm-separated-list__title">Хабы:</span> <ul class="tm-separated-list__list"><li class="tm-separated-list__item"><a class="tm-hubs-list__link" href="/ru/hub/java/">Java</a></li><li class="tm-separated-list__item"><a class="tm-hubs-list__link" href="/ru/hub/android_dev/">Разработка под Android</a></li><li class="tm-separated-list__item"><a class="tm-hubs-list__link" href="/ru/hub/kotlin/">Kotlin</a></li></ul></div></div></article></div> <!-- --></div> <div class="tm-article-sticky-panel"><div class="tm-data-icons tm-article-sticky-panel__icons"><div class="tm-article-rating tm-data-icons__item"><div class="tm-votes-meter tm-article-rating__votes-switcher"><svg class="tm-svg-img tm-votes-meter__icon tm-votes-meter__icon tm-votes-meter__icon_appearance-article" height="24" width="24"><title>Всего голосов 1: ↑1 и ↓0</title> <use xlink:href="/img/megazord-v28.2b11c25e..svg#counter-rating"></use></svg> <span class="tm-votes-meter__value tm-votes-meter__value tm-votes-meter__value_positive tm-votes-meter__value_appearance-article tm-votes-meter__value_rating" title="Всего голосов 1: ↑1 и ↓0">+1</span></div> <div class="v-portal" style="display:none;"></div></div> <!-- --> <!-- --> <button class="bookmarks-button tm-data-icons__item" title="Добавить в закладки" type="button"><span class="tm-svg-icon__wrapper bookmarks-button__icon"><svg class="tm-svg-img tm-svg-icon" height="24" width="24"><title>Добавить в закладки</title> <use xlink:href="/img/megazord-v28.2b11c25e..svg#counter-favorite"></use></svg></span> <span class="bookmarks-button__counter" title="Количество пользователей, добавивших публикацию в закладки">
+    13
+  </span></button> <div class="tm-article-comments-counter-link tm-data-icons__item" title="Читать комментарии"><a class="tm-article-comments-counter-link__link" href="/ru/post/717900/comments/"><svg class="tm-svg-img tm-article-comments-counter-link__icon" height="24" width="24"><title>Комментарии</title> <use xlink:href="/img/megazord-v28.2b11c25e..svg#counter-comments"></use></svg> <span class="tm-article-comments-counter-link__value">
+      1
+    </span></a> <!-- --></div> <div class="tm-sharing tm-data-icons__item" title="Поделиться"><button class="tm-sharing__button" type="button"><svg class="tm-sharing__icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M13.8 13.8V18l7.2-6.6L13.8 5v3.9C5 8.9 3 18.6 3 18.6c2.5-4.4 6-4.8 10.8-4.8z" fill="currentColor"></path></svg></button> <div class="v-portal" style="display:none;"></div></div> <div class="v-portal" style="display:none;"></div></div> </div></div> <div class="v-portal" style="display:none;"></div> <div class="tm-article-presenter__footer"><div class="tm-article-blocks"><!-- --> <div></div> <section class="tm-block tm-block tm-block_spacing-bottom"><!-- --> <div class="tm-block__body tm-block__body tm-block__body_variant-balanced"><div class="tm-article-author"> <div class="tm-user-card tm-article-author__user-card tm-user-card tm-user-card_variant-article"><div class="tm-user-card__info-container"><div class="tm-user-card__header"><div class="tm-user-card__header-data"><a class="tm-user-card__userpic tm-user-card__userpic_size-40" href="/ru/users/HIntergalactic/"><div class="tm-entity-image"><svg class="tm-svg-img tm-image-placeholder tm-image-placeholder_lilac"><!-- --> <use xlink:href="/img/megazord-v28.2b11c25e..svg#placeholder-user"></use></svg></div></a> <div class="tm-user-card__meta"><div class="tm-counter-container tm-karma tm-karma" title=" 3 голоса "><div class="tm-counter-container__header"><div class="tm-karma__votes tm-karma__votes_positive">
+      3
+    </div></div> <div class="tm-counter-container__footer"><div class="tm-karma__text">
+      Карма
+    </div> <div class="v-portal" style="display:none;"></div></div></div> <div class="tm-counter-container" title="Рейтинг пользователя"><div class="tm-counter-container__header"> <div class="tm-votes-lever tm-votes-lever tm-votes-lever_appearance-rating"><!-- --> <div class="tm-votes-lever__score tm-votes-lever__score tm-votes-lever__score_appearance-rating"><span class="tm-votes-lever__score-counter tm-votes-lever__score-counter tm-votes-lever__score-counter_rating">
+        8
+      </span></div> <!-- --></div></div> <div class="tm-counter-container__footer"><span class="tm-rating__text tm-rating__text">
+      Рейтинг
+    </span></div></div></div></div></div> <div class="tm-user-card__info tm-user-card__info tm-user-card__info_variant-article"><div class="tm-user-card__title tm-user-card__title tm-user-card__title_variant-article"><!-- --> <a class="tm-user-card__nickname tm-user-card__nickname tm-user-card__nickname_variant-article" href="/ru/users/HIntergalactic/">
+          @HIntergalactic
+        </a> <!-- --></div> <p class="tm-user-card__short-info tm-user-card__short-info tm-user-card__short-info_variant-article">Пользователь</p></div></div> <div class="tm-user-card__buttons tm-user-card__buttons tm-user-card__buttons_variant-article"><!-- --> <!-- --> <!-- --> <!-- --> <!-- --></div></div> <!-- --></div> <div class="v-portal" style="display:none;"></div></div> <!-- --></section> <div class="tm-adfox-banner__container tm-page-article__banner"><!-- --> <div class="tm-adfox-banner tm-adfox-banner tm-adfox-banner_variant-leaderboard" id="adfox_164725660339535756"></div></div> <div class="tm-article-blocks__comments"><div class="tm-article-page-comments"><div class="tm-article-comments-counter-link tm-article-comments-counter-button"><a class="tm-article-comments-counter-link__link tm-article-comments-counter-link__link_button-style" href="/ru/post/717900/comments/"><svg class="tm-svg-img tm-article-comments-counter-link__icon tm-article-comments-counter-link__icon_contrasted" height="24" width="24"><title>Комментарии</title> <use xlink:href="/img/megazord-v28.2b11c25e..svg#counter-comments"></use></svg> <span class="tm-article-comments-counter-link__value tm-article-comments-counter-link__value_contrasted">
+       Комментарии 1 
+    </span></a> <!-- --></div></div></div> <section class="tm-block tm-block tm-block_spacing-bottom"><header class="tm-block__header tm-block__header tm-block__header_variant-borderless"><div class="tm-block__header-container"><h2 class="tm-block__title tm-block__title tm-block__title_variant-large">Публикации</h2> </div> <!-- --></header> <div class="tm-block__body tm-block__body tm-block__body_variant-condensed-slim"><div class="tm-tabs tm-tabs"><div><span class="tm-tabs__tab-item"><button class="tm-tabs__tab-link tm-tabs__tab-link tm-tabs__tab-link_active tm-tabs__tab-link_slim">
+        Лучшие за сутки
+      </button></span><span class="tm-tabs__tab-item"><button class="tm-tabs__tab-link tm-tabs__tab-link tm-tabs__tab-link_slim">
+        Похожие
+      </button></span></div> <!-- --></div> <div class="similar-and-daily__tab-view"><div><!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <div class="tm-placeholder-article-cards"><div class="tm-placeholder-article-card"><div class="tm-placeholder__user"><div class="tm-placeholder__user-pic loads"></div> <div class="tm-placeholder__user-date loads"></div></div> <div class="tm-placeholder-article-card__title"><div class="tm-placeholder__line tm-placeholder-article-card__title-line loads"></div> <div class="tm-placeholder__line tm-placeholder-article-card__title-line loads"></div></div> <div class="tm-placeholder-article-card__icons tm-placeholder__counters"><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div></div></div><div class="tm-placeholder-article-card"><div class="tm-placeholder__user"><div class="tm-placeholder__user-pic loads"></div> <div class="tm-placeholder__user-date loads"></div></div> <div class="tm-placeholder-article-card__title"><div class="tm-placeholder__line tm-placeholder-article-card__title-line loads"></div> <div class="tm-placeholder__line tm-placeholder-article-card__title-line loads"></div></div> <div class="tm-placeholder-article-card__icons tm-placeholder__counters"><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div></div></div><div class="tm-placeholder-article-card"><div class="tm-placeholder__user"><div class="tm-placeholder__user-pic loads"></div> <div class="tm-placeholder__user-date loads"></div></div> <div class="tm-placeholder-article-card__title"><div class="tm-placeholder__line tm-placeholder-article-card__title-line loads"></div> <div class="tm-placeholder__line tm-placeholder-article-card__title-line loads"></div></div> <div class="tm-placeholder-article-card__icons tm-placeholder__counters"><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div></div></div><div class="tm-placeholder-article-card"><div class="tm-placeholder__user"><div class="tm-placeholder__user-pic loads"></div> <div class="tm-placeholder__user-date loads"></div></div> <div class="tm-placeholder-article-card__title"><div class="tm-placeholder__line tm-placeholder-article-card__title-line loads"></div> <div class="tm-placeholder__line tm-placeholder-article-card__title-line loads"></div></div> <div class="tm-placeholder-article-card__icons tm-placeholder__counters"><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div></div></div><div class="tm-placeholder-article-card"><div class="tm-placeholder__user"><div class="tm-placeholder__user-pic loads"></div> <div class="tm-placeholder__user-date loads"></div></div> <div class="tm-placeholder-article-card__title"><div class="tm-placeholder__line tm-placeholder-article-card__title-line loads"></div> <div class="tm-placeholder__line tm-placeholder-article-card__title-line loads"></div></div> <div class="tm-placeholder-article-card__icons tm-placeholder__counters"><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div></div></div></div> <!-- --> <!-- --> <!-- --> <!-- --></div> <!-- --></div></div> <!-- --></section> <section class="tm-block tm-stories-block tm-block tm-block_spacing-around" data-async-called="true" data-navigatable="" tabindex="0"><header class="tm-block__header tm-block__header"><div class="tm-block__header-container"><h2 class="tm-block__title tm-block__title">Истории</h2> </div> <!-- --></header> <div class="tm-block__body tm-block__body tm-block__body_variant-equal"><div class="tm-stories-empty"><div class="tm-stories-card-empty"><div class="tm-stories-card-empty__image"></div> <div class="tm-stories-card-empty__title"><div class="tm-stories-card-empty__title-block"></div> <div class="tm-stories-card-empty__title-block"></div> <div class="tm-stories-card-empty__title-block"></div></div></div><div class="tm-stories-card-empty"><div class="tm-stories-card-empty__image"></div> <div class="tm-stories-card-empty__title"><div class="tm-stories-card-empty__title-block"></div> <div class="tm-stories-card-empty__title-block"></div> <div class="tm-stories-card-empty__title-block"></div></div></div><div class="tm-stories-card-empty"><div class="tm-stories-card-empty__image"></div> <div class="tm-stories-card-empty__title"><div class="tm-stories-card-empty__title-block"></div> <div class="tm-stories-card-empty__title-block"></div> <div class="tm-stories-card-empty__title-block"></div></div></div><div class="tm-stories-card-empty"><div class="tm-stories-card-empty__image"></div> <div class="tm-stories-card-empty__title"><div class="tm-stories-card-empty__title-block"></div> <div class="tm-stories-card-empty__title-block"></div> <div class="tm-stories-card-empty__title-block"></div></div></div><div class="tm-stories-card-empty"><div class="tm-stories-card-empty__image"></div> <div class="tm-stories-card-empty__title"><div class="tm-stories-card-empty__title-block"></div> <div class="tm-stories-card-empty__title-block"></div> <div class="tm-stories-card-empty__title-block"></div></div></div><div class="tm-stories-card-empty"><div class="tm-stories-card-empty__image"></div> <div class="tm-stories-card-empty__title"><div class="tm-stories-card-empty__title-block"></div> <div class="tm-stories-card-empty__title-block"></div> <div class="tm-stories-card-empty__title-block"></div></div></div></div> <!-- --></div> <!-- --></section> <div><!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <div class="tm-placeholder-inset tm-placeholder-vacancies"><div class="tm-placeholder-inset__header"><div class="tm-placeholder__line tm-placeholder__line_inset-header loads"></div></div> <div class="tm-placeholder-inset__body"><ul class="tm-placeholder-list"><li class="tm-placeholder-list__item tm-placeholder-list__item_inset"><div class="tm-placeholder-list__title-container"><div class="tm-placeholder__line tm-placeholder__line_item-title loads"></div></div> <div class="tm-project-block-items__properties"><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span></div></li><li class="tm-placeholder-list__item tm-placeholder-list__item_inset"><div class="tm-placeholder-list__title-container"><div class="tm-placeholder__line tm-placeholder__line_item-title loads"></div></div> <div class="tm-project-block-items__properties"><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span></div></li><li class="tm-placeholder-list__item tm-placeholder-list__item_inset"><div class="tm-placeholder-list__title-container"><div class="tm-placeholder__line tm-placeholder__line_item-title loads"></div></div> <div class="tm-project-block-items__properties"><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span></div></li><li class="tm-placeholder-list__item tm-placeholder-list__item_inset"><div class="tm-placeholder-list__title-container"><div class="tm-placeholder__line tm-placeholder__line_item-title loads"></div></div> <div class="tm-project-block-items__properties"><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span></div></li><li class="tm-placeholder-list__item tm-placeholder-list__item_inset"><div class="tm-placeholder-list__title-container"><div class="tm-placeholder__line tm-placeholder__line_item-title loads"></div></div> <div class="tm-project-block-items__properties"><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span></div></li></ul></div> <div class="tm-placeholder-inset__footer"><div class="tm-placeholder__line tm-placeholder__line_inset-footer loads"></div></div></div> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --></div> <!-- --> <div><div><!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <div class="tm-placeholder-promo"><div class="tm-placeholder-promo__header"><div class="tm-placeholder__line tm-placeholder__line_promo-title"></div></div> <div class="tm-placeholder-promo__body"><div class="tm-placeholder-promo__posts"><div class="tm-placeholder-promo__post"><div class="tm-placeholder-promo__image"></div> <div class="tm-placeholder__line tm-placeholder__line_post-title"></div></div> <div class="tm-placeholder-promo__post"><div class="tm-placeholder-promo__image"></div> <div class="tm-placeholder__line tm-placeholder__line_post-title"></div></div> <div class="tm-placeholder-promo__post"><div class="tm-placeholder-promo__image"></div> <div class="tm-placeholder__line tm-placeholder__line_post-title"></div></div></div> <div class="tm-placeholder-promo__dots"><div class="tm-placeholder-promo__dot"></div> <div class="tm-placeholder-promo__dot"></div> <div class="tm-placeholder-promo__dot"></div></div></div></div> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --></div></div> <section class="tm-block tm-block tm-block_spacing-top" data-async-called="true"><header class="tm-block__header tm-block__header"><div class="tm-block__header-container"><h2 class="tm-block__title tm-block__title">Работа</h2> </div> <!-- --></header> <div class="tm-block__body tm-block__body"><div class="tm-vacancies-block__item"><a class="tm-vacancies-block__vacancy-title" href="https://career.habr.com/vacancies/java_developer" target="_blank">
+        Java разработчик
+      </a> <div class="tm-vacancies-block__vacancies-count">
+        456
+    вакансий
+      </div></div><div class="tm-vacancies-block__item"><a class="tm-vacancies-block__vacancy-title" href="https://career.habr.com/vacancies/android_developer" target="_blank">
+        Android разработчик 
+      </a> <div class="tm-vacancies-block__vacancies-count">
+        52
+    вакансии
+      </div></div></div> <footer class="tm-block__footer"><a class="tm-block-extralink" href="https://career.habr.com/catalog">
+      Все вакансии
+    </a></footer></section></div></div></div></div></div> <div class="tm-page__sidebar"><!-- --></div></div></div></div></main> <!-- --></div> <!-- --> <div class="tm-footer"><div class="tm-page-width"><div class="tm-footer__container"><div class="tm-footer__title"><a class="tm-svg-icon__wrapper tm-footer__title-link router-link-active" href="/ru/"><svg class="tm-svg-img tm-svg-icon" height="16" width="16"><title>Хабр</title> <use xlink:href="/img/habr-logo-ru.svg#logo"></use></svg></a></div> <div class="tm-footer__social"><a class="tm-svg-icon__wrapper tm-social-icons__icon" href="https://www.facebook.com/habrahabr.ru" rel="nofollow noopener noreferrer" target="_blank"><svg class="tm-svg-img tm-svg-icon" height="16" width="16"><title>Facebook</title> <use xlink:href="/img/social-icons-sprite.svg#social-logo-facebook"></use></svg></a><a class="tm-svg-icon__wrapper tm-social-icons__icon" href="https://twitter.com/habr_com" rel="nofollow noopener noreferrer" target="_blank"><svg class="tm-svg-img tm-svg-icon" height="16" width="16"><title>Twitter</title> <use xlink:href="/img/social-icons-sprite.svg#social-logo-twitter"></use></svg></a><a class="tm-svg-icon__wrapper tm-social-icons__icon" href="https://vk.com/habr" rel="nofollow noopener noreferrer" target="_blank"><svg class="tm-svg-img tm-svg-icon" height="16" width="16"><title>VK</title> <use xlink:href="/img/social-icons-sprite.svg#social-logo-vkontakte"></use></svg></a><a class="tm-svg-icon__wrapper tm-social-icons__icon" href="https://telegram.me/habr_com" rel="nofollow noopener noreferrer" target="_blank"><svg class="tm-svg-img tm-svg-icon" height="16" width="16"><title>Telegram</title> <use xlink:href="/img/social-icons-sprite.svg#social-logo-telegram"></use></svg></a><a class="tm-svg-icon__wrapper tm-social-icons__icon" href="https://www.youtube.com/channel/UCd_sTwKqVrweTt4oAKY5y4w" rel="nofollow noopener noreferrer" target="_blank"><svg class="tm-svg-img tm-svg-icon" height="16" width="16"><title>Youtube</title> <use xlink:href="/img/social-icons-sprite.svg#social-logo-youtube"></use></svg></a><a class="tm-svg-icon__wrapper tm-social-icons__icon" href="https://zen.yandex.ru/habr" rel="nofollow noopener noreferrer" target="_blank"><svg class="tm-svg-img tm-svg-icon" height="16" width="16"><title>Яндекс Дзен</title> <use xlink:href="/img/social-icons-sprite.svg#social-logo-zen"></use></svg></a></div> <div class="v-portal" style="display:none;"></div> <button class="tm-footer__link"><svg class="tm-svg-img tm-footer__icon" height="16" width="16"><title>Язык</title> <use xlink:href="/img/megazord-v28.2b11c25e..svg#lang"></use></svg>
+        Настройка языка
+      </button> <a class="tm-footer__link" href="/ru/feedback/">
+        Техническая поддержка
+      </a> <a class="tm-footer__link" href="/berserk-mode-nope">
+        Вернуться на старую версию
+      </a> <div class="tm-footer-copyright"><span class="tm-copyright"><span class="tm-copyright__years">© 2006–2023, </span> <span class="tm-copyright__name"><a class="tm-copyright__link" href="https://company.habr.com/" rel="noopener" target="_blank">Habr</a></span></span></div></div></div></div> <!-- --> <!-- --></div> <div class="vue-portal-target"></div></div>
+
+
+
+
+
+
+
+
+</body>
+</html>

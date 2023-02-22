@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+
+<html data-vue-meta="%7B%22lang%22:%7B%22ssr%22:%22ru%22%7D%7D" lang="ru">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1.0,viewport-fit=cover,maximum-scale=1,user-scalable=0" name="viewport"/>
+<meta content="unsafe-url" name="referrer"/>
+<title>Как построить MVP системы для удобной работы аналитика без Docker, Kubernetes и Airflow / Хабр</title>
+
+
+
+
+
+
+
+<meta content="2.113.0" name="habr-version"/>
+<meta content="444736788986613" data-vue-meta="ssr" property="fb:app_id"/><meta content="472597926099084" data-vue-meta="ssr" property="fb:pages"/><meta content="summary_large_image" data-vue-meta="ssr" name="twitter:card"/><meta content="@habr_com" data-vue-meta="ssr" name="twitter:site"/><meta content="Хабр" data-vmid="og:site_name" data-vue-meta="ssr" property="og:site_name"/><meta content="Как построить MVP системы для удобной работы аналитика без Docker, Kubernetes и Airflow" data-vmid="og:title" data-vue-meta="ssr" property="og:title"/><meta content="Как построить MVP системы для удобной работы аналитика без Docker, Kubernetes и Airflow" data-vmid="twitter:title" data-vue-meta="ssr" name="twitter:title"/><meta content="Как построить MVP системы для удобной работы аналитика без Docker, Kubernetes и Airflow" data-vmid="aiturec:title" data-vue-meta="ssr" name="aiturec:title"/><meta content="Всем привет! Меня зовут Максим Шептяков, и я занимаюсь продуктовой аналитикой уже больше четырёх лет. Так получилось, что я несколько раз приходил в компании или проекты, где (почти) совсем не было..." data-vmid="description" data-vue-meta="ssr" name="description"/><meta content="Всем привет! Меня зовут Максим Шептяков, и я занимаюсь продуктовой аналитикой уже больше четырёх лет. Так получилось, что я несколько раз приходил в компании или проекты, где (почти) совсем не было..." data-vmid="description:itemprop" data-vue-meta="ssr" itemprop="description"/><meta content="Всем привет! Меня зовут Максим Шептяков, и я занимаюсь продуктовой аналитикой уже больше четырёх лет. Так получилось, что я несколько раз приходил в компании или проекты, где (почти) совсем не было..." data-vmid="og:description" data-vue-meta="ssr" property="og:description"/><meta content="Всем привет! Меня зовут Максим Шептяков, и я занимаюсь продуктовой аналитикой уже больше четырёх лет. Так получилось, что я несколько раз приходил в компании или проекты, где (почти) совсем не было..." data-vmid="twitter:description" data-vue-meta="ssr" name="twitter:description"/><meta content="Всем привет! Меня зовут Максим Шептяков, и я занимаюсь продуктовой аналитикой уже больше четырёх лет. Так получилось, что я несколько раз приходил в компании или проекты, где (почти) совсем не было..." data-vmid="aiturec:description" data-vue-meta="ssr" property="aiturec:description"/><meta content="https://habr.com/share/publication/718670/fceba55d8375fcc8c1289541dd474ecb/" data-vmid="image:itemprop" data-vue-meta="ssr" itemprop="image"/><meta content="https://habr.com/share/publication/718670/fceba55d8375fcc8c1289541dd474ecb/" data-vmid="og:image" data-vue-meta="ssr" property="og:image"/><meta content="1200" data-vmid="og:image:width" data-vue-meta="ssr" property="og:image:width"/><meta content="630" data-vmid="og:image:height" data-vue-meta="ssr" property="og:image:height"/><meta content="https://habr.com/share/publication/718670/fceba55d8375fcc8c1289541dd474ecb/" data-vmid="aiturec:image" data-vue-meta="ssr" property="aiturec:image"/><meta content="https://habr.com/share/publication/718670/fceba55d8375fcc8c1289541dd474ecb/" data-vmid="twitter:image" data-vue-meta="ssr" name="twitter:image"/><meta content="https://habr.com/share/publication/718670/fceba55d8375fcc8c1289541dd474ecb/?format=vk" data-vmid="vk:image" data-vue-meta="ssr" property="vk:image"/><meta content="718670" data-vmid="aiturec:item_id" data-vue-meta="ssr" property="aiturec:item_id"/><meta content="2023-02-22T18:42:10.000Z" data-vmid="aiturec:datetime" data-vue-meta="ssr" property="aiturec:datetime"/><meta content="https://habr.com/ru/post/718670/" data-vmid="og:url" data-vue-meta="ssr" property="og:url"/><meta content="article" data-vmid="og:type" data-vue-meta="ssr" property="og:type"/><meta content="ru_RU" data-vmid="og:locale" data-vue-meta="ssr" property="og:locale"/><meta content="аналитика, etl, базы данных, система, mvp, гайд, быстро, python, sql" data-vue-meta="ssr" name="keywords"/>
+
+<meta content="#303b44" name="apple-mobile-web-app-status-bar-style"/>
+<meta content="#629FBC" name="msapplication-TileColor"/>
+<meta content="yes" name="apple-mobile-web-app-capable"/>
+<meta content="yes" name="mobile-web-app-capable"/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body>
+<div data-async-called="true" data-server-rendered="true" id="app"><div class="tm-layout__wrapper"><!-- --> <div></div> <div class="tm-feature tm-feature"><!-- --></div> <header class="tm-header"><div class="tm-page-width"><div class="tm-header__container"><div class="tm-header__burger-nav"><button class="tm-header__button tm-header__button_burger" type="button"><svg class="tm-svg-img tm-header__icon tm-header__icon-burger" height="16" width="16"><title>Меню</title> <use xlink:href="/img/megazord-v28.2b11c25e..svg#header-burger"></use></svg></button></div> <span class="tm-header__logo-wrap"><a class="tm-header__logo tm-header__logo_ru" href="/ru/"><svg class="tm-svg-img tm-header__icon" height="16" width="16"><title>Хабр</title> <use xlink:href="/img/habr-logo-ru.svg#logo"></use></svg></a> <span class="tm-header__beta-sign" style="display:none;">β</span></span> <!-- --> <div class="tm-header-user-menu tm-header_user-menu"><a class="tm-header-user-menu__item tm-header-user-menu__search" href="/ru/search/"><svg class="tm-svg-img tm-header-user-menu__icon tm-header-user-menu__icon_search" height="24" width="24"><title>Поиск</title> <use xlink:href="/img/megazord-v28.2b11c25e..svg#search"></use></svg></a> <!-- --> <!-- --> <!-- --> <div class="tm-header-user-menu__item"><button class="tm-header-user-menu__toggle" data-test-id="menu-toggle-guest"><svg class="tm-svg-img tm-header-user-menu__icon tm-header-user-menu__icon_white" height="24" width="24"><title>Профиль</title> <use xlink:href="/img/megazord-v28.2b11c25e..svg#header-user"></use></svg></button> <!-- --></div> <!-- --></div></div></div></header> <div class="tm-layout"><div class="tm-page-progress-bar"></div> <!-- --> <!-- --> <div class="tm-page-width"></div> <main class="tm-layout__container"><div class="tm-page" data-async-called="true" hl="ru"><div class="tm-page-width"><!-- --> <div class="tm-page__wrapper"><div class="tm-page__main tm-page__main_has-sidebar"><div class="pull-down"><!-- --> <div class="pull-down__header" style="height:0px;"><div class="pull-down__content" style="bottom:10px;"><svg class="tm-svg-img pull-down__arrow" height="24" width="24"><title>Обновить</title> <use xlink:href="/img/megazord-v28.2b11c25e..svg#pull-arrow"></use></svg></div></div> <div class="tm-article-presenter"> <div class="tm-article-presenter__body"><div class="tm-misprint-area"><div class="tm-misprint-area__wrapper"><article class="tm-article-presenter__content tm-article-presenter__content_narrow"><div class="tm-article-presenter__header"> <div class="tm-article-snippet tm-article-presenter__snippet tm-article-snippet"><div class="tm-article-snippet__meta-container"><div class="tm-article-snippet__meta"><span class="tm-user-info tm-article-snippet__author"><a class="tm-user-info__userpic" href="/ru/users/Sheptyakov/" title="Sheptyakov"><div class="tm-entity-image"><svg class="tm-svg-img tm-image-placeholder tm-image-placeholder_lilac" height="32" width="32"><!-- --> <use xlink:href="/img/megazord-v28.2b11c25e..svg#placeholder-user"></use></svg></div></a> <span class="tm-user-info__user"><a class="tm-user-info__username" href="/ru/users/Sheptyakov/">
+      Sheptyakov
+      <!-- --></a> <span class="tm-article-datetime-published"><time datetime="2023-02-22T18:42:10.000Z" title="2023-02-22, 21:42">1 час назад</time></span></span></span></div> <!-- --></div> <h1 class="tm-article-snippet__title tm-article-snippet__title_h1" lang="ru"><span>Как построить MVP системы для удобной работы аналитика без Docker, Kubernetes и Airflow</span></h1> <div class="tm-article-snippet__stats"><div class="tm-article-complexity tm-article-complexity_complexity-medium"><span class="tm-svg-icon__wrapper tm-article-complexity__icon"><svg class="tm-svg-img tm-svg-icon" height="24" width="24"><title>Уровень сложности</title> <use xlink:href="/img/megazord-v28.2b11c25e..svg#complexity-medium"></use></svg></span> <span class="tm-article-complexity__label">
+    Средний
+  </span></div> <div class="tm-article-reading-time"><span class="tm-svg-icon__wrapper tm-article-reading-time__icon"><svg class="tm-svg-img tm-svg-icon" height="24" width="24"><title>Время на прочтение</title> <use xlink:href="/img/megazord-v28.2b11c25e..svg#clock"></use></svg></span> <span class="tm-article-reading-time__label">
+    9 мин
+  </span></div> <span class="tm-icon-counter tm-data-icons__item"><svg class="tm-svg-img tm-icon-counter__icon" height="24" width="24"><title>Количество просмотров</title> <use xlink:href="/img/megazord-v28.2b11c25e..svg#counter-views"></use></svg> <span class="tm-icon-counter__value">178</span></span></div> <div class="tm-article-snippet__hubs-container"><div class="tm-article-snippet__hubs"><span class="tm-article-snippet__hubs-item"><a class="tm-article-snippet__hubs-item-link" href="/ru/hub/analysis_design/"><span>Анализ и проектирование систем</span> <span class="tm-article-snippet__profiled-hub" title="Профильный хаб">*</span></a></span><span class="tm-article-snippet__hubs-item"><a class="tm-article-snippet__hubs-item-link" href="/ru/hub/data_engineering/"><span>Data Engineering</span> <span class="tm-article-snippet__profiled-hub" title="Профильный хаб">*</span></a></span></div></div> <div class="tm-article-snippet__labels-container"><div class="tm-article-snippet__labels"><!-- --> <div class="tm-article-snippet__label tm-article-snippet__label tm-article-snippet__label_variant-sandbox"><a href="/ru/sandbox/">
+          Из песочницы
+        </a></div></div></div> <!-- --> <!-- --></div></div> <!-- --> <div class="tm-article-body" data-gallery-root="" lang="ru"><div></div> <div id="post-content-body"><div><div class="article-formatted-body article-formatted-body article-formatted-body_version-2"><div xmlns="http://www.w3.org/1999/xhtml"><p>Всем привет! </p><p>Меня зовут Максим Шептяков, и я занимаюсь продуктовой аналитикой уже больше четырёх лет. Так получилось, что я несколько раз приходил в компании или проекты, где (почти) совсем не было аналитики до меня, так что приходилось настраивать удобную работу с данными с нуля. И сегодня я вам расскажу, как быстро построить себе МВП аналитической системы без Docker, Kubernetes и Airflow, ведь часто аналитики не обладают знаниями этих систем. </p><p><em>Для понимания статьи нужно базовое знание Python и SQL.</em></p><h2>Что есть в компании, куда вы пришли, с самого начала</h2><p>Обычно в компании, куда вы пришли, уже есть какой-то рабочий продукт, необходимые данные о котором хранятся в боевой (то есть production) базе, на которой настроена репликация в базу-реплику. Первому аналитику выдаётся право ходить в реплику и получать данные оттуда. Но есть несколько нюансов: </p><ul><li><p>Нельзя кидать слишком тяжелые запросы, ведь идёт постоянная репликация</p></li><li><p>Нельзя модифицировать схему данных, ведь это реплика production-базы</p></li><li><p>Часто нельзя коннектиться сторонними сервисами для визуализации данных</p></li><li><p>Некоторые данные нужно получать не из реплики, а из каких-то других источников (другие БД, API, etc.)</p></li></ul><p>Подход, когда для каждой задачи отдельно подготавливаются данные возможен, но от него начинает тошнить уже на первой неделе такой работы, поэтому возникает желание поднять себе удобную аналитическую систему. </p><h2>Как выглядит удобная аналитическая система</h2><p>По моему опыту, для удобной работы аналитическая система должна удовлетворять следующим критериям:</p><ul><li><p>Все данные, необходимые для работы, лежат в одном месте и автоматически обновляются</p></li><li><p>Аналитик имеет доступ ко всем данным, необходимым для работы, и может запускать на них тяжелые запросы </p></li><li><p>Аналитик может создавать промежуточные таблицы, витрины данных, вьюхи, etc</p></li><li><p>Аналитик может быстро добавить новый источник данных или новую витрину данных внутри системы</p></li><li><p>Аналитик может подключить систему визуализации к аналитической системе и выдать доступ команде</p></li></ul><figure class="full-width"><img alt="Схема аналитической системы" data-src="https://habrastorage.org/getpro/habr/upload_files/dbc/00f/f30/dbc00ff30e6e0b2baa9eedf7cf0e0c61.png" height="718" src="https://habrastorage.org/r/w1560/getpro/habr/upload_files/dbc/00f/f30/dbc00ff30e6e0b2baa9eedf7cf0e0c61.png" title="Схема аналитической системы" width="1231"/><figcaption>Схема аналитической системы</figcaption></figure><p>Кажется, что построить такую систему с нуля, да ещё и когда ты не разработчик, а аналитик, довольно сложно. Но я покажу, что для создания MVP (<a href="https://habr.com/ru/company/productstar/blog/508892/" rel="noopener noreferrer nofollow">Minimal Viable Product</a>), не нужно прикладывать больших усилий и что создать рабочий прототип для удобной работы можно всего за несколько часов. </p><p>В этом гайде сфокусируемся на части с загрузкой и обновлением данных в БД и на доступе аналитика ко всем данным. </p><h2>Где будут храниться данные</h2><p>Для хранения данных можно выбрать бесплатную реляционную БД, например, Postgres. Надеюсь, что в компании, куда вы пришли, есть ребята, ответственные за инфраструктуру, которые могут вам поднять БД и выдать все доступы для неё. </p><p>Но если это не так, есть несколько способов, как можно поднять себе аналитическую базу: </p><ul><li><p>Бесплатно поднять базу локально на своём компьютере (Скачать Postgres-клиент можно с <a href="https://www.postgresql.org/download/" rel="noopener noreferrer nofollow">официального сайта PostgreSQL</a>)</p></li><li><p>Платно поднять БД в облаке (<a href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_GettingStarted.CreatingConnecting.PostgreSQL.html" rel="noopener noreferrer nofollow">Гайд, как поднять Postgres в AWS</a>)</p></li></ul><p>Не буду останавливаться на том, как поднимать базы данных, а лучше расскажу про то, как можно организовать данные внутри аналитической БД. </p><figure class="full-width"><img alt="Схема данных для аналитической БД" data-src="https://habrastorage.org/getpro/habr/upload_files/097/8bb/3dc/0978bb3dcb17dd13ce9ec23bc58d0704.png" height="536" src="https://habrastorage.org/r/w1560/getpro/habr/upload_files/097/8bb/3dc/0978bb3dcb17dd13ce9ec23bc58d0704.png" title="Схема данных для аналитической БД" width="781"/><figcaption>Схема данных для аналитической БД</figcaption></figure><p>Я разделил аналитической БД на несколько схем, у каждой из которых своя роль: </p><ul><li><p>etl — схема для загрузки сырых данных из различных источников</p></li><li><p>arch — схема для хранения старых сырых данных, которые могут понадобиться в будущем</p></li><li><p>public — схема для работы аналитика, то есть схема для проведения исследований, складывания временных данных, дизайна новых витрин данных</p></li><li><p>pre_dash — схема для предобработанных данных, которые будут использоваться для подготовки витрин для визуализации и для работы аналитика, но не будут доступны для доступа не из БД</p></li><li><p>dash — схема для данных, подготовленных для визуализации (то есть для небольших витрин данных, которые можно быстро достать из БД)</p></li></ul><p>Для удобной работы с такой системой, нам пригодится 3 пользователя: </p><ul><li><p>loader — системный пользователь для загрузки данных из внешних источников в аналитическую БД и обработки данных внутри БД</p></li><li><p>analyst — пользователь, у которого есть доступ ко всем данным и возможность работать в схеме public</p></li><li><p>viewer — системный пользователь для визуализации, у которого есть доступ только к схеме DASH с данными, готовыми для отрисовки</p></li></ul><p>Код создания схем, пользователей и выдачи доступов в Postgres: </p><pre><code class="sql">-- Создаём схемы данных
+create schema etl;
+create schema pre_dash;
+create schema dash;
+create schema arch;
+
+-- Создаём пользователей
+create role loader login password '*loader_password*';
+create role analyst login password '*analyst_password*';
+create role viewer login password '*viewer_password*';
+
+-- Выдаём доступы пользователям к нужным схемам и таблицам в них 
+-- После создания таблиц нужно будет заного выдать доступы к таблицам пользователям
+grant usage, create on schema etl, arch, pre_dash, dash to loader;
+
+grant usage on schema etl, arch, pre_dash, dash to analyst;
+grant usage, create on schema public to analyst;
+grant select on all tables in schema etl, arch, pre_dash, dash, public to analyst;
+
+
+grant usage on schema dash to viewer;
+grant select on all tables in schema dash to viewer;</code></pre><p>Аналитическая БД готова к работе, можно начинать наполнять её данными! </p><h2>ETL для аналитической БД</h2><p>Теперь перейдём к сложной части, настройке ETL для автоматической загрузки и подготовки данных. </p><p>Давайте для начала определимся с задачами, которые должна выполнять ETL-система:</p><ul><li><p>Загрузка данных из разных источников данных в аналитическую БД</p></li><li><p>Быстрое добавление новых источников данных для загрузки</p></li><li><p>Обработка данных внутри аналитической БД</p></li><li><p>Быстрое добавление новых обработок данных внутри БД</p></li><li><p>Учёт зависимостей данных при обработке</p></li><li><p>Работа по расписанию (мы рассмотрим работу раз в день)</p></li></ul><p>Для начала создадим класс, который будет отвечать за работу ETL-системы. Сразу учтём то, что работать он будет раз в день. </p><pre><code class="python">from datetime import date
+
+
+class TransferData:
+    """
+    Класс, ответственный за сбор данных из внешних источников и сохранение их в аналитическую БД
+    """
+    def __init__(self, work_date=date.today()):
+        self.work_date = work_date</code></pre><p>Все загрузки и обработки данных будут представлены как JSON-файлы (джобы), по которым будет проходиться класс <code>TransferData</code>. В этом классе должна быть информация о</p><ul><li><p>Типе проводимой работы (загрузка или обработка данных)</p></li><li><p>Названии источника данных для загрузки</p></li><li><p>Необходимых параметрах для загрузки/обработки данных</p></li></ul><p>Создадим первую джобу, которая будет собирать данные из открытого API <a href="https://api.publicapis.org/entries" rel="noopener noreferrer nofollow">https://api.publicapis.org/entries</a> и перекладывать их к нам в аналитическую базу. Для описания этого процесса мы можем создать словарь в Python: </p><pre><code class="python">load_job = {
+    # Тип джобы
+    'job_type': 'load', 
+    # Название источника данных
+    'db_from':'open_api', 
+    # DDL таблицы, в которую будут заливаться данные
+    'ddl': '''create table if not exists etl.open_apis
+(
+    api text,
+    description text,
+    auth text,
+    https text,
+    cors text,
+    link text,
+    category text,
+    load_date date
+);''',
+    # Название таблицы, в которую будут заливаться данные.
+    'product': 'etl.open_apis',
+    # Название промежуточного файла, через который будут загружаться данные
+    'file_name': 'open_apis.txt',
+}</code></pre><p>И теперь напишем код, который при использовании нашего JSON создаст в аналитической БД таблицу и загрузит в неё данные из другой БД. </p><pre><code class="python"># Добавим импорты в начало файла
+import psycopg2
+import os
+
+# .....
+
+# Добавим 2 функции в класс TransferData
+class TransferData:
+
+# .....
+  
+    def load_data(self, load_job):
+        """
+        Функция для загрузки данных из внешних источников на диск.
+        Должна по итогу создавать csv-файл на диске с форматом sep='|', quotechar="^".
+
+        :param load_job: словарь с описанием джобы для загрузки данных
+        """
+        if load_job.get('db_from') == 'open_api':
+            # Специфичная для источника логика сбора данных
+            import requests
+            import pandas as pd
+            data = requests.get('https://api.publicapis.org/entries').json()
+            data = pd.DataFrame(data['entries'])
+            data['work_date'] = self.work_date
+            data = data.loc[:, ['API', 'Description', 'Auth', 'HTTPS', 'Cors', 
+                                'Link', 'Category', 'work_date']]
+            # Сохраняем в специальный формат для уменьшения количества ошибок при загрузке
+            data.to_csv(load_job.get('file_name'), index=False, 
+                        sep='|', quotechar="^")
+
+    def upload_data(self, load_job):
+        """
+        Функция для загрузки данных с диска в таблицы в аналитической БД.
+        Для корректной работы необходим файл в формате csv с параметрами DELIMITER '|', QUOTE '^'
+        ANALYTICS_DB_CONN_STRING - переменная окружения, в которой содержится connect-строка для
+        нашей аналитической БД для юзера loader.
+        Например, postgres://loader:*loader_password*@localhost:5432/postgres
+
+        :param load_job: словарь с описанием джобы для загрузки данных
+        """
+        #
+        with psycopg2.connect(os.environ['ANALYTICS_DB_CONN_STRING']) as conn:
+            curs = conn.cursor()
+            file_name = load_job.get('file_name')
+            with open(file_name, 'r') as f:
+                product = load_job.get('product')
+                curs.execute(load_job.get('ddl'))
+                curs.execute(f'truncate {product};')
+                copy_query = f"""COPY {product} from STDIN with (FORMAT csv, DELIMITER '|', QUOTE '^', HEADER True)"""
+                curs.copy_expert(copy_query, f)
+                conn.commit()
+            os.remove(file_name)</code></pre><p>Теперь можно запуском 2 функций выгрузить данные из одного источника и загрузить их в аналитическую БД:</p><pre><code class="python"># Убедитесь, что находитесь в одной директории с файлом simple_etl.py
+# и что установлены все зависимости из requirements.txt: pip install -r requirements.txt
+import simple_etl as se
+
+tr = se.TransferData()
+tr.load_data(load_query)
+tr.upload_data(load_query)</code></pre><p>Теперь нам нужно создать обработку данных внутри БД. Создадим такую витрину, которая будет содержать в себе данные о количестве открытых API в <a href="https://api.publicapis.org/entries" rel="noopener noreferrer nofollow">https://api.publicapis.org/entries</a> на каждый день: </p><pre><code class="python">process_job = {
+    'job_type': 'process',
+    # SQL-запрос, чтобы получить требуемые данные. load_date подставится в коде:
+    'query': '''create table if not exists dash.openapi_daily_count
+(
+    work_date date,
+    public_api_count int
+);
+
+delete from dash.openapi_daily_count
+where work_date = '{work_date}';
+
+insert into dash.openapi_daily_count(work_date, public_api_count) 
+select work_date, count(distinct link) public_api_count 
+from etl.open_apis 
+where work_date = '{work_date}'
+group by 1;''',
+    # Название таблицы, в которую будут заливаться данные. Нужно для правильной работы зависимостей:
+    'product': 'dash.openapi_daily_count',
+    # Список таблиц, от которых зависит обработка данных
+    'dependencies': ['etl.open_public_apis'],
+}</code></pre><p>И добавим код, который обработает данные внутри БД: </p><pre><code class="python">class TransferData:
+
+# .....
+
+    def process_data(self, process_job):
+        """
+        Функция для обработки данных внутри БД.
+
+        :param process_job: Описание джобы по обработке данных.
+        """
+        with psycopg2.connect(os.environ['ANALYTICS_DB_CONN_STRING']) as conn:
+            curs = conn.cursor()
+            curs.execute(process_job.get('query').format(work_date=self.work_date))
+            conn.commit()</code></pre><p>Теперь мы можем обработать собранные данные одной командой: </p><pre><code class="python">import simple_etl as se
+tr = se.TransferData()
+tr.process_data(process_job)</code></pre><p>Давайте выполним требование по быстрому добавлению новых источников данных и новых обработок данных. Для этого можно создать папку, в которой будут сохранены все джобы, которые нам нужны, в виде JSON-файлов. </p><pre><code class="python">import os
+import json 
+
+os.mkdir('etl_jobs')
+
+with open('etl_jobs/dash_revenue_daily.json', 'w') as f:
+    json.dump(process_job, f, indent=4)
+    
+with open('etl_jobs/etl_payments_daily.json', 'w') as f:
+    json.dump(load_job, f, indent=4)</code></pre><p>Теперь мы можем быстро добавлять в папку JSON-файлы с описанием джобов, которые нужно выполнить в течение дня. </p><h2>Запуск всех джобов с учётом зависимостей</h2><p>Теперь создадим функцию, которая поможет нам запускать все джобы разом, с учётом зависимостей.</p><pre><code class="python"># ...
+import json
+
+class TransferData:
+    # .....
+    # Обновим __init__ метод: 
+    def __init__(self, work_date=date.today(), jobs_dir='etl_jobs'):
+        self.work_date = work_date
+        self.jobs_dir = jobs_dir
+        self.loaded_dependencies = set()
+
+    # .....
+
+    def launch_job(self, job):
+        """
+        Функция, которая запускает джобы в зависимости от их типа
+
+        :param job: Джоба по сбору или обработке данных
+        """
+        job_type = job.get('job_type')
+        if job_type == 'load':
+            self.load_data(job)
+            self.upload_data(job)
+        elif job_type == 'process':
+            self.process_data(job)
+        else:
+            print('Unknown job type for job', job)
+
+    def launch_all_jobs(self):
+        """
+        Запускаем все джобы с учётом наличия зависимостей в них
+        """
+        # Загружаем все джобы в память
+        job_paths = os.listdir(self.jobs_dir)
+        jobs = {}
+        for job_path in job_paths:
+            with open(os.path.join(self.jobs_dir, job_path), 'r') as f:
+                jobs[job_path] = json.load(f)
+        # Итерируемся по джобам, проверяя, загружены ли зависимости для них.
+        # Осторожно, если зависимости не найдутся, цикл будет вечным
+        while True:
+            jobs_local = jobs.copy() # Для удаления элементов словаря во время итерации по нему
+            for job_name, job in jobs_local.items():
+                job_dependencies = job.get('dependencies')
+                if job_dependencies is None or len(set(job_dependencies) - self.loaded_dependencies) == 0:
+                    print(f'Started {job_name}')
+                    self.launch_job(job)
+                    product = job.get('product')
+                    if product is not None:
+                        self.loaded_dependencies.add(product)
+                    jobs.pop(job_name)
+                    print(f'Finished {job_name}')
+            if len(jobs) == 0:
+                break
+        print('All jobs processed')</code></pre><p>Теперь мы можем запустить все джобы, находящиеся в папке <code>etl_jobs</code> с помощью одной команды: </p><pre><code class="python">import simple_etl as se
+tr = se.TransferData()
+tr.launch_all_jobs()</code></pre><h2>Регулярный запуск сбора и обработки данных</h2><p>Для регулярного запуска сбора и обработки данных добавим в файл с классом TransferData логику запуска обработки данных: </p><pre><code class="python">if __name__ == '__main__':
+    """
+    Запускаем обновление данных раз в день в 10.00
+    """
+    import schedule
+    import time
+
+    def scheduled_update():
+        tr = TransferData(jobs_dir='path_to_jobs_dir/')
+        tr.launch_all_jobs()
+
+    schedule.every().day.at("10:00").do(scheduled_update)
+
+    while True:
+        schedule.run_pending()
+        time.sleep(60)</code></pre><p>Теперь мы можем запустить на своём компьютере (или на сервере, если вам его могут выдать ваши инфраструктурщики) в фоне запуск файла и наслаждаться обновлёнными данными в БД каждый день: </p><h2>Как добавить новый сбор данных из нового источника</h2><p>Добавить сбор данных из нового источника можно, если обновить функцию <code>load_data</code> и добавить новое условие в if c новым <code>db_from</code>. Тут можно добавлять логику сбора из любых источников: базы данных, API, документы, онлайн-таблицы... </p><p>Так можно добавить новый сбор данных в код:</p><pre><code class="python">    def load_data(self, load_job):
+        # .....
+        if load_job.get('db_from') == 'open_api':
+
+           # .....
+
+        elif load_job.get('db_from') == 'other_db_type':
+            # DO SOME HERE AND SAVE FILE TO load_job.get('file_name')
+            return</code></pre><p><a href="https://github.com/MaxSheptyakov/simple-etl" rel="noopener noreferrer nofollow">Ссылка на репозиторий с полным кодом simple_etl.</a></p><h2>Вот и всё</h2><p>Поздравляю, вы создали MVP аналитической системы! Теперь у вас есть: </p><ul><li><p>Автоматическая загрузка и обработка данных из разных источников</p></li><li><p>Возможность работать со всеми данными в одной БД</p></li><li><p>Лёгкое и быстрое добавление новых данных (или обработка имеющихся) в систему</p></li><li><p>Возможность подключить визуализацию к заранее подготовленным и обновляемым данным</p></li></ul><p>Наполняйте систему нужными данными и удобно работайте с ними в одной БД! <br/>Дальше вы можете настроить автоматически обновляемые дэшборды в любой удобной системе визуализации, например, в Metabase (если интересно увидеть, как её можно просто настроить, пишите в комментарии). </p><h2>Послесловие</h2><p>Конечно, эта система — это лишь начало, её можно и нужно улучшать и развивать: добавлять логирование, обработку ошибок, параллельность работы, улучшать отказоустойчивость... Вообще говоря, обычно для этого существуют отдельные команды. Но это уже совсем другая история! </p><p></p></div></div></div> <!-- --> <!-- --></div> <!-- --> <!-- --></div> <!-- --> <div class="tm-article-presenter__meta"><div class="tm-separated-list tm-article-presenter__meta-list"><span class="tm-separated-list__title">Теги:</span> <ul class="tm-separated-list__list"><li class="tm-separated-list__item"><a class="tm-tags-list__link" href="/ru/search/?target_type=posts&amp;order=relevance&amp;q=%5B%D0%B0%D0%BD%D0%B0%D0%BB%D0%B8%D1%82%D0%B8%D0%BA%D0%B0%5D">аналитика</a></li><li class="tm-separated-list__item"><a class="tm-tags-list__link" href="/ru/search/?target_type=posts&amp;order=relevance&amp;q=%5Betl%5D">etl</a></li><li class="tm-separated-list__item"><a class="tm-tags-list__link" href="/ru/search/?target_type=posts&amp;order=relevance&amp;q=%5B%D0%B1%D0%B0%D0%B7%D1%8B%20%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85%5D">базы данных</a></li><li class="tm-separated-list__item"><a class="tm-tags-list__link" href="/ru/search/?target_type=posts&amp;order=relevance&amp;q=%5B%D1%81%D0%B8%D1%81%D1%82%D0%B5%D0%BC%D0%B0%5D">система</a></li><li class="tm-separated-list__item"><a class="tm-tags-list__link" href="/ru/search/?target_type=posts&amp;order=relevance&amp;q=%5Bmvp%5D">mvp</a></li><li class="tm-separated-list__item"><a class="tm-tags-list__link" href="/ru/search/?target_type=posts&amp;order=relevance&amp;q=%5B%D0%B3%D0%B0%D0%B9%D0%B4%5D">гайд</a></li><li class="tm-separated-list__item"><a class="tm-tags-list__link" href="/ru/search/?target_type=posts&amp;order=relevance&amp;q=%5B%D0%B1%D1%8B%D1%81%D1%82%D1%80%D0%BE%5D">быстро</a></li><li class="tm-separated-list__item"><a class="tm-tags-list__link" href="/ru/search/?target_type=posts&amp;order=relevance&amp;q=%5Bpython%5D">python</a></li><li class="tm-separated-list__item"><a class="tm-tags-list__link" href="/ru/search/?target_type=posts&amp;order=relevance&amp;q=%5Bsql%5D">sql</a></li></ul></div> <div class="tm-separated-list tm-article-presenter__meta-list"><span class="tm-separated-list__title">Хабы:</span> <ul class="tm-separated-list__list"><li class="tm-separated-list__item"><a class="tm-hubs-list__link" href="/ru/hub/analysis_design/">Анализ и проектирование систем</a></li><li class="tm-separated-list__item"><a class="tm-hubs-list__link" href="/ru/hub/data_engineering/">Data Engineering</a></li></ul></div></div></article></div> <!-- --></div> <div class="tm-article-sticky-panel"><div class="tm-data-icons tm-article-sticky-panel__icons"><div class="tm-article-rating tm-data-icons__item"><div class="tm-votes-meter tm-article-rating__votes-switcher"><svg class="tm-svg-img tm-votes-meter__icon tm-votes-meter__icon tm-votes-meter__icon_appearance-article" height="24" width="24"><title>Всего голосов 1: ↑0 и ↓1</title> <use xlink:href="/img/megazord-v28.2b11c25e..svg#counter-rating"></use></svg> <span class="tm-votes-meter__value tm-votes-meter__value tm-votes-meter__value_negative tm-votes-meter__value_appearance-article tm-votes-meter__value_rating" title="Всего голосов 1: ↑0 и ↓1">-1</span></div> <div class="v-portal" style="display:none;"></div></div> <!-- --> <!-- --> <button class="bookmarks-button tm-data-icons__item" title="Добавить в закладки" type="button"><span class="tm-svg-icon__wrapper bookmarks-button__icon"><svg class="tm-svg-img tm-svg-icon" height="24" width="24"><title>Добавить в закладки</title> <use xlink:href="/img/megazord-v28.2b11c25e..svg#counter-favorite"></use></svg></span> <span class="bookmarks-button__counter" title="Количество пользователей, добавивших публикацию в закладки">
+    4
+  </span></button> <div class="tm-article-comments-counter-link tm-data-icons__item" title="Читать комментарии"><a class="tm-article-comments-counter-link__link" href="/ru/post/718670/comments/"><svg class="tm-svg-img tm-article-comments-counter-link__icon" height="24" width="24"><title>Комментарии</title> <use xlink:href="/img/megazord-v28.2b11c25e..svg#counter-comments"></use></svg> <span class="tm-article-comments-counter-link__value">
+      1
+    </span></a> <!-- --></div> <div class="tm-sharing tm-data-icons__item" title="Поделиться"><button class="tm-sharing__button" type="button"><svg class="tm-sharing__icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M13.8 13.8V18l7.2-6.6L13.8 5v3.9C5 8.9 3 18.6 3 18.6c2.5-4.4 6-4.8 10.8-4.8z" fill="currentColor"></path></svg></button> <div class="v-portal" style="display:none;"></div></div> <div class="v-portal" style="display:none;"></div></div> </div></div> <div class="v-portal" style="display:none;"></div> <div class="tm-article-presenter__footer"><div class="tm-article-blocks"><!-- --> <div></div> <section class="tm-block tm-block tm-block_spacing-bottom"><!-- --> <div class="tm-block__body tm-block__body tm-block__body_variant-balanced"><div class="tm-article-author"> <div class="tm-user-card tm-article-author__user-card tm-user-card tm-user-card_variant-article"><div class="tm-user-card__info-container"><div class="tm-user-card__header"><div class="tm-user-card__header-data"><a class="tm-user-card__userpic tm-user-card__userpic_size-40" href="/ru/users/Sheptyakov/"><div class="tm-entity-image"><svg class="tm-svg-img tm-image-placeholder tm-image-placeholder_lilac"><!-- --> <use xlink:href="/img/megazord-v28.2b11c25e..svg#placeholder-user"></use></svg></div></a> <div class="tm-user-card__meta"><div class="tm-counter-container tm-karma tm-karma" title=" 2 голоса "><div class="tm-counter-container__header"><div class="tm-karma__votes">
+      0
+    </div></div> <div class="tm-counter-container__footer"><div class="tm-karma__text">
+      Карма
+    </div> <div class="v-portal" style="display:none;"></div></div></div> <div class="tm-counter-container" title="Рейтинг пользователя"><div class="tm-counter-container__header"> <div class="tm-votes-lever tm-votes-lever tm-votes-lever_appearance-rating"><!-- --> <div class="tm-votes-lever__score tm-votes-lever__score tm-votes-lever__score_appearance-rating"><span class="tm-votes-lever__score-counter tm-votes-lever__score-counter tm-votes-lever__score-counter_rating">
+        -1
+      </span></div> <!-- --></div></div> <div class="tm-counter-container__footer"><span class="tm-rating__text tm-rating__text">
+      Рейтинг
+    </span></div></div></div></div></div> <div class="tm-user-card__info tm-user-card__info tm-user-card__info_variant-article"><div class="tm-user-card__title tm-user-card__title tm-user-card__title_variant-article"><!-- --> <a class="tm-user-card__nickname tm-user-card__nickname tm-user-card__nickname_variant-article" href="/ru/users/Sheptyakov/">
+          @Sheptyakov
+        </a> <!-- --></div> <p class="tm-user-card__short-info tm-user-card__short-info tm-user-card__short-info_variant-article">Пользователь</p></div></div> <div class="tm-user-card__buttons tm-user-card__buttons tm-user-card__buttons_variant-article"><!-- --> <!-- --> <!-- --> <!-- --> <!-- --></div></div> <!-- --></div> <div class="v-portal" style="display:none;"></div></div> <!-- --></section> <div class="tm-adfox-banner__container tm-page-article__banner"><!-- --> <div class="tm-adfox-banner tm-adfox-banner tm-adfox-banner_variant-leaderboard" id="adfox_164725660339535756"></div></div> <div class="tm-article-blocks__comments"><div class="tm-article-page-comments"><div class="tm-article-comments-counter-link tm-article-comments-counter-button"><a class="tm-article-comments-counter-link__link tm-article-comments-counter-link__link_button-style" href="/ru/post/718670/comments/"><svg class="tm-svg-img tm-article-comments-counter-link__icon tm-article-comments-counter-link__icon_contrasted" height="24" width="24"><title>Комментарии</title> <use xlink:href="/img/megazord-v28.2b11c25e..svg#counter-comments"></use></svg> <span class="tm-article-comments-counter-link__value tm-article-comments-counter-link__value_contrasted">
+       Комментарии 1 
+    </span></a> <!-- --></div></div></div> <section class="tm-block tm-block tm-block_spacing-bottom"><header class="tm-block__header tm-block__header tm-block__header_variant-borderless"><div class="tm-block__header-container"><h2 class="tm-block__title tm-block__title tm-block__title_variant-large">Публикации</h2> </div> <!-- --></header> <div class="tm-block__body tm-block__body tm-block__body_variant-condensed-slim"><div class="tm-tabs tm-tabs"><div><span class="tm-tabs__tab-item"><button class="tm-tabs__tab-link tm-tabs__tab-link tm-tabs__tab-link_active tm-tabs__tab-link_slim">
+        Лучшие за сутки
+      </button></span><span class="tm-tabs__tab-item"><button class="tm-tabs__tab-link tm-tabs__tab-link tm-tabs__tab-link_slim">
+        Похожие
+      </button></span></div> <!-- --></div> <div class="similar-and-daily__tab-view"><div><!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <div class="tm-placeholder-article-cards"><div class="tm-placeholder-article-card"><div class="tm-placeholder__user"><div class="tm-placeholder__user-pic loads"></div> <div class="tm-placeholder__user-date loads"></div></div> <div class="tm-placeholder-article-card__title"><div class="tm-placeholder__line tm-placeholder-article-card__title-line loads"></div> <div class="tm-placeholder__line tm-placeholder-article-card__title-line loads"></div></div> <div class="tm-placeholder-article-card__icons tm-placeholder__counters"><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div></div></div><div class="tm-placeholder-article-card"><div class="tm-placeholder__user"><div class="tm-placeholder__user-pic loads"></div> <div class="tm-placeholder__user-date loads"></div></div> <div class="tm-placeholder-article-card__title"><div class="tm-placeholder__line tm-placeholder-article-card__title-line loads"></div> <div class="tm-placeholder__line tm-placeholder-article-card__title-line loads"></div></div> <div class="tm-placeholder-article-card__icons tm-placeholder__counters"><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div></div></div><div class="tm-placeholder-article-card"><div class="tm-placeholder__user"><div class="tm-placeholder__user-pic loads"></div> <div class="tm-placeholder__user-date loads"></div></div> <div class="tm-placeholder-article-card__title"><div class="tm-placeholder__line tm-placeholder-article-card__title-line loads"></div> <div class="tm-placeholder__line tm-placeholder-article-card__title-line loads"></div></div> <div class="tm-placeholder-article-card__icons tm-placeholder__counters"><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div></div></div><div class="tm-placeholder-article-card"><div class="tm-placeholder__user"><div class="tm-placeholder__user-pic loads"></div> <div class="tm-placeholder__user-date loads"></div></div> <div class="tm-placeholder-article-card__title"><div class="tm-placeholder__line tm-placeholder-article-card__title-line loads"></div> <div class="tm-placeholder__line tm-placeholder-article-card__title-line loads"></div></div> <div class="tm-placeholder-article-card__icons tm-placeholder__counters"><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div></div></div><div class="tm-placeholder-article-card"><div class="tm-placeholder__user"><div class="tm-placeholder__user-pic loads"></div> <div class="tm-placeholder__user-date loads"></div></div> <div class="tm-placeholder-article-card__title"><div class="tm-placeholder__line tm-placeholder-article-card__title-line loads"></div> <div class="tm-placeholder__line tm-placeholder-article-card__title-line loads"></div></div> <div class="tm-placeholder-article-card__icons tm-placeholder__counters"><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div><div class="tm-placeholder-data-icon"><div class="tm-placeholder__icon tm-placeholder__icon_large loads"></div> <div class="tm-placeholder__line tm-placeholder__line_icon-text"></div></div></div></div></div> <!-- --> <!-- --> <!-- --> <!-- --></div> <!-- --></div></div> <!-- --></section> <section class="tm-block tm-stories-block tm-block tm-block_spacing-around" data-async-called="true" data-navigatable="" tabindex="0"><header class="tm-block__header tm-block__header"><div class="tm-block__header-container"><h2 class="tm-block__title tm-block__title">Истории</h2> </div> <!-- --></header> <div class="tm-block__body tm-block__body tm-block__body_variant-equal"><div class="tm-stories-empty"><div class="tm-stories-card-empty"><div class="tm-stories-card-empty__image"></div> <div class="tm-stories-card-empty__title"><div class="tm-stories-card-empty__title-block"></div> <div class="tm-stories-card-empty__title-block"></div> <div class="tm-stories-card-empty__title-block"></div></div></div><div class="tm-stories-card-empty"><div class="tm-stories-card-empty__image"></div> <div class="tm-stories-card-empty__title"><div class="tm-stories-card-empty__title-block"></div> <div class="tm-stories-card-empty__title-block"></div> <div class="tm-stories-card-empty__title-block"></div></div></div><div class="tm-stories-card-empty"><div class="tm-stories-card-empty__image"></div> <div class="tm-stories-card-empty__title"><div class="tm-stories-card-empty__title-block"></div> <div class="tm-stories-card-empty__title-block"></div> <div class="tm-stories-card-empty__title-block"></div></div></div><div class="tm-stories-card-empty"><div class="tm-stories-card-empty__image"></div> <div class="tm-stories-card-empty__title"><div class="tm-stories-card-empty__title-block"></div> <div class="tm-stories-card-empty__title-block"></div> <div class="tm-stories-card-empty__title-block"></div></div></div><div class="tm-stories-card-empty"><div class="tm-stories-card-empty__image"></div> <div class="tm-stories-card-empty__title"><div class="tm-stories-card-empty__title-block"></div> <div class="tm-stories-card-empty__title-block"></div> <div class="tm-stories-card-empty__title-block"></div></div></div><div class="tm-stories-card-empty"><div class="tm-stories-card-empty__image"></div> <div class="tm-stories-card-empty__title"><div class="tm-stories-card-empty__title-block"></div> <div class="tm-stories-card-empty__title-block"></div> <div class="tm-stories-card-empty__title-block"></div></div></div></div> <!-- --></div> <!-- --></section> <div><div><!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <div class="tm-placeholder-inset tm-placeholder-salary"><div class="tm-placeholder-inset__header"><div class="tm-placeholder__line tm-placeholder__line_inset-header loads"></div></div> <div class="tm-placeholder-salary__body"><div class="tm-placeholder-salary__text"><div class="tm-placeholder__line tm-placeholder__line_salary_average"></div> <div class="tm-placeholder-salary__description"><div class="tm-placeholder__line loads"></div> <div class="tm-placeholder__line loads"></div> <div class="tm-placeholder__line loads"></div> <div class="tm-placeholder__line loads"></div></div></div> <div class="tm-placeholder-salary__image loads"></div></div> <div class="tm-placeholder-inset__footer tm-placeholder-inset__footer_salary"><div class="tm-placeholder__line tm-placeholder__line_inset-footer loads"></div></div></div> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --></div></div> <!-- --> <div><div><!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --> <div class="tm-placeholder-promo"><div class="tm-placeholder-promo__header"><div class="tm-placeholder__line tm-placeholder__line_promo-title"></div></div> <div class="tm-placeholder-promo__body"><div class="tm-placeholder-promo__posts"><div class="tm-placeholder-promo__post"><div class="tm-placeholder-promo__image"></div> <div class="tm-placeholder__line tm-placeholder__line_post-title"></div></div> <div class="tm-placeholder-promo__post"><div class="tm-placeholder-promo__image"></div> <div class="tm-placeholder__line tm-placeholder__line_post-title"></div></div> <div class="tm-placeholder-promo__post"><div class="tm-placeholder-promo__image"></div> <div class="tm-placeholder__line tm-placeholder__line_post-title"></div></div></div> <div class="tm-placeholder-promo__dots"><div class="tm-placeholder-promo__dot"></div> <div class="tm-placeholder-promo__dot"></div> <div class="tm-placeholder-promo__dot"></div></div></div></div> <!-- --> <!-- --> <!-- --> <!-- --> <!-- --></div></div> <section class="tm-block tm-block tm-block_spacing-top" data-async-called="true"><header class="tm-block__header tm-block__header"><div class="tm-block__header-container"><h2 class="tm-block__title tm-block__title">Работа</h2> </div> <!-- --></header> <div class="tm-block__body tm-block__body"><div class="tm-vacancies-block__item"><a class="tm-vacancies-block__vacancy-title" href="https://career.habr.com/vacancies/sistemnij_analitik" target="_blank">
+        Cистемный аналитик
+      </a> <div class="tm-vacancies-block__vacancies-count">
+        531
+    вакансия
+      </div></div></div> <footer class="tm-block__footer"><a class="tm-block-extralink" href="https://career.habr.com/catalog">
+      Все вакансии
+    </a></footer></section></div></div></div></div></div> <div class="tm-page__sidebar"><!-- --></div></div></div></div></main> <!-- --></div> <!-- --> <div class="tm-footer"><div class="tm-page-width"><div class="tm-footer__container"><div class="tm-footer__title"><a class="tm-svg-icon__wrapper tm-footer__title-link router-link-active" href="/ru/"><svg class="tm-svg-img tm-svg-icon" height="16" width="16"><title>Хабр</title> <use xlink:href="/img/habr-logo-ru.svg#logo"></use></svg></a></div> <div class="tm-footer__social"><a class="tm-svg-icon__wrapper tm-social-icons__icon" href="https://www.facebook.com/habrahabr.ru" rel="nofollow noopener noreferrer" target="_blank"><svg class="tm-svg-img tm-svg-icon" height="16" width="16"><title>Facebook</title> <use xlink:href="/img/social-icons-sprite.svg#social-logo-facebook"></use></svg></a><a class="tm-svg-icon__wrapper tm-social-icons__icon" href="https://twitter.com/habr_com" rel="nofollow noopener noreferrer" target="_blank"><svg class="tm-svg-img tm-svg-icon" height="16" width="16"><title>Twitter</title> <use xlink:href="/img/social-icons-sprite.svg#social-logo-twitter"></use></svg></a><a class="tm-svg-icon__wrapper tm-social-icons__icon" href="https://vk.com/habr" rel="nofollow noopener noreferrer" target="_blank"><svg class="tm-svg-img tm-svg-icon" height="16" width="16"><title>VK</title> <use xlink:href="/img/social-icons-sprite.svg#social-logo-vkontakte"></use></svg></a><a class="tm-svg-icon__wrapper tm-social-icons__icon" href="https://telegram.me/habr_com" rel="nofollow noopener noreferrer" target="_blank"><svg class="tm-svg-img tm-svg-icon" height="16" width="16"><title>Telegram</title> <use xlink:href="/img/social-icons-sprite.svg#social-logo-telegram"></use></svg></a><a class="tm-svg-icon__wrapper tm-social-icons__icon" href="https://www.youtube.com/channel/UCd_sTwKqVrweTt4oAKY5y4w" rel="nofollow noopener noreferrer" target="_blank"><svg class="tm-svg-img tm-svg-icon" height="16" width="16"><title>Youtube</title> <use xlink:href="/img/social-icons-sprite.svg#social-logo-youtube"></use></svg></a><a class="tm-svg-icon__wrapper tm-social-icons__icon" href="https://zen.yandex.ru/habr" rel="nofollow noopener noreferrer" target="_blank"><svg class="tm-svg-img tm-svg-icon" height="16" width="16"><title>Яндекс Дзен</title> <use xlink:href="/img/social-icons-sprite.svg#social-logo-zen"></use></svg></a></div> <div class="v-portal" style="display:none;"></div> <button class="tm-footer__link"><svg class="tm-svg-img tm-footer__icon" height="16" width="16"><title>Язык</title> <use xlink:href="/img/megazord-v28.2b11c25e..svg#lang"></use></svg>
+        Настройка языка
+      </button> <a class="tm-footer__link" href="/ru/feedback/">
+        Техническая поддержка
+      </a> <a class="tm-footer__link" href="/berserk-mode-nope">
+        Вернуться на старую версию
+      </a> <div class="tm-footer-copyright"><span class="tm-copyright"><span class="tm-copyright__years">© 2006–2023, </span> <span class="tm-copyright__name"><a class="tm-copyright__link" href="https://company.habr.com/" rel="noopener" target="_blank">Habr</a></span></span></div></div></div></div> <!-- --> <!-- --></div> <div class="vue-portal-target"></div></div>
+
+
+
+
+
+
+
+
+</body>
+</html>
