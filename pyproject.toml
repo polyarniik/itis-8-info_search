@@ -10,6 +10,8 @@ packages = [{include = "itis_7_info_search"}]
 python = "^3.10"
 requests = "^2.28.2"
 beautifulsoup4 = "^4.11.2"
+nltk = "^3.8.1"
+pymorphy2 = "^0.9.1"
 
 
 [build-system]
